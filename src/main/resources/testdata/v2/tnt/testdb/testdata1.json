@@ -1,0 +1,28 @@
+{
+  "testDataSet": {
+    "EventSubscription": {
+      "post": [
+        {
+          "carrierBookingReference": "ABC709951",
+          "vesselIMONumber": "9321483"
+        },
+        {
+          "carrierBookingReference": "ABC709952",
+          "vesselIMONumber": "9074729",
+          "eventType": [
+            "SHIPMENT",
+            "TRANSPORT"
+          ]
+        }
+      ],
+      "get": [
+        {
+          "subscriptionID": "f7f25d8f-6df7-4a0d-b227-a2e75a2f6010"
+        },
+        {
+          "subscriptionID": "f7f25d8f-6df7-4a0d-b227-a2e75a2f6010"
+        }
+      ]
+    }
+  }
+}

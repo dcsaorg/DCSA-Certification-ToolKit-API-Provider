@@ -1,0 +1,50 @@
+{
+  "callbackUrl": "http://127.0.0.1:9092/v2/notification-endpoints/receiv/456eacf9-8cda-412b-b801-4a41be7a6c35",
+  "eventType": [
+    "SHIPMENT",
+    "TRANSPORT",
+    "EQUIPMENT"
+  ],
+  "shipmentEventTypeCode": [
+    "APPR",
+    "CONF",
+    "DRFT",
+    "ISSU",
+    "PENA",
+    "PENU",
+    "RECE",
+    "REJE",
+    "SUBM",
+    "SURR",
+    "VOID"
+  ],
+  "documentTypeCode": [
+    "SHI",
+    "TRD"
+  ],
+  "carrierBookingReference": "ABC709951",
+  "transportDocumentReference":null,
+  "transportDocumentTypeCode": [
+    "BOL",
+    "SWB"
+  ],
+  "transportEventTypeCode": [
+    "ARRI",
+    "DEPA"
+  ],
+  "transportCallID": "123e4567-e89b-12d3-a456-426614174000",
+  "vesselIMONumber": "9321483",
+  "exportVoyageNumber": "2103S",
+  "carrierServiceCode": "FE1",
+  "UNLocationCode": "FRPAR",
+  "equipmentEventTypeCode":  [
+    "DISC",
+    "GTIN",
+    "GTOT",
+    "LOAD",
+    "STRP",
+    "STUF"
+  ],
+  "equipmentReference": 12233,
+  "secret": "OG1wOWFaRW1HTTF1Y2NuaUN0RlAtaU9JMjM5N25vMWtWd25rS2Vkc2ktZms0c01zaTJQOElZRVNQN29MYUkzcg=="
+}
