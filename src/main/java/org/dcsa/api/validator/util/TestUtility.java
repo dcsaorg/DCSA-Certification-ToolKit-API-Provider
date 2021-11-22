@@ -3,6 +3,7 @@ package org.dcsa.api.validator.util;
 import org.dcsa.api.validator.model.*;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class TestUtility {
     private static TestDB testDB;
@@ -161,7 +162,12 @@ public class TestUtility {
             body = JsonUtility.replacePlaceHolders(body, testContext.getRequest().getPlaceHolders());
             List<String> testAttributes = testContext.getRequest().getDynamicPlaceHolders();
             if (testAttributes != null && !(testAttributes.isEmpty())) {
-                Map<String, Object> testAttributeMap = getAttributeFromPOSTTestData(apiName, testAttributes);
+                List<String> testAttributesWithOutJsonPath = new ArrayList<>();
+                for (int i = 0; i < testAttributes.size(); i++) {
+                    String[] tokens=testAttributes.get(i).split("\\.");
+                    testAttributesWithOutJsonPath.add(tokens[tokens.length-1]);
+                }
+                Map<String, Object> testAttributeMap = getAttributeFromPOSTTestData(apiName, testAttributesWithOutJsonPath);
                 body = JsonUtility.replacePlaceHolders(body, testAttributeMap);
             }
             if (testContext.getRequest().getRemovalAttributes() != null)

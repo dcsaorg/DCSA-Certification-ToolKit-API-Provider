@@ -1,0 +1,3219 @@
+[
+  {
+    "line": 1,
+    "elements": [
+      {
+        "start_timestamp": "2021-11-19T22:29:53.991Z",
+        "before": [
+          {
+            "result": {
+              "duration": 790374300,
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.testPreparation(io.cucumber.java.Scenario)"
+            }
+          }
+        ],
+        "line": 5,
+        "name": "Get all events",
+        "description": "",
+        "id": ";get-all-events",
+        "after": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.cleanUp()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 81999100,
+              "status": "passed"
+            },
+            "line": 6,
+            "name": "API End point \"/events\" for \"Event\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"/events\"",
+                  "offset": 14
+                },
+                {
+                  "val": "\"Event\"",
+                  "offset": 28
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.ApiEndPointForAPi(java.lang.String,java.lang.String)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "output": [
+              "Request method: GET\n\nRequest URI: http://localhost:9090/v2/events\n\nRequest Headers: API-Version\u003d2, Accept\u003d*/*, Content-Type\u003dapplication/json; charset\u003dUTF-8, \n\nHttp Code: 200\n\nResponse Headers: Content-Type\u003dapplication/json, API-Version\u003dnull\n\nResponse Body \u003d\u003d\u003e[{\"eventID\":\"84db923d-2a19-4eb0-beb5-446c1ec57d34\",\"eventType\":\"EQUIPMENT\",\"eventDateTime\":\"2019-11-11T23:11:00Z\",\"eventCreatedDateTime\":\"2021-01-09T13:12:56Z\",\"eventClassifierCode\":\"EST\",\"equipmentEventTypeCode\":\"LOAD\",\"equipmentReference\":\"APZU4812090\",\"emptyIndicatorCode\":\"EMPTY\",\"transportCallID\":\"8b64d20b-523b-4491-b2e5-32cfa5174eed\",\"transportCall\":{\"transportCallID\":\"8b64d20b-523b-4491-b2e5-32cfa5174eed\",\"transportCallSequenceNumber\":1,\"facilityTypeCode\":\"POTE\",\"otherFacility\":null,\"carrierServiceCode\":\"A_CSC\",\"carrierVoyageNumber\":\"A_carrier_voyage_number\",\"facilityCode\":\"PSABT\",\"facilityCodeListProvider\":\"SMDG\",\"vessel\":{\"vesselIMONumber\":\"1234567\",\"vesselName\":\"King of the Seas\",\"vesselFlag\":\"DE\",\"vesselCallSignNumber\":\"NCVV\",\"vesselOperatorCarrierCode\":\"MSK\",\"vesselOperatorCarrierCodeListProvider\":\"SMDG\"},\"location\":null,\"modeOfTransport\":\"VESSEL\",\"UNLocationCode\":\"SGSIN\"},\"documentReferences\":[{\"documentReferenceType\":\"BKG\",\"documentReferenceValue\":\"ABC123123123\"}],\"references\":[{\"referenceType\":\"FF\",\"referenceValue\":\"string\"}],\"seals\":[{\"sealNumber\":\"SN123457\",\"sealSource\":\"CUS\",\"sealType\":\"WIR\"}],\"ISOEquipmentCode\":\"22G2\",\"eventTypeCode\":\"LOAD\"},{\"eventID\":\"84db923d-2a19-4eb0-beb5-446c1ec57d34\",\"eventType\":\"TRANSPORT\",\"eventDateTime\":\"2019-11-11T23:11:00Z\",\"eventCreatedDateTime\":\"2021-01-09T13:12:56Z\",\"eventClassifierCode\":\"ACT\",\"transportEventTypeCode\":\"ARRI\",\"delayReasonCode\":\"WEA\",\"changeRemark\":\"Bad weather\",\"transportCallID\":\"8b64d20b-523b-4491-b2e5-32cfa5174eed\",\"transportCall\":{\"transportCallID\":\"8b64d20b-523b-4491-b2e5-32cfa5174eed\",\"transportCallSequenceNumber\":1,\"facilityTypeCode\":\"POTE\",\"otherFacility\":null,\"carrierServiceCode\":\"A_CSC\",\"carrierVoyageNumber\":\"A_carrier_voyage_number\",\"facilityCode\":\"PSABT\",\"facilityCodeListProvider\":\"SMDG\",\"vessel\":{\"vesselIMONumber\":\"1234567\",\"vesselName\":\"King of the Seas\",\"vesselFlag\":\"DE\",\"vesselCallSignNumber\":\"NCVV\",\"vesselOperatorCarrierCode\":\"MSK\",\"vesselOperatorCarrierCodeListProvider\":\"SMDG\"},\"location\":null,\"modeOfTransport\":\"VESSEL\",\"UNLocationCode\":\"SGSIN\"},\"documentReferences\":[{\"documentReferenceType\":\"BKG\",\"documentReferenceValue\":\"ABC123123123\"}],\"references\":[{\"referenceType\":\"FF\",\"referenceValue\":\"string\"}],\"vesselScheduleChangeRemark\":\"Bad weather\",\"eventTypeCode\":\"ARRI\"},{\"eventID\":\"5e51e72c-d872-11ea-811c-0f8f10a32ea2\",\"eventType\":\"EQUIPMENT\",\"eventDateTime\":\"2003-05-03T00:00:00Z\",\"eventCreatedDateTime\":\"2021-11-19T18:17:04.026117Z\",\"eventClassifierCode\":\"ACT\",\"equipmentEventTypeCode\":\"LOAD\",\"equipmentReference\":\"equipref3453\",\"emptyIndicatorCode\":\"EMPTY\",\"transportCallID\":\"8b64d20b-523b-4491-b2e5-32cfa5174eed\",\"transportCall\":{\"transportCallID\":\"8b64d20b-523b-4491-b2e5-32cfa5174eed\",\"transportCallSequenceNumber\":1,\"facilityTypeCode\":\"POTE\",\"otherFacility\":null,\"carrierServiceCode\":\"A_CSC\",\"carrierVoyageNumber\":\"A_carrier_voyage_number\",\"facilityCode\":\"PSABT\",\"facilityCodeListProvider\":\"SMDG\",\"vessel\":{\"vesselIMONumber\":\"1234567\",\"vesselName\":\"King of the Seas\",\"vesselFlag\":\"DE\",\"vesselCallSignNumber\":\"NCVV\",\"vesselOperatorCarrierCode\":\"MSK\",\"vesselOperatorCarrierCodeListProvider\":\"SMDG\"},\"location\":null,\"modeOfTransport\":\"VESSEL\",\"UNLocationCode\":\"SGSIN\"},\"documentReferences\":[{\"documentReferenceType\":\"BKG\",\"documentReferenceValue\":\"ABC123123123\"}],\"references\":[{\"referenceType\":\"FF\",\"referenceValue\":\"string\"}],\"seals\":[],\"ISOEquipmentCode\":\"22G2\",\"eventTypeCode\":\"LOAD\"},{\"eventID\":\"bb18b774-73c6-4b8b-a887-9f3fbc775237\",\"eventType\":\"TRANSPORT\",\"eventDateTime\":\"2003-05-03T00:00:00Z\",\"eventCreatedDateTime\":\"2003-05-03T00:00:00Z\",\"eventClassifierCode\":\"ACT\",\"transportEventTypeCode\":\"DEPA\",\"delayReasonCode\":\"ANA\",\"changeRemark\":\"Authorities not available\",\"transportCallID\":\"123e4567-e89b-12d3-a456-426614174000\",\"transportCall\":{\"transportCallID\":\"123e4567-e89b-12d3-a456-426614174000\",\"transportCallSequenceNumber\":1,\"facilityTypeCode\":\"POTE\",\"otherFacility\":null,\"carrierServiceCode\":null,\"carrierVoyageNumber\":null,\"facilityCode\":\"APMT\",\"facilityCodeListProvider\":\"SMDG\",\"vessel\":{\"vesselIMONumber\":\"1234567\",\"vesselName\":\"King of the Seas\",\"vesselFlag\":\"DE\",\"vesselCallSignNumber\":\"NCVV\",\"vesselOperatorCarrierCode\":\"MSK\",\"vesselOperatorCarrierCodeListProvider\":\"SMDG\"},\"location\":null,\"modeOfTransport\":\"VESSEL\",\"UNLocationCode\":\"USNYC\"},\"documentReferences\":[{\"documentReferenceType\":\"BKG\",\"documentReferenceValue\":\"ABC123123123\"}],\"references\":[{\"referenceType\":\"FF\",\"referenceValue\":\"string\"}],\"vesselScheduleChangeRemark\":\"Authorities not available\",\"eventTypeCode\":\"DEPA\"},{\"eventID\":\"5e51e72c-d872-11ea-811c-0f8f10a32ea1\",\"eventType\":\"SHIPMENT\",\"eventDateTime\":\"2003-05-03T00:00:00Z\",\"eventCreatedDateTime\":\"2021-11-19T18:16:45.021989Z\",\"eventClassifierCode\":\"PLN\",\"shipmentEventTypeCode\":\"CONF\",\"documentTypeCode\":\"BKG\",\"documentID\":\"ABC123123123\",\"reason\":null,\"references\":[{\"referenceType\":\"FF\",\"referenceValue\":\"string\"}],\"shipmentID\":null,\"shipmentInformationTypeCode\":\"BOK\",\"eventTypeCode\":\"CONF\"},{\"eventID\":\"4a5ded26-d7f6-491f-9378-a5992655d81f\",\"eventType\":\"TRANSPORT\",\"eventDateTime\":\"2003-05-03T00:00:00Z\",\"eventCreatedDateTime\":\"2003-05-01T00:00:00Z\",\"eventClassifierCode\":\"EST\",\"transportEventTypeCode\":\"DEPA\",\"delayReasonCode\":\"ANA\",\"changeRemark\":\"Authorities not available\",\"transportCallID\":\"123e4567-e89b-12d3-a456-426614174000\",\"transportCall\":{\"transportCallID\":\"123e4567-e89b-12d3-a456-426614174000\",\"transportCallSequenceNumber\":1,\"facilityTypeCode\":\"POTE\",\"otherFacility\":null,\"carrierServiceCode\":null,\"carrierVoyageNumber\":null,\"facilityCode\":\"APMT\",\"facilityCodeListProvider\":\"SMDG\",\"vessel\":{\"vesselIMONumber\":\"1234567\",\"vesselName\":\"King of the Seas\",\"vesselFlag\":\"DE\",\"vesselCallSignNumber\":\"NCVV\",\"vesselOperatorCarrierCode\":\"MSK\",\"vesselOperatorCarrierCodeListProvider\":\"SMDG\"},\"location\":null,\"modeOfTransport\":\"VESSEL\",\"UNLocationCode\":\"USNYC\"},\"documentReferences\":[{\"documentReferenceType\":\"BKG\",\"documentReferenceValue\":\"ABC123123123\"}],\"references\":[{\"referenceType\":\"FF\",\"referenceValue\":\"string\"}],\"vesselScheduleChangeRemark\":\"Authorities not available\",\"eventTypeCode\":\"DEPA\"},{\"eventID\":\"5e51e72c-d872-11ea-811c-0f8f10a32ea3\",\"eventType\":\"TRANSPORT\",\"eventDateTime\":\"2003-05-03T00:00:00Z\",\"eventCreatedDateTime\":\"2021-11-19T18:17:06.731433Z\",\"eventClassifierCode\":\"ACT\",\"transportEventTypeCode\":\"DEPA\",\"delayReasonCode\":\"ANA\",\"changeRemark\":\"Authorities not available\",\"transportCallID\":\"8b64d20b-523b-4491-b2e5-32cfa5174eed\",\"transportCall\":{\"transportCallID\":\"8b64d20b-523b-4491-b2e5-32cfa5174eed\",\"transportCallSequenceNumber\":1,\"facilityTypeCode\":\"POTE\",\"otherFacility\":null,\"carrierServiceCode\":\"A_CSC\",\"carrierVoyageNumber\":\"A_carrier_voyage_number\",\"facilityCode\":\"PSABT\",\"facilityCodeListProvider\":\"SMDG\",\"vessel\":{\"vesselIMONumber\":\"1234567\",\"vesselName\":\"King of the Seas\",\"vesselFlag\":\"DE\",\"vesselCallSignNumber\":\"NCVV\",\"vesselOperatorCarrierCode\":\"MSK\",\"vesselOperatorCarrierCodeListProvider\":\"SMDG\"},\"location\":null,\"modeOfTransport\":\"VESSEL\",\"UNLocationCode\":\"SGSIN\"},\"documentReferences\":[{\"documentReferenceType\":\"BKG\",\"documentReferenceValue\":\"ABC123123123\"}],\"references\":[{\"referenceType\":\"FF\",\"referenceValue\":\"string\"}],\"vesselScheduleChangeRemark\":\"Authorities not available\",\"eventTypeCode\":\"DEPA\"},{\"eventID\":\"e48f2bc0-c746-11ea-a3ff-db48243a89f4\",\"eventType\":\"SHIPMENT\",\"eventDateTime\":\"2020-07-15T00:00:00Z\",\"eventCreatedDateTime\":\"2021-11-19T18:16:40.595241Z\",\"eventClassifierCode\":\"PLN\",\"shipmentEventTypeCode\":\"APPR\",\"documentTypeCode\":\"BKG\",\"documentID\":\"BR1239719971\",\"reason\":null,\"references\":[],\"shipmentID\":null,\"shipmentInformationTypeCode\":\"BOK\",\"eventTypeCode\":\"APPR\"},{\"eventID\":\"784871e7-c9cd-4f59-8d88-2e033fa799a1\",\"eventType\":\"SHIPMENT\",\"eventDateTime\":\"2020-07-15T00:00:00Z\",\"eventCreatedDateTime\":\"2021-11-19T18:16:35.712369Z\",\"eventClassifierCode\":\"PLN\",\"shipmentEventTypeCode\":\"APPR\",\"documentTypeCode\":\"BKG\",\"documentID\":\"BR1239719971\",\"reason\":null,\"references\":[],\"shipmentID\":null,\"shipmentInformationTypeCode\":\"BOK\",\"eventTypeCode\":\"APPR\"}]\n\n"
+            ],
+            "result": {
+              "duration": 1017995000,
+              "status": "passed"
+            },
+            "line": 7,
+            "name": "Send GET http request",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.getAll()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 821373200,
+              "status": "passed"
+            },
+            "line": 8,
+            "name": "Receive valid response for GET all",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.receiveAllRecordsSuccessfully()"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@HappyPath"
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2021-11-19T22:29:56.756Z",
+        "before": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.testPreparation(io.cucumber.java.Scenario)"
+            }
+          }
+        ],
+        "line": 11,
+        "name": "Get all events",
+        "description": "",
+        "id": ";get-all-events",
+        "after": [
+          {
+            "result": {
+              "duration": 536800,
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.cleanUp()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 999500,
+              "status": "passed"
+            },
+            "line": 12,
+            "name": "API End point \"/events\" for \"Event\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"/events\"",
+                  "offset": 14
+                },
+                {
+                  "val": "\"Event\"",
+                  "offset": 28
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.ApiEndPointForAPi(java.lang.String,java.lang.String)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 10998300,
+              "status": "passed"
+            },
+            "line": 13,
+            "name": "Query parameters with values",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.belowQueryParameters(io.cucumber.datatable.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "parameter",
+                  "value"
+                ]
+              },
+              {
+                "cells": [
+                  "limit",
+                  "10"
+                ]
+              }
+            ],
+            "keyword": "And "
+          },
+          {
+            "output": [
+              "Request method: GET\n\nRequest URI: http://localhost:9090/v2/events?limit\u003d10\n\nQuery params: limit\u003d10, \n\nRequest Headers: API-Version\u003d2, Accept\u003d*/*, Content-Type\u003dapplication/json; charset\u003dUTF-8, \n\nHttp Code: 200\n\nResponse Headers: Content-Type\u003dapplication/json, API-Version\u003dnull\n\nResponse Body \u003d\u003d\u003e[{\"eventID\":\"84db923d-2a19-4eb0-beb5-446c1ec57d34\",\"eventType\":\"EQUIPMENT\",\"eventDateTime\":\"2019-11-11T23:11:00Z\",\"eventCreatedDateTime\":\"2021-01-09T13:12:56Z\",\"eventClassifierCode\":\"EST\",\"equipmentEventTypeCode\":\"LOAD\",\"equipmentReference\":\"APZU4812090\",\"emptyIndicatorCode\":\"EMPTY\",\"transportCallID\":\"8b64d20b-523b-4491-b2e5-32cfa5174eed\",\"transportCall\":{\"transportCallID\":\"8b64d20b-523b-4491-b2e5-32cfa5174eed\",\"transportCallSequenceNumber\":1,\"facilityTypeCode\":\"POTE\",\"otherFacility\":null,\"carrierServiceCode\":\"A_CSC\",\"carrierVoyageNumber\":\"A_carrier_voyage_number\",\"facilityCode\":\"PSABT\",\"facilityCodeListProvider\":\"SMDG\",\"vessel\":{\"vesselIMONumber\":\"1234567\",\"vesselName\":\"King of the Seas\",\"vesselFlag\":\"DE\",\"vesselCallSignNumber\":\"NCVV\",\"vesselOperatorCarrierCode\":\"MSK\",\"vesselOperatorCarrierCodeListProvider\":\"SMDG\"},\"location\":null,\"modeOfTransport\":\"VESSEL\",\"UNLocationCode\":\"SGSIN\"},\"documentReferences\":[{\"documentReferenceType\":\"BKG\",\"documentReferenceValue\":\"ABC123123123\"}],\"references\":[{\"referenceType\":\"FF\",\"referenceValue\":\"string\"}],\"seals\":[{\"sealNumber\":\"SN123457\",\"sealSource\":\"CUS\",\"sealType\":\"WIR\"}],\"ISOEquipmentCode\":\"22G2\",\"eventTypeCode\":\"LOAD\"},{\"eventID\":\"84db923d-2a19-4eb0-beb5-446c1ec57d34\",\"eventType\":\"TRANSPORT\",\"eventDateTime\":\"2019-11-11T23:11:00Z\",\"eventCreatedDateTime\":\"2021-01-09T13:12:56Z\",\"eventClassifierCode\":\"ACT\",\"transportEventTypeCode\":\"ARRI\",\"delayReasonCode\":\"WEA\",\"changeRemark\":\"Bad weather\",\"transportCallID\":\"8b64d20b-523b-4491-b2e5-32cfa5174eed\",\"transportCall\":{\"transportCallID\":\"8b64d20b-523b-4491-b2e5-32cfa5174eed\",\"transportCallSequenceNumber\":1,\"facilityTypeCode\":\"POTE\",\"otherFacility\":null,\"carrierServiceCode\":\"A_CSC\",\"carrierVoyageNumber\":\"A_carrier_voyage_number\",\"facilityCode\":\"PSABT\",\"facilityCodeListProvider\":\"SMDG\",\"vessel\":{\"vesselIMONumber\":\"1234567\",\"vesselName\":\"King of the Seas\",\"vesselFlag\":\"DE\",\"vesselCallSignNumber\":\"NCVV\",\"vesselOperatorCarrierCode\":\"MSK\",\"vesselOperatorCarrierCodeListProvider\":\"SMDG\"},\"location\":null,\"modeOfTransport\":\"VESSEL\",\"UNLocationCode\":\"SGSIN\"},\"documentReferences\":[{\"documentReferenceType\":\"BKG\",\"documentReferenceValue\":\"ABC123123123\"}],\"references\":[{\"referenceType\":\"FF\",\"referenceValue\":\"string\"}],\"vesselScheduleChangeRemark\":\"Bad weather\",\"eventTypeCode\":\"ARRI\"},{\"eventID\":\"5e51e72c-d872-11ea-811c-0f8f10a32ea2\",\"eventType\":\"EQUIPMENT\",\"eventDateTime\":\"2003-05-03T00:00:00Z\",\"eventCreatedDateTime\":\"2021-11-19T18:17:04.026117Z\",\"eventClassifierCode\":\"ACT\",\"equipmentEventTypeCode\":\"LOAD\",\"equipmentReference\":\"equipref3453\",\"emptyIndicatorCode\":\"EMPTY\",\"transportCallID\":\"8b64d20b-523b-4491-b2e5-32cfa5174eed\",\"transportCall\":{\"transportCallID\":\"8b64d20b-523b-4491-b2e5-32cfa5174eed\",\"transportCallSequenceNumber\":1,\"facilityTypeCode\":\"POTE\",\"otherFacility\":null,\"carrierServiceCode\":\"A_CSC\",\"carrierVoyageNumber\":\"A_carrier_voyage_number\",\"facilityCode\":\"PSABT\",\"facilityCodeListProvider\":\"SMDG\",\"vessel\":{\"vesselIMONumber\":\"1234567\",\"vesselName\":\"King of the Seas\",\"vesselFlag\":\"DE\",\"vesselCallSignNumber\":\"NCVV\",\"vesselOperatorCarrierCode\":\"MSK\",\"vesselOperatorCarrierCodeListProvider\":\"SMDG\"},\"location\":null,\"modeOfTransport\":\"VESSEL\",\"UNLocationCode\":\"SGSIN\"},\"documentReferences\":[{\"documentReferenceType\":\"BKG\",\"documentReferenceValue\":\"ABC123123123\"}],\"references\":[{\"referenceType\":\"FF\",\"referenceValue\":\"string\"}],\"seals\":[],\"ISOEquipmentCode\":\"22G2\",\"eventTypeCode\":\"LOAD\"},{\"eventID\":\"bb18b774-73c6-4b8b-a887-9f3fbc775237\",\"eventType\":\"TRANSPORT\",\"eventDateTime\":\"2003-05-03T00:00:00Z\",\"eventCreatedDateTime\":\"2003-05-03T00:00:00Z\",\"eventClassifierCode\":\"ACT\",\"transportEventTypeCode\":\"DEPA\",\"delayReasonCode\":\"ANA\",\"changeRemark\":\"Authorities not available\",\"transportCallID\":\"123e4567-e89b-12d3-a456-426614174000\",\"transportCall\":{\"transportCallID\":\"123e4567-e89b-12d3-a456-426614174000\",\"transportCallSequenceNumber\":1,\"facilityTypeCode\":\"POTE\",\"otherFacility\":null,\"carrierServiceCode\":null,\"carrierVoyageNumber\":null,\"facilityCode\":\"APMT\",\"facilityCodeListProvider\":\"SMDG\",\"vessel\":{\"vesselIMONumber\":\"1234567\",\"vesselName\":\"King of the Seas\",\"vesselFlag\":\"DE\",\"vesselCallSignNumber\":\"NCVV\",\"vesselOperatorCarrierCode\":\"MSK\",\"vesselOperatorCarrierCodeListProvider\":\"SMDG\"},\"location\":null,\"modeOfTransport\":\"VESSEL\",\"UNLocationCode\":\"USNYC\"},\"documentReferences\":[{\"documentReferenceType\":\"BKG\",\"documentReferenceValue\":\"ABC123123123\"}],\"references\":[{\"referenceType\":\"FF\",\"referenceValue\":\"string\"}],\"vesselScheduleChangeRemark\":\"Authorities not available\",\"eventTypeCode\":\"DEPA\"},{\"eventID\":\"5e51e72c-d872-11ea-811c-0f8f10a32ea1\",\"eventType\":\"SHIPMENT\",\"eventDateTime\":\"2003-05-03T00:00:00Z\",\"eventCreatedDateTime\":\"2021-11-19T18:16:45.021989Z\",\"eventClassifierCode\":\"PLN\",\"shipmentEventTypeCode\":\"CONF\",\"documentTypeCode\":\"BKG\",\"documentID\":\"ABC123123123\",\"reason\":null,\"references\":[{\"referenceType\":\"FF\",\"referenceValue\":\"string\"}],\"shipmentID\":null,\"shipmentInformationTypeCode\":\"BOK\",\"eventTypeCode\":\"CONF\"},{\"eventID\":\"4a5ded26-d7f6-491f-9378-a5992655d81f\",\"eventType\":\"TRANSPORT\",\"eventDateTime\":\"2003-05-03T00:00:00Z\",\"eventCreatedDateTime\":\"2003-05-01T00:00:00Z\",\"eventClassifierCode\":\"EST\",\"transportEventTypeCode\":\"DEPA\",\"delayReasonCode\":\"ANA\",\"changeRemark\":\"Authorities not available\",\"transportCallID\":\"123e4567-e89b-12d3-a456-426614174000\",\"transportCall\":{\"transportCallID\":\"123e4567-e89b-12d3-a456-426614174000\",\"transportCallSequenceNumber\":1,\"facilityTypeCode\":\"POTE\",\"otherFacility\":null,\"carrierServiceCode\":null,\"carrierVoyageNumber\":null,\"facilityCode\":\"APMT\",\"facilityCodeListProvider\":\"SMDG\",\"vessel\":{\"vesselIMONumber\":\"1234567\",\"vesselName\":\"King of the Seas\",\"vesselFlag\":\"DE\",\"vesselCallSignNumber\":\"NCVV\",\"vesselOperatorCarrierCode\":\"MSK\",\"vesselOperatorCarrierCodeListProvider\":\"SMDG\"},\"location\":null,\"modeOfTransport\":\"VESSEL\",\"UNLocationCode\":\"USNYC\"},\"documentReferences\":[{\"documentReferenceType\":\"BKG\",\"documentReferenceValue\":\"ABC123123123\"}],\"references\":[{\"referenceType\":\"FF\",\"referenceValue\":\"string\"}],\"vesselScheduleChangeRemark\":\"Authorities not available\",\"eventTypeCode\":\"DEPA\"},{\"eventID\":\"5e51e72c-d872-11ea-811c-0f8f10a32ea3\",\"eventType\":\"TRANSPORT\",\"eventDateTime\":\"2003-05-03T00:00:00Z\",\"eventCreatedDateTime\":\"2021-11-19T18:17:06.731433Z\",\"eventClassifierCode\":\"ACT\",\"transportEventTypeCode\":\"DEPA\",\"delayReasonCode\":\"ANA\",\"changeRemark\":\"Authorities not available\",\"transportCallID\":\"8b64d20b-523b-4491-b2e5-32cfa5174eed\",\"transportCall\":{\"transportCallID\":\"8b64d20b-523b-4491-b2e5-32cfa5174eed\",\"transportCallSequenceNumber\":1,\"facilityTypeCode\":\"POTE\",\"otherFacility\":null,\"carrierServiceCode\":\"A_CSC\",\"carrierVoyageNumber\":\"A_carrier_voyage_number\",\"facilityCode\":\"PSABT\",\"facilityCodeListProvider\":\"SMDG\",\"vessel\":{\"vesselIMONumber\":\"1234567\",\"vesselName\":\"King of the Seas\",\"vesselFlag\":\"DE\",\"vesselCallSignNumber\":\"NCVV\",\"vesselOperatorCarrierCode\":\"MSK\",\"vesselOperatorCarrierCodeListProvider\":\"SMDG\"},\"location\":null,\"modeOfTransport\":\"VESSEL\",\"UNLocationCode\":\"SGSIN\"},\"documentReferences\":[{\"documentReferenceType\":\"BKG\",\"documentReferenceValue\":\"ABC123123123\"}],\"references\":[{\"referenceType\":\"FF\",\"referenceValue\":\"string\"}],\"vesselScheduleChangeRemark\":\"Authorities not available\",\"eventTypeCode\":\"DEPA\"},{\"eventID\":\"e48f2bc0-c746-11ea-a3ff-db48243a89f4\",\"eventType\":\"SHIPMENT\",\"eventDateTime\":\"2020-07-15T00:00:00Z\",\"eventCreatedDateTime\":\"2021-11-19T18:16:40.595241Z\",\"eventClassifierCode\":\"PLN\",\"shipmentEventTypeCode\":\"APPR\",\"documentTypeCode\":\"BKG\",\"documentID\":\"BR1239719971\",\"reason\":null,\"references\":[],\"shipmentID\":null,\"shipmentInformationTypeCode\":\"BOK\",\"eventTypeCode\":\"APPR\"},{\"eventID\":\"784871e7-c9cd-4f59-8d88-2e033fa799a1\",\"eventType\":\"SHIPMENT\",\"eventDateTime\":\"2020-07-15T00:00:00Z\",\"eventCreatedDateTime\":\"2021-11-19T18:16:35.712369Z\",\"eventClassifierCode\":\"PLN\",\"shipmentEventTypeCode\":\"APPR\",\"documentTypeCode\":\"BKG\",\"documentID\":\"BR1239719971\",\"reason\":null,\"references\":[],\"shipmentID\":null,\"shipmentInformationTypeCode\":\"BOK\",\"eventTypeCode\":\"APPR\"}]\n\n"
+            ],
+            "result": {
+              "duration": 123422100,
+              "status": "passed"
+            },
+            "line": 16,
+            "name": "Send GET http request",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.getAll()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 46390600,
+              "status": "passed"
+            },
+            "line": 17,
+            "name": "Receive valid response for GET all",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.receiveAllRecordsSuccessfully()"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@HappyPath"
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2021-11-19T22:29:56.956Z",
+        "before": [
+          {
+            "result": {
+              "duration": 1072200,
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.testPreparation(io.cucumber.java.Scenario)"
+            }
+          }
+        ],
+        "line": 27,
+        "name": "Get all events with Query Parameters",
+        "description": "",
+        "id": ";get-all-events-with-query-parameters;list-of-query-parameters;2",
+        "after": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.cleanUp()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario Outline",
+        "steps": [
+          {
+            "result": {
+              "duration": 2116500,
+              "status": "passed"
+            },
+            "line": 21,
+            "name": "API End point \"/events\" for \"Event\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"/events\"",
+                  "offset": 14
+                },
+                {
+                  "val": "\"Event\"",
+                  "offset": 28
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.ApiEndPointForAPi(java.lang.String,java.lang.String)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 533600,
+              "status": "passed"
+            },
+            "line": 22,
+            "name": "Query parameters \"eventType\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"eventType\"",
+                  "offset": 17
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.belowQueryParametersFromTestData(java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "output": [
+              "Request method: GET\n\nRequest URI: http://localhost:9090/v2/events?eventType\u003dSHIPMENT\n\nQuery params: eventType\u003dSHIPMENT, \n\nRequest Headers: API-Version\u003d2, Accept\u003d*/*, Content-Type\u003dapplication/json; charset\u003dUTF-8, \n\nHttp Code: 200\n\nResponse Headers: Content-Type\u003dapplication/json, API-Version\u003dnull\n\nResponse Body \u003d\u003d\u003e[{\"eventID\":\"5e51e72c-d872-11ea-811c-0f8f10a32ea1\",\"eventType\":\"SHIPMENT\",\"eventDateTime\":\"2003-05-03T00:00:00Z\",\"eventCreatedDateTime\":\"2021-11-19T18:16:45.021989Z\",\"eventClassifierCode\":\"PLN\",\"shipmentEventTypeCode\":\"CONF\",\"documentTypeCode\":\"BKG\",\"documentID\":\"ABC123123123\",\"reason\":null,\"references\":[{\"referenceType\":\"FF\",\"referenceValue\":\"string\"}],\"shipmentID\":null,\"shipmentInformationTypeCode\":\"BOK\",\"eventTypeCode\":\"CONF\"},{\"eventID\":\"e48f2bc0-c746-11ea-a3ff-db48243a89f4\",\"eventType\":\"SHIPMENT\",\"eventDateTime\":\"2020-07-15T00:00:00Z\",\"eventCreatedDateTime\":\"2021-11-19T18:16:40.595241Z\",\"eventClassifierCode\":\"PLN\",\"shipmentEventTypeCode\":\"APPR\",\"documentTypeCode\":\"BKG\",\"documentID\":\"BR1239719971\",\"reason\":null,\"references\":[],\"shipmentID\":null,\"shipmentInformationTypeCode\":\"BOK\",\"eventTypeCode\":\"APPR\"},{\"eventID\":\"784871e7-c9cd-4f59-8d88-2e033fa799a1\",\"eventType\":\"SHIPMENT\",\"eventDateTime\":\"2020-07-15T00:00:00Z\",\"eventCreatedDateTime\":\"2021-11-19T18:16:35.712369Z\",\"eventClassifierCode\":\"PLN\",\"shipmentEventTypeCode\":\"APPR\",\"documentTypeCode\":\"BKG\",\"documentID\":\"BR1239719971\",\"reason\":null,\"references\":[],\"shipmentID\":null,\"shipmentInformationTypeCode\":\"BOK\",\"eventTypeCode\":\"APPR\"}]\n\n"
+            ],
+            "result": {
+              "duration": 42070200,
+              "status": "passed"
+            },
+            "line": 23,
+            "name": "Send GET http request",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.getAll()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 90524700,
+              "status": "passed"
+            },
+            "line": 24,
+            "name": "Receive valid response for GET all",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.receiveAllRecordsSuccessfully()"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@HappyPath"
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2021-11-19T22:29:57.108Z",
+        "before": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.testPreparation(io.cucumber.java.Scenario)"
+            }
+          }
+        ],
+        "line": 28,
+        "name": "Get all events with Query Parameters",
+        "description": "",
+        "id": ";get-all-events-with-query-parameters;list-of-query-parameters;3",
+        "after": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.cleanUp()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario Outline",
+        "steps": [
+          {
+            "result": {
+              "duration": 1005400,
+              "status": "passed"
+            },
+            "line": 21,
+            "name": "API End point \"/events\" for \"Event\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"/events\"",
+                  "offset": 14
+                },
+                {
+                  "val": "\"Event\"",
+                  "offset": 28
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.ApiEndPointForAPi(java.lang.String,java.lang.String)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 999000,
+              "status": "passed"
+            },
+            "line": 22,
+            "name": "Query parameters \"documentTypeCode\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"documentTypeCode\"",
+                  "offset": 17
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.belowQueryParametersFromTestData(java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "output": [
+              "Request method: GET\n\nRequest URI: http://localhost:9090/v2/events?documentTypeCode\u003dBKG\n\nQuery params: documentTypeCode\u003dBKG, \n\nRequest Headers: API-Version\u003d2, Accept\u003d*/*, Content-Type\u003dapplication/json; charset\u003dUTF-8, \n\nHttp Code: 200\n\nResponse Headers: Content-Type\u003dapplication/json, API-Version\u003dnull\n\nResponse Body \u003d\u003d\u003e[{\"eventID\":\"5e51e72c-d872-11ea-811c-0f8f10a32ea1\",\"eventType\":\"SHIPMENT\",\"eventDateTime\":\"2003-05-03T00:00:00Z\",\"eventCreatedDateTime\":\"2021-11-19T18:16:45.021989Z\",\"eventClassifierCode\":\"PLN\",\"shipmentEventTypeCode\":\"CONF\",\"documentTypeCode\":\"BKG\",\"documentID\":\"ABC123123123\",\"reason\":null,\"references\":[{\"referenceType\":\"FF\",\"referenceValue\":\"string\"}],\"shipmentID\":null,\"shipmentInformationTypeCode\":\"BOK\",\"eventTypeCode\":\"CONF\"},{\"eventID\":\"e48f2bc0-c746-11ea-a3ff-db48243a89f4\",\"eventType\":\"SHIPMENT\",\"eventDateTime\":\"2020-07-15T00:00:00Z\",\"eventCreatedDateTime\":\"2021-11-19T18:16:40.595241Z\",\"eventClassifierCode\":\"PLN\",\"shipmentEventTypeCode\":\"APPR\",\"documentTypeCode\":\"BKG\",\"documentID\":\"BR1239719971\",\"reason\":null,\"references\":[],\"shipmentID\":null,\"shipmentInformationTypeCode\":\"BOK\",\"eventTypeCode\":\"APPR\"},{\"eventID\":\"784871e7-c9cd-4f59-8d88-2e033fa799a1\",\"eventType\":\"SHIPMENT\",\"eventDateTime\":\"2020-07-15T00:00:00Z\",\"eventCreatedDateTime\":\"2021-11-19T18:16:35.712369Z\",\"eventClassifierCode\":\"PLN\",\"shipmentEventTypeCode\":\"APPR\",\"documentTypeCode\":\"BKG\",\"documentID\":\"BR1239719971\",\"reason\":null,\"references\":[],\"shipmentID\":null,\"shipmentInformationTypeCode\":\"BOK\",\"eventTypeCode\":\"APPR\"}]\n\n"
+            ],
+            "result": {
+              "duration": 49862700,
+              "status": "passed"
+            },
+            "line": 23,
+            "name": "Send GET http request",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.getAll()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 24461000,
+              "status": "passed"
+            },
+            "line": 24,
+            "name": "Receive valid response for GET all",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.receiveAllRecordsSuccessfully()"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@HappyPath"
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2021-11-19T22:29:57.193Z",
+        "before": [
+          {
+            "result": {
+              "duration": 1001100,
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.testPreparation(io.cucumber.java.Scenario)"
+            }
+          }
+        ],
+        "line": 29,
+        "name": "Get all events with Query Parameters",
+        "description": "",
+        "id": ";get-all-events-with-query-parameters;list-of-query-parameters;4",
+        "after": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.cleanUp()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario Outline",
+        "steps": [
+          {
+            "result": {
+              "duration": 997700,
+              "status": "passed"
+            },
+            "line": 21,
+            "name": "API End point \"/events\" for \"Event\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"/events\"",
+                  "offset": 14
+                },
+                {
+                  "val": "\"Event\"",
+                  "offset": 28
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.ApiEndPointForAPi(java.lang.String,java.lang.String)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 1001300,
+              "status": "passed"
+            },
+            "line": 22,
+            "name": "Query parameters \"shipmentEventTypeCode\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"shipmentEventTypeCode\"",
+                  "offset": 17
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.belowQueryParametersFromTestData(java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "output": [
+              "Request method: GET\n\nRequest URI: http://localhost:9090/v2/events?shipmentEventTypeCode\u003dCONF\n\nQuery params: shipmentEventTypeCode\u003dCONF, \n\nRequest Headers: API-Version\u003d2, Accept\u003d*/*, Content-Type\u003dapplication/json; charset\u003dUTF-8, \n\nHttp Code: 200\n\nResponse Headers: Content-Type\u003dapplication/json, API-Version\u003dnull\n\nResponse Body \u003d\u003d\u003e[{\"eventID\":\"5e51e72c-d872-11ea-811c-0f8f10a32ea1\",\"eventType\":\"SHIPMENT\",\"eventDateTime\":\"2003-05-03T00:00:00Z\",\"eventCreatedDateTime\":\"2021-11-19T18:16:45.021989Z\",\"eventClassifierCode\":\"PLN\",\"shipmentEventTypeCode\":\"CONF\",\"documentTypeCode\":\"BKG\",\"documentID\":\"ABC123123123\",\"reason\":null,\"references\":[{\"referenceType\":\"FF\",\"referenceValue\":\"string\"}],\"shipmentID\":null,\"shipmentInformationTypeCode\":\"BOK\",\"eventTypeCode\":\"CONF\"}]\n\n"
+            ],
+            "result": {
+              "duration": 41288900,
+              "status": "passed"
+            },
+            "line": 23,
+            "name": "Send GET http request",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.getAll()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 21108400,
+              "status": "passed"
+            },
+            "line": 24,
+            "name": "Receive valid response for GET all",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.receiveAllRecordsSuccessfully()"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@HappyPath"
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2021-11-19T22:29:57.272Z",
+        "before": [
+          {
+            "result": {
+              "duration": 507100,
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.testPreparation(io.cucumber.java.Scenario)"
+            }
+          }
+        ],
+        "line": 30,
+        "name": "Get all events with Query Parameters",
+        "description": "",
+        "id": ";get-all-events-with-query-parameters;list-of-query-parameters;5",
+        "after": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.cleanUp()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario Outline",
+        "steps": [
+          {
+            "result": {
+              "duration": 535800,
+              "status": "passed"
+            },
+            "line": 21,
+            "name": "API End point \"/events\" for \"Event\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"/events\"",
+                  "offset": 14
+                },
+                {
+                  "val": "\"Event\"",
+                  "offset": 28
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.ApiEndPointForAPi(java.lang.String,java.lang.String)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "error_message": "java.lang.AssertionError: Query Parameter setup missing for carrierBookingReference\r\n\tat org.testng.Assert.fail(Assert.java:99)\r\n\tat org.dcsa.api.validator.steps.TnTV2Steps.belowQueryParametersFromTestData(TnTV2Steps.java:160)\r\n\tat ✽.Query parameters \"carrierBookingReference\"(file:///C:/workspace/gitCTk/DCSA-Certification-ToolKit-API-Provider/src/main/java/org/dcsa/api/validator/features/tnt/v2/Event.feature:22)\r\n",
+              "duration": 9063900,
+              "status": "failed"
+            },
+            "line": 22,
+            "name": "Query parameters \"carrierBookingReference\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"carrierBookingReference\"",
+                  "offset": 17
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.belowQueryParametersFromTestData(java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "status": "skipped"
+            },
+            "line": 23,
+            "name": "Send GET http request",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.getAll()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "status": "skipped"
+            },
+            "line": 24,
+            "name": "Receive valid response for GET all",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.receiveAllRecordsSuccessfully()"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@HappyPath"
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2021-11-19T22:29:57.302Z",
+        "before": [
+          {
+            "result": {
+              "duration": 1000800,
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.testPreparation(io.cucumber.java.Scenario)"
+            }
+          }
+        ],
+        "line": 31,
+        "name": "Get all events with Query Parameters",
+        "description": "",
+        "id": ";get-all-events-with-query-parameters;list-of-query-parameters;6",
+        "after": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.cleanUp()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario Outline",
+        "steps": [
+          {
+            "result": {
+              "duration": 1000300,
+              "status": "passed"
+            },
+            "line": 21,
+            "name": "API End point \"/events\" for \"Event\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"/events\"",
+                  "offset": 14
+                },
+                {
+                  "val": "\"Event\"",
+                  "offset": 28
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.ApiEndPointForAPi(java.lang.String,java.lang.String)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "error_message": "java.lang.AssertionError: Query Parameter setup missing for transportDocumentReference\r\n\tat org.testng.Assert.fail(Assert.java:99)\r\n\tat org.dcsa.api.validator.steps.TnTV2Steps.belowQueryParametersFromTestData(TnTV2Steps.java:160)\r\n\tat ✽.Query parameters \"transportDocumentReference\"(file:///C:/workspace/gitCTk/DCSA-Certification-ToolKit-API-Provider/src/main/java/org/dcsa/api/validator/features/tnt/v2/Event.feature:22)\r\n",
+              "status": "failed"
+            },
+            "line": 22,
+            "name": "Query parameters \"transportDocumentReference\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"transportDocumentReference\"",
+                  "offset": 17
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.belowQueryParametersFromTestData(java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "status": "skipped"
+            },
+            "line": 23,
+            "name": "Send GET http request",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.getAll()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "status": "skipped"
+            },
+            "line": 24,
+            "name": "Receive valid response for GET all",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.receiveAllRecordsSuccessfully()"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@HappyPath"
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2021-11-19T22:29:57.313Z",
+        "before": [
+          {
+            "result": {
+              "duration": 999700,
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.testPreparation(io.cucumber.java.Scenario)"
+            }
+          }
+        ],
+        "line": 32,
+        "name": "Get all events with Query Parameters",
+        "description": "",
+        "id": ";get-all-events-with-query-parameters;list-of-query-parameters;7",
+        "after": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.cleanUp()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario Outline",
+        "steps": [
+          {
+            "result": {
+              "duration": 1000900,
+              "status": "passed"
+            },
+            "line": 21,
+            "name": "API End point \"/events\" for \"Event\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"/events\"",
+                  "offset": 14
+                },
+                {
+                  "val": "\"Event\"",
+                  "offset": 28
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.ApiEndPointForAPi(java.lang.String,java.lang.String)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "error_message": "java.lang.AssertionError: Query Parameter setup missing for transportEventTypeCode\r\n\tat org.testng.Assert.fail(Assert.java:99)\r\n\tat org.dcsa.api.validator.steps.TnTV2Steps.belowQueryParametersFromTestData(TnTV2Steps.java:160)\r\n\tat ✽.Query parameters \"transportEventTypeCode\"(file:///C:/workspace/gitCTk/DCSA-Certification-ToolKit-API-Provider/src/main/java/org/dcsa/api/validator/features/tnt/v2/Event.feature:22)\r\n",
+              "status": "failed"
+            },
+            "line": 22,
+            "name": "Query parameters \"transportEventTypeCode\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"transportEventTypeCode\"",
+                  "offset": 17
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.belowQueryParametersFromTestData(java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "status": "skipped"
+            },
+            "line": 23,
+            "name": "Send GET http request",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.getAll()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "status": "skipped"
+            },
+            "line": 24,
+            "name": "Receive valid response for GET all",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.receiveAllRecordsSuccessfully()"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@HappyPath"
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2021-11-19T22:29:57.329Z",
+        "before": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.testPreparation(io.cucumber.java.Scenario)"
+            }
+          }
+        ],
+        "line": 33,
+        "name": "Get all events with Query Parameters",
+        "description": "",
+        "id": ";get-all-events-with-query-parameters;list-of-query-parameters;8",
+        "after": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.cleanUp()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario Outline",
+        "steps": [
+          {
+            "result": {
+              "duration": 1001700,
+              "status": "passed"
+            },
+            "line": 21,
+            "name": "API End point \"/events\" for \"Event\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"/events\"",
+                  "offset": 14
+                },
+                {
+                  "val": "\"Event\"",
+                  "offset": 28
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.ApiEndPointForAPi(java.lang.String,java.lang.String)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 997900,
+              "status": "passed"
+            },
+            "line": 22,
+            "name": "Query parameters \"transportCallID\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"transportCallID\"",
+                  "offset": 17
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.belowQueryParametersFromTestData(java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "output": [
+              "Request method: GET\n\nRequest URI: http://localhost:9090/v2/events?transportCallID\u003d8b64d20b-523b-4491-b2e5-32cfa5174eed\n\nQuery params: transportCallID\u003d8b64d20b-523b-4491-b2e5-32cfa5174eed, \n\nRequest Headers: API-Version\u003d2, Accept\u003d*/*, Content-Type\u003dapplication/json; charset\u003dUTF-8, \n\nHttp Code: 200\n\nResponse Headers: Content-Type\u003dapplication/json, API-Version\u003dnull\n\nResponse Body \u003d\u003d\u003e[{\"eventID\":\"84db923d-2a19-4eb0-beb5-446c1ec57d34\",\"eventType\":\"EQUIPMENT\",\"eventDateTime\":\"2019-11-11T23:11:00Z\",\"eventCreatedDateTime\":\"2021-01-09T13:12:56Z\",\"eventClassifierCode\":\"EST\",\"equipmentEventTypeCode\":\"LOAD\",\"equipmentReference\":\"APZU4812090\",\"emptyIndicatorCode\":\"EMPTY\",\"transportCallID\":\"8b64d20b-523b-4491-b2e5-32cfa5174eed\",\"transportCall\":{\"transportCallID\":\"8b64d20b-523b-4491-b2e5-32cfa5174eed\",\"transportCallSequenceNumber\":1,\"facilityTypeCode\":\"POTE\",\"otherFacility\":null,\"carrierServiceCode\":\"A_CSC\",\"carrierVoyageNumber\":\"A_carrier_voyage_number\",\"facilityCode\":\"PSABT\",\"facilityCodeListProvider\":\"SMDG\",\"vessel\":{\"vesselIMONumber\":\"1234567\",\"vesselName\":\"King of the Seas\",\"vesselFlag\":\"DE\",\"vesselCallSignNumber\":\"NCVV\",\"vesselOperatorCarrierCode\":\"MSK\",\"vesselOperatorCarrierCodeListProvider\":\"SMDG\"},\"location\":null,\"modeOfTransport\":\"VESSEL\",\"UNLocationCode\":\"SGSIN\"},\"documentReferences\":[{\"documentReferenceType\":\"BKG\",\"documentReferenceValue\":\"ABC123123123\"}],\"references\":[{\"referenceType\":\"FF\",\"referenceValue\":\"string\"}],\"seals\":[{\"sealNumber\":\"SN123457\",\"sealSource\":\"CUS\",\"sealType\":\"WIR\"}],\"ISOEquipmentCode\":\"22G2\",\"eventTypeCode\":\"LOAD\"},{\"eventID\":\"84db923d-2a19-4eb0-beb5-446c1ec57d34\",\"eventType\":\"TRANSPORT\",\"eventDateTime\":\"2019-11-11T23:11:00Z\",\"eventCreatedDateTime\":\"2021-01-09T13:12:56Z\",\"eventClassifierCode\":\"ACT\",\"transportEventTypeCode\":\"ARRI\",\"delayReasonCode\":\"WEA\",\"changeRemark\":\"Bad weather\",\"transportCallID\":\"8b64d20b-523b-4491-b2e5-32cfa5174eed\",\"transportCall\":{\"transportCallID\":\"8b64d20b-523b-4491-b2e5-32cfa5174eed\",\"transportCallSequenceNumber\":1,\"facilityTypeCode\":\"POTE\",\"otherFacility\":null,\"carrierServiceCode\":\"A_CSC\",\"carrierVoyageNumber\":\"A_carrier_voyage_number\",\"facilityCode\":\"PSABT\",\"facilityCodeListProvider\":\"SMDG\",\"vessel\":{\"vesselIMONumber\":\"1234567\",\"vesselName\":\"King of the Seas\",\"vesselFlag\":\"DE\",\"vesselCallSignNumber\":\"NCVV\",\"vesselOperatorCarrierCode\":\"MSK\",\"vesselOperatorCarrierCodeListProvider\":\"SMDG\"},\"location\":null,\"modeOfTransport\":\"VESSEL\",\"UNLocationCode\":\"SGSIN\"},\"documentReferences\":[{\"documentReferenceType\":\"BKG\",\"documentReferenceValue\":\"ABC123123123\"}],\"references\":[{\"referenceType\":\"FF\",\"referenceValue\":\"string\"}],\"vesselScheduleChangeRemark\":\"Bad weather\",\"eventTypeCode\":\"ARRI\"},{\"eventID\":\"5e51e72c-d872-11ea-811c-0f8f10a32ea2\",\"eventType\":\"EQUIPMENT\",\"eventDateTime\":\"2003-05-03T00:00:00Z\",\"eventCreatedDateTime\":\"2021-11-19T18:17:04.026117Z\",\"eventClassifierCode\":\"ACT\",\"equipmentEventTypeCode\":\"LOAD\",\"equipmentReference\":\"equipref3453\",\"emptyIndicatorCode\":\"EMPTY\",\"transportCallID\":\"8b64d20b-523b-4491-b2e5-32cfa5174eed\",\"transportCall\":{\"transportCallID\":\"8b64d20b-523b-4491-b2e5-32cfa5174eed\",\"transportCallSequenceNumber\":1,\"facilityTypeCode\":\"POTE\",\"otherFacility\":null,\"carrierServiceCode\":\"A_CSC\",\"carrierVoyageNumber\":\"A_carrier_voyage_number\",\"facilityCode\":\"PSABT\",\"facilityCodeListProvider\":\"SMDG\",\"vessel\":{\"vesselIMONumber\":\"1234567\",\"vesselName\":\"King of the Seas\",\"vesselFlag\":\"DE\",\"vesselCallSignNumber\":\"NCVV\",\"vesselOperatorCarrierCode\":\"MSK\",\"vesselOperatorCarrierCodeListProvider\":\"SMDG\"},\"location\":null,\"modeOfTransport\":\"VESSEL\",\"UNLocationCode\":\"SGSIN\"},\"documentReferences\":[{\"documentReferenceType\":\"BKG\",\"documentReferenceValue\":\"ABC123123123\"}],\"references\":[{\"referenceType\":\"FF\",\"referenceValue\":\"string\"}],\"seals\":[],\"ISOEquipmentCode\":\"22G2\",\"eventTypeCode\":\"LOAD\"},{\"eventID\":\"5e51e72c-d872-11ea-811c-0f8f10a32ea3\",\"eventType\":\"TRANSPORT\",\"eventDateTime\":\"2003-05-03T00:00:00Z\",\"eventCreatedDateTime\":\"2021-11-19T18:17:06.731433Z\",\"eventClassifierCode\":\"ACT\",\"transportEventTypeCode\":\"DEPA\",\"delayReasonCode\":\"ANA\",\"changeRemark\":\"Authorities not available\",\"transportCallID\":\"8b64d20b-523b-4491-b2e5-32cfa5174eed\",\"transportCall\":{\"transportCallID\":\"8b64d20b-523b-4491-b2e5-32cfa5174eed\",\"transportCallSequenceNumber\":1,\"facilityTypeCode\":\"POTE\",\"otherFacility\":null,\"carrierServiceCode\":\"A_CSC\",\"carrierVoyageNumber\":\"A_carrier_voyage_number\",\"facilityCode\":\"PSABT\",\"facilityCodeListProvider\":\"SMDG\",\"vessel\":{\"vesselIMONumber\":\"1234567\",\"vesselName\":\"King of the Seas\",\"vesselFlag\":\"DE\",\"vesselCallSignNumber\":\"NCVV\",\"vesselOperatorCarrierCode\":\"MSK\",\"vesselOperatorCarrierCodeListProvider\":\"SMDG\"},\"location\":null,\"modeOfTransport\":\"VESSEL\",\"UNLocationCode\":\"SGSIN\"},\"documentReferences\":[{\"documentReferenceType\":\"BKG\",\"documentReferenceValue\":\"ABC123123123\"}],\"references\":[{\"referenceType\":\"FF\",\"referenceValue\":\"string\"}],\"vesselScheduleChangeRemark\":\"Authorities not available\",\"eventTypeCode\":\"DEPA\"}]\n\n"
+            ],
+            "result": {
+              "duration": 107586600,
+              "status": "passed"
+            },
+            "line": 23,
+            "name": "Send GET http request",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.getAll()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 29868400,
+              "status": "passed"
+            },
+            "line": 24,
+            "name": "Receive valid response for GET all",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.receiveAllRecordsSuccessfully()"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@HappyPath"
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2021-11-19T22:29:57.476Z",
+        "before": [
+          {
+            "result": {
+              "duration": 1000300,
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.testPreparation(io.cucumber.java.Scenario)"
+            }
+          }
+        ],
+        "line": 34,
+        "name": "Get all events with Query Parameters",
+        "description": "",
+        "id": ";get-all-events-with-query-parameters;list-of-query-parameters;9",
+        "after": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.cleanUp()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario Outline",
+        "steps": [
+          {
+            "result": {
+              "duration": 999300,
+              "status": "passed"
+            },
+            "line": 21,
+            "name": "API End point \"/events\" for \"Event\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"/events\"",
+                  "offset": 14
+                },
+                {
+                  "val": "\"Event\"",
+                  "offset": 28
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.ApiEndPointForAPi(java.lang.String,java.lang.String)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "status": "passed"
+            },
+            "line": 22,
+            "name": "Query parameters \"vesselIMONumber\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"vesselIMONumber\"",
+                  "offset": 17
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.belowQueryParametersFromTestData(java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "output": [
+              "Request method: GET\n\nRequest URI: http://localhost:9090/v2/events?vesselIMONumber\u003d1234567\n\nQuery params: vesselIMONumber\u003d1234567, \n\nRequest Headers: API-Version\u003d2, Accept\u003d*/*, Content-Type\u003dapplication/json; charset\u003dUTF-8, \n\nHttp Code: 200\n\nResponse Headers: Content-Type\u003dapplication/json, API-Version\u003dnull\n\nResponse Body \u003d\u003d\u003e[{\"eventID\":\"4a5ded26-d7f6-491f-9378-a5992655d81f\",\"eventType\":\"TRANSPORT\",\"eventDateTime\":\"2003-05-03T00:00:00Z\",\"eventCreatedDateTime\":\"2003-05-01T00:00:00Z\",\"eventClassifierCode\":\"EST\",\"transportEventTypeCode\":\"DEPA\",\"delayReasonCode\":\"ANA\",\"changeRemark\":\"Authorities not available\",\"transportCallID\":\"123e4567-e89b-12d3-a456-426614174000\",\"transportCall\":{\"transportCallID\":\"123e4567-e89b-12d3-a456-426614174000\",\"transportCallSequenceNumber\":1,\"facilityTypeCode\":\"POTE\",\"otherFacility\":null,\"carrierServiceCode\":null,\"carrierVoyageNumber\":null,\"facilityCode\":\"APMT\",\"facilityCodeListProvider\":\"SMDG\",\"vessel\":{\"vesselIMONumber\":\"1234567\",\"vesselName\":\"King of the Seas\",\"vesselFlag\":\"DE\",\"vesselCallSignNumber\":\"NCVV\",\"vesselOperatorCarrierCode\":\"MSK\",\"vesselOperatorCarrierCodeListProvider\":\"SMDG\"},\"location\":null,\"modeOfTransport\":\"VESSEL\",\"UNLocationCode\":\"USNYC\"},\"documentReferences\":[{\"documentReferenceType\":\"BKG\",\"documentReferenceValue\":\"ABC123123123\"}],\"references\":[{\"referenceType\":\"FF\",\"referenceValue\":\"string\"}],\"vesselScheduleChangeRemark\":\"Authorities not available\",\"eventTypeCode\":\"DEPA\"},{\"eventID\":\"5e51e72c-d872-11ea-811c-0f8f10a32ea2\",\"eventType\":\"EQUIPMENT\",\"eventDateTime\":\"2003-05-03T00:00:00Z\",\"eventCreatedDateTime\":\"2021-11-19T18:17:04.026117Z\",\"eventClassifierCode\":\"ACT\",\"equipmentEventTypeCode\":\"LOAD\",\"equipmentReference\":\"equipref3453\",\"emptyIndicatorCode\":\"EMPTY\",\"transportCallID\":\"8b64d20b-523b-4491-b2e5-32cfa5174eed\",\"transportCall\":{\"transportCallID\":\"8b64d20b-523b-4491-b2e5-32cfa5174eed\",\"transportCallSequenceNumber\":1,\"facilityTypeCode\":\"POTE\",\"otherFacility\":null,\"carrierServiceCode\":\"A_CSC\",\"carrierVoyageNumber\":\"A_carrier_voyage_number\",\"facilityCode\":\"PSABT\",\"facilityCodeListProvider\":\"SMDG\",\"vessel\":{\"vesselIMONumber\":\"1234567\",\"vesselName\":\"King of the Seas\",\"vesselFlag\":\"DE\",\"vesselCallSignNumber\":\"NCVV\",\"vesselOperatorCarrierCode\":\"MSK\",\"vesselOperatorCarrierCodeListProvider\":\"SMDG\"},\"location\":null,\"modeOfTransport\":\"VESSEL\",\"UNLocationCode\":\"SGSIN\"},\"documentReferences\":[{\"documentReferenceType\":\"BKG\",\"documentReferenceValue\":\"ABC123123123\"}],\"references\":[{\"referenceType\":\"FF\",\"referenceValue\":\"string\"}],\"seals\":[],\"ISOEquipmentCode\":\"22G2\",\"eventTypeCode\":\"LOAD\"},{\"eventID\":\"5e51e72c-d872-11ea-811c-0f8f10a32ea3\",\"eventType\":\"TRANSPORT\",\"eventDateTime\":\"2003-05-03T00:00:00Z\",\"eventCreatedDateTime\":\"2021-11-19T18:17:06.731433Z\",\"eventClassifierCode\":\"ACT\",\"transportEventTypeCode\":\"DEPA\",\"delayReasonCode\":\"ANA\",\"changeRemark\":\"Authorities not available\",\"transportCallID\":\"8b64d20b-523b-4491-b2e5-32cfa5174eed\",\"transportCall\":{\"transportCallID\":\"8b64d20b-523b-4491-b2e5-32cfa5174eed\",\"transportCallSequenceNumber\":1,\"facilityTypeCode\":\"POTE\",\"otherFacility\":null,\"carrierServiceCode\":\"A_CSC\",\"carrierVoyageNumber\":\"A_carrier_voyage_number\",\"facilityCode\":\"PSABT\",\"facilityCodeListProvider\":\"SMDG\",\"vessel\":{\"vesselIMONumber\":\"1234567\",\"vesselName\":\"King of the Seas\",\"vesselFlag\":\"DE\",\"vesselCallSignNumber\":\"NCVV\",\"vesselOperatorCarrierCode\":\"MSK\",\"vesselOperatorCarrierCodeListProvider\":\"SMDG\"},\"location\":null,\"modeOfTransport\":\"VESSEL\",\"UNLocationCode\":\"SGSIN\"},\"documentReferences\":[{\"documentReferenceType\":\"BKG\",\"documentReferenceValue\":\"ABC123123123\"}],\"references\":[{\"referenceType\":\"FF\",\"referenceValue\":\"string\"}],\"vesselScheduleChangeRemark\":\"Authorities not available\",\"eventTypeCode\":\"DEPA\"},{\"eventID\":\"84db923d-2a19-4eb0-beb5-446c1ec57d34\",\"eventType\":\"EQUIPMENT\",\"eventDateTime\":\"2019-11-11T23:11:00Z\",\"eventCreatedDateTime\":\"2021-01-09T13:12:56Z\",\"eventClassifierCode\":\"EST\",\"equipmentEventTypeCode\":\"LOAD\",\"equipmentReference\":\"APZU4812090\",\"emptyIndicatorCode\":\"EMPTY\",\"transportCallID\":\"8b64d20b-523b-4491-b2e5-32cfa5174eed\",\"transportCall\":{\"transportCallID\":\"8b64d20b-523b-4491-b2e5-32cfa5174eed\",\"transportCallSequenceNumber\":1,\"facilityTypeCode\":\"POTE\",\"otherFacility\":null,\"carrierServiceCode\":\"A_CSC\",\"carrierVoyageNumber\":\"A_carrier_voyage_number\",\"facilityCode\":\"PSABT\",\"facilityCodeListProvider\":\"SMDG\",\"vessel\":{\"vesselIMONumber\":\"1234567\",\"vesselName\":\"King of the Seas\",\"vesselFlag\":\"DE\",\"vesselCallSignNumber\":\"NCVV\",\"vesselOperatorCarrierCode\":\"MSK\",\"vesselOperatorCarrierCodeListProvider\":\"SMDG\"},\"location\":null,\"modeOfTransport\":\"VESSEL\",\"UNLocationCode\":\"SGSIN\"},\"documentReferences\":[{\"documentReferenceType\":\"BKG\",\"documentReferenceValue\":\"ABC123123123\"}],\"references\":[{\"referenceType\":\"FF\",\"referenceValue\":\"string\"}],\"seals\":[{\"sealNumber\":\"SN123457\",\"sealSource\":\"CUS\",\"sealType\":\"WIR\"}],\"ISOEquipmentCode\":\"22G2\",\"eventTypeCode\":\"LOAD\"},{\"eventID\":\"84db923d-2a19-4eb0-beb5-446c1ec57d34\",\"eventType\":\"TRANSPORT\",\"eventDateTime\":\"2019-11-11T23:11:00Z\",\"eventCreatedDateTime\":\"2021-01-09T13:12:56Z\",\"eventClassifierCode\":\"ACT\",\"transportEventTypeCode\":\"ARRI\",\"delayReasonCode\":\"WEA\",\"changeRemark\":\"Bad weather\",\"transportCallID\":\"8b64d20b-523b-4491-b2e5-32cfa5174eed\",\"transportCall\":{\"transportCallID\":\"8b64d20b-523b-4491-b2e5-32cfa5174eed\",\"transportCallSequenceNumber\":1,\"facilityTypeCode\":\"POTE\",\"otherFacility\":null,\"carrierServiceCode\":\"A_CSC\",\"carrierVoyageNumber\":\"A_carrier_voyage_number\",\"facilityCode\":\"PSABT\",\"facilityCodeListProvider\":\"SMDG\",\"vessel\":{\"vesselIMONumber\":\"1234567\",\"vesselName\":\"King of the Seas\",\"vesselFlag\":\"DE\",\"vesselCallSignNumber\":\"NCVV\",\"vesselOperatorCarrierCode\":\"MSK\",\"vesselOperatorCarrierCodeListProvider\":\"SMDG\"},\"location\":null,\"modeOfTransport\":\"VESSEL\",\"UNLocationCode\":\"SGSIN\"},\"documentReferences\":[{\"documentReferenceType\":\"BKG\",\"documentReferenceValue\":\"ABC123123123\"}],\"references\":[{\"referenceType\":\"FF\",\"referenceValue\":\"string\"}],\"vesselScheduleChangeRemark\":\"Bad weather\",\"eventTypeCode\":\"ARRI\"},{\"eventID\":\"bb18b774-73c6-4b8b-a887-9f3fbc775237\",\"eventType\":\"TRANSPORT\",\"eventDateTime\":\"2003-05-03T00:00:00Z\",\"eventCreatedDateTime\":\"2003-05-03T00:00:00Z\",\"eventClassifierCode\":\"ACT\",\"transportEventTypeCode\":\"DEPA\",\"delayReasonCode\":\"ANA\",\"changeRemark\":\"Authorities not available\",\"transportCallID\":\"123e4567-e89b-12d3-a456-426614174000\",\"transportCall\":{\"transportCallID\":\"123e4567-e89b-12d3-a456-426614174000\",\"transportCallSequenceNumber\":1,\"facilityTypeCode\":\"POTE\",\"otherFacility\":null,\"carrierServiceCode\":null,\"carrierVoyageNumber\":null,\"facilityCode\":\"APMT\",\"facilityCodeListProvider\":\"SMDG\",\"vessel\":{\"vesselIMONumber\":\"1234567\",\"vesselName\":\"King of the Seas\",\"vesselFlag\":\"DE\",\"vesselCallSignNumber\":\"NCVV\",\"vesselOperatorCarrierCode\":\"MSK\",\"vesselOperatorCarrierCodeListProvider\":\"SMDG\"},\"location\":null,\"modeOfTransport\":\"VESSEL\",\"UNLocationCode\":\"USNYC\"},\"documentReferences\":[{\"documentReferenceType\":\"BKG\",\"documentReferenceValue\":\"ABC123123123\"}],\"references\":[{\"referenceType\":\"FF\",\"referenceValue\":\"string\"}],\"vesselScheduleChangeRemark\":\"Authorities not available\",\"eventTypeCode\":\"DEPA\"}]\n\n"
+            ],
+            "result": {
+              "duration": 102915100,
+              "status": "passed"
+            },
+            "line": 23,
+            "name": "Send GET http request",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.getAll()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 32029000,
+              "status": "passed"
+            },
+            "line": 24,
+            "name": "Receive valid response for GET all",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.receiveAllRecordsSuccessfully()"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@HappyPath"
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2021-11-19T22:29:57.623Z",
+        "before": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.testPreparation(io.cucumber.java.Scenario)"
+            }
+          }
+        ],
+        "line": 35,
+        "name": "Get all events with Query Parameters",
+        "description": "",
+        "id": ";get-all-events-with-query-parameters;list-of-query-parameters;10",
+        "after": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.cleanUp()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario Outline",
+        "steps": [
+          {
+            "result": {
+              "duration": 533200,
+              "status": "passed"
+            },
+            "line": 21,
+            "name": "API End point \"/events\" for \"Event\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"/events\"",
+                  "offset": 14
+                },
+                {
+                  "val": "\"Event\"",
+                  "offset": 28
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.ApiEndPointForAPi(java.lang.String,java.lang.String)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "error_message": "java.lang.AssertionError: Query Parameter setup missing for exportVoyageNumber\r\n\tat org.testng.Assert.fail(Assert.java:99)\r\n\tat org.dcsa.api.validator.steps.TnTV2Steps.belowQueryParametersFromTestData(TnTV2Steps.java:160)\r\n\tat ✽.Query parameters \"exportVoyageNumber\"(file:///C:/workspace/gitCTk/DCSA-Certification-ToolKit-API-Provider/src/main/java/org/dcsa/api/validator/features/tnt/v2/Event.feature:22)\r\n",
+              "duration": 537700,
+              "status": "failed"
+            },
+            "line": 22,
+            "name": "Query parameters \"exportVoyageNumber\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"exportVoyageNumber\"",
+                  "offset": 17
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.belowQueryParametersFromTestData(java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "status": "skipped"
+            },
+            "line": 23,
+            "name": "Send GET http request",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.getAll()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "status": "skipped"
+            },
+            "line": 24,
+            "name": "Receive valid response for GET all",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.receiveAllRecordsSuccessfully()"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@HappyPath"
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2021-11-19T22:29:57.633Z",
+        "before": [
+          {
+            "result": {
+              "duration": 539400,
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.testPreparation(io.cucumber.java.Scenario)"
+            }
+          }
+        ],
+        "line": 36,
+        "name": "Get all events with Query Parameters",
+        "description": "",
+        "id": ";get-all-events-with-query-parameters;list-of-query-parameters;11",
+        "after": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.cleanUp()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario Outline",
+        "steps": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "line": 21,
+            "name": "API End point \"/events\" for \"Event\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"/events\"",
+                  "offset": 14
+                },
+                {
+                  "val": "\"Event\"",
+                  "offset": 28
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.ApiEndPointForAPi(java.lang.String,java.lang.String)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "error_message": "java.lang.AssertionError: Query Parameter setup missing for carrierServiceCode\r\n\tat org.testng.Assert.fail(Assert.java:99)\r\n\tat org.dcsa.api.validator.steps.TnTV2Steps.belowQueryParametersFromTestData(TnTV2Steps.java:160)\r\n\tat ✽.Query parameters \"carrierServiceCode\"(file:///C:/workspace/gitCTk/DCSA-Certification-ToolKit-API-Provider/src/main/java/org/dcsa/api/validator/features/tnt/v2/Event.feature:22)\r\n",
+              "duration": 983200,
+              "status": "failed"
+            },
+            "line": 22,
+            "name": "Query parameters \"carrierServiceCode\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"carrierServiceCode\"",
+                  "offset": 17
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.belowQueryParametersFromTestData(java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "status": "skipped"
+            },
+            "line": 23,
+            "name": "Send GET http request",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.getAll()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "status": "skipped"
+            },
+            "line": 24,
+            "name": "Receive valid response for GET all",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.receiveAllRecordsSuccessfully()"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@HappyPath"
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2021-11-19T22:29:57.645Z",
+        "before": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.testPreparation(io.cucumber.java.Scenario)"
+            }
+          }
+        ],
+        "line": 37,
+        "name": "Get all events with Query Parameters",
+        "description": "",
+        "id": ";get-all-events-with-query-parameters;list-of-query-parameters;12",
+        "after": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.cleanUp()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario Outline",
+        "steps": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "line": 21,
+            "name": "API End point \"/events\" for \"Event\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"/events\"",
+                  "offset": 14
+                },
+                {
+                  "val": "\"Event\"",
+                  "offset": 28
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.ApiEndPointForAPi(java.lang.String,java.lang.String)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 1000300,
+              "status": "passed"
+            },
+            "line": 22,
+            "name": "Query parameters \"UNLocationCode\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"UNLocationCode\"",
+                  "offset": 17
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.belowQueryParametersFromTestData(java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "output": [
+              "Request method: GET\n\nRequest URI: http://localhost:9090/v2/events?UNLocationCode\u003dSGSIN\n\nQuery params: UNLocationCode\u003dSGSIN, \n\nRequest Headers: API-Version\u003d2, Accept\u003d*/*, Content-Type\u003dapplication/json; charset\u003dUTF-8, \n\nHttp Code: 400\n\nResponse Headers: Content-Type\u003dapplication/json, API-Version\u003dnull\n\nResponse Body \u003d\u003d\u003e{\"timestamp\":\"2021-11-19T22:29:57.672+00:00\",\"path\":\"/events\",\"status\":400,\"error\":\"Bad Request\",\"message\":\"Unknown parameter/field name: UNLocationCode\",\"requestId\":\"cc2727de-647\"}\n\n"
+            ],
+            "result": {
+              "duration": 29999500,
+              "status": "passed"
+            },
+            "line": 23,
+            "name": "Send GET http request",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.getAll()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "error_message": "java.lang.AssertionError: 1 expectation failed.\nExpected status code (is \u003c200\u003e) but was \u003c400\u003e.\n\r\n\tat org.testng.Assert.fail(Assert.java:99)\r\n\tat org.dcsa.api.validator.restassured.extension.ValidatableResponseExtensionImpl.foundAll(ValidatableResponseExtensionImpl.java:175)\r\n\tat org.dcsa.api.validator.steps.TnTV2Steps.receiveAllRecordsSuccessfully(TnTV2Steps.java:296)\r\n\tat ✽.Receive valid response for GET all(file:///C:/workspace/gitCTk/DCSA-Certification-ToolKit-API-Provider/src/main/java/org/dcsa/api/validator/features/tnt/v2/Event.feature:24)\r\n",
+              "duration": 21999700,
+              "status": "failed"
+            },
+            "line": 24,
+            "name": "Receive valid response for GET all",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.receiveAllRecordsSuccessfully()"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@HappyPath"
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2021-11-19T22:29:57.712Z",
+        "before": [
+          {
+            "result": {
+              "duration": 999000,
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.testPreparation(io.cucumber.java.Scenario)"
+            }
+          }
+        ],
+        "line": 38,
+        "name": "Get all events with Query Parameters",
+        "description": "",
+        "id": ";get-all-events-with-query-parameters;list-of-query-parameters;13",
+        "after": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.cleanUp()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario Outline",
+        "steps": [
+          {
+            "result": {
+              "duration": 999400,
+              "status": "passed"
+            },
+            "line": 21,
+            "name": "API End point \"/events\" for \"Event\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"/events\"",
+                  "offset": 14
+                },
+                {
+                  "val": "\"Event\"",
+                  "offset": 28
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.ApiEndPointForAPi(java.lang.String,java.lang.String)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "error_message": "java.lang.AssertionError: Query Parameter setup missing for equipmentEventTypeCode\r\n\tat org.testng.Assert.fail(Assert.java:99)\r\n\tat org.dcsa.api.validator.steps.TnTV2Steps.belowQueryParametersFromTestData(TnTV2Steps.java:160)\r\n\tat ✽.Query parameters \"equipmentEventTypeCode\"(file:///C:/workspace/gitCTk/DCSA-Certification-ToolKit-API-Provider/src/main/java/org/dcsa/api/validator/features/tnt/v2/Event.feature:22)\r\n",
+              "duration": 997700,
+              "status": "failed"
+            },
+            "line": 22,
+            "name": "Query parameters \"equipmentEventTypeCode\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"equipmentEventTypeCode\"",
+                  "offset": 17
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.belowQueryParametersFromTestData(java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "status": "skipped"
+            },
+            "line": 23,
+            "name": "Send GET http request",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.getAll()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "status": "skipped"
+            },
+            "line": 24,
+            "name": "Receive valid response for GET all",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.receiveAllRecordsSuccessfully()"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@HappyPath"
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2021-11-19T22:29:57.723Z",
+        "before": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.testPreparation(io.cucumber.java.Scenario)"
+            }
+          }
+        ],
+        "line": 39,
+        "name": "Get all events with Query Parameters",
+        "description": "",
+        "id": ";get-all-events-with-query-parameters;list-of-query-parameters;14",
+        "after": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.cleanUp()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario Outline",
+        "steps": [
+          {
+            "result": {
+              "duration": 2001200,
+              "status": "passed"
+            },
+            "line": 21,
+            "name": "API End point \"/events\" for \"Event\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"/events\"",
+                  "offset": 14
+                },
+                {
+                  "val": "\"Event\"",
+                  "offset": 28
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.ApiEndPointForAPi(java.lang.String,java.lang.String)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "error_message": "java.lang.AssertionError: Query Parameter setup missing for equipmentReference\r\n\tat org.testng.Assert.fail(Assert.java:99)\r\n\tat org.dcsa.api.validator.steps.TnTV2Steps.belowQueryParametersFromTestData(TnTV2Steps.java:160)\r\n\tat ✽.Query parameters \"equipmentReference\"(file:///C:/workspace/gitCTk/DCSA-Certification-ToolKit-API-Provider/src/main/java/org/dcsa/api/validator/features/tnt/v2/Event.feature:22)\r\n",
+              "status": "failed"
+            },
+            "line": 22,
+            "name": "Query parameters \"equipmentReference\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"equipmentReference\"",
+                  "offset": 17
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.belowQueryParametersFromTestData(java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "status": "skipped"
+            },
+            "line": 23,
+            "name": "Send GET http request",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.getAll()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "status": "skipped"
+            },
+            "line": 24,
+            "name": "Receive valid response for GET all",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.receiveAllRecordsSuccessfully()"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@HappyPath"
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2021-11-19T22:29:57.735Z",
+        "before": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.testPreparation(io.cucumber.java.Scenario)"
+            }
+          }
+        ],
+        "line": 40,
+        "name": "Get all events with Query Parameters",
+        "description": "",
+        "id": ";get-all-events-with-query-parameters;list-of-query-parameters;15",
+        "after": [
+          {
+            "result": {
+              "duration": 1001600,
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.cleanUp()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario Outline",
+        "steps": [
+          {
+            "result": {
+              "duration": 1000400,
+              "status": "passed"
+            },
+            "line": 21,
+            "name": "API End point \"/events\" for \"Event\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"/events\"",
+                  "offset": 14
+                },
+                {
+                  "val": "\"Event\"",
+                  "offset": 28
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.ApiEndPointForAPi(java.lang.String,java.lang.String)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "error_message": "java.lang.AssertionError: Query Parameter setup missing for eventCreatedDateTime:gte\r\n\tat org.testng.Assert.fail(Assert.java:99)\r\n\tat org.dcsa.api.validator.steps.TnTV2Steps.belowQueryParametersFromTestData(TnTV2Steps.java:160)\r\n\tat ✽.Query parameters \"eventCreatedDateTime:gte\"(file:///C:/workspace/gitCTk/DCSA-Certification-ToolKit-API-Provider/src/main/java/org/dcsa/api/validator/features/tnt/v2/Event.feature:22)\r\n",
+              "duration": 1000300,
+              "status": "failed"
+            },
+            "line": 22,
+            "name": "Query parameters \"eventCreatedDateTime:gte\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"eventCreatedDateTime:gte\"",
+                  "offset": 17
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.belowQueryParametersFromTestData(java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "status": "skipped"
+            },
+            "line": 23,
+            "name": "Send GET http request",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.getAll()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "status": "skipped"
+            },
+            "line": 24,
+            "name": "Receive valid response for GET all",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.receiveAllRecordsSuccessfully()"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@HappyPath"
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2021-11-19T22:29:57.749Z",
+        "before": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.testPreparation(io.cucumber.java.Scenario)"
+            }
+          }
+        ],
+        "line": 43,
+        "name": "Get all events with Query Parameters",
+        "description": "",
+        "id": ";get-all-events-with-query-parameters",
+        "after": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.cleanUp()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 999300,
+              "status": "passed"
+            },
+            "line": 44,
+            "name": "API End point \"/events\" for \"Event\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"/events\"",
+                  "offset": 14
+                },
+                {
+                  "val": "\"Event\"",
+                  "offset": 28
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.ApiEndPointForAPi(java.lang.String,java.lang.String)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 2001300,
+              "status": "passed"
+            },
+            "line": 45,
+            "name": "Query parameters",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.queryParameters(io.cucumber.datatable.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "limit"
+                ]
+              }
+            ],
+            "keyword": "And "
+          },
+          {
+            "output": [
+              "Request method: GET\n\nRequest URI: http://localhost:9090/v2/events\n\nRequest Headers: API-Version\u003d2, Accept\u003d*/*, Content-Type\u003dapplication/json; charset\u003dUTF-8, \n\nHttp Code: 200\n\nResponse Headers: Content-Type\u003dapplication/json, API-Version\u003dnull\n\nResponse Body \u003d\u003d\u003e[{\"eventID\":\"84db923d-2a19-4eb0-beb5-446c1ec57d34\",\"eventType\":\"EQUIPMENT\",\"eventDateTime\":\"2019-11-11T23:11:00Z\",\"eventCreatedDateTime\":\"2021-01-09T13:12:56Z\",\"eventClassifierCode\":\"EST\",\"equipmentEventTypeCode\":\"LOAD\",\"equipmentReference\":\"APZU4812090\",\"emptyIndicatorCode\":\"EMPTY\",\"transportCallID\":\"8b64d20b-523b-4491-b2e5-32cfa5174eed\",\"transportCall\":{\"transportCallID\":\"8b64d20b-523b-4491-b2e5-32cfa5174eed\",\"transportCallSequenceNumber\":1,\"facilityTypeCode\":\"POTE\",\"otherFacility\":null,\"carrierServiceCode\":\"A_CSC\",\"carrierVoyageNumber\":\"A_carrier_voyage_number\",\"facilityCode\":\"PSABT\",\"facilityCodeListProvider\":\"SMDG\",\"vessel\":{\"vesselIMONumber\":\"1234567\",\"vesselName\":\"King of the Seas\",\"vesselFlag\":\"DE\",\"vesselCallSignNumber\":\"NCVV\",\"vesselOperatorCarrierCode\":\"MSK\",\"vesselOperatorCarrierCodeListProvider\":\"SMDG\"},\"location\":null,\"modeOfTransport\":\"VESSEL\",\"UNLocationCode\":\"SGSIN\"},\"documentReferences\":[{\"documentReferenceType\":\"BKG\",\"documentReferenceValue\":\"ABC123123123\"}],\"references\":[{\"referenceType\":\"FF\",\"referenceValue\":\"string\"}],\"seals\":[{\"sealNumber\":\"SN123457\",\"sealSource\":\"CUS\",\"sealType\":\"WIR\"}],\"ISOEquipmentCode\":\"22G2\",\"eventTypeCode\":\"LOAD\"},{\"eventID\":\"84db923d-2a19-4eb0-beb5-446c1ec57d34\",\"eventType\":\"TRANSPORT\",\"eventDateTime\":\"2019-11-11T23:11:00Z\",\"eventCreatedDateTime\":\"2021-01-09T13:12:56Z\",\"eventClassifierCode\":\"ACT\",\"transportEventTypeCode\":\"ARRI\",\"delayReasonCode\":\"WEA\",\"changeRemark\":\"Bad weather\",\"transportCallID\":\"8b64d20b-523b-4491-b2e5-32cfa5174eed\",\"transportCall\":{\"transportCallID\":\"8b64d20b-523b-4491-b2e5-32cfa5174eed\",\"transportCallSequenceNumber\":1,\"facilityTypeCode\":\"POTE\",\"otherFacility\":null,\"carrierServiceCode\":\"A_CSC\",\"carrierVoyageNumber\":\"A_carrier_voyage_number\",\"facilityCode\":\"PSABT\",\"facilityCodeListProvider\":\"SMDG\",\"vessel\":{\"vesselIMONumber\":\"1234567\",\"vesselName\":\"King of the Seas\",\"vesselFlag\":\"DE\",\"vesselCallSignNumber\":\"NCVV\",\"vesselOperatorCarrierCode\":\"MSK\",\"vesselOperatorCarrierCodeListProvider\":\"SMDG\"},\"location\":null,\"modeOfTransport\":\"VESSEL\",\"UNLocationCode\":\"SGSIN\"},\"documentReferences\":[{\"documentReferenceType\":\"BKG\",\"documentReferenceValue\":\"ABC123123123\"}],\"references\":[{\"referenceType\":\"FF\",\"referenceValue\":\"string\"}],\"vesselScheduleChangeRemark\":\"Bad weather\",\"eventTypeCode\":\"ARRI\"},{\"eventID\":\"5e51e72c-d872-11ea-811c-0f8f10a32ea2\",\"eventType\":\"EQUIPMENT\",\"eventDateTime\":\"2003-05-03T00:00:00Z\",\"eventCreatedDateTime\":\"2021-11-19T18:17:04.026117Z\",\"eventClassifierCode\":\"ACT\",\"equipmentEventTypeCode\":\"LOAD\",\"equipmentReference\":\"equipref3453\",\"emptyIndicatorCode\":\"EMPTY\",\"transportCallID\":\"8b64d20b-523b-4491-b2e5-32cfa5174eed\",\"transportCall\":{\"transportCallID\":\"8b64d20b-523b-4491-b2e5-32cfa5174eed\",\"transportCallSequenceNumber\":1,\"facilityTypeCode\":\"POTE\",\"otherFacility\":null,\"carrierServiceCode\":\"A_CSC\",\"carrierVoyageNumber\":\"A_carrier_voyage_number\",\"facilityCode\":\"PSABT\",\"facilityCodeListProvider\":\"SMDG\",\"vessel\":{\"vesselIMONumber\":\"1234567\",\"vesselName\":\"King of the Seas\",\"vesselFlag\":\"DE\",\"vesselCallSignNumber\":\"NCVV\",\"vesselOperatorCarrierCode\":\"MSK\",\"vesselOperatorCarrierCodeListProvider\":\"SMDG\"},\"location\":null,\"modeOfTransport\":\"VESSEL\",\"UNLocationCode\":\"SGSIN\"},\"documentReferences\":[{\"documentReferenceType\":\"BKG\",\"documentReferenceValue\":\"ABC123123123\"}],\"references\":[{\"referenceType\":\"FF\",\"referenceValue\":\"string\"}],\"seals\":[],\"ISOEquipmentCode\":\"22G2\",\"eventTypeCode\":\"LOAD\"},{\"eventID\":\"bb18b774-73c6-4b8b-a887-9f3fbc775237\",\"eventType\":\"TRANSPORT\",\"eventDateTime\":\"2003-05-03T00:00:00Z\",\"eventCreatedDateTime\":\"2003-05-03T00:00:00Z\",\"eventClassifierCode\":\"ACT\",\"transportEventTypeCode\":\"DEPA\",\"delayReasonCode\":\"ANA\",\"changeRemark\":\"Authorities not available\",\"transportCallID\":\"123e4567-e89b-12d3-a456-426614174000\",\"transportCall\":{\"transportCallID\":\"123e4567-e89b-12d3-a456-426614174000\",\"transportCallSequenceNumber\":1,\"facilityTypeCode\":\"POTE\",\"otherFacility\":null,\"carrierServiceCode\":null,\"carrierVoyageNumber\":null,\"facilityCode\":\"APMT\",\"facilityCodeListProvider\":\"SMDG\",\"vessel\":{\"vesselIMONumber\":\"1234567\",\"vesselName\":\"King of the Seas\",\"vesselFlag\":\"DE\",\"vesselCallSignNumber\":\"NCVV\",\"vesselOperatorCarrierCode\":\"MSK\",\"vesselOperatorCarrierCodeListProvider\":\"SMDG\"},\"location\":null,\"modeOfTransport\":\"VESSEL\",\"UNLocationCode\":\"USNYC\"},\"documentReferences\":[{\"documentReferenceType\":\"BKG\",\"documentReferenceValue\":\"ABC123123123\"}],\"references\":[{\"referenceType\":\"FF\",\"referenceValue\":\"string\"}],\"vesselScheduleChangeRemark\":\"Authorities not available\",\"eventTypeCode\":\"DEPA\"},{\"eventID\":\"5e51e72c-d872-11ea-811c-0f8f10a32ea1\",\"eventType\":\"SHIPMENT\",\"eventDateTime\":\"2003-05-03T00:00:00Z\",\"eventCreatedDateTime\":\"2021-11-19T18:16:45.021989Z\",\"eventClassifierCode\":\"PLN\",\"shipmentEventTypeCode\":\"CONF\",\"documentTypeCode\":\"BKG\",\"documentID\":\"ABC123123123\",\"reason\":null,\"references\":[{\"referenceType\":\"FF\",\"referenceValue\":\"string\"}],\"shipmentID\":null,\"shipmentInformationTypeCode\":\"BOK\",\"eventTypeCode\":\"CONF\"},{\"eventID\":\"4a5ded26-d7f6-491f-9378-a5992655d81f\",\"eventType\":\"TRANSPORT\",\"eventDateTime\":\"2003-05-03T00:00:00Z\",\"eventCreatedDateTime\":\"2003-05-01T00:00:00Z\",\"eventClassifierCode\":\"EST\",\"transportEventTypeCode\":\"DEPA\",\"delayReasonCode\":\"ANA\",\"changeRemark\":\"Authorities not available\",\"transportCallID\":\"123e4567-e89b-12d3-a456-426614174000\",\"transportCall\":{\"transportCallID\":\"123e4567-e89b-12d3-a456-426614174000\",\"transportCallSequenceNumber\":1,\"facilityTypeCode\":\"POTE\",\"otherFacility\":null,\"carrierServiceCode\":null,\"carrierVoyageNumber\":null,\"facilityCode\":\"APMT\",\"facilityCodeListProvider\":\"SMDG\",\"vessel\":{\"vesselIMONumber\":\"1234567\",\"vesselName\":\"King of the Seas\",\"vesselFlag\":\"DE\",\"vesselCallSignNumber\":\"NCVV\",\"vesselOperatorCarrierCode\":\"MSK\",\"vesselOperatorCarrierCodeListProvider\":\"SMDG\"},\"location\":null,\"modeOfTransport\":\"VESSEL\",\"UNLocationCode\":\"USNYC\"},\"documentReferences\":[{\"documentReferenceType\":\"BKG\",\"documentReferenceValue\":\"ABC123123123\"}],\"references\":[{\"referenceType\":\"FF\",\"referenceValue\":\"string\"}],\"vesselScheduleChangeRemark\":\"Authorities not available\",\"eventTypeCode\":\"DEPA\"},{\"eventID\":\"5e51e72c-d872-11ea-811c-0f8f10a32ea3\",\"eventType\":\"TRANSPORT\",\"eventDateTime\":\"2003-05-03T00:00:00Z\",\"eventCreatedDateTime\":\"2021-11-19T18:17:06.731433Z\",\"eventClassifierCode\":\"ACT\",\"transportEventTypeCode\":\"DEPA\",\"delayReasonCode\":\"ANA\",\"changeRemark\":\"Authorities not available\",\"transportCallID\":\"8b64d20b-523b-4491-b2e5-32cfa5174eed\",\"transportCall\":{\"transportCallID\":\"8b64d20b-523b-4491-b2e5-32cfa5174eed\",\"transportCallSequenceNumber\":1,\"facilityTypeCode\":\"POTE\",\"otherFacility\":null,\"carrierServiceCode\":\"A_CSC\",\"carrierVoyageNumber\":\"A_carrier_voyage_number\",\"facilityCode\":\"PSABT\",\"facilityCodeListProvider\":\"SMDG\",\"vessel\":{\"vesselIMONumber\":\"1234567\",\"vesselName\":\"King of the Seas\",\"vesselFlag\":\"DE\",\"vesselCallSignNumber\":\"NCVV\",\"vesselOperatorCarrierCode\":\"MSK\",\"vesselOperatorCarrierCodeListProvider\":\"SMDG\"},\"location\":null,\"modeOfTransport\":\"VESSEL\",\"UNLocationCode\":\"SGSIN\"},\"documentReferences\":[{\"documentReferenceType\":\"BKG\",\"documentReferenceValue\":\"ABC123123123\"}],\"references\":[{\"referenceType\":\"FF\",\"referenceValue\":\"string\"}],\"vesselScheduleChangeRemark\":\"Authorities not available\",\"eventTypeCode\":\"DEPA\"},{\"eventID\":\"e48f2bc0-c746-11ea-a3ff-db48243a89f4\",\"eventType\":\"SHIPMENT\",\"eventDateTime\":\"2020-07-15T00:00:00Z\",\"eventCreatedDateTime\":\"2021-11-19T18:16:40.595241Z\",\"eventClassifierCode\":\"PLN\",\"shipmentEventTypeCode\":\"APPR\",\"documentTypeCode\":\"BKG\",\"documentID\":\"BR1239719971\",\"reason\":null,\"references\":[],\"shipmentID\":null,\"shipmentInformationTypeCode\":\"BOK\",\"eventTypeCode\":\"APPR\"},{\"eventID\":\"784871e7-c9cd-4f59-8d88-2e033fa799a1\",\"eventType\":\"SHIPMENT\",\"eventDateTime\":\"2020-07-15T00:00:00Z\",\"eventCreatedDateTime\":\"2021-11-19T18:16:35.712369Z\",\"eventClassifierCode\":\"PLN\",\"shipmentEventTypeCode\":\"APPR\",\"documentTypeCode\":\"BKG\",\"documentID\":\"BR1239719971\",\"reason\":null,\"references\":[],\"shipmentID\":null,\"shipmentInformationTypeCode\":\"BOK\",\"eventTypeCode\":\"APPR\"}]\n\n"
+            ],
+            "result": {
+              "duration": 110086500,
+              "status": "passed"
+            },
+            "line": 47,
+            "name": "Send GET http request",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.getAll()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 26489000,
+              "status": "passed"
+            },
+            "line": 48,
+            "name": "Receive valid response for GET all",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.receiveAllRecordsSuccessfully()"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@HappyPath"
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2021-11-19T22:29:57.897Z",
+        "before": [
+          {
+            "result": {
+              "duration": 543400,
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.testPreparation(io.cucumber.java.Scenario)"
+            }
+          }
+        ],
+        "line": 58,
+        "name": "Get all events with invalid query Parameters",
+        "description": "",
+        "id": ";get-all-events-with-invalid-query-parameters;list-of-query-parameters;2",
+        "after": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.cleanUp()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario Outline",
+        "steps": [
+          {
+            "result": {
+              "duration": 1076000,
+              "status": "passed"
+            },
+            "line": 52,
+            "name": "API End point \"/events\" for \"Event\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"/events\"",
+                  "offset": 14
+                },
+                {
+                  "val": "\"Event\"",
+                  "offset": 28
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.ApiEndPointForAPi(java.lang.String,java.lang.String)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "status": "passed"
+            },
+            "line": 53,
+            "name": "Query parameter \"eventType\" with value \"SHIPMENT1\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"eventType\"",
+                  "offset": 16
+                },
+                {
+                  "val": "\"SHIPMENT1\"",
+                  "offset": 39
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.queryParametersWithValues(java.lang.String,java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "output": [
+              "Request method: GET\n\nRequest URI: http://localhost:9090/v2/events?eventType\u003dSHIPMENT1\n\nQuery params: eventType\u003dSHIPMENT1, \n\nRequest Headers: API-Version\u003d2, Accept\u003d*/*, Content-Type\u003dapplication/json; charset\u003dUTF-8, \n\nHttp Code: 400\n\nResponse Headers: Content-Type\u003dnull, API-Version\u003dnull\n\n"
+            ],
+            "result": {
+              "duration": 22218600,
+              "status": "passed"
+            },
+            "line": 54,
+            "name": "Send GET http request",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.getAll()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 4301500,
+              "status": "passed"
+            },
+            "line": 55,
+            "name": "Receive invalid response for GET",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.receiveInvalidHttpResponseForGet()"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@NegativeCase"
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2021-11-19T22:29:57.933Z",
+        "before": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.testPreparation(io.cucumber.java.Scenario)"
+            }
+          }
+        ],
+        "line": 59,
+        "name": "Get all events with invalid query Parameters",
+        "description": "",
+        "id": ";get-all-events-with-invalid-query-parameters;list-of-query-parameters;3",
+        "after": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.cleanUp()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario Outline",
+        "steps": [
+          {
+            "result": {
+              "duration": 998800,
+              "status": "passed"
+            },
+            "line": 52,
+            "name": "API End point \"/events\" for \"Event\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"/events\"",
+                  "offset": 14
+                },
+                {
+                  "val": "\"Event\"",
+                  "offset": 28
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.ApiEndPointForAPi(java.lang.String,java.lang.String)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "status": "passed"
+            },
+            "line": 53,
+            "name": "Query parameter \"documentTypeCode\" with value \"ABCDES\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"documentTypeCode\"",
+                  "offset": 16
+                },
+                {
+                  "val": "\"ABCDES\"",
+                  "offset": 46
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.queryParametersWithValues(java.lang.String,java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "output": [
+              "Request method: GET\n\nRequest URI: http://localhost:9090/v2/events?documentTypeCode\u003dABCDES\n\nQuery params: documentTypeCode\u003dABCDES, \n\nRequest Headers: API-Version\u003d2, Accept\u003d*/*, Content-Type\u003dapplication/json; charset\u003dUTF-8, \n\nHttp Code: 200\n\nResponse Headers: Content-Type\u003dapplication/json, API-Version\u003dnull\n\nResponse Body \u003d\u003d\u003e[]\n\n"
+            ],
+            "result": {
+              "duration": 28999900,
+              "status": "passed"
+            },
+            "line": 54,
+            "name": "Send GET http request",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.getAll()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "error_message": "java.lang.AssertionError: 1 expectation failed.\nExpected status code not (is \u003c200\u003e or is \u003c202\u003e or is \u003c204\u003e) but was \u003c200\u003e.\n\r\n\tat org.testng.Assert.fail(Assert.java:99)\r\n\tat org.dcsa.api.validator.restassured.extension.ValidatableResponseExtensionImpl.found(ValidatableResponseExtensionImpl.java:100)\r\n\tat org.dcsa.api.validator.steps.TnTV2Steps.receiveInvalidHttpResponseForGet(TnTV2Steps.java:224)\r\n\tat ✽.Receive invalid response for GET(file:///C:/workspace/gitCTk/DCSA-Certification-ToolKit-API-Provider/src/main/java/org/dcsa/api/validator/features/tnt/v2/Event.feature:55)\r\n",
+              "duration": 2002800,
+              "status": "failed"
+            },
+            "line": 55,
+            "name": "Receive invalid response for GET",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.receiveInvalidHttpResponseForGet()"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@NegativeCase"
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2021-11-19T22:29:57.973Z",
+        "before": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.testPreparation(io.cucumber.java.Scenario)"
+            }
+          }
+        ],
+        "line": 60,
+        "name": "Get all events with invalid query Parameters",
+        "description": "",
+        "id": ";get-all-events-with-invalid-query-parameters;list-of-query-parameters;4",
+        "after": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.cleanUp()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario Outline",
+        "steps": [
+          {
+            "result": {
+              "duration": 999900,
+              "status": "passed"
+            },
+            "line": 52,
+            "name": "API End point \"/events\" for \"Event\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"/events\"",
+                  "offset": 14
+                },
+                {
+                  "val": "\"Event\"",
+                  "offset": 28
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.ApiEndPointForAPi(java.lang.String,java.lang.String)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 1000100,
+              "status": "passed"
+            },
+            "line": 53,
+            "name": "Query parameter \"shipmentEventTypeCode\" with value \"ABCFGGHH\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"shipmentEventTypeCode\"",
+                  "offset": 16
+                },
+                {
+                  "val": "\"ABCFGGHH\"",
+                  "offset": 51
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.queryParametersWithValues(java.lang.String,java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "output": [
+              "Request method: GET\n\nRequest URI: http://localhost:9090/v2/events?shipmentEventTypeCode\u003dABCFGGHH\n\nQuery params: shipmentEventTypeCode\u003dABCFGGHH, \n\nRequest Headers: API-Version\u003d2, Accept\u003d*/*, Content-Type\u003dapplication/json; charset\u003dUTF-8, \n\nHttp Code: 400\n\nResponse Headers: Content-Type\u003dnull, API-Version\u003dnull\n\n"
+            ],
+            "result": {
+              "duration": 18999900,
+              "status": "passed"
+            },
+            "line": 54,
+            "name": "Send GET http request",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.getAll()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 1000500,
+              "status": "passed"
+            },
+            "line": 55,
+            "name": "Receive invalid response for GET",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.receiveInvalidHttpResponseForGet()"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@NegativeCase"
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2021-11-19T22:29:58.002Z",
+        "before": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.testPreparation(io.cucumber.java.Scenario)"
+            }
+          }
+        ],
+        "line": 61,
+        "name": "Get all events with invalid query Parameters",
+        "description": "",
+        "id": ";get-all-events-with-invalid-query-parameters;list-of-query-parameters;5",
+        "after": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.cleanUp()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario Outline",
+        "steps": [
+          {
+            "result": {
+              "duration": 1000100,
+              "status": "passed"
+            },
+            "line": 52,
+            "name": "API End point \"/events\" for \"Event\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"/events\"",
+                  "offset": 14
+                },
+                {
+                  "val": "\"Event\"",
+                  "offset": 28
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.ApiEndPointForAPi(java.lang.String,java.lang.String)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 999400,
+              "status": "passed"
+            },
+            "line": 53,
+            "name": "Query parameter \"carrierBookingReference\" with value \"ABC709951ABC709951ABC709951ABC709951564\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"carrierBookingReference\"",
+                  "offset": 16
+                },
+                {
+                  "val": "\"ABC709951ABC709951ABC709951ABC709951564\"",
+                  "offset": 53
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.queryParametersWithValues(java.lang.String,java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "output": [
+              "Request method: GET\n\nRequest URI: http://localhost:9090/v2/events?carrierBookingReference\u003dABC709951ABC709951ABC709951ABC709951564\n\nQuery params: carrierBookingReference\u003dABC709951ABC709951ABC709951ABC709951564, \n\nRequest Headers: API-Version\u003d2, Accept\u003d*/*, Content-Type\u003dapplication/json; charset\u003dUTF-8, \n\nHttp Code: 400\n\nResponse Headers: Content-Type\u003dnull, API-Version\u003dnull\n\n"
+            ],
+            "result": {
+              "duration": 22001500,
+              "status": "passed"
+            },
+            "line": 54,
+            "name": "Send GET http request",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.getAll()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "status": "passed"
+            },
+            "line": 55,
+            "name": "Receive invalid response for GET",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.receiveInvalidHttpResponseForGet()"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@NegativeCase"
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2021-11-19T22:29:58.034Z",
+        "before": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.testPreparation(io.cucumber.java.Scenario)"
+            }
+          }
+        ],
+        "line": 62,
+        "name": "Get all events with invalid query Parameters",
+        "description": "",
+        "id": ";get-all-events-with-invalid-query-parameters;list-of-query-parameters;6",
+        "after": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.cleanUp()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario Outline",
+        "steps": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "line": 52,
+            "name": "API End point \"/events\" for \"Event\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"/events\"",
+                  "offset": 14
+                },
+                {
+                  "val": "\"Event\"",
+                  "offset": 28
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.ApiEndPointForAPi(java.lang.String,java.lang.String)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "status": "passed"
+            },
+            "line": 53,
+            "name": "Query parameter \"transportDocumentReference\" with value \"ABC709951ABC709951ABC709951ABC709951564\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"transportDocumentReference\"",
+                  "offset": 16
+                },
+                {
+                  "val": "\"ABC709951ABC709951ABC709951ABC709951564\"",
+                  "offset": 56
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.queryParametersWithValues(java.lang.String,java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "output": [
+              "Request method: GET\n\nRequest URI: http://localhost:9090/v2/events?transportDocumentReference\u003dABC709951ABC709951ABC709951ABC709951564\n\nQuery params: transportDocumentReference\u003dABC709951ABC709951ABC709951ABC709951564, \n\nRequest Headers: API-Version\u003d2, Accept\u003d*/*, Content-Type\u003dapplication/json; charset\u003dUTF-8, \n\nHttp Code: 400\n\nResponse Headers: Content-Type\u003dnull, API-Version\u003dnull\n\n"
+            ],
+            "result": {
+              "duration": 21000200,
+              "status": "passed"
+            },
+            "line": 54,
+            "name": "Send GET http request",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.getAll()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "status": "passed"
+            },
+            "line": 55,
+            "name": "Receive invalid response for GET",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.receiveInvalidHttpResponseForGet()"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@NegativeCase"
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2021-11-19T22:29:58.066Z",
+        "before": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.testPreparation(io.cucumber.java.Scenario)"
+            }
+          }
+        ],
+        "line": 63,
+        "name": "Get all events with invalid query Parameters",
+        "description": "",
+        "id": ";get-all-events-with-invalid-query-parameters;list-of-query-parameters;7",
+        "after": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.cleanUp()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario Outline",
+        "steps": [
+          {
+            "result": {
+              "duration": 997800,
+              "status": "passed"
+            },
+            "line": 52,
+            "name": "API End point \"/events\" for \"Event\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"/events\"",
+                  "offset": 14
+                },
+                {
+                  "val": "\"Event\"",
+                  "offset": 28
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.ApiEndPointForAPi(java.lang.String,java.lang.String)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "status": "passed"
+            },
+            "line": 53,
+            "name": "Query parameter \"transportEventTypeCode\" with value \"ABC7099\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"transportEventTypeCode\"",
+                  "offset": 16
+                },
+                {
+                  "val": "\"ABC7099\"",
+                  "offset": 52
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.queryParametersWithValues(java.lang.String,java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "output": [
+              "Request method: GET\n\nRequest URI: http://localhost:9090/v2/events?transportEventTypeCode\u003dABC7099\n\nQuery params: transportEventTypeCode\u003dABC7099, \n\nRequest Headers: API-Version\u003d2, Accept\u003d*/*, Content-Type\u003dapplication/json; charset\u003dUTF-8, \n\nHttp Code: 400\n\nResponse Headers: Content-Type\u003dnull, API-Version\u003dnull\n\n"
+            ],
+            "result": {
+              "duration": 17997900,
+              "status": "passed"
+            },
+            "line": 54,
+            "name": "Send GET http request",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.getAll()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "status": "passed"
+            },
+            "line": 55,
+            "name": "Receive invalid response for GET",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.receiveInvalidHttpResponseForGet()"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@NegativeCase"
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2021-11-19T22:29:58.092Z",
+        "before": [
+          {
+            "result": {
+              "duration": 999100,
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.testPreparation(io.cucumber.java.Scenario)"
+            }
+          }
+        ],
+        "line": 64,
+        "name": "Get all events with invalid query Parameters",
+        "description": "",
+        "id": ";get-all-events-with-invalid-query-parameters;list-of-query-parameters;8",
+        "after": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.cleanUp()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario Outline",
+        "steps": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "line": 52,
+            "name": "API End point \"/events\" for \"Event\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"/events\"",
+                  "offset": 14
+                },
+                {
+                  "val": "\"Event\"",
+                  "offset": 28
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.ApiEndPointForAPi(java.lang.String,java.lang.String)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 1000000,
+              "status": "passed"
+            },
+            "line": 53,
+            "name": "Query parameter \"transportCallID\" with value \"IGAcb79ijzjpLT4eicqw70C5X2lN591BhprgTwAkMeaRehoZ6OVcvMYGl0Hyb35jR2tWrWafyUBo89dIXRd1MVJkYkdqleU6XbBxY\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"transportCallID\"",
+                  "offset": 16
+                },
+                {
+                  "val": "\"IGAcb79ijzjpLT4eicqw70C5X2lN591BhprgTwAkMeaRehoZ6OVcvMYGl0Hyb35jR2tWrWafyUBo89dIXRd1MVJkYkdqleU6XbBxY\"",
+                  "offset": 45
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.queryParametersWithValues(java.lang.String,java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "output": [
+              "Request method: GET\n\nRequest URI: http://localhost:9090/v2/events?transportCallID\u003dIGAcb79ijzjpLT4eicqw70C5X2lN591BhprgTwAkMeaRehoZ6OVcvMYGl0Hyb35jR2tWrWafyUBo89dIXRd1MVJkYkdqleU6XbBxY\n\nQuery params: transportCallID\u003dIGAcb79ijzjpLT4eicqw70C5X2lN591BhprgTwAkMeaRehoZ6OVcvMYGl0Hyb35jR2tWrWafyUBo89dIXRd1MVJkYkdqleU6XbBxY, \n\nRequest Headers: API-Version\u003d2, Accept\u003d*/*, Content-Type\u003dapplication/json; charset\u003dUTF-8, \n\nHttp Code: 400\n\nResponse Headers: Content-Type\u003dnull, API-Version\u003dnull\n\n"
+            ],
+            "result": {
+              "duration": 41449800,
+              "status": "passed"
+            },
+            "line": 54,
+            "name": "Send GET http request",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.getAll()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 1072000,
+              "status": "passed"
+            },
+            "line": 55,
+            "name": "Receive invalid response for GET",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.receiveInvalidHttpResponseForGet()"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@NegativeCase"
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2021-11-19T22:29:58.142Z",
+        "before": [
+          {
+            "result": {
+              "duration": 998300,
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.testPreparation(io.cucumber.java.Scenario)"
+            }
+          }
+        ],
+        "line": 65,
+        "name": "Get all events with invalid query Parameters",
+        "description": "",
+        "id": ";get-all-events-with-invalid-query-parameters;list-of-query-parameters;9",
+        "after": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.cleanUp()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario Outline",
+        "steps": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "line": 52,
+            "name": "API End point \"/events\" for \"Event\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"/events\"",
+                  "offset": 14
+                },
+                {
+                  "val": "\"Event\"",
+                  "offset": 28
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.ApiEndPointForAPi(java.lang.String,java.lang.String)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "status": "passed"
+            },
+            "line": 53,
+            "name": "Query parameter \"vesselIMONumber\" with value \"ABsC70sss99\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"vesselIMONumber\"",
+                  "offset": 16
+                },
+                {
+                  "val": "\"ABsC70sss99\"",
+                  "offset": 45
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.queryParametersWithValues(java.lang.String,java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "output": [
+              "Request method: GET\n\nRequest URI: http://localhost:9090/v2/events?vesselIMONumber\u003dABsC70sss99\n\nQuery params: vesselIMONumber\u003dABsC70sss99, \n\nRequest Headers: API-Version\u003d2, Accept\u003d*/*, Content-Type\u003dapplication/json; charset\u003dUTF-8, \n\nHttp Code: 400\n\nResponse Headers: Content-Type\u003dnull, API-Version\u003dnull\n\n"
+            ],
+            "result": {
+              "duration": 19434300,
+              "status": "passed"
+            },
+            "line": 54,
+            "name": "Send GET http request",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.getAll()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 535300,
+              "status": "passed"
+            },
+            "line": 55,
+            "name": "Receive invalid response for GET",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.receiveInvalidHttpResponseForGet()"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@NegativeCase"
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2021-11-19T22:29:58.170Z",
+        "before": [
+          {
+            "result": {
+              "duration": 538200,
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.testPreparation(io.cucumber.java.Scenario)"
+            }
+          }
+        ],
+        "line": 66,
+        "name": "Get all events with invalid query Parameters",
+        "description": "",
+        "id": ";get-all-events-with-invalid-query-parameters;list-of-query-parameters;10",
+        "after": [
+          {
+            "result": {
+              "duration": 538300,
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.cleanUp()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario Outline",
+        "steps": [
+          {
+            "result": {
+              "duration": 533500,
+              "status": "passed"
+            },
+            "line": 52,
+            "name": "API End point \"/events\" for \"Event\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"/events\"",
+                  "offset": 14
+                },
+                {
+                  "val": "\"Event\"",
+                  "offset": 28
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.ApiEndPointForAPi(java.lang.String,java.lang.String)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 1069500,
+              "status": "passed"
+            },
+            "line": 53,
+            "name": "Query parameter \"exportVoyageNumber\" with value \"pZwVm6KNaM6VWTty7yqNEQvB5pf8ElUCzdlu2kWWy4QCMpOnXU3\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"exportVoyageNumber\"",
+                  "offset": 16
+                },
+                {
+                  "val": "\"pZwVm6KNaM6VWTty7yqNEQvB5pf8ElUCzdlu2kWWy4QCMpOnXU3\"",
+                  "offset": 48
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.queryParametersWithValues(java.lang.String,java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "output": [
+              "Request method: GET\n\nRequest URI: http://localhost:9090/v2/events?exportVoyageNumber\u003dpZwVm6KNaM6VWTty7yqNEQvB5pf8ElUCzdlu2kWWy4QCMpOnXU3\n\nQuery params: exportVoyageNumber\u003dpZwVm6KNaM6VWTty7yqNEQvB5pf8ElUCzdlu2kWWy4QCMpOnXU3, \n\nRequest Headers: API-Version\u003d2, Accept\u003d*/*, Content-Type\u003dapplication/json; charset\u003dUTF-8, \n\nHttp Code: 400\n\nResponse Headers: Content-Type\u003dapplication/json, API-Version\u003dnull\n\nResponse Body \u003d\u003d\u003e{\"timestamp\":\"2021-11-19T22:29:58.190+00:00\",\"path\":\"/events\",\"status\":400,\"error\":\"Bad Request\",\"message\":\"Unknown parameter/field name: exportVoyageNumber\",\"requestId\":\"5fa0928f-657\"}\n\n"
+            ],
+            "result": {
+              "duration": 20895600,
+              "status": "passed"
+            },
+            "line": 54,
+            "name": "Send GET http request",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.getAll()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 14400,
+              "status": "passed"
+            },
+            "line": 55,
+            "name": "Receive invalid response for GET",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.receiveInvalidHttpResponseForGet()"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@NegativeCase"
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2021-11-19T22:29:58.199Z",
+        "before": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.testPreparation(io.cucumber.java.Scenario)"
+            }
+          }
+        ],
+        "line": 67,
+        "name": "Get all events with invalid query Parameters",
+        "description": "",
+        "id": ";get-all-events-with-invalid-query-parameters;list-of-query-parameters;11",
+        "after": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.cleanUp()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario Outline",
+        "steps": [
+          {
+            "result": {
+              "duration": 530300,
+              "status": "passed"
+            },
+            "line": 52,
+            "name": "API End point \"/events\" for \"Event\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"/events\"",
+                  "offset": 14
+                },
+                {
+                  "val": "\"Event\"",
+                  "offset": 28
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.ApiEndPointForAPi(java.lang.String,java.lang.String)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 539500,
+              "status": "passed"
+            },
+            "line": 53,
+            "name": "Query parameter \"carrierServiceCode\" with value \"ABsC70sss99\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"carrierServiceCode\"",
+                  "offset": 16
+                },
+                {
+                  "val": "\"ABsC70sss99\"",
+                  "offset": 48
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.queryParametersWithValues(java.lang.String,java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "output": [
+              "Request method: GET\n\nRequest URI: http://localhost:9090/v2/events?carrierServiceCode\u003dABsC70sss99\n\nQuery params: carrierServiceCode\u003dABsC70sss99, \n\nRequest Headers: API-Version\u003d2, Accept\u003d*/*, Content-Type\u003dapplication/json; charset\u003dUTF-8, \n\nHttp Code: 400\n\nResponse Headers: Content-Type\u003dnull, API-Version\u003dnull\n\n"
+            ],
+            "result": {
+              "duration": 18278700,
+              "status": "passed"
+            },
+            "line": 54,
+            "name": "Send GET http request",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.getAll()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 534500,
+              "status": "passed"
+            },
+            "line": 55,
+            "name": "Receive invalid response for GET",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.receiveInvalidHttpResponseForGet()"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@NegativeCase"
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2021-11-19T22:29:58.225Z",
+        "before": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.testPreparation(io.cucumber.java.Scenario)"
+            }
+          }
+        ],
+        "line": 68,
+        "name": "Get all events with invalid query Parameters",
+        "description": "",
+        "id": ";get-all-events-with-invalid-query-parameters;list-of-query-parameters;12",
+        "after": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.cleanUp()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario Outline",
+        "steps": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "line": 52,
+            "name": "API End point \"/events\" for \"Event\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"/events\"",
+                  "offset": 14
+                },
+                {
+                  "val": "\"Event\"",
+                  "offset": 28
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.ApiEndPointForAPi(java.lang.String,java.lang.String)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "status": "passed"
+            },
+            "line": 53,
+            "name": "Query parameter \"UNLocationCode\" with value \"UNLocationCode\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"UNLocationCode\"",
+                  "offset": 16
+                },
+                {
+                  "val": "\"UNLocationCode\"",
+                  "offset": 44
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.queryParametersWithValues(java.lang.String,java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "output": [
+              "Request method: GET\n\nRequest URI: http://localhost:9090/v2/events?UNLocationCode\u003dUNLocationCode\n\nQuery params: UNLocationCode\u003dUNLocationCode, \n\nRequest Headers: API-Version\u003d2, Accept\u003d*/*, Content-Type\u003dapplication/json; charset\u003dUTF-8, \n\nHttp Code: 400\n\nResponse Headers: Content-Type\u003dapplication/json, API-Version\u003dnull\n\nResponse Body \u003d\u003d\u003e{\"timestamp\":\"2021-11-19T22:29:58.245+00:00\",\"path\":\"/events\",\"status\":400,\"error\":\"Bad Request\",\"message\":\"Unknown parameter/field name: UNLocationCode\",\"requestId\":\"0cc0bcb9-659\"}\n\n"
+            ],
+            "result": {
+              "duration": 22359600,
+              "status": "passed"
+            },
+            "line": 54,
+            "name": "Send GET http request",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.getAll()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 532700,
+              "status": "passed"
+            },
+            "line": 55,
+            "name": "Receive invalid response for GET",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.receiveInvalidHttpResponseForGet()"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@NegativeCase"
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2021-11-19T22:29:58.255Z",
+        "before": [
+          {
+            "result": {
+              "duration": 533500,
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.testPreparation(io.cucumber.java.Scenario)"
+            }
+          }
+        ],
+        "line": 69,
+        "name": "Get all events with invalid query Parameters",
+        "description": "",
+        "id": ";get-all-events-with-invalid-query-parameters;list-of-query-parameters;13",
+        "after": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.cleanUp()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario Outline",
+        "steps": [
+          {
+            "result": {
+              "duration": 541400,
+              "status": "passed"
+            },
+            "line": 52,
+            "name": "API End point \"/events\" for \"Event\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"/events\"",
+                  "offset": 14
+                },
+                {
+                  "val": "\"Event\"",
+                  "offset": 28
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.ApiEndPointForAPi(java.lang.String,java.lang.String)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 536300,
+              "status": "passed"
+            },
+            "line": 53,
+            "name": "Query parameter \"equipmentEventTypeCode\" with value \"ABCDES\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"equipmentEventTypeCode\"",
+                  "offset": 16
+                },
+                {
+                  "val": "\"ABCDES\"",
+                  "offset": 52
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.queryParametersWithValues(java.lang.String,java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "output": [
+              "Request method: GET\n\nRequest URI: http://localhost:9090/v2/events?equipmentEventTypeCode\u003dABCDES\n\nQuery params: equipmentEventTypeCode\u003dABCDES, \n\nRequest Headers: API-Version\u003d2, Accept\u003d*/*, Content-Type\u003dapplication/json; charset\u003dUTF-8, \n\nHttp Code: 400\n\nResponse Headers: Content-Type\u003dnull, API-Version\u003dnull\n\n"
+            ],
+            "result": {
+              "duration": 18609600,
+              "status": "passed"
+            },
+            "line": 54,
+            "name": "Send GET http request",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.getAll()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "status": "passed"
+            },
+            "line": 55,
+            "name": "Receive invalid response for GET",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.receiveInvalidHttpResponseForGet()"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@NegativeCase"
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2021-11-19T22:29:58.281Z",
+        "before": [
+          {
+            "result": {
+              "duration": 542700,
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.testPreparation(io.cucumber.java.Scenario)"
+            }
+          }
+        ],
+        "line": 70,
+        "name": "Get all events with invalid query Parameters",
+        "description": "",
+        "id": ";get-all-events-with-invalid-query-parameters;list-of-query-parameters;14",
+        "after": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.cleanUp()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario Outline",
+        "steps": [
+          {
+            "result": {
+              "duration": 539900,
+              "status": "passed"
+            },
+            "line": 52,
+            "name": "API End point \"/events\" for \"Event\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"/events\"",
+                  "offset": 14
+                },
+                {
+                  "val": "\"Event\"",
+                  "offset": 28
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.ApiEndPointForAPi(java.lang.String,java.lang.String)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "status": "passed"
+            },
+            "line": 53,
+            "name": "Query parameter \"equipmentReference\" with value \"dsfdsAPZU4812090APZU4812090APZU4812090\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"equipmentReference\"",
+                  "offset": 16
+                },
+                {
+                  "val": "\"dsfdsAPZU4812090APZU4812090APZU4812090\"",
+                  "offset": 48
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.queryParametersWithValues(java.lang.String,java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "output": [
+              "Request method: GET\n\nRequest URI: http://localhost:9090/v2/events?equipmentReference\u003ddsfdsAPZU4812090APZU4812090APZU4812090\n\nQuery params: equipmentReference\u003ddsfdsAPZU4812090APZU4812090APZU4812090, \n\nRequest Headers: API-Version\u003d2, Accept\u003d*/*, Content-Type\u003dapplication/json; charset\u003dUTF-8, \n\nHttp Code: 400\n\nResponse Headers: Content-Type\u003dnull, API-Version\u003dnull\n\n"
+            ],
+            "result": {
+              "duration": 18894400,
+              "status": "passed"
+            },
+            "line": 54,
+            "name": "Send GET http request",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.getAll()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 627000,
+              "status": "passed"
+            },
+            "line": 55,
+            "name": "Receive invalid response for GET",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.receiveInvalidHttpResponseForGet()"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@NegativeCase"
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2021-11-19T22:29:58.309Z",
+        "before": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.testPreparation(io.cucumber.java.Scenario)"
+            }
+          }
+        ],
+        "line": 71,
+        "name": "Get all events with invalid query Parameters",
+        "description": "",
+        "id": ";get-all-events-with-invalid-query-parameters;list-of-query-parameters;15",
+        "after": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.cleanUp()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario Outline",
+        "steps": [
+          {
+            "result": {
+              "duration": 506900,
+              "status": "passed"
+            },
+            "line": 52,
+            "name": "API End point \"/events\" for \"Event\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"/events\"",
+                  "offset": 14
+                },
+                {
+                  "val": "\"Event\"",
+                  "offset": 28
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.ApiEndPointForAPi(java.lang.String,java.lang.String)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 543300,
+              "status": "passed"
+            },
+            "line": 53,
+            "name": "Query parameter \"eventCreatedDateTime\" with value \"2021-11-31T17:18:46.160973Z\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"eventCreatedDateTime\"",
+                  "offset": 16
+                },
+                {
+                  "val": "\"2021-11-31T17:18:46.160973Z\"",
+                  "offset": 50
+                }
+              ],
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.queryParametersWithValues(java.lang.String,java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "output": [
+              "Request method: GET\n\nRequest URI: http://localhost:9090/v2/events?eventCreatedDateTime\u003d2021-11-31T17%3A18%3A46.160973Z\n\nQuery params: eventCreatedDateTime\u003d2021-11-31T17:18:46.160973Z, \n\nRequest Headers: API-Version\u003d2, Accept\u003d*/*, Content-Type\u003dapplication/json; charset\u003dUTF-8, \n\nHttp Code: 400\n\nResponse Headers: Content-Type\u003dapplication/json, API-Version\u003dnull\n\nResponse Body \u003d\u003d\u003e{\"timestamp\":\"2021-11-19T22:29:58.332+00:00\",\"path\":\"/events\",\"status\":400,\"error\":\"Bad Request\",\"message\":\"Cannot filter on eventCreatedDateTime: The value \\\"2021-11-31T17:18:46.160973Z\\\" could not be parsed in the correct date format\",\"requestId\":\"4b1ff452-662\"}\n\n"
+            ],
+            "result": {
+              "duration": 24731500,
+              "status": "passed"
+            },
+            "line": 54,
+            "name": "Send GET http request",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.getAll()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "status": "passed"
+            },
+            "line": 55,
+            "name": "Receive invalid response for GET",
+            "match": {
+              "location": "org.dcsa.api.validator.steps.TnTV2Steps.receiveInvalidHttpResponseForGet()"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@NegativeCase"
+          }
+        ]
+      }
+    ],
+    "name": "",
+    "description": "  TNT Self Certification Check List",
+    "id": "",
+    "keyword": "Feature",
+    "uri": "file:src/main/java/org/dcsa/api/validator/features/tnt/v2/Event.feature",
+    "tags": []
+  }
+]

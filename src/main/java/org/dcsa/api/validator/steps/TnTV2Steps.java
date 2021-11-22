@@ -17,6 +17,7 @@ import org.dcsa.api.validator.util.FileUtility;
 import org.dcsa.api.validator.util.JsonUtility;
 import org.dcsa.api.validator.util.TestUtility;
 import org.testng.Assert;
+import org.testng.Reporter;
 
 import java.util.*;
 
@@ -155,6 +156,7 @@ public class TnTV2Steps {
         List<String> queryParametersList = Arrays.asList(queryParameters.split(","));
         Map<String, String> queryParametersMap = TestUtility.getAttributeFromGetTestData(queryParametersList, restAssuredExtension.getApiName());
         if (queryParametersMap == null || (queryParametersMap.size() != queryParametersList.size())) {
+            Reporter.log("Validation Step-Query Parameter setup missing for " + queryParameters );
             Assert.fail("Query Parameter setup missing for " + queryParameters);
         } else {
             restAssuredExtension
@@ -186,7 +188,8 @@ public class TnTV2Steps {
         List<String> pathParametersList = Arrays.asList(pathParameters.split(","));
         Map<String, String> pathParametersMap = TestUtility.getAttributeFromGetTestData(pathParametersList, restAssuredExtension.getApiName());
         if (pathParametersMap.size() != pathParametersList.size()) {
-            // Assert.fail("Query Parameter setup missing for "+queryParameters);
+            Reporter.log("Validation Step-Path parameter setup missing for " + pathParameters );
+             Assert.fail("Path parameter setup missing for "+pathParameters);
         } else {
             restAssuredExtension
                     .pathParams(pathParametersMap);
@@ -359,7 +362,8 @@ public class TnTV2Steps {
         List<String> parametersList = Arrays.asList(parameters.split(","));
         Map<String, String> parametersMap = TestUtility.getAttributeFromGetTestData(parametersList, restAssuredExtension.getApiName());
         if (parametersMap == null || (parametersMap.size() != parametersList.size())) {
-            Assert.fail("Path Parameter setup missing for " + parameters);
+            Reporter.log("Validation Step-Path parameter setup missing for " + parameters );
+            Assert.fail("Path parameter setup missing for " + parameters);
         } else {
             restAssuredExtension
                     .pathParams(parametersMap);

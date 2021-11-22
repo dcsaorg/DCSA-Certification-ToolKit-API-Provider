@@ -1,12 +1,16 @@
 package org.dcsa.api.validator.util;
 
+import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.*;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.PathNotFoundException;
 import io.restassured.path.json.exception.JsonPathException;
 import net.minidev.json.JSONArray;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -54,24 +58,33 @@ public class JsonUtility {
         boolean isFound = false;
         if (jsonString != null && attribute != null && value != null) {
             try {
-                Object jsonValue = JsonPath.parse(jsonString).read(attribute);
-                if (jsonValue instanceof JSONArray) {
+                Map<String, Object> jsonPaths = getJsonValues(jsonString);
+                JsonNode jsonValue = (JsonNode) jsonPaths.get(attribute);
+                if (jsonValue == null)
+                    isFound = false;
+                else if (jsonValue.isArray()) {
+                    List<String> enums = new ArrayList<>();
+                    for (JsonNode n : jsonValue) {
+                        enums.add(n.asText());
+                    }
                     String[] valueArray = value.split(",");
-                    isFound = ((JSONArray) jsonValue).containsAll(Arrays.asList(valueArray));
-                } else if (jsonValue instanceof String) {
-                    isFound = jsonValue.equals(value);
-                } else if (jsonValue instanceof Boolean) {
-                    isFound = jsonValue.equals(value == "true" ? true : false);
-                } else if (jsonValue instanceof Double) {
-                    isFound = jsonValue.equals(Double.valueOf(value));
-                } else if (jsonValue instanceof Integer) {
-                    isFound = jsonValue.equals(Integer.valueOf(value));
-                } else if (jsonValue instanceof Long) {
-                    isFound = jsonValue.equals(Long.valueOf(value));
-                } else if (jsonValue instanceof Float) {
-                    isFound = jsonValue.equals(Float.valueOf(value));
-                } else if (jsonValue instanceof Short) {
-                    isFound = jsonValue.equals(Short.valueOf(value));
+                    if (enums.size() == valueArray.length)
+                        isFound = (enums).containsAll(Arrays.asList(valueArray));
+                } else if (jsonValue.isTextual()) {
+                    isFound = ((jsonValue).asText()).equals(value);
+                } else if (jsonValue.isBoolean()) {
+                    boolean tmpValue = (value == "true");
+                    isFound = (jsonValue).asBoolean() == tmpValue;
+                } else if (jsonValue.isDouble()) {
+                    isFound = (jsonValue).asDouble() == Double.parseDouble(value);
+                } else if (jsonValue.isInt()) {
+                    isFound = (jsonValue).asInt() == Integer.parseInt(value);
+                } else if (jsonValue.isLong()) {
+                    isFound = (jsonValue).asLong() == Long.parseLong(value);
+                } else if (jsonValue.isFloat()) {
+                    isFound = (jsonValue).floatValue() == Float.parseFloat(value);
+                } else if (jsonValue.isShort()) {
+                    isFound = (jsonValue).shortValue() == Short.parseShort(value);
                 }
             } catch (JsonPathException e) {
                 //not found
@@ -85,14 +98,13 @@ public class JsonUtility {
         boolean isValidated = true;
         if (attribute != null & value != null && responseList != null) {
             int sizeOfList = 0;
-
             for (Map<String, Object> entry : responseList) {
                 if (sizeOfList >= 10)//check only 10 responses to avoid long response scan
                     break;
-                sizeOfList++;
                 String jsonString = JsonPath.parse(entry).jsonString();
                 if (!findAttributeWithValue(jsonString, attribute, value))
-                isValidated = false;
+                    isValidated = false;
+                sizeOfList++;
             }
         }
         return isValidated;
@@ -146,5 +158,16 @@ public class JsonUtility {
         return jsonString;
     }
 
+    public static Map<String, Object> getJsonValues(String json) {
+        try {
+            ObjectMapper mapper = new ObjectMapper(new JsonFactory());
+            JsonNode rootNode = mapper.readTree(json);
+            JsonParser parser = new JsonParser();
+            return parser.process("", rootNode);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 }

@@ -12,7 +12,7 @@ import org.testng.annotations.DataProvider;
 @CucumberOptions(plugin = {"pretty",
         "html:target/cucumber-reports/cucumber.html",
         "json:target/cucumber-reports/cucumber.json"
-}, features = {"src/main/java/org/dcsa/api/validator/features/tnt/v2/EventSubscription.feature"}, glue = {"org.dcsa.api.validator.steps"}
+}, features = {"src/main/java/org/dcsa/api/validator/features/tnt/v2/Event.feature"}, glue = {"org.dcsa.api.validator.steps"}
 )
 public class TestRunnerTnT extends AbstractTestNGCucumberTests {
 

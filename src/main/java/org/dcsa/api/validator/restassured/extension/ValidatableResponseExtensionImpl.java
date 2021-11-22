@@ -139,7 +139,7 @@ public class ValidatableResponseExtensionImpl implements ValidatableResponseExte
                 Reporter.log("Validation Step-Http Code Validation:Passed");
             } catch (AssertionError e) {
                 Reporter.log("Validation Step-Http Code Validation:Failed, Reason:Invalid Http code=" + response.getStatusCode());
-                Assert.fail("Invalid Http code=" + response.getStatusCode());
+                Assert.fail(e.getMessage());
             }
             try {
                 response.then()
@@ -157,7 +157,7 @@ public class ValidatableResponseExtensionImpl implements ValidatableResponseExte
                 Reporter.log("Validation Step-Http Code Validation:Passed");
             } catch (AssertionError e) {
                 Reporter.log("Validation Step-Http Code Validation:Failed, Reason:Invalid Http code=" + response.getStatusCode());
-                Assert.fail("Invalid Http code=" + response.getStatusCode());
+                Assert.fail(e.getMessage());
             }
         }
         return this;
