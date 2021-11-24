@@ -44,6 +44,24 @@
             ]
           }
         },
+        "InvalidCallBackURL": {
+          "request": {
+            "placeHolders": {
+              "callbackUrl": "http://127.0.0.1:9092/test/webhook/invalid",
+              "eventType": [
+                "TRANSPORT"
+              ]
+            }
+        }},
+        "TransportEventSubscription": {
+          "request": {
+            "placeHolders": {
+              "eventType": [
+                "TRANSPORT"
+              ],
+              "secret": "MTIzNDU2Nzg5MGFiY2RlZjEyMzQ1Njc4OTBhYmNkZWY="
+            }
+          }},
         "UpdateSecret": {
           "request": {
             "templateFile": "testdata/v2/tnt/template/SecretSample.json",

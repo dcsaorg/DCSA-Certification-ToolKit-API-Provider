@@ -1,6 +1,5 @@
 package org.dcsa.api.validator.restassured.extension;
 
-import io.cucumber.java.Scenario;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
@@ -8,11 +7,8 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import lombok.Data;
 import org.dcsa.api.validator.config.Configuration;
-import org.dcsa.api.validator.model.TestCase;
-import org.dcsa.api.validator.model.TestRequest;
+import org.dcsa.api.validator.model.TestContext;
 import org.dcsa.api.validator.util.TestUtility;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,26 +19,18 @@ public class RestAssuredExtensionImpl implements RestAssuredExtension {
     private RequestSpecBuilder builder;
     private Response response;
     private ValidatableResponseExtensionImpl validatableResponseExtensionImpl;
-    private TestCase testContext;
-    private String apiName;
-    private List<Response> helperResponse;
-    private Scenario scenario;
+    private TestContext testContext;
 
     public RestAssuredExtensionImpl() {
-        initialize();
+        testContext = new TestContext();
     }
 
-    public void initialize() {
-        this.builder = new RequestSpecBuilder();
-        this.helperResponse = new ArrayList<>();
-        this.validatableResponseExtensionImpl = new ValidatableResponseExtensionImpl();
-        testContext = new TestCase();
-        testContext.setRequest(new TestRequest());
-    }
 
     @Override
     public void given(String endPoint, String apiName) {
-        this.apiName = apiName;
+        testContext.setApiName(apiName);
+        this.builder = new RequestSpecBuilder();
+        this.validatableResponseExtensionImpl = new ValidatableResponseExtensionImpl();
         this.builder.setBasePath(endPoint);
         this.builder.addHeader("API-Version", Configuration.API_VERSION);
         this.builder.setBaseUri(Configuration.ROOT_URI + "v" + Configuration.API_VERSION);
@@ -54,54 +42,39 @@ public class RestAssuredExtensionImpl implements RestAssuredExtension {
                 .given()
                 .auth()
                 .oauth2(Configuration.accessToken)
-                .filter(new RestAssuredRequestFilter(scenario)).spec(builder.build());
+                .filter(new RestAssuredRequestFilter(testContext.getScenario())).spec(builder.build());
     }
 
     @Override
     public void post() {
         response = buildRequest().post();
+        if (response.getStatusCode() == 201) {
+            testContext.getResponseChain().add(response);
+            String value = response.jsonPath().get(TestUtility.getIdentifierAttribute(testContext.getApiName()));
+            Map<String, String> pathVariables = new HashMap<>();
+            pathVariables.put(TestUtility.getIdentifierAttribute(testContext.getApiName()), value);
+            testContext.getPathVariableChain().add(pathVariables);
+        }
     }
 
     @Override
     public void get() {
-       /* if (TestUtility.getTestRequest(testContext) != null) {
-            if (TestUtility.getTestRequest(testContext).getPathVariables() != null)
-                if (!testContext.getRequest().getPathVariables().isEmpty())
-                    builder.addPathParams(testContext.getRequest().getPathVariables());
-        }
-        if (testContext.getRequest().getQueryParameters() != null)
-            if (testContext.getRequest().getQueryParameters().getQueryParameters() != null)
-                builder.addQueryParams(testContext.getRequest().getQueryParameters().getQueryParameters());*/
         response = buildRequest().get();
     }
 
     @Override
     public void delete() {
-/*        if (TestUtility.getTestRequest(testContext) != null) {
-            if (TestUtility.getTestRequest(testContext).getPathVariables() != null)
-                if (!testContext.getRequest().getPathVariables().isEmpty())
-                    builder.addPathParams(testContext.getRequest().getPathVariables());
-        }*/
         response = buildRequest().delete();
     }
 
     @Override
     public void put() {
-      /*  if (TestUtility.getTestRequest(testContext) != null) {
-            if (TestUtility.getTestRequest(testContext).getPathVariables() != null)
-                if (!testContext.getRequest().getPathVariables().isEmpty())
-                    builder.addPathParams(testContext.getRequest().getPathVariables());
-        }*/
         response = buildRequest().put();
     }
 
     @Override
     public RestAssuredExtensionImpl body(String body) {
         if (body != null) {
-           /* if (testContext.getRequest().getPlaceHolders() != null)
-                body = JsonUtility.replacePlaceHolders(body, testContext.getRequest().getPlaceHolders());
-            if (testContext.getRequest().getRemovalAttributes() != null)
-                body = JsonUtility.removeAttributes(body, testContext.getRequest().getRemovalAttributes());*/
             builder.setBody(body);
         }
         return this;
@@ -110,11 +83,11 @@ public class RestAssuredExtensionImpl implements RestAssuredExtension {
     @Override
     public RestAssuredExtensionImpl queryParams(Map<String, String> queryParameters) {
         if (queryParameters != null && queryParameters.size() > 0) {
-            if (testContext.getRequest().getQueryParameters()!= null)
-                testContext.getRequest().getQueryParameters().putAll(queryParameters);
+            if (testContext.getTestCase().getRequest().getQueryParameters() != null)
+                testContext.getTestCase().getRequest().getQueryParameters().putAll(queryParameters);
             else
-                testContext.getRequest().setQueryParameters(queryParameters);
-            Map<String, String> tQueryParameters = testContext.getRequest().getQueryParameters();
+                testContext.getTestCase().getRequest().setQueryParameters(queryParameters);
+            Map<String, String> tQueryParameters = testContext.getTestCase().getRequest().getQueryParameters();
             for (String queryParam : tQueryParameters.keySet())
                 builder.removeQueryParam(queryParam);
             builder.addQueryParams(tQueryParameters);
@@ -124,28 +97,24 @@ public class RestAssuredExtensionImpl implements RestAssuredExtension {
 
     @Override
     public RestAssuredExtension removeAttribute(List<String> attributes) {
-        testContext.getRequest().setRemovalAttributes(attributes);
+        testContext.getTestCase().getRequest().setRemovalAttributes(attributes);
         return this;
     }
 
     @Override
     public RestAssuredExtension placeHolders(Map<String, Object> placeHolders) {
-/*        Map<String, Object> placeHolders = new HashMap<>();
-        for (Map<String, Object> placeholder : placeholderMap) {
-            placeHolders.put((String) placeholder.get("Attribute"), placeholder.get("Value"));
-        }*/
-        if(placeHolders!=null && placeHolders.size()>0) {
-            if (testContext.getRequest().getPlaceHolders() != null)
-                testContext.getRequest().getPlaceHolders().putAll(placeHolders);
+        if (placeHolders != null && placeHolders.size() > 0) {
+            if (testContext.getTestCase().getRequest().getPlaceHolders() != null)
+                testContext.getTestCase().getRequest().getPlaceHolders().putAll(placeHolders);
             else
-                testContext.getRequest().setPlaceHolders(placeHolders);
+                testContext.getTestCase().getRequest().setPlaceHolders(placeHolders);
         }
         return this;
     }
 
     @Override
     public RestAssuredExtension create() {
-        return create(apiName);
+        return create(testContext.getApiName());
     }
 
     @Override
@@ -160,14 +129,14 @@ public class RestAssuredExtensionImpl implements RestAssuredExtension {
                     .post();
             response.then().assertThat()
                     .statusCode(201);
-            helperResponse.add(response);
+            testContext.getResponseChain().add(response);
             String value = response.jsonPath().get(TestUtility.getIdentifierAttribute(resource));
             Map<String, String> pathVariables = new HashMap<>();
             pathVariables.put(TestUtility.getIdentifierAttribute(resource), value);
-            if (testContext.getRequest().getPathVariables() != null)
-                testContext.getRequest().getPathVariables().putIfAbsent(TestUtility.getIdentifierAttribute(resource), value);
+            if (testContext.getTestCase().getRequest().getPathVariables() != null)
+                testContext.getTestCase().getRequest().getPathVariables().putIfAbsent(TestUtility.getIdentifierAttribute(resource), value);
             else
-                testContext.getRequest().setPathVariables(pathVariables);
+                testContext.getTestCase().getRequest().setPathVariables(pathVariables);
 
         } catch (AssertionError e) {
             System.out.println(e.getMessage());
@@ -179,13 +148,11 @@ public class RestAssuredExtensionImpl implements RestAssuredExtension {
     @Override
     public RestAssuredExtensionImpl pathParams(Map<String, String> pathVariables) {
         if (pathVariables != null && pathVariables.size() > 0) {
-            if (TestUtility.getTestRequest(testContext).getPathVariables() != null) {
-               // for (String key : pathVariables.keySet())
-                  //  testContext.getRequest().getPathVariables().putIfAbsent(key, pathVariables.get(key));
-                testContext.getRequest().getPathVariables().putAll(pathVariables);
+            if (TestUtility.getTestRequest(testContext.getTestCase()).getPathVariables() != null) {
+                testContext.getTestCase().getRequest().getPathVariables().putAll(pathVariables);
             } else
-                testContext.getRequest().setPathVariables(pathVariables);
-            Map<String, String> tPathVariables = testContext.getRequest().getPathVariables();
+                testContext.getTestCase().getRequest().setPathVariables(pathVariables);
+            Map<String, String> tPathVariables = testContext.getTestCase().getRequest().getPathVariables();
             for (String pathParam : tPathVariables.keySet())
                 builder.removePathParam(pathParam);
             builder.addPathParams(tPathVariables);
@@ -196,8 +163,8 @@ public class RestAssuredExtensionImpl implements RestAssuredExtension {
     @Override
     public ValidatableResponseExtension then() {
         validatableResponseExtensionImpl.setResponse(response);
-        validatableResponseExtensionImpl.setApiName(apiName);
-        validatableResponseExtensionImpl.setTestContext(testContext);
+        validatableResponseExtensionImpl.setApiName(testContext.getApiName());
+        validatableResponseExtensionImpl.setTestContext(testContext.getTestCase());
         return validatableResponseExtensionImpl;
     }
 

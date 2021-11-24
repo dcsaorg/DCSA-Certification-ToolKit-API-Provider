@@ -1,7 +1,12 @@
 package org.dcsa.api.validator.util;
 
+import io.cucumber.java.hu.Ha;
+import org.apache.commons.codec.binary.Hex;
 import org.dcsa.api.validator.model.*;
 
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -133,21 +138,49 @@ public class TestUtility {
         return body;
     }
 
-    public static String getTestBody(String apiName, String testName) {
+   /* public static String getTestBody(String apiName, String testName) {
         TestCase testContext = TestUtility.getTestCase(apiName, testName);
         return getTestBody(apiName, testContext);
+    }*/
+
+/*
+    public static String getTestBody(String apiName, String testName,Map<String,Object> placeholders) {
+        TestCase testContext = TestUtility.getTestCase(apiName, testName);
+        Map<String, Object> existingPlaceholders=  testContext.getRequest().getPlaceHolders();
+        if(existingPlaceholders!=null && placeholders!=null) {
+            existingPlaceholders.putAll(placeholders);
+            testContext.getRequest().setPlaceHolders(existingPlaceholders);
+        }
+        return getTestBody(apiName, testContext);
     }
+*/
 
     public static String getTestBody(String apiName, String body, TestCase testContext) {
+        if(body==null || body=="")
+        {
+            if (testContext.getRequest() != null && testContext.getRequest().getTemplateFile() != null)
+                body = FileUtility.loadFileAsString(testContext.getRequest().getTemplateFile());
+            else
+                body = FileUtility.loadFileAsString(TestUtility.getTemplateFile(apiName));
+        }
         return getUpdateDBody(apiName, body, testContext);
     }
 
+/*
     public static String getTestBody(String apiName, String body, String testName) {
         TestCase testContext = TestUtility.getTestCase(apiName, testName);
+        if(body==null || body=="")
+        {
+            if (testContext.getRequest() != null && testContext.getRequest().getTemplateFile() != null)
+                body = FileUtility.loadFileAsString(testContext.getRequest().getTemplateFile());
+            else
+                body = FileUtility.loadFileAsString(TestUtility.getTemplateFile(apiName));
+        }
         return getUpdateDBody(apiName, body, testContext);
     }
+*/
 
-    public static String getTestBody(String apiName, TestCase testContext) {
+ /*   public static String getTestBody(String apiName, TestCase testContext) {
         String body = null;
         if (testContext.getRequest() != null && testContext.getRequest().getTemplateFile() != null)
             body = FileUtility.loadFileAsString(testContext.getRequest().getTemplateFile());
@@ -155,7 +188,7 @@ public class TestUtility {
             body = FileUtility.loadFileAsString(TestUtility.getTemplateFile(apiName));
 
         return getUpdateDBody(apiName, body, testContext);
-    }
+    }*/
 
     public static String getUpdateDBody(String apiName, String body, TestCase testContext) {
         if (!body.isEmpty()) {
@@ -164,8 +197,8 @@ public class TestUtility {
             if (testAttributes != null && !(testAttributes.isEmpty())) {
                 List<String> testAttributesWithOutJsonPath = new ArrayList<>();
                 for (int i = 0; i < testAttributes.size(); i++) {
-                    String[] tokens=testAttributes.get(i).split("\\.");
-                    testAttributesWithOutJsonPath.add(tokens[tokens.length-1]);
+                    String[] tokens = testAttributes.get(i).split("\\.");
+                    testAttributesWithOutJsonPath.add(tokens[tokens.length - 1]);
                 }
                 Map<String, Object> testAttributeMap = getAttributeFromPOSTTestData(apiName, testAttributesWithOutJsonPath);
                 body = JsonUtility.replacePlaceHolders(body, testAttributeMap);
@@ -185,7 +218,12 @@ public class TestUtility {
             }
         }
         if (logicalPostTestDataSet.size() > 0) {
-            return logicalPostTestDataSet.get(0);
+            Map<String, Object> testData = new HashMap<>();
+            for (Map.Entry<String, Object> entry : logicalPostTestDataSet.get(0).entrySet()) {
+                if (attributes.contains(entry.getKey()))
+                    testData.put(entry.getKey(), entry.getValue());
+            }
+            return testData;
         } else {
             System.out.println("No Data Set found matching test attributes! Please check test case setup");
         }
@@ -200,6 +238,32 @@ public class TestUtility {
     public static String getResponseSchema(TestCase test) {
         String responseSchema = getTestRequest(test).getResponseSchema();
         return responseSchema;
+    }
+
+    public static byte[] computeSignature(byte[] secretKey, byte[] payload) throws
+            Exception {
+        final String javaAlgorithmName = "HmacSHA256";
+        Mac mac = Mac.getInstance(javaAlgorithmName);
+        mac.init(new SecretKeySpec(secretKey, javaAlgorithmName));
+        return mac.doFinal(payload);
+    }
+
+    public static String getSignature(String encodedKey, String payload)  {
+        String notificationSignature="sha256=";
+        byte[] key = Base64.getDecoder().decode(encodedKey.getBytes(StandardCharsets.UTF_8));
+        byte[] payloadByteArray = payload.getBytes(StandardCharsets.UTF_8);
+        byte[] signature = new byte[0];
+        try {
+            signature = computeSignature(key, payloadByteArray);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        notificationSignature+=Hex.encodeHexString(signature);
+        System.out.println("Notification-Signature:"+ notificationSignature);
+        System.out.println("< --- PAY LOAD (" + payloadByteArray.length + " bytes) --->");
+        System.out.println(payload);
+        return notificationSignature;
     }
 
 }

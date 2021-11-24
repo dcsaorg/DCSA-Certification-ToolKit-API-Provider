@@ -1,4 +1,4 @@
-package org.dcsa.api.validator.steps;
+package org.dcsa.api.validator.steps.common;
 
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.After;
@@ -9,6 +9,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.response.Response;
+import org.dcsa.api.validator.config.Configuration;
 import org.dcsa.api.validator.constants.StatusCode;
 import org.dcsa.api.validator.model.TestCase;
 import org.dcsa.api.validator.restassured.extension.RestAssuredExtension;
@@ -21,19 +22,19 @@ import org.testng.Reporter;
 
 import java.util.*;
 
-public class TnTV2Steps {
+public class CommonSteps {
 
     private RestAssuredExtension restAssuredExtension;
     private Scenario scenario;
 
-    public TnTV2Steps() {
+    public CommonSteps() {
         restAssuredExtension = new RestAssuredExtensionImpl();
     }
 
     @Before
     public void testPreparation(Scenario scenario) {
         this.scenario = scenario;
-        restAssuredExtension.setScenario(scenario);
+        restAssuredExtension.getTestContext().setScenario(scenario);
     }
 
     @Given("API End point {string} for {string}")
@@ -45,7 +46,9 @@ public class TnTV2Steps {
 
     @When("Set request for POST")
     public void setRequestBodyWithTestData() {
-        String body = TestUtility.getTestBody(restAssuredExtension.getApiName(), restAssuredExtension.getTestContext());
+        String apiName = restAssuredExtension.getTestContext().getApiName();
+        TestCase testCase = restAssuredExtension.getTestContext().getTestCase();
+        String body = TestUtility.getTestBody(apiName, "", testCase);
         restAssuredExtension
                 .body(body);
     }
@@ -64,9 +67,13 @@ public class TnTV2Steps {
 
     @When("Set request for DELETE")
     public void setDataForDelete() {
-        restAssuredExtension
-                .create();
-        Map<String, String> pathVariables = restAssuredExtension.getTestContext().getRequest().getPathVariables();
+        Map<String, String> pathVariables = new HashMap<>();
+        List<Map<String, String>> pathVariableChain = restAssuredExtension.getTestContext().getPathVariableChain();
+        if (pathVariableChain.size() > 0)
+            pathVariables.putAll(pathVariableChain.get(pathVariableChain.size() - 1));
+        TestCase testcase = restAssuredExtension.getTestContext().getTestCase();
+        if (testcase.getRequest().getPathVariables() != null && testcase.getRequest().getPathVariables().size() > 0)
+            pathVariables.putAll(testcase.getRequest().getPathVariables());
         restAssuredExtension
                 .pathParams(pathVariables);
 
@@ -74,14 +81,24 @@ public class TnTV2Steps {
 
     @When("Set request for PUT")
     public void setDataForPut() {
-        restAssuredExtension.create();
         String body = null;
-        if (!restAssuredExtension.getHelperResponse().isEmpty()) {
-            Response response = restAssuredExtension.getHelperResponse().get(0);
+        Map<String, String> pathVariables = new HashMap<>();
+        String apiName = restAssuredExtension.getTestContext().getApiName();
+        List<Response> responsesChain = restAssuredExtension.getTestContext().getResponseChain();
+        if (!responsesChain.isEmpty()) {
+            Response response = responsesChain.get(responsesChain.size() - 1);
             body = JsonUtility.getStringFormat(response.jsonPath().get());
+            List<Map<String, String>> pathVariableChain = restAssuredExtension.getTestContext().getPathVariableChain();
+            if (pathVariableChain.size() > 0)
+                pathVariables.putAll(pathVariableChain.get(pathVariableChain.size() - 1));
         }
-        body = TestUtility.getTestBody(restAssuredExtension.getApiName(), body, restAssuredExtension.getTestContext());
-        Map<String, String> pathVariables = restAssuredExtension.getTestContext().getRequest().getPathVariables();
+
+
+        TestCase testcase = restAssuredExtension.getTestContext().getTestCase();
+        body = TestUtility.getTestBody(apiName, body, testcase);
+        if (testcase.getRequest().getPathVariables() != null && testcase.getRequest().getPathVariables().size() > 0)
+            pathVariables.putAll(testcase.getRequest().getPathVariables());
+
         restAssuredExtension
                 .pathParams(pathVariables)
                 .body(body);
@@ -90,22 +107,33 @@ public class TnTV2Steps {
     @When("Set request for PUT with test case {string}")
     public void setDataForPutWithTestData(String testName) {
         String body = null;
-        restAssuredExtension.create();
-        if (!restAssuredExtension.getHelperResponse().isEmpty()) {
-            Response response = restAssuredExtension.getHelperResponse().get(0);
+        Map<String, String> pathVariables = new HashMap<>();
+        String apiName = restAssuredExtension.getTestContext().getApiName();
+        List<Response> responsesChain = restAssuredExtension.getTestContext().getResponseChain();
+        if (!responsesChain.isEmpty()) {
+            Response response = responsesChain.get(responsesChain.size() - 1);
             body = JsonUtility.getStringFormat(response.jsonPath().get());
+            List<Map<String, String>> pathVariableChain = restAssuredExtension.getTestContext().getPathVariableChain();
+            if (pathVariableChain.size() > 0)
+                pathVariables.putAll(pathVariableChain.get(pathVariableChain.size() - 1));
         }
-        TestCase testContext = TestUtility.getTestCase(restAssuredExtension.getApiName(), testName);
-        if (testContext.getRequest().getTemplateFile() != null) {
-            body = FileUtility.loadFileAsString(testContext.getRequest().getTemplateFile());
+        TestCase testCase = TestUtility.getTestCase(apiName, testName);
+        if (testCase.getRequest().getTemplateFile() != null) {
+            body = TestUtility.getTestBody(apiName, "", testCase);
         }
-        body = TestUtility.getTestBody(restAssuredExtension.getApiName(), body, testName);
-        Map<String, String> pathVariables = testContext.getRequest().getPathVariables();
+
+        if (testCase.getRequest().getPathVariables() != null)
+            if (testCase.getRequest().getPathVariables().size() > 0)
+                pathVariables.putAll(testCase.getRequest().getPathVariables());
         if (pathVariables != null && !(pathVariables.isEmpty())) {
-        } else if (testContext.getRequest().getDynamicPathVariables() != null && !(testContext.getRequest().getDynamicPathVariables().isEmpty())) {
-            pathVariables = TestUtility.getAttributeFromGetTestData(testContext.getRequest().getDynamicPathVariables(), restAssuredExtension.getApiName());
-        } else
-            pathVariables = restAssuredExtension.getTestContext().getRequest().getPathVariables();
+        } else {
+            List<String> dynamicPathVariables = testCase.getRequest().getDynamicPathVariables();
+            if (dynamicPathVariables != null && !(dynamicPathVariables.isEmpty())) {
+                Map<String, String> dynamicPathVariablesMap = TestUtility.getAttributeFromGetTestData(dynamicPathVariables, apiName);
+                if (dynamicPathVariablesMap != null && dynamicPathVariablesMap.size() > 0)
+                    pathVariables.putAll(dynamicPathVariablesMap);
+            }
+        }
         restAssuredExtension
                 .pathParams(pathVariables)
                 .body(body);
@@ -137,7 +165,7 @@ public class TnTV2Steps {
     @And("Query parameters")
     public void queryParameters(DataTable queryParameterTable) {
         List<String> queryParametersList = queryParameterTable.asList();
-        Map<String, String> queryParametersMap = TestUtility.getAttributeFromGetTestData(queryParametersList, restAssuredExtension.getApiName());
+        Map<String, String> queryParametersMap = TestUtility.getAttributeFromGetTestData(queryParametersList, restAssuredExtension.getTestContext().getApiName());
         restAssuredExtension
                 .queryParams(queryParametersMap);
     }
@@ -154,9 +182,9 @@ public class TnTV2Steps {
     @And("Query parameters {string}")
     public void belowQueryParametersFromTestData(String queryParameters) {
         List<String> queryParametersList = Arrays.asList(queryParameters.split(","));
-        Map<String, String> queryParametersMap = TestUtility.getAttributeFromGetTestData(queryParametersList, restAssuredExtension.getApiName());
+        Map<String, String> queryParametersMap = TestUtility.getAttributeFromGetTestData(queryParametersList, restAssuredExtension.getTestContext().getApiName());
         if (queryParametersMap == null || (queryParametersMap.size() != queryParametersList.size())) {
-            Reporter.log("Validation Step-Query Parameter setup missing for " + queryParameters );
+            Reporter.log("Validation Step-Query Parameter setup missing for " + queryParameters);
             Assert.fail("Query Parameter setup missing for " + queryParameters);
         } else {
             restAssuredExtension
@@ -178,7 +206,7 @@ public class TnTV2Steps {
     @And("Path parameters")
     public void belowPathParametersFromTestData(DataTable pathVariableTable) {
         List<String> pathParametersList = pathVariableTable.asList();
-        Map<String, String> queryParametersMap = TestUtility.getAttributeFromGetTestData(pathParametersList, restAssuredExtension.getApiName());
+        Map<String, String> queryParametersMap = TestUtility.getAttributeFromGetTestData(pathParametersList, restAssuredExtension.getTestContext().getApiName());
         restAssuredExtension
                 .pathParams(queryParametersMap);
     }
@@ -186,10 +214,10 @@ public class TnTV2Steps {
     @And("path parameters {string}")
     public void belowPathParametersFromTestData(String pathParameters) {
         List<String> pathParametersList = Arrays.asList(pathParameters.split(","));
-        Map<String, String> pathParametersMap = TestUtility.getAttributeFromGetTestData(pathParametersList, restAssuredExtension.getApiName());
+        Map<String, String> pathParametersMap = TestUtility.getAttributeFromGetTestData(pathParametersList, restAssuredExtension.getTestContext().getApiName());
         if (pathParametersMap.size() != pathParametersList.size()) {
-            Reporter.log("Validation Step-Path parameter setup missing for " + pathParameters );
-             Assert.fail("Path parameter setup missing for "+pathParameters);
+            Reporter.log("Validation Step-Path parameter setup missing for " + pathParameters);
+            Assert.fail("Path parameter setup missing for " + pathParameters);
         } else {
             restAssuredExtension
                     .pathParams(pathParametersMap);
@@ -309,7 +337,15 @@ public class TnTV2Steps {
 
     @When("Set request for POST with test case {string}")
     public void setRequestBodyWithTestData(String testName) {
-        String body = TestUtility.getTestBody(restAssuredExtension.getApiName(), testName);
+        String body;
+        String apiName = restAssuredExtension.getTestContext().getApiName();
+        TestCase testCase = TestUtility.getTestCase(apiName, testName);
+        if (restAssuredExtension.getTestContext().getCallbackURL() != null) {
+            Map<String, Object> placeholders = new HashMap<>();
+            placeholders.put("callbackUrl", restAssuredExtension.getTestContext().getCallbackURL());
+            testCase.getRequest().getPlaceHolders().putAll(placeholders);
+        }
+        body = TestUtility.getTestBody(apiName, "", testCase);
         restAssuredExtension
                 .body(body);
     }
@@ -330,8 +366,8 @@ public class TnTV2Steps {
 
     @When("Set request for GET")
     public void setRequestForGET() {
-        Map<String, String> pathVariables = restAssuredExtension.getTestContext().getRequest().getPathVariables();
-        Map<String, String> queryParameters = restAssuredExtension.getTestContext().getRequest().getQueryParameters();
+        Map<String, String> pathVariables = restAssuredExtension.getTestContext().getTestCase().getRequest().getPathVariables();
+        Map<String, String> queryParameters = restAssuredExtension.getTestContext().getTestCase().getRequest().getQueryParameters();
         restAssuredExtension
                 .pathParams(pathVariables)
                 .queryParams(queryParameters);
@@ -360,9 +396,9 @@ public class TnTV2Steps {
     @And("Path parameters {string}")
     public void pathParameters(String parameters) {
         List<String> parametersList = Arrays.asList(parameters.split(","));
-        Map<String, String> parametersMap = TestUtility.getAttributeFromGetTestData(parametersList, restAssuredExtension.getApiName());
+        Map<String, String> parametersMap = TestUtility.getAttributeFromGetTestData(parametersList, restAssuredExtension.getTestContext().getApiName());
         if (parametersMap == null || (parametersMap.size() != parametersList.size())) {
-            Reporter.log("Validation Step-Path parameter setup missing for " + parameters );
+            Reporter.log("Validation Step-Path parameter setup missing for " + parameters);
             Assert.fail("Path parameter setup missing for " + parameters);
         } else {
             restAssuredExtension
@@ -396,30 +432,42 @@ public class TnTV2Steps {
     @When("Set request with test case {string}")
     public void setRequestWithTestCase(String testName) {
         String body = null;
-        TestCase testContext = TestUtility.getTestCase(restAssuredExtension.getApiName(), testName);
-        if (testContext.getRequest().getTemplateFile() != null) {
-            body = FileUtility.loadFileAsString(testContext.getRequest().getTemplateFile());
+        String apiName = restAssuredExtension.getTestContext().getApiName();
+        TestCase testCase = TestUtility.getTestCase(apiName, testName);
+        if (testCase.getRequest().getTemplateFile() != null) {
+            body = FileUtility.loadFileAsString(testCase.getRequest().getTemplateFile());
         }
         if (body != null)
-            body = TestUtility.getTestBody(restAssuredExtension.getApiName(), body, testName);
-        Map<String, String> pathVariables = testContext.getRequest().getPathVariables();
+            body = TestUtility.getTestBody(apiName, body, testCase);
+        Map<String, String> pathVariables = testCase.getRequest().getPathVariables();
         if (pathVariables != null && !(pathVariables.isEmpty())) {
-        } else if (testContext.getRequest().getDynamicPathVariables() != null && !(testContext.getRequest().getDynamicPathVariables().isEmpty())) {
-            pathVariables = TestUtility.getAttributeFromGetTestData(testContext.getRequest().getDynamicPathVariables(), restAssuredExtension.getApiName());
+        } else if (testCase.getRequest().getDynamicPathVariables() != null && !(testCase.getRequest().getDynamicPathVariables().isEmpty())) {
+            pathVariables = TestUtility.getAttributeFromGetTestData(testCase.getRequest().getDynamicPathVariables(), apiName);
         }
-        Map<String, String> queryParameters = testContext.getRequest().getQueryParameters();
+        Map<String, String> queryParameters = testCase.getRequest().getQueryParameters();
         if (queryParameters != null && !(queryParameters.isEmpty())) {
-        } else if (testContext.getRequest().getDynamicQueryParameters() != null && !(testContext.getRequest().getDynamicQueryParameters().isEmpty())) {
-            pathVariables = TestUtility.getAttributeFromGetTestData(testContext.getRequest().getDynamicQueryParameters(), restAssuredExtension.getApiName());
+        } else if (testCase.getRequest().getDynamicQueryParameters() != null && !(testCase.getRequest().getDynamicQueryParameters().isEmpty())) {
+            pathVariables = TestUtility.getAttributeFromGetTestData(testCase.getRequest().getDynamicQueryParameters(), apiName);
         }
-        if(body!=null && !body.isEmpty())
-        restAssuredExtension
-                .body(body);
-        if(pathVariables!=null && !pathVariables.isEmpty())
+        if (body != null && !body.isEmpty())
+            restAssuredExtension
+                    .body(body);
+        if (pathVariables != null && !pathVariables.isEmpty())
             restAssuredExtension
                     .pathParams(pathVariables);
-        if(queryParameters!=null && !queryParameters.isEmpty())
+        if (queryParameters != null && !queryParameters.isEmpty())
             restAssuredExtension
                     .queryParams(pathVariables);
+    }
+
+    @And("A valid Callback Url")
+    public void aValidCallbackUrl() {
+
+        restAssuredExtension.getTestContext().setCallbackURL(Configuration.CALLBACK_URI + "/webhook/callback/receive");
+    }
+
+    @And("An invalid Callback Url")
+    public void aInvalidCallbackUrl() {
+        restAssuredExtension.getTestContext().setCallbackURL(Configuration.CALLBACK_URI + "/webhook/callback/reject");
     }
 }

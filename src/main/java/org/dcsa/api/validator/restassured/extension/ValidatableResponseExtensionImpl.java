@@ -15,7 +15,6 @@ import org.dcsa.api.validator.util.JsonUtility;
 import org.dcsa.api.validator.util.TestUtility;
 import org.testng.Assert;
 import org.testng.Reporter;
-
 import java.util.List;
 import java.util.Map;
 

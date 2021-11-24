@@ -1,18 +1,12 @@
 package org.dcsa.api.validator.hooks;
 
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import io.restassured.http.ContentType;
 import org.dcsa.api.validator.config.Configuration;
-import org.dcsa.api.validator.util.FileUtility;
-import org.dcsa.api.validator.util.JsonParser;
 import org.dcsa.api.validator.util.TestUtility;
 import org.testng.annotations.BeforeSuite;
-
 import static io.restassured.RestAssured.given;
 
 public class TestSetup {

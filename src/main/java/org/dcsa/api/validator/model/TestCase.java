@@ -7,5 +7,5 @@ import lombok.NoArgsConstructor;
 
 @Data
 public class TestCase {
-    TestRequest request;
+    TestRequest request=new TestRequest();
 }
