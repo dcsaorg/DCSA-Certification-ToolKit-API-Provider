@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
-<suite name="TNT"  parallel = "tests"  >
+<suite name="TNT" thread-count="5"   parallel = "tests"  >
 <listeners>
         <listener class-name = "org.dcsa.api.validator.reporter.CustomReporter" />
     </listeners>
-    <test  name="TnTV2" >
+    <test  name="TnTV2"  >
       <packages>
-            <!--<package name="org.dcsa.api.validator.config"/>
-            <package name="org.dcsa.api.validator.hooks"/>
-            <package name="org.dcsa.api.validator.runner"/>-->
             <package name="org.dcsa.api.validator.reporter"/>
         </packages>
 
@@ -19,4 +16,14 @@
             <class name="org.dcsa.api.validator.runner.TestRunnerTnT"/>
         </classes>
     </test> <!-- Test -->
+<!--    <test  name="TnTV3"  >
+        <packages>
+            <package name="org.dcsa.api.validator.reporter"/>
+        </packages>
+        <classes>
+            <class name="org.dcsa.api.validator.config.Configuration"/>
+            <class name="org.dcsa.api.validator.hooks.TestSetup"/>
+            <class name="org.dcsa.api.validator.runner.SubscriberTestRunner"/>
+        </classes>
+    </test>-->
 </suite> <!-- Suite -->

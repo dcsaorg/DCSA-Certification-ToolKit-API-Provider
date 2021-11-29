@@ -5,15 +5,23 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.*;
+import com.github.fge.jsonschema.cfg.ValidationConfiguration;
+import com.github.fge.jsonschema.core.exceptions.ProcessingException;
+import com.github.fge.jsonschema.core.report.ProcessingReport;
+import com.github.fge.jsonschema.main.JsonSchema;
+import com.github.fge.jsonschema.main.JsonSchemaFactory;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.PathNotFoundException;
 import io.restassured.path.json.exception.JsonPathException;
 import net.minidev.json.JSONArray;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+
+import static com.github.fge.jsonschema.SchemaVersion.DRAFTV4;
 
 
 public class JsonUtility {
@@ -96,7 +104,7 @@ public class JsonUtility {
 
     public static boolean validateAttributeValue(List<Map<String, Object>> responseList, String attribute, String value) {
         boolean isValidated = true;
-        if (attribute != null & value != null && responseList != null) {
+        if (attribute != null && value != null && responseList != null) {
             int sizeOfList = 0;
             for (Map<String, Object> entry : responseList) {
                 if (sizeOfList >= 10)//check only 10 responses to avoid long response scan
@@ -109,6 +117,19 @@ public class JsonUtility {
         }
         return isValidated;
     }
+
+    public static String extractAttributeValue(String json, String attributeJsonPath) {
+        String value = null;
+        if (attributeJsonPath != null && json != null) {
+            try {
+                value = JsonPath.parse(json).read(attributeJsonPath);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return value;
+    }
+
 
     public static <T> String replacePlaceHolders(String jsonString, Map<String, T> placeHolders) {
         if (placeHolders == null)
@@ -168,6 +189,64 @@ public class JsonUtility {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static boolean isList(String json) {
+        ObjectMapper mapper = new ObjectMapper(new JsonFactory());
+        JsonNode rootNode = null;
+        try {
+            rootNode = mapper.readTree(json);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return false;
+        }
+        if (rootNode.isArray())
+            return true;
+        else
+            return false;
+    }
+
+    public static boolean validateSchema(String schema, String json) throws IOException, ProcessingException {
+        boolean isValid = false;
+        ObjectMapper mapper = new ObjectMapper(new JsonFactory());
+        if (!isList(json)) {
+            JsonSchemaFactory jsonSchemaFactory = JsonSchemaFactory.newBuilder().setValidationConfiguration(ValidationConfiguration.newBuilder().setDefaultVersion(DRAFTV4).freeze()).freeze();
+            try {
+                JsonSchema jsonSchema;
+                JsonNode rootNode = mapper.readTree(schema);
+                jsonSchema = jsonSchemaFactory.getJsonSchema(rootNode);
+                ProcessingReport r = jsonSchema.validate(mapper.readTree(json));
+                isValid = r.isSuccess();
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw e;
+            }
+        } else {
+            validateListSchema(schema, json);
+        }
+        return isValid;
+    }
+
+    public static boolean validateListSchema(String schema, String json) throws IOException, ProcessingException {
+        boolean isValid = false;
+        ObjectMapper mapper = new ObjectMapper(new JsonFactory());
+        List<Map<String, Object>> list = new ObjectMapper().readValue(json, List.class);
+        for (int i = 0; i < list.size() && i < 10; i++) {
+            Map<String, Object> map = list.get(i);
+            String jsonString = new ObjectMapper().writeValueAsString(map);
+            JsonSchemaFactory jsonSchemaFactory = JsonSchemaFactory.newBuilder().setValidationConfiguration(ValidationConfiguration.newBuilder().setDefaultVersion(DRAFTV4).freeze()).freeze();
+            try {
+                JsonSchema jsonSchema = null;
+                JsonNode rootNode = mapper.readTree(schema);
+                jsonSchema = jsonSchemaFactory.getJsonSchema(rootNode);
+                ProcessingReport r = jsonSchema.validate(mapper.readTree(jsonString));
+                isValid = r.isSuccess();
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw e;
+            }
+        }
+        return isValid;
     }
 
 }

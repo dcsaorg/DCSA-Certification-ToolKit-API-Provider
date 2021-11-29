@@ -1,8 +1,5 @@
 package org.dcsa.api.validator.restassured.extension;
 
-import io.cucumber.java.Scenario;
-import io.restassured.response.Response;
-import org.dcsa.api.validator.model.TestCase;
 import org.dcsa.api.validator.model.TestContext;
 
 import java.util.List;
@@ -17,15 +14,9 @@ public interface RestAssuredExtension {
 
     void post();
 
-    //void header(String header, String value);
-
     void given(String endPoint, String apiName);
 
     ValidatableResponseExtension then();
-
-    RestAssuredExtension create();
-
-    RestAssuredExtension create(String resource);
 
     RestAssuredExtension body(String body);
 
@@ -38,16 +29,5 @@ public interface RestAssuredExtension {
     RestAssuredExtensionImpl queryParams(Map<String, String> queryParameters);
 
     TestContext getTestContext();
-    //void setScenario(Scenario scenario);
-
-   // String getApiName();
-
-   // List<Response> getHelperResponse();
-
-   // TestCase getTestContext();
-
-   // void setCallbackURL(String callbackURL);
-   // String getCallbackURL();
-   // List<Map<String,String>> getPathVariableChain();
 
 }

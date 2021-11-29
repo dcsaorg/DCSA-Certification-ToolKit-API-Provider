@@ -5,11 +5,19 @@ import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import io.restassured.http.ContentType;
 import org.dcsa.api.validator.config.Configuration;
+import org.dcsa.api.validator.model.TestContext;
 import org.dcsa.api.validator.util.TestUtility;
 import org.testng.annotations.BeforeSuite;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import static io.restassured.RestAssured.given;
 
 public class TestSetup {
+
+    public static Map<String, TestContext> TestContexts=new HashMap<>();
+
     @BeforeSuite(alwaysRun = true)
     public void suiteSetUp() {
         TestUtility.loadTestSuite(Configuration.testSuite);
@@ -29,13 +37,4 @@ public class TestSetup {
         }
     }
 
-    @Before
-    public static void testPreparation(Scenario scenario) {
-
-    }
-
-    @After
-    public static void testCleanUp(Scenario scenario) {
-
-    }
 }

@@ -2,27 +2,31 @@ Feature:
   TNT Self Certification Check List
 
   @HappyPath
-  Scenario:Get all events
+  Scenario:GET/Event-without filter queries
     Given API End point "/events" for "Event"
     When Send GET http request
     Then Receive valid response for GET all
+    Then Validated against schema
+
 
   @HappyPath
-  Scenario:Get all events
+  Scenario:GET/Event-with limit parameter
     Given API End point "/events" for "Event"
     And Query parameters with values
       | parameter | value |
       | limit     | 10    |
     When Send GET http request
     Then Receive valid response for GET all
+    Then Validated against schema
 
   @HappyPath
-  Scenario Outline:Get all events with Query Parameters
+  Scenario Outline:GET/Event-with filter parameters
     Given API End point "/events" for "Event"
     And Query parameters "<parameters>"
     When Send GET http request
     Then Receive valid response for GET all
-    Examples: List of query parameters
+    Then Validated against schema
+    Examples: List of filter parameters
       | parameters                 |
       | eventType                  |
       | documentTypeCode           |
@@ -40,15 +44,16 @@ Feature:
       | eventCreatedDateTime:gte   |
 
   @HappyPath
-  Scenario:Get all events with Query Parameters
+  Scenario:GET/Event-with Query Parameters
     Given API End point "/events" for "Event"
     And Query parameters
       | limit      |
     When Send GET http request
     Then Receive valid response for GET all
+    Then Validated against schema
 
   @NegativeCase
-  Scenario Outline:Get all events with invalid query Parameters
+  Scenario Outline:GET/Event-with invalid values of filter parameters
     Given API End point "/events" for "Event"
     And Query parameter "<parameter>" with value "<value>"
     When Send GET http request
@@ -69,6 +74,16 @@ Feature:
       | equipmentEventTypeCode     | ABCDES                                                                                                |
       | equipmentReference         | dsfdsAPZU4812090APZU4812090APZU4812090                                                                |
       | eventCreatedDateTime       | 2021-11-31T17:18:46.160973Z                                                                           |
+
+  @NegativeCase
+  Scenario Outline:GET/Event-with invalid values of filter parameters
+    Given API End point "/events" for "Event"
+    And Query parameter "<parameter>" with value "<value>"
+    When Send GET http request
+    Then Receive invalid response for GET
+    Examples: List of query parameters
+      | parameter                  | value                                                                                                 |
+      | eventType1                  | SHIPMENT                                                                                             |
 
 
 

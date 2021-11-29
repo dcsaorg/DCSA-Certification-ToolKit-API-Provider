@@ -11,7 +11,10 @@ import io.cucumber.java.en.When;
 import io.restassured.response.Response;
 import org.dcsa.api.validator.config.Configuration;
 import org.dcsa.api.validator.constants.StatusCode;
+import org.dcsa.api.validator.constants.ValidationCode;
+import org.dcsa.api.validator.hooks.TestSetup;
 import org.dcsa.api.validator.model.TestCase;
+import org.dcsa.api.validator.model.TestContext;
 import org.dcsa.api.validator.restassured.extension.RestAssuredExtension;
 import org.dcsa.api.validator.restassured.extension.RestAssuredExtensionImpl;
 import org.dcsa.api.validator.util.FileUtility;
@@ -20,20 +23,28 @@ import org.dcsa.api.validator.util.TestUtility;
 import org.testng.Assert;
 import org.testng.Reporter;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class CommonSteps {
 
     private RestAssuredExtension restAssuredExtension;
     private Scenario scenario;
 
-    public CommonSteps() {
-        restAssuredExtension = new RestAssuredExtensionImpl();
-    }
+    //public CommonSteps() {
+       // restAssuredExtension = new RestAssuredExtensionImpl();
+       // callbackContext = new CallbackContext();
+   // }
 
-    @Before
+    @Before(order = 1)
     public void testPreparation(Scenario scenario) {
+        System.out.println("Thread:"+Thread.currentThread().getName());
         this.scenario = scenario;
+        if(TestSetup.TestContexts.get(scenario.getId())==null)
+            TestSetup.TestContexts.put(scenario.getId(), new TestContext());
+        restAssuredExtension= new RestAssuredExtensionImpl(TestSetup.TestContexts.get(scenario.getId()));
         restAssuredExtension.getTestContext().setScenario(scenario);
     }
 
@@ -184,7 +195,8 @@ public class CommonSteps {
         List<String> queryParametersList = Arrays.asList(queryParameters.split(","));
         Map<String, String> queryParametersMap = TestUtility.getAttributeFromGetTestData(queryParametersList, restAssuredExtension.getTestContext().getApiName());
         if (queryParametersMap == null || (queryParametersMap.size() != queryParametersList.size())) {
-            Reporter.log("Validation Step-Query Parameter setup missing for " + queryParameters);
+           // Reporter.log("Validation Step-Query Parameter setup missing for " + queryParameters);
+            TestSetup.TestContexts.get(scenario.getId()).setReasonOfFailure("Query Parameter setup missing for " + queryParameters);
             Assert.fail("Query Parameter setup missing for " + queryParameters);
         } else {
             restAssuredExtension
@@ -216,7 +228,8 @@ public class CommonSteps {
         List<String> pathParametersList = Arrays.asList(pathParameters.split(","));
         Map<String, String> pathParametersMap = TestUtility.getAttributeFromGetTestData(pathParametersList, restAssuredExtension.getTestContext().getApiName());
         if (pathParametersMap.size() != pathParametersList.size()) {
-            Reporter.log("Validation Step-Path parameter setup missing for " + pathParameters);
+           // Reporter.log("Validation Step-Path parameter setup missing for " + pathParameters);
+            TestSetup.TestContexts.get(scenario.getId()).setReasonOfFailure("Path parameter setup missing for " + pathParameters);
             Assert.fail("Path parameter setup missing for " + pathParameters);
         } else {
             restAssuredExtension
@@ -279,15 +292,15 @@ public class CommonSteps {
                 .created(StatusCode.NOK);
     }
 
-/*
-    @Then("validate response against schema")
+
+    @Then("Validated against schema")
     public void validateResponseAgainstSchema() {
         restAssuredExtension
                 .then()
                 .assertThat()
-                .schemaValidated();
+                .schema(ValidationCode.VALID);
     }
-*/
+
 
     @Then("Receive valid response for DELETE")
     public void shouldBeDeletedSuccessfully() {
@@ -358,11 +371,6 @@ public class CommonSteps {
     }
 
 
-    @After
-    public void cleanUp() {
-        //s.log(restAssuredExtension.getMessage().getMessageText());
-        // Reporter.log(restAssuredExtension.getMessage().getMessageText());
-    }
 
     @When("Set request for GET")
     public void setRequestForGET() {
@@ -398,7 +406,8 @@ public class CommonSteps {
         List<String> parametersList = Arrays.asList(parameters.split(","));
         Map<String, String> parametersMap = TestUtility.getAttributeFromGetTestData(parametersList, restAssuredExtension.getTestContext().getApiName());
         if (parametersMap == null || (parametersMap.size() != parametersList.size())) {
-            Reporter.log("Validation Step-Path parameter setup missing for " + parameters);
+           // Reporter.log("Validation Step-Path parameter setup missing for " + parameters);
+            TestSetup.TestContexts.get(scenario.getId()).setReasonOfFailure("Path parameter setup missing for " + parameters);
             Assert.fail("Path parameter setup missing for " + parameters);
         } else {
             restAssuredExtension
@@ -460,14 +469,11 @@ public class CommonSteps {
                     .queryParams(pathVariables);
     }
 
-    @And("A valid Callback Url")
-    public void aValidCallbackUrl() {
 
-        restAssuredExtension.getTestContext().setCallbackURL(Configuration.CALLBACK_URI + "/webhook/callback/receive");
+    @After(order = 99)
+    public void cleanUp(Scenario s) {
+        TestSetup.TestContexts.get(s.getId()).setTestCaseName(s.getName());
+        TestSetup.TestContexts.get(s.getId()).setStatus(s.getStatus().toString());
     }
 
-    @And("An invalid Callback Url")
-    public void aInvalidCallbackUrl() {
-        restAssuredExtension.getTestContext().setCallbackURL(Configuration.CALLBACK_URI + "/webhook/callback/reject");
-    }
 }

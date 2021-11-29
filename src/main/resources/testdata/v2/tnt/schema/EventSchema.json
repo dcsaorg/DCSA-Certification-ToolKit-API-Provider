@@ -14,12 +14,12 @@
       "title": "The eventType schema"
     },
     "eventCreatedDateTime": {
-      "type": "date-time",
+      "type": "string",
       "title": "The eventCreatedDateTime schema",
       "default": ""
     },
     "eventDateTime": {
-      "type": "date-time",
+      "type": "string",
       "title": "The eventDateTime schema",
       "default": ""
     },

@@ -14,15 +14,15 @@ public class SparkWebHook {
         this.callbackContext=callbackContext;
     }
 
-
     public void startServer()
     {
         callbackContext.init();
         Spark.port(Configuration.CALLBACK_PORT);
         Spark.post("/webhook/callback/receive", (req, res) -> {
             res.status(200);
+            res.header("Content-Type","application/json");
             callbackContext.setNotificationReceived(true);
-            callbackContext.setCallBackBody(req.body());
+            callbackContext.setNotificationBody(req.body());
             Map<String,String> headers=new HashMap<>();
             for(String header:req.headers())
             {
@@ -30,18 +30,21 @@ public class SparkWebHook {
             }
             callbackContext.setHeaders(headers);
             callbackContext.getNotificationRequestLock().countDown();
-            return "Callback received!";
+            return "{\"status\":\"OK\"}";
         });
 
         Spark.head("/webhook/callback/reject", (req, res) -> {
             res.status(400);
+            res.header("Content-Type","application/json");
             callbackContext.setHeadRequestReceived(true);
             callbackContext.getHeadRequestLock().countDown();
             return "Head request rejected!";
         });
 
         Spark.head("/webhook/callback/receive", (req, res) -> {
+            System.out.println(Thread.currentThread().getName());
             res.status(200);
+            res.header("Content-Type","application/json");
             callbackContext.setHeadRequestReceived(true);
             callbackContext.getHeadRequestLock().countDown();
             return "Head received!";

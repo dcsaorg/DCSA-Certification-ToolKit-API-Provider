@@ -4,7 +4,7 @@
       "endPoint": "/events",
       "resourceIdentifier": "eventID",
       "templateFile": "testdata/v2/tnt/template/ValidEventSubscriptionSample.json",
-      "responseSchema": "testdata/v2/tnt/schema/SubscriptionEventSchema.json"
+      "responseSchema": "testdata/v2/tnt/schema/EventSchema.json"
     },
     "EventSubscription": {
       "endPoint": "/event-subscriptions",
@@ -44,29 +44,28 @@
             ]
           }
         },
-        "InvalidCallBackURL": {
+        "UpdateSecret": {
           "request": {
+            "templateFile": "testdata/v2/tnt/template/SecretSample.json",
             "placeHolders": {
-              "callbackUrl": "http://127.0.0.1:9092/test/webhook/invalid",
-              "eventType": [
-                "TRANSPORT"
-              ]
+              "secret": "MTIzNDU2Nzg5MGFiY2RlZjEyMzQ1Njc4OTBhYmNkZWY="
             }
-        }},
-        "TransportEventSubscription": {
+          }
+        },
+        "SubscriptionRequest_CallBackTest": {
           "request": {
             "placeHolders": {
               "eventType": [
                 "TRANSPORT"
               ],
-              "secret": "MTIzNDU2Nzg5MGFiY2RlZjEyMzQ1Njc4OTBhYmNkZWY="
+              "secret": "OG1wOWFaRW1HTTF1Y2NuaUN0RlAtaU9JMjM5N25vMWtWd25rS2Vkc2ktZms0c01zaTJQOElZRVNQN29MYUkzcg=="
             }
           }},
-        "UpdateSecret": {
+        "RotateSecret_CallBackTest": {
           "request": {
             "templateFile": "testdata/v2/tnt/template/SecretSample.json",
             "placeHolders": {
-              "secret": "OG1wOWFaRW1HTTF1Y2NuaUN0RlAtaU9JMjM5N25vMWtWd25rS2Vkc2ktZms0c01zaTJQOElZRVNQN29MYUkzcg=="
+              "secret": "MTIzNDU2Nzg5MGFiY2RlZjEyMzQ1Njc4OTBhYmNkZWY="
             }
           }
         }

@@ -16,7 +16,9 @@ public class CallbackContext {
     private CountDownLatch headRequestLock;
     private CountDownLatch notificationRequestLock;
     private Map<String,String> headers;
-    String callBackBody;
+    private String notificationBody;
+    private String secret;
+
 
     public CallbackContext() {
         init();
@@ -28,7 +30,7 @@ public class CallbackContext {
         headRequestLock = new CountDownLatch(1);
         notificationRequestLock = new CountDownLatch(1);
         headers=new HashMap<>();
-        callBackBody=null;
+        notificationBody=null;
     }
 
 }
