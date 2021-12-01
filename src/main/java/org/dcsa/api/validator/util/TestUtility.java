@@ -1,6 +1,5 @@
 package org.dcsa.api.validator.util;
 
-import io.cucumber.java.hu.Ha;
 import org.apache.commons.codec.binary.Hex;
 import org.dcsa.api.validator.model.*;
 
@@ -8,7 +7,6 @@ import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class TestUtility {
     private static TestDB testDB;

@@ -31,8 +31,8 @@ public class NotificationWebhookSteps {
         callbackContext = new CallbackContext();
         webhook = new SparkWebHook(callbackContext);
         webhook.startServer();
-        this.scenario=s;
-        if(TestSetup.TestContexts.get(scenario.getId())==null)
+        this.scenario = s;
+        if (TestSetup.TestContexts.get(scenario.getId()) == null)
             TestSetup.TestContexts.put(scenario.getId(), new TestContext());
     }
 
@@ -48,7 +48,7 @@ public class NotificationWebhookSteps {
     public void receiveHeadRequestForCallBackURL() {
         try {
             System.out.println("Waiting for callback head request ");
-            callbackContext.getHeadRequestLock().await(20000, TimeUnit.MILLISECONDS);
+            callbackContext.getHeadRequestLock().await(Configuration.CALLBACK_WAIT, TimeUnit.MILLISECONDS);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -64,7 +64,7 @@ public class NotificationWebhookSteps {
         TestContext testcontext = TestSetup.TestContexts.get(scenario.getId());
         try {
             System.out.println("Waiting for Notification");
-            callbackContext.getNotificationRequestLock().await(20000, TimeUnit.MILLISECONDS);
+            callbackContext.getNotificationRequestLock().await(Configuration.CALLBACK_WAIT, TimeUnit.MILLISECONDS);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -80,15 +80,16 @@ public class NotificationWebhookSteps {
             Assert.fail("Notification-Signature missing in request header");
         }
         testcontext.getMessage().add(callbackContext.getNotificationBody());
-        String key="MTIzNDU2Nzg5MGFiY2RlZjEyMzQ1Njc4OTBhYmNkZWY=";
-        if(testcontext.getRequestChain().size()>0)
-            key=JsonUtility.extractAttributeValue(testcontext.getRequestChain().get(testcontext.getRequestChain().size()-1).getBody(),"secret");
+        String key = "MTIzNDU2Nzg5MGFiY2RlZjEyMzQ1Njc4OTBhYmNkZWY=";
+        if (testcontext.getRequestChain().size() > 0)
+            key = JsonUtility.extractAttributeValue(testcontext.getRequestChain().get(testcontext.getRequestChain().size() - 1).getBody(), "secret");
         String expectedSignature = (TestUtility.getSignature(key, callbackContext.getNotificationBody()));
-        if(!expectedSignature.equals(receivedSignature)) {
-            testcontext.setReasonOfFailure("Invalid Signature: Expected=>"+expectedSignature+"\n\n received=>" + receivedSignature);
+        if (!expectedSignature.equals(receivedSignature)) {
+            testcontext.setReasonOfFailure("Invalid Signature: Expected=>" + expectedSignature + "\n\n received=>" + receivedSignature);
         }
         Assert.assertEquals(expectedSignature, receivedSignature);
     }
+
     @And("A valid Callback Url")
     public void aValidCallbackUrl() {
         TestContext testcontext = TestSetup.TestContexts.get(scenario.getId());

@@ -42,7 +42,6 @@ public class SparkWebHook {
         });
 
         Spark.head("/webhook/callback/receive", (req, res) -> {
-            System.out.println(Thread.currentThread().getName());
             res.status(200);
             res.header("Content-Type","application/json");
             callbackContext.setHeadRequestReceived(true);
@@ -50,7 +49,7 @@ public class SparkWebHook {
             return "Head received!";
         });
         Spark.awaitInitialization();
-        System.out.println("Spark Server started");
+       // System.out.println("Spark Server started");
     }
     public  void stopServer(){
         Spark.stop();

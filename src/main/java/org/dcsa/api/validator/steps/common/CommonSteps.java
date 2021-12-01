@@ -393,13 +393,7 @@ public class CommonSteps {
 
     }
 
-    @Then("Receive response code “{int}”")
-    public void receiveResponseCode(int expectedHttpCode) {
-        restAssuredExtension
-                .then()
-                .assertThat()
-                .statusCode(expectedHttpCode);
-    }
+
 
     @And("Path parameters {string}")
     public void pathParameters(String parameters) {
@@ -476,4 +470,12 @@ public class CommonSteps {
         TestSetup.TestContexts.get(s.getId()).setStatus(s.getStatus().toString());
     }
 
+    @Then("Receive response code {string}")
+    public void receiveResponseCode(String expectedHttpCode) {
+            restAssuredExtension
+                    .then()
+                    .assertThat()
+                    .statusCode(Integer.parseInt(expectedHttpCode));
+
+    }
 }

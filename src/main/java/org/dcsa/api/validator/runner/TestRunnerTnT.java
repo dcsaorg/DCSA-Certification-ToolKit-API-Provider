@@ -6,9 +6,11 @@ import io.cucumber.testng.CucumberOptions;
 
 
 @CucumberOptions(plugin = {"pretty",
-        "html:target/cucumber-reports/cucumber.html",
-        "json:target/cucumber-reports/cucumber.json"
-}, features = {"src/main/java/org/dcsa/api/validator/features/tnt/v2/EventSubscription-Group2.feature"}, glue = {"org.dcsa.api.validator.steps.common","org.dcsa.api.validator.steps.notification"}
+        "html:reports/report.html",
+        //"json:target/cucumber-reports/cucumber.json"
+}, features = {"src/main/java/org/dcsa/api/validator/features/tnt/v2/EventSubscription-Group2.feature"
+,"src/main/java/org/dcsa/api/validator/features/tnt/v2/EventSubscription-Group1.feature"
+        ,"src/main/java/org/dcsa/api/validator/features/tnt/v2/Event.feature"}, glue = {"org.dcsa.api.validator.steps.common","org.dcsa.api.validator.steps.notification"}
 )
 public class TestRunnerTnT extends AbstractTestNGCucumberTests {
 

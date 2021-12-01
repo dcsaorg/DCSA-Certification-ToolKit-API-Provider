@@ -46,7 +46,7 @@ Feature:
     Given API End point "/event-subscriptions/{subscriptionID}/secret" for "EventSubscription"
     When Set request for PUT with test case "<testcase>"
     And Send a PUT http request
-    Then Receive response code “204”
+    Then Receive response code "204"
     Examples: List of test cases
       | testcase           |
       | UpdateSecret  |
@@ -59,7 +59,8 @@ Feature:
       | pathVariable   | value                                 |
       | subscriptionID | f9597deb-95cc-4382-8d1d-a66fc76c0b711 |
     When Send a DELETE http request
-    Then Receive response code “404”
+    #Then Receive response code "404"
+    Then Receive response code "400"
 
   @NegativeCase
   Scenario:PUT /event-subscriptions/{subscriptionID}:with invalid attribute value
@@ -80,7 +81,7 @@ Feature:
       | subscriptionID | ef7edb78-a902-4e4a-8183-8cc258465257 |
     When Set request for PUT
     And Send a PUT http request
-    Then Receive response code “400”
+    Then Receive response code "400"
 
 
 

@@ -39,7 +39,14 @@ public class FileUtility {
         private static InputStream openStream(String resource) throws IOException {
             URL url = Thread.currentThread().getContextClassLoader().getResource(resource);
             if (url == null) {
-                throw new IllegalStateException("Cannot find json file " + resource);
+                try {
+                    File file = new File(resource);
+                    FileInputStream fis = new FileInputStream(file);
+                    return fis;
+                } catch (Exception e)
+                {
+                    throw new IllegalStateException("Cannot find json file " + resource);
+                }
             }
             return url.openStream();
         }

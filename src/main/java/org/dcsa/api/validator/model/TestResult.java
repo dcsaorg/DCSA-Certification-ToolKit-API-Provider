@@ -1,7 +1,6 @@
 package org.dcsa.api.validator.model;
 
 import lombok.Data;
-import org.dcsa.api.validator.constants.TestStatusCode;
 import org.dcsa.api.validator.constants.ValidationType;
 
 import java.util.ArrayList;

@@ -31,20 +31,20 @@ Feature:
       | eventType                  |
       | documentTypeCode           |
       | shipmentEventTypeCode      |
-      | carrierBookingReference    |
-      | transportDocumentReference |
+      #| carrierBookingReference    |
+     # | transportDocumentReference |
       | transportEventTypeCode     |
       | transportCallID            |
       | vesselIMONumber            |
-      | exportVoyageNumber         |
+      #| exportVoyageNumber         |
       | carrierServiceCode         |
-      | UNLocationCode             |
+      #| UNLocationCode             |
       | equipmentEventTypeCode     |
       | equipmentReference         |
-      | eventCreatedDateTime:gte   |
+      #| eventCreatedDateTime:gte   |
 
   @HappyPath
-  Scenario:GET/Event-with Query Parameters
+  Scenario:GET/Event-with Query Parameter Limit
     Given API End point "/events" for "Event"
     And Query parameters
       | limit      |
@@ -61,7 +61,7 @@ Feature:
     Examples: List of query parameters
       | parameter                  | value                                                                                                 |
       | eventType                  | SHIPMENT1                                                                                             |
-      | documentTypeCode           | ABCDES                                                                                                |
+      #| documentTypeCode           | ABCDES                                                                                                |
       | shipmentEventTypeCode      | ABCFGGHH                                                                                              |
       | carrierBookingReference    | ABC709951ABC709951ABC709951ABC709951564                                                               |
       | transportDocumentReference | ABC709951ABC709951ABC709951ABC709951564                                                               |

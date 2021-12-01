@@ -1,0 +1,14 @@
+
+1. Download the zip file of compatibility tool kit
+2. 
+1. Window: got to extracted folder and run below command to trigger the rest run
+java -jar DCSA-Validator-Toolkit.jar suitxmls/TnTV2-TestSuit.xml
+java -jar DCSA-Validator-Toolkit.jar suitxmls/Subscriber-TestSuit.xml
+
+2. Docker
+docker build -t ctl .
+docker container run --name ctl -v C:\workspace\abc\kit\ctk\reports:/ctk/reports -p 8085:8085 -e "API_ROOT_URI=http://localhost:9090/" -e "CALLBACK_PORT=8085" -e "CALLBACK_URI=http://localhost:8085" -e "CALLBACK_WAIT=20000" -e "DATA_CONFIG=dataconfig.json" -e "TEST_SUITE=Subscriber-TestSuit.xml" ctl:latest
+
+docker container run --name ctl -v C:\workspace\abc\kit\ctk\reports:/ctk/reports -p 8085:8085 -e "API_ROOT_URI=http://localhost:9090/" -e "CALLBACK_PORT=8085" -e "CALLBACK_URI=http://localhost:8085" -e "CALLBACK_WAIT=20000" -e "DATA_CONFIG=dataconfig.json" -e "TEST_SUITE=TnTV2-TestSuit.xml" ctl:latest
+
+docker container run --name ctl -v C:\workspace\abc\kit\ctk\reports:/ctk/reports -p 8085:8085 -e "API_ROOT_URI=http://192.168.178.38:9090/" -e "CALLBACK_PORT=8085" -e "CALLBACK_URI=http://localhost:8085" -e "CALLBACK_WAIT=20000" -e "DATA_CONFIG=dataconfig.json" -e "TEST_SUITE=Subscriber-TestSuit.xml" ctl:latest

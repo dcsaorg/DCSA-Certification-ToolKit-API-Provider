@@ -3,11 +3,9 @@ package org.dcsa.api.validator.model;
 import io.cucumber.java.Scenario;
 import io.restassured.response.Response;
 import io.restassured.specification.FilterableRequestSpecification;
-import io.restassured.specification.RequestSpecification;
 import lombok.Data;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 

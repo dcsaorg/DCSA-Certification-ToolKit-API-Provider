@@ -1,7 +1,5 @@
 package org.dcsa.api.validator.model;
 
-import io.cucumber.java.hu.De;
-import lombok.Builder;
 import lombok.Data;
 
 import java.util.HashMap;

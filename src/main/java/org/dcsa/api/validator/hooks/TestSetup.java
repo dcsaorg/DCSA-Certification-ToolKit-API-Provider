@@ -1,13 +1,13 @@
 package org.dcsa.api.validator.hooks;
 
-import io.cucumber.java.After;
-import io.cucumber.java.Before;
-import io.cucumber.java.Scenario;
 import io.restassured.http.ContentType;
 import org.dcsa.api.validator.config.Configuration;
 import org.dcsa.api.validator.model.TestContext;
 import org.dcsa.api.validator.util.TestUtility;
+import org.testng.ITestContext;
+import org.testng.TestRunner;
 import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeTest;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +19,13 @@ public class TestSetup {
     public static Map<String, TestContext> TestContexts=new HashMap<>();
 
     @BeforeSuite(alwaysRun = true)
-    public void suiteSetUp() {
+    public void suiteSetUp() throws Exception {
+        try {
+            Configuration.init();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
         TestUtility.loadTestSuite(Configuration.testSuite);
         TestUtility.loadTestData(Configuration.testData);
         if (Configuration.client_secret == null || Configuration.client_id == null || Configuration.audience == null)
@@ -35,6 +41,12 @@ public class TestSetup {
                     .when()
                     .post(System.getenv("OAuthTokenUri")).jsonPath().getString("access_token");
         }
+    }
+
+    @BeforeTest
+    public void setup(ITestContext ctx) {
+        TestRunner runner = (TestRunner) ctx;
+        runner.setOutputDirectory(Configuration.OUT_PUT_DIR);
     }
 
 }

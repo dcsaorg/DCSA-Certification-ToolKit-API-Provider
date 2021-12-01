@@ -1,9 +1,6 @@
 package org.dcsa.api.validator.model;
 
-import groovy.util.logging.Slf4j;
 import lombok.Data;
-
-import lombok.extern.log4j.Log4j;
 
 import java.util.Map;
 

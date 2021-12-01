@@ -39,6 +39,18 @@
           "eventCreatedDateTime": "2021-11-19T18:17:06.731433Z",
           "transportCallID": "8b64d20b-523b-4491-b2e5-32cfa5174eed",
           "vesselIMONumber": "1234567",
+          "UNLocationCode": "SGSIN",
+          "transportEventTypeCode": "DEPA"
+        },
+        {
+          "eventID": "84db923d-2a19-4eb0-beb5-446c1ec57d34",
+          "eventType": "EQUIPMENT",
+          "eventCreatedDateTime": "2021-01-09T13:12:56Z",
+          "equipmentEventTypeCode": "LOAD",
+          "equipmentReference": "APZU4812090",
+          "transportCallID": "8b64d20b-523b-4491-b2e5-32cfa5174eed",
+          "carrierServiceCode": "A_CSC",
+          "vesselIMONumber": "1234567",
           "UNLocationCode": "SGSIN"
         }
       ]

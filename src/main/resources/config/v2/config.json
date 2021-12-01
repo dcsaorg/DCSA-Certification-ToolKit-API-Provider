@@ -3,14 +3,13 @@
     "Event": {
       "endPoint": "/events",
       "resourceIdentifier": "eventID",
-      "templateFile": "testdata/v2/tnt/template/ValidEventSubscriptionSample.json",
-      "responseSchema": "testdata/v2/tnt/schema/EventSchema.json"
+      "responseSchema": "schemas/tnt/v2/EventSchema.json"
     },
     "EventSubscription": {
       "endPoint": "/event-subscriptions",
       "resourceIdentifier": "subscriptionID",
-      "templateFile": "testdata/v2/tnt/template/ValidEventSubscriptionSample1.json",
-      "responseSchema": "testdata/v2/tnt/schema/SubscriptionEventSchema.json",
+      "templateFile": "templates/tnt/v2/ValidEventSubscriptionSample.json",
+      "responseSchema": "schemas/tnt/v2/SubscriptionEventSchema.json",
       "testCases": {
         "EventTypeSHIPMENT": {
           "request": {
@@ -46,7 +45,7 @@
         },
         "UpdateSecret": {
           "request": {
-            "templateFile": "testdata/v2/tnt/template/SecretSample.json",
+            "templateFile": "templates/tnt/v2/SecretSample.json",
             "placeHolders": {
               "secret": "MTIzNDU2Nzg5MGFiY2RlZjEyMzQ1Njc4OTBhYmNkZWY="
             }
@@ -63,7 +62,7 @@
           }},
         "RotateSecret_CallBackTest": {
           "request": {
-            "templateFile": "testdata/v2/tnt/template/SecretSample.json",
+            "templateFile": "templates/tnt/v2/SecretSample.json",
             "placeHolders": {
               "secret": "MTIzNDU2Nzg5MGFiY2RlZjEyMzQ1Njc4OTBhYmNkZWY="
             }

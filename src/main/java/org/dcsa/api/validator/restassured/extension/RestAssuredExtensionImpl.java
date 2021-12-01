@@ -35,10 +35,9 @@ public class RestAssuredExtensionImpl implements RestAssuredExtension {
     public void given(String endPoint, String apiName) {
         testContext.setApiName(apiName);
         this.builder = new RequestSpecBuilder();
-       // this.validatableResponseExtensionImpl = new ValidatableResponseExtensionImpl(testContext);
         this.builder.setBasePath(endPoint);
         this.builder.addHeader("API-Version", Configuration.API_VERSION);
-        this.builder.setBaseUri(Configuration.ROOT_URI + "v" + Configuration.API_VERSION);
+        this.builder.setBaseUri(Configuration.ROOT_URI + "/v" + Configuration.API_VERSION.split("\\.")[0]);
         this.builder.setContentType(ContentType.JSON);
     }
 
