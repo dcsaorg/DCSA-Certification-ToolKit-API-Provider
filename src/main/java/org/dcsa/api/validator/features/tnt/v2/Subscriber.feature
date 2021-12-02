@@ -44,7 +44,7 @@ Feature:
     Given API End point "/event-subscriptions/{subscriptionID}/secret" for "EventSubscription"
     When Set request for PUT with test case "UpdateSecret"
     And Send a PUT http request
-    Then Receive response code “204”
+    Then Receive response code "204"
     Then Receive a valid notification
 
 

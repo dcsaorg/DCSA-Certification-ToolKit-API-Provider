@@ -2,12 +2,10 @@ version: '3.5'
 services:
     ctk:
         environment:
-            - API_ROOT_URI=http://192.168.178.38:9090
-            - CALLBACK_PORT=8085
-            - CALLBACK_URI=http://192.168.178.38:8085
+            - API_ROOT_URI=http://192.168.178.38:9090/v2
+            - CALLBACK_PORT=9092
+            - CALLBACK_URI=http://192.168.178.38:9092/v2
             - CALLBACK_WAIT=20000
-            - DATA_CONFIG=dataconfig.json
-            - TEST_SUITE=TnTV2-TestSuit.xml
         container_name: test
         build:
             .

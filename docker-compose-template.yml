@@ -6,8 +6,6 @@ services:
             - CALLBACK_PORT=<CALLBACK_PORT>
             - CALLBACK_URI=<CALLBACK_URI>
             - CALLBACK_WAIT=<CALLBACK_WAIT>
-            - DATA_CONFIG=dataconfig.json
-            - TEST_SUITE=TnTV2-TestSuit.xml
         container_name: test
         build:
             .

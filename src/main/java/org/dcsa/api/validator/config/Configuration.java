@@ -34,13 +34,13 @@ public class Configuration {
         if (System.getenv("CALLBACK_URI") != null)
             CALLBACK_URI = System.getenv("CALLBACK_URI");
         else {
-            CALLBACK_URI="http://localhost:8085";
+            CALLBACK_URI="http://localhost:9092/v2";
             //throw new Exception("CALLBACK_URI is not set as environment variable, please follow the setup document");
         }
         if (System.getenv("CALLBACK_PORT") != null)
             CALLBACK_PORT = Integer.parseInt(System.getenv("CALLBACK_PORT"));
         else {
-            CALLBACK_PORT = 8085;
+            CALLBACK_PORT = 9092;
             //throw new Exception("CALLBACK_PORT is not set as environment variable, please follow the setup document");
         }
         if (System.getenv("CALLBACK_WAIT") != null)

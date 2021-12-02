@@ -6,7 +6,7 @@ RUN apt-get update \
         openjdk-11-jre-headless \
     && rm -rf /var/lib/apt/lists/*
 
-COPY  / /ctk/
+COPY  /ctk/ /ctk/
 WORKDIR /ctk/
 
-ENTRYPOINT java -jar DCSA-Validator-Toolkit.jar  suitxmls/$TEST_SUITE
+ENTRYPOINT java -jar DCSA-Validator-Toolkit.jar TestSuite.xml

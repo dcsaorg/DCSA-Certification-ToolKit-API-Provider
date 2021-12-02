@@ -5,7 +5,7 @@
 <listeners>
         <listener class-name = "org.dcsa.api.validator.reporter.CustomReporter" />
     </listeners>
-    <test  name="TnTV2"  >
+    <test  name="TNT"  >
       <packages>
             <package name="org.dcsa.api.validator.reporter"/>
         </packages>
