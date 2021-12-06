@@ -220,7 +220,7 @@ public class JsonUtility {
                 throw e;
             }
         } else {
-            validateListSchema(schema, json);
+            isValid=validateListSchema(schema, json);
         }
         return isValid;
     }

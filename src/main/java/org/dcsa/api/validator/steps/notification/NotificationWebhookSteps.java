@@ -1,15 +1,14 @@
 package org.dcsa.api.validator.steps.notification;
 
-import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import org.dcsa.api.validator.config.Configuration;
 import org.dcsa.api.validator.hooks.TestSetup;
 import org.dcsa.api.validator.model.CallbackContext;
 import org.dcsa.api.validator.model.TestContext;
+import org.dcsa.api.validator.util.FileUtility;
 import org.dcsa.api.validator.util.JsonUtility;
 import org.dcsa.api.validator.util.TestUtility;
 import org.dcsa.api.validator.webhook.SparkWebHook;
@@ -22,25 +21,14 @@ public class NotificationWebhookSteps {
     private SparkWebHook webhook;
     private Scenario scenario;
 
-    public NotificationWebhookSteps() {
-        callbackContext = new CallbackContext();
-    }
-
     @Before(order = 2)
     public void setUp(Scenario s) {
         callbackContext = new CallbackContext();
-        webhook = new SparkWebHook(callbackContext);
-        webhook.startServer();
+        webhook = TestSetup.sparkWebHook;
+        webhook.setContext(callbackContext);
         this.scenario = s;
         if (TestSetup.TestContexts.get(scenario.getId()) == null)
             TestSetup.TestContexts.put(scenario.getId(), new TestContext());
-    }
-
-    @Given("Start Webhook server")
-    public void startMockServerAPIServer() {
-/*        callbackContext = new CallbackContext();
-        webhook = new SparkWebHook(callbackContext);
-        webhook.startServer();*/
     }
 
 
@@ -79,6 +67,16 @@ public class NotificationWebhookSteps {
             testcontext.setReasonOfFailure("Notification-Signature missing in request header");
             Assert.fail("Notification-Signature missing in request header");
         }
+
+        String schemaString= FileUtility.loadFileAsString(TestUtility.getResponseSchema("Event"));
+        try {
+            boolean isValid=JsonUtility.validateSchema(schemaString,callbackContext.getNotificationBody());
+            if(!isValid)
+                Assert.fail("Schema validation failed");
+        } catch (Exception e) {
+            Assert.fail(e.getMessage());
+        }
+
         testcontext.getMessage().add(callbackContext.getNotificationBody());
         String key = "MTIzNDU2Nzg5MGFiY2RlZjEyMzQ1Njc4OTBhYmNkZWY=";
         if (testcontext.getRequestChain().size() > 0)
@@ -87,25 +85,20 @@ public class NotificationWebhookSteps {
         if (!expectedSignature.equals(receivedSignature)) {
             testcontext.setReasonOfFailure("Invalid Signature: Expected=>" + expectedSignature + "\n\n received=>" + receivedSignature);
         }
-        Assert.assertEquals(expectedSignature, receivedSignature);
+        Assert.assertEquals(receivedSignature,expectedSignature);
+
     }
 
     @And("A valid Callback Url")
     public void aValidCallbackUrl() {
         TestContext testcontext = TestSetup.TestContexts.get(scenario.getId());
-        testcontext.setCallbackURL(Configuration.CALLBACK_URI + "/webhook/callback/receive");
+        testcontext.setCallbackURL(Configuration.CALLBACK_URI + "/webhook/callback/receive/456eacf9-8cda-412b-b801-4a41be7a6c35");
     }
 
     @And("An invalid Callback Url")
     public void aInvalidCallbackUrl() {
         TestContext testcontext = TestSetup.TestContexts.get(scenario.getId());
-        testcontext.setCallbackURL(Configuration.CALLBACK_URI + "/webhook/callback/reject");
+        testcontext.setCallbackURL(Configuration.CALLBACK_URI + "/webhook/callback/reject/456eacf9-8cda-412b-b801-4a41be7a6c35");
     }
-
-    @After(order = 1)
-    public void cleanUp(Scenario s) {
-        webhook.stopServer();
-    }
-
 
 }

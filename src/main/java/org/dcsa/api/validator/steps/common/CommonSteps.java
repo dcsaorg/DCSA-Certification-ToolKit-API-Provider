@@ -33,11 +33,6 @@ public class CommonSteps {
     private RestAssuredExtension restAssuredExtension;
     private Scenario scenario;
 
-    //public CommonSteps() {
-       // restAssuredExtension = new RestAssuredExtensionImpl();
-       // callbackContext = new CallbackContext();
-   // }
-
     @Before(order = 1)
     public void testPreparation(Scenario scenario) {
         System.out.println("Thread:"+Thread.currentThread().getName());
@@ -181,7 +176,6 @@ public class CommonSteps {
                 .queryParams(queryParametersMap);
     }
 
-
     @And("Query parameter {string} with value {string}")
     public void queryParametersWithValues(String queryParameter, String value) {
         Map<String, String> queryParametersMap = new HashMap<>();
@@ -195,7 +189,6 @@ public class CommonSteps {
         List<String> queryParametersList = Arrays.asList(queryParameters.split(","));
         Map<String, String> queryParametersMap = TestUtility.getAttributeFromGetTestData(queryParametersList, restAssuredExtension.getTestContext().getApiName());
         if (queryParametersMap == null || (queryParametersMap.size() != queryParametersList.size())) {
-           // Reporter.log("Validation Step-Query Parameter setup missing for " + queryParameters);
             TestSetup.TestContexts.get(scenario.getId()).setReasonOfFailure("Query Parameter setup missing for " + queryParameters);
             Assert.fail("Query Parameter setup missing for " + queryParameters);
         } else {
@@ -228,7 +221,6 @@ public class CommonSteps {
         List<String> pathParametersList = Arrays.asList(pathParameters.split(","));
         Map<String, String> pathParametersMap = TestUtility.getAttributeFromGetTestData(pathParametersList, restAssuredExtension.getTestContext().getApiName());
         if (pathParametersMap.size() != pathParametersList.size()) {
-           // Reporter.log("Validation Step-Path parameter setup missing for " + pathParameters);
             TestSetup.TestContexts.get(scenario.getId()).setReasonOfFailure("Path parameter setup missing for " + pathParameters);
             Assert.fail("Path parameter setup missing for " + pathParameters);
         } else {
@@ -347,7 +339,6 @@ public class CommonSteps {
                 .modified(StatusCode.NOK);
     }
 
-
     @When("Set request for POST with test case {string}")
     public void setRequestBodyWithTestData(String testName) {
         String body;
@@ -371,7 +362,6 @@ public class CommonSteps {
     }
 
 
-
     @When("Set request for GET")
     public void setRequestForGET() {
         Map<String, String> pathVariables = restAssuredExtension.getTestContext().getTestCase().getRequest().getPathVariables();
@@ -393,14 +383,11 @@ public class CommonSteps {
 
     }
 
-
-
     @And("Path parameters {string}")
     public void pathParameters(String parameters) {
         List<String> parametersList = Arrays.asList(parameters.split(","));
         Map<String, String> parametersMap = TestUtility.getAttributeFromGetTestData(parametersList, restAssuredExtension.getTestContext().getApiName());
         if (parametersMap == null || (parametersMap.size() != parametersList.size())) {
-           // Reporter.log("Validation Step-Path parameter setup missing for " + parameters);
             TestSetup.TestContexts.get(scenario.getId()).setReasonOfFailure("Path parameter setup missing for " + parameters);
             Assert.fail("Path parameter setup missing for " + parameters);
         } else {

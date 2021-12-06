@@ -4,10 +4,9 @@ import io.restassured.http.ContentType;
 import org.dcsa.api.validator.config.Configuration;
 import org.dcsa.api.validator.model.TestContext;
 import org.dcsa.api.validator.util.TestUtility;
-import org.testng.ITestContext;
-import org.testng.TestRunner;
+import org.dcsa.api.validator.webhook.SparkWebHook;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.BeforeTest;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,12 +15,15 @@ import static io.restassured.RestAssured.given;
 
 public class TestSetup {
 
-    public static Map<String, TestContext> TestContexts=new HashMap<>();
+    public static Map<String, TestContext> TestContexts = new HashMap<>();
+    public static SparkWebHook sparkWebHook;
 
     @BeforeSuite(alwaysRun = true)
     public void suiteSetUp() throws Exception {
         try {
             Configuration.init();
+            sparkWebHook = new SparkWebHook();
+            sparkWebHook.startServer();
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
@@ -43,10 +45,9 @@ public class TestSetup {
         }
     }
 
-    @BeforeTest
-    public void setup(ITestContext ctx) {
-        TestRunner runner = (TestRunner) ctx;
-        runner.setOutputDirectory(Configuration.OUT_PUT_DIR);
+    @AfterSuite(alwaysRun = true)
+    public void tearDown() throws Exception {
+        sparkWebHook.stopServer();
     }
 
 }

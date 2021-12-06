@@ -76,7 +76,7 @@ public class CustomReporter implements IReporter {
             }
             int sheetNo = 1;
             for (String key : testCaseList) {
-                String sheetName = "TestCase-" + sheetNo++;
+                String sheetName = "TestGroup-" + sheetNo++;
                 XSSFSheet spreadsheet = workbook.createSheet(sheetName);
                 fillWithTestResult(spreadsheet, key, testContexts);
                 sheetRow = spreadsheetSummary.createRow(rowId2++);

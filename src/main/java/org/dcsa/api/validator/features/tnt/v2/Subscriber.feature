@@ -1,10 +1,6 @@
 Feature:
   Notifications test check list
 
-  Background: Start Spark Webhook server
-    Given Start Webhook server
-
-
   @HeadRequest
   Scenario:Test receiving head request
     Given API End point "/event-subscriptions" for "EventSubscription"

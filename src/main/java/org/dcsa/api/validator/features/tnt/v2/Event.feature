@@ -38,7 +38,7 @@ Feature:
       | vesselIMONumber            |
       #| exportVoyageNumber         |
       | carrierServiceCode         |
-      #| UNLocationCode             |
+      | UNLocationCode             |
       | equipmentEventTypeCode     |
       | equipmentReference         |
       #| eventCreatedDateTime:gte   |
@@ -61,7 +61,7 @@ Feature:
     Examples: List of query parameters
       | parameter                  | value                                                                                                 |
       | eventType                  | SHIPMENT1                                                                                             |
-      #| documentTypeCode           | ABCDES                                                                                                |
+      | documentTypeCode           | ABCDESEFF                                                                                                |
       | shipmentEventTypeCode      | ABCFGGHH                                                                                              |
       | carrierBookingReference    | ABC709951ABC709951ABC709951ABC709951564                                                               |
       | transportDocumentReference | ABC709951ABC709951ABC709951ABC709951564                                                               |

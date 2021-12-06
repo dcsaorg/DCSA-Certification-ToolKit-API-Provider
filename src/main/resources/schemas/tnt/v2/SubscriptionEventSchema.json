@@ -13,9 +13,13 @@
       "title": "The eventType schema",
       "type": "array",
       "default": [],
-      "items":{
+      "items": {
         "title": "Items",
-        "enum":  ["SHIPMENT","EQUIPMENT","TRANSPORT"]
+        "enum": [
+          "SHIPMENT",
+          "EQUIPMENT",
+          "TRANSPORT"
+        ]
       }
     },
     "callbackUrl": {
@@ -24,7 +28,10 @@
       "default": ""
     },
     "transportCallID": {
-      "type": ["null","string"],
+      "type": [
+        "null",
+        "string"
+      ],
       "title": "The transportCallID schema",
       "default": "",
       "maxLength": 100
@@ -50,11 +57,32 @@
         },
         "shipmentEventTypeCode": {
           "id": "#/properties/shipmentEventTypeCode",
-          "type":  "string"
+          "type": "array",
+          "default": [],
+          "items": {
+            "title": "Items",
+            "enum": [
+              "RECE",
+              "DRFT",
+              "PENA",
+              "PENU",
+              "REJE",
+              "APPR",
+              "ISSU",
+              "SURR",
+              "SUBM",
+              "CONF",
+              "VOID",
+              "DEEPAK"
+            ]
+          }
         },
         "carrierBookingReference": {
           "id": "#/properties/carrierBookingReference",
-          "type": "string",
+          "type": [
+            "null",
+            "string"
+          ],
           "maxLength": 35
         },
         "bookingReference": {
@@ -68,16 +96,40 @@
         },
         "transportDocumentReference": {
           "id": "#/properties/transportDocumentReference",
-          "type": ["null","string"],
+          "type": [
+            "null",
+            "string"
+          ],
           "maxLength": 20
         },
         "transportDocumentTypeCode": {
           "id": "#/properties/transportDocumentTypeCode",
-          "type": "string"
+          "type": "array",
+          "default": [],
+          "items": {
+            "title": "Items",
+            "enum": [
+              "BOL",
+              "SWB",
+              "DEEPAK",
+              "GTOT",
+              "STUF",
+              "STRP"
+            ]
+          }
         },
         "transportEventTypeCode": {
           "id": "#/properties/transportEventTypeCode",
-          "type": "string"
+          "type": "array",
+          "default": [],
+          "items": {
+            "title": "Items",
+            "enum": [
+              "ARRI",
+              "DEPA",
+              "DEEPAK"
+            ]
+          }
         },
         "scheduleID": {
           "id": "#/properties/scheduleID",
@@ -89,33 +141,52 @@
         "vesselIMONumber": {
           "id": "#/properties/vesselIMONumber",
           "description": "The unique reference for a registered Vessel. The reference is the International Maritime Organisation (IMO) number, also sometimes known as the Lloyd's register code, which does not change during the lifetime of the vessel",
-          "type": "string",
+          "type": [
+            "null",
+            "string"
+          ],
           "default": "",
           "maxLength": 7
         },
         "carrierVoyageNumber": {
           "id": "#/properties/carrierVoyageNumber",
-          "type": ["null","string"],
+          "type": [
+            "null",
+            "string"
+          ],
           "default": "",
           "maxLength": 50
         },
         "carrierServiceCode": {
           "id": "#/properties/carrierServiceCode",
-          "type": ["null","string"],
+          "type": [
+            "null",
+            "string"
+          ],
           "default": "",
           "maxLength": 5
         },
         "equipmentEventTypeCode": {
           "type": "array",
           "default": [],
-          "items":{
+          "items": {
             "title": "Items",
-            "enum":  [ "LOAD", "DISC", "GTIN", "GTOT", "STUF", "STRP" ]
+            "enum": [
+              "LOAD",
+              "DISC",
+              "GTIN",
+              "GTOT",
+              "STUF",
+              "STRP"
+            ]
           }
         },
         "equipmentReference": {
           "id": "#/properties/equipmentReference",
-          "type": ["null","string"],
+          "type": [
+            "null",
+            "string"
+          ],
           "title": "The equipmentReference schema",
           "default": "",
           "maxLength": 15

@@ -2,7 +2,6 @@ package org.dcsa.api.validator.restassured.extension;
 
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.config.SSLConfig;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.FilterableRequestSpecification;
@@ -24,10 +23,6 @@ public class RestAssuredExtensionImpl implements RestAssuredExtension {
     private ValidatableResponseExtensionImpl validatableResponseExtensionImpl;
     private TestContext testContext;
 
-    public RestAssuredExtensionImpl() {
-        testContext = new TestContext();
-    }
-
     public RestAssuredExtensionImpl(TestContext testContext ) {
         this.testContext = testContext;
     }
@@ -37,7 +32,6 @@ public class RestAssuredExtensionImpl implements RestAssuredExtension {
         this.builder = new RequestSpecBuilder();
         this.builder.setBasePath(endPoint);
         this.builder.addHeader("API-Version", Configuration.API_VERSION.split("\\.")[0]);
-       // this.builder.setBaseUri(Configuration.ROOT_URI + "/v" + Configuration.API_VERSION.split("\\.")[0]);
         this.builder.setBaseUri(Configuration.ROOT_URI);
         this.builder.setContentType(ContentType.JSON);
     }
@@ -45,8 +39,7 @@ public class RestAssuredExtensionImpl implements RestAssuredExtension {
     private RequestSpecification buildRequest() {
         RequestSpecification request= RestAssured
                 .given()
-                .config(RestAssured.config().sslConfig(
-                        new SSLConfig().allowAllHostnames()))
+                .relaxedHTTPSValidation()
                 .auth()
                 .oauth2(Configuration.accessToken)
                 .filter(new RestAssuredRequestFilter(testContext.getScenario())).spec(builder.build());
@@ -125,38 +118,6 @@ public class RestAssuredExtensionImpl implements RestAssuredExtension {
         return this;
     }
 
-  /*  @Override
-    public RestAssuredExtension create() {
-        return create(testContext.getApiName());
-    }
-*/
-/*    @Override
-    public RestAssuredExtensionImpl create(String resource) {
-        Response response = null;
-        try {
-            response = RestAssured.given()
-                    .contentType("application/json")
-                    .body(TestUtility.getBodyForCreate(resource))
-                    .baseUri(Configuration.ROOT_URI + "v" + Configuration.API_VERSION + "")
-                    .basePath(TestUtility.getEndPoint(resource))
-                    .post();
-            response.then().assertThat()
-                    .statusCode(201);
-            testContext.getResponseChain().add(response);
-            String value = response.jsonPath().get(TestUtility.getIdentifierAttribute(resource));
-            Map<String, String> pathVariables = new HashMap<>();
-            pathVariables.put(TestUtility.getIdentifierAttribute(resource), value);
-            if (testContext.getTestCase().getRequest().getPathVariables() != null)
-                testContext.getTestCase().getRequest().getPathVariables().putIfAbsent(TestUtility.getIdentifierAttribute(resource), value);
-            else
-                testContext.getTestCase().getRequest().setPathVariables(pathVariables);
-
-        } catch (AssertionError e) {
-            System.out.println(e.getMessage());
-            throw e;
-        }
-        return this;
-    }*/
 
     @Override
     public RestAssuredExtensionImpl pathParams(Map<String, String> pathVariables) {
@@ -175,9 +136,6 @@ public class RestAssuredExtensionImpl implements RestAssuredExtension {
 
     @Override
     public ValidatableResponseExtension then() {
-       // validatableResponseExtensionImpl.setResponse(response);
-      //  validatableResponseExtensionImpl.setApiName(testContext.getApiName());
-        //validatableResponseExtensionImpl.setTestContext(testContext.getTestCase());
         testContext.getValidationResults().add(new ValidationResult());
         validatableResponseExtensionImpl=new ValidatableResponseExtensionImpl(testContext);
         return validatableResponseExtensionImpl;

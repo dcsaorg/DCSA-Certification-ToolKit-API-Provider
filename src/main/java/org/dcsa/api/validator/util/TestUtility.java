@@ -33,20 +33,9 @@ public class TestUtility {
         return testCase;
     }
 
-    public static TestCase getTestCase(String apiName) {
-        TestCase testCase = testDB.getTestSuites().get(apiName).getTestCases().get("EventTypeSHIPMENT");
-        return testCase;
-    }
-
-
     public static Map<String, TestCase> getTestCases(String apiName) {
         Map<String, TestCase> testCases = testDB.getTestSuites().get(apiName).getTestCases();
         return testCases;
-    }
-
-    public static Map<String, Object> getTestData(String apiName) {
-        Map<String, Object> test = testDataSet.getTestDataSet().get(apiName).getPost().get(0);
-        return test;
     }
 
     public static List<Map<String, Object>> getAllTestDataForGet(String apiName) {
@@ -66,13 +55,6 @@ public class TestUtility {
 
     public static String getTemplateFile(String apiName) {
         String templateFile = testDB.getTestSuites().get(apiName).getTemplateFile();
-        return templateFile;
-    }
-
-    public static String getTemplateFile(TestCase testCase) {
-        String templateFile = null;
-        if (testCase.getRequest() != null)
-            templateFile = testCase.getRequest().getTemplateFile();
         return templateFile;
     }
 
@@ -128,30 +110,6 @@ public class TestUtility {
         return newQueryParameters;
     }
 
-    public static String getBodyForCreate(String resource) {
-        String body = FileUtility.loadFileAsString(TestUtility.getTemplateFile(resource));
-        if (!body.isEmpty()) {
-            body = JsonUtility.replacePlaceHolders(body, TestUtility.getTestData(resource));
-        }
-        return body;
-    }
-
-   /* public static String getTestBody(String apiName, String testName) {
-        TestCase testContext = TestUtility.getTestCase(apiName, testName);
-        return getTestBody(apiName, testContext);
-    }*/
-
-/*
-    public static String getTestBody(String apiName, String testName,Map<String,Object> placeholders) {
-        TestCase testContext = TestUtility.getTestCase(apiName, testName);
-        Map<String, Object> existingPlaceholders=  testContext.getRequest().getPlaceHolders();
-        if(existingPlaceholders!=null && placeholders!=null) {
-            existingPlaceholders.putAll(placeholders);
-            testContext.getRequest().setPlaceHolders(existingPlaceholders);
-        }
-        return getTestBody(apiName, testContext);
-    }
-*/
 
     public static String getTestBody(String apiName, String body, TestCase testContext) {
         if(body==null || body=="")
@@ -164,29 +122,6 @@ public class TestUtility {
         return getUpdateDBody(apiName, body, testContext);
     }
 
-/*
-    public static String getTestBody(String apiName, String body, String testName) {
-        TestCase testContext = TestUtility.getTestCase(apiName, testName);
-        if(body==null || body=="")
-        {
-            if (testContext.getRequest() != null && testContext.getRequest().getTemplateFile() != null)
-                body = FileUtility.loadFileAsString(testContext.getRequest().getTemplateFile());
-            else
-                body = FileUtility.loadFileAsString(TestUtility.getTemplateFile(apiName));
-        }
-        return getUpdateDBody(apiName, body, testContext);
-    }
-*/
-
- /*   public static String getTestBody(String apiName, TestCase testContext) {
-        String body = null;
-        if (testContext.getRequest() != null && testContext.getRequest().getTemplateFile() != null)
-            body = FileUtility.loadFileAsString(testContext.getRequest().getTemplateFile());
-        else
-            body = FileUtility.loadFileAsString(TestUtility.getTemplateFile(apiName));
-
-        return getUpdateDBody(apiName, body, testContext);
-    }*/
 
     public static String getUpdateDBody(String apiName, String body, TestCase testContext) {
         if (!body.isEmpty()) {
@@ -230,11 +165,6 @@ public class TestUtility {
 
     public static String getResponseSchema(String apiName) {
         String responseSchema = testDB.getTestSuites().get(apiName).getResponseSchema();
-        return responseSchema;
-    }
-
-    public static String getResponseSchema(TestCase test) {
-        String responseSchema = getTestRequest(test).getResponseSchema();
         return responseSchema;
     }
 
