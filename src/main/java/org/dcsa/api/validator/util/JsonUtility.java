@@ -14,10 +14,10 @@ import com.jayway.jsonpath.PathNotFoundException;
 import io.restassured.path.json.exception.JsonPathException;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import static com.github.fge.jsonschema.SchemaVersion.DRAFTV4;
 
@@ -64,11 +64,35 @@ public class JsonUtility {
         boolean isFound = false;
         if (jsonString != null && attribute != null && value != null) {
             try {
+                List<String> tokens = Arrays.asList(attribute.split(":"));
+                String operator = null;
+                if (tokens.size() > 1) {
+                    attribute = tokens.get(0);
+                    operator = tokens.get(1);
+                }
                 Map<String, Object> jsonPaths = getJsonValues(jsonString);
                 JsonNode jsonValue = (JsonNode) jsonPaths.get(attribute);
                 if (jsonValue == null)
                     isFound = false;
-                else if (jsonValue.isArray()) {
+                else if (operator != null) {
+                    String operators[] = new String[]{"gte", "gt", "lte", "lt", "eq"};
+                    List<String> operatorList = Arrays.asList(operators);
+                    if (operatorList.contains(operator)) {
+                        int result = ((jsonValue).asText()).compareToIgnoreCase(value);
+                        if (result >= 0 && operator.equals("gte"))
+                            isFound = true;
+                        else if (result > 0 && operator.equals("gt"))
+                            isFound = true;
+                        else if (result <= 0 && operator.equals("lte"))
+                            isFound = true;
+                        else if (result < 0 && operator.equals("lt"))
+                            isFound = true;
+                        else if (result == 0 && operator.equals("eq"))
+                            isFound = true;
+                        else
+                            isFound = false;
+                    }
+                } else if (jsonValue.isArray()) {
                     List<String> enums = new ArrayList<>();
                     for (JsonNode n : jsonValue) {
                         enums.add(n.asText());
@@ -137,11 +161,15 @@ public class JsonUtility {
         for (Map.Entry<String, T> placeholder : placeHolders.entrySet()) {
             if (placeholder.getValue() instanceof String) {
                 String stringValue = placeholder.getValue().toString();
-                if (stringValue.charAt(0) == '[' && stringValue.charAt(stringValue.length() - 1) == ']') {
-                    String[] enumValues = (stringValue.substring(1, stringValue.length() - 1)).split(",");
-                    jsonString = addJsonElement(jsonString, placeholder.getKey(), enumValues);
+                if (stringValue != null && !(stringValue.isEmpty())) {
+                    if (stringValue.charAt(0) == '[' && stringValue.charAt(stringValue.length() - 1) == ']') {
+                        String[] enumValues = (stringValue.substring(1, stringValue.length() - 1)).split(",");
+                        jsonString = addJsonElement(jsonString, placeholder.getKey(), enumValues);
+                    } else
+                        jsonString = addJsonElement(jsonString, placeholder.getKey(), placeholder.getValue());
                 } else
                     jsonString = addJsonElement(jsonString, placeholder.getKey(), placeholder.getValue());
+
             } else
                 jsonString = addJsonElement(jsonString, placeholder.getKey(), placeholder.getValue());
         }
@@ -220,7 +248,7 @@ public class JsonUtility {
                 throw e;
             }
         } else {
-            isValid=validateListSchema(schema, json);
+            isValid = validateListSchema(schema, json);
         }
         return isValid;
     }

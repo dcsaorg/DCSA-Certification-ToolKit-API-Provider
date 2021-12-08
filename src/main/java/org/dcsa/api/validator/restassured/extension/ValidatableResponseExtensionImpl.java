@@ -215,7 +215,6 @@ public class ValidatableResponseExtensionImpl implements ValidatableResponseExte
                 queryParameters.remove("cursor");
                 queryParameters.remove("sort");
                 if (queryParameters.size() > 0) {
-
                     Boolean isValid = true;
                     for (Map.Entry<String, String> entry : queryParameters.entrySet()) {
                         isValid = JsonUtility.validateAttributeValue(responseList, entry.getKey(), entry.getValue());

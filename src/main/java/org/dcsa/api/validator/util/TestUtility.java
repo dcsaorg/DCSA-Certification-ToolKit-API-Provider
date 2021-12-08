@@ -79,8 +79,17 @@ public class TestUtility {
 
         List<Map<String, Object>> getTestDataSet = TestUtility.getAllTestDataForGet(apiName);
         List<Map<String, Object>> logicalPostTestDataSet = new ArrayList<>();
+        List<String> attributesWithoutPostFix = new ArrayList<>();;
+        for (String query : attributes) {
+            List<String> tokens = Arrays.asList(query.split(":"));
+            if (tokens.size() > 1) {
+                query = tokens.get(0);
+            }
+                attributesWithoutPostFix.add(query);
+        }
+
         for (Map<String, Object> getTestData : getTestDataSet) {
-            if (getTestData.keySet().containsAll(attributes)) {
+            if (getTestData.keySet().containsAll(attributesWithoutPostFix)) {
                 logicalPostTestDataSet.add(getTestData);
             }
         }

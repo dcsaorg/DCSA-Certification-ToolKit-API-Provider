@@ -371,6 +371,12 @@ public class CommonSteps {
                 .queryParams(queryParameters);
     }
 
+    @When("Set request empty body")
+    public void setRequestEmptyBody() {
+        restAssuredExtension
+                .body("");
+    }
+
     @When("Set request for GET with test case {string}")
     public void setRequestForGetWithTestData(String testName) {
 
@@ -465,4 +471,6 @@ public class CommonSteps {
                     .statusCode(Integer.parseInt(expectedHttpCode));
 
     }
+
+
 }

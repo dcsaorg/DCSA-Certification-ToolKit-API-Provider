@@ -59,12 +59,93 @@
               ],
               "secret": "OG1wOWFaRW1HTTF1Y2NuaUN0RlAtaU9JMjM5N25vMWtWd25rS2Vkc2ktZms0c01zaTJQOElZRVNQN29MYUkzcg=="
             }
-          }},
+          }
+        },
         "RotateSecret_CallBackTest": {
           "request": {
             "templateFile": "templates/tnt/v2/SecretSample.json",
             "placeHolders": {
               "secret": "MTIzNDU2Nzg5MGFiY2RlZjEyMzQ1Njc4OTBhYmNkZWY="
+            }
+          }
+        }
+      }
+    },
+    "Timestamp": {
+      "endPoint": "/timestamps",
+      "templateFile": "templates/ovs/v2/TimeStampsSample.json",
+      "testCases": {
+        "TimeStampWithEventLocation": {
+          "request": {
+            "placeHolders": {
+              "eventLocation": {
+                "locationName": "Eiffel Tower",
+                "latitude": "48.8585500",
+                "longitude": "2.294492036",
+                "UNLocationCode": "SGSIN",
+                "address": {
+                  "name": "Henrik",
+                  "street": "Kronprincessegade",
+                  "streetNumber": "54",
+                  "floor": "5. sal",
+                  "postCode": "1306",
+                  "city": "København",
+                  "stateRegion": "N/A",
+                  "country": "Denmark"
+                }
+              }
+            }
+          }
+        },
+        "TimeStampWithVesselPosition": {
+          "request": {
+            "placeHolders": {
+              "vesselPosition": {
+                "latitude": "48.8585500",
+                "longitude": "2.294492036"
+              }
+            }
+          }
+        },
+        "TimeStampWithModeOfTransport": {
+          "request": {
+            "placeHolders": {
+              "modeOfTransport": "VESSEL"
+            }
+          }
+        },
+        "TimeStampWithPortCallServiceTypeCode": {
+          "request": {
+            "placeHolders": {
+              "portCallServiceTypeCode": "BUNK"
+            }
+          }
+        },
+        "TimeStampWithCombinationOfOptionalFields": {
+          "request": {
+            "placeHolders": {
+              "eventLocation": {
+                "locationName": "Eiffel Tower",
+                "latitude": "48.8585500",
+                "longitude": "2.294492036",
+                "UNLocationCode": "SGSIN",
+                "address": {
+                  "name": "Henrik",
+                  "street": "Kronprincessegade",
+                  "streetNumber": "54",
+                  "floor": "5. sal",
+                  "postCode": "1306",
+                  "city": "København",
+                  "stateRegion": "N/A",
+                  "country": "Denmark"
+                }
+              },
+              "vesselPosition": {
+                "latitude": "48.8585500",
+                "longitude": "2.294492036"
+              },
+              "modeOfTransport": "VESSEL",
+              "portCallServiceTypeCode": "BUNK"
             }
           }
         }

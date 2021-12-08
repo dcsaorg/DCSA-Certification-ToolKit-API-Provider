@@ -35,7 +35,7 @@ Feature:
     And Path parameters "<parameters>"
     When Set request for GET
     And Send GET http request
-    Then Receive valid response for GET
+      Then Receive valid response for GET
     Examples: List of test cases
       | parameters     |
       | subscriptionID |
