@@ -1,7 +1,7 @@
 package org.dcsa.api.validator.webhook;
 
 import org.dcsa.api.validator.config.Configuration;
-import org.dcsa.api.validator.model.CallbackContext;
+import org.dcsa.api.validator.models.CallbackContext;
 import spark.Spark;
 
 import java.util.HashMap;
@@ -9,16 +9,13 @@ import java.util.Map;
 
 public class SparkWebHook {
     CallbackContext callbackContext;
-/*    public SparkWebHook(CallbackContext callbackContext)
-    {
-        this.callbackContext=callbackContext;
-    }*/
 
     public void startServer() {
         // callbackContext.init();
         System.out.println("Server Started");
         Spark.port(Configuration.CALLBACK_PORT);
-        Spark.post("/webhook/callback/receive/:uuid", (req, res) -> {
+
+        Spark.post(Configuration.CALLBACK_PATH+"/:uuid", (req, res) -> {
             res.status(200);
             if (req.params(":uuid").equals("456eacf9-8cda-412b-b801-4a41be7a6c35")) {
                 res.header("Content-Type", "application/json");
@@ -34,27 +31,22 @@ public class SparkWebHook {
             return "{\"status\":\"OK\"}";
         });
 
-        Spark.head("/webhook/callback/reject/:uuid", (req, res) -> {
-            res.status(400);
+        Spark.head(Configuration.CALLBACK_PATH+"/:uuid", (req, res) -> {
+
             res.header("Content-Type", "application/json");
             if (req.params(":uuid").equals("456eacf9-8cda-412b-b801-4a41be7a6c35")) {
+                res.status(200);
                 callbackContext.setHeadRequestReceived(true);
                 callbackContext.getHeadRequestLock().countDown();
             }
-            return "Head request rejected!";
-        });
-
-        Spark.head("/webhook/callback/receive/:uuid", (req, res) -> {
-            res.status(200);
-            res.header("Content-Type", "application/json");
-            if (req.params(":uuid").equals("456eacf9-8cda-412b-b801-4a41be7a6c35")) {
+            else if (req.params(":uuid").equals("307deecf-e599-4ff2-bf5a-fd47c171b8c4")) {
+                res.status(400);
                 callbackContext.setHeadRequestReceived(true);
                 callbackContext.getHeadRequestLock().countDown();
             }
             return "Head received!";
         });
         Spark.awaitInitialization();
-        // System.out.println("Spark Server started");
     }
 
     public void stopServer() {

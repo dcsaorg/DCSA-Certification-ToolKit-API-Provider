@@ -2,7 +2,7 @@ Feature:
   TNT Self Certification Check List
 
   @HappyPath
-  Scenario:GET /event-subscriptions-without filter queries
+  Scenario:GET-SUB-001_GET /event-subscriptions returns all subscriptions
     Given API End point "/event-subscriptions/" for "EventSubscription"
     When Set request for GET
     And Send GET http request
@@ -10,7 +10,15 @@ Feature:
     Then Validated against schema
 
   @HappyPath
-  Scenario:GET /event-subscriptions-with limit parameter
+  Scenario:GET-SUB-002_GET /event-subscriptions-Paging check
+    Given API End point "/event-subscriptions/" for "EventSubscription"
+    When Set request for GET
+    And Send GET http request
+    Then Receive paging attribute in header
+    Then Validated against schema
+
+  @HappyPath
+  Scenario:GET-SUB-003_GET /event-subscriptions-with limit parameter
     Given API End point "/event-subscriptions/" for "EventSubscription"
     And Query parameters with values
       | parameter | value |
@@ -20,7 +28,7 @@ Feature:
     #Then Receive valid response for GET all
 
   @HappyPath
-  Scenario:GET /event-subscriptions-Fetches a specific subscription with ID
+  Scenario:GET-SUB-004_GET /event-subscriptions-Fetches a specific subscription with ID
     Given API End point "/event-subscriptions/{subscriptionID}" for "EventSubscription"
     And Path parameters
       | subscriptionID |
@@ -30,7 +38,7 @@ Feature:
     Then Validated against schema
 
   @HappyPath
-  Scenario Outline:GET /event-subscriptions-Fetches a specific subscription with ID
+  Scenario Outline:GET-SUB-005_GET /event-subscriptions-Fetches a specific subscription with ID
     Given API End point "/event-subscriptions/{subscriptionID}" for "EventSubscription"
     And Path parameters "<parameters>"
     When Set request for GET
@@ -41,7 +49,7 @@ Feature:
       | subscriptionID |
 
   @NegativeCase
-  Scenario Outline:GET /event-subscriptions-Fetches a specific subscription with invalid ID
+  Scenario Outline:GET-SUB-006_GET /event-subscriptions-Fetches a specific subscription with invalid ID
     Given API End point "/event-subscriptions/{subscriptionID}" for "EventSubscription"
     And Path parameter "<parameter>" with value "<value>"
     When Send GET http request
@@ -51,7 +59,7 @@ Feature:
       | subscriptionID | f9597deb-95cc-4382-8d1d-a66fc76c0b711 |
 
   @NegativeCase
-  Scenario:GET /event-subscriptions-Fetches a specific subscription with invalid ID
+  Scenario:GET-SUB-007_GET /event-subscriptions-Fetches a specific subscription with invalid ID
     Given API End point "/event-subscriptions/{subscriptionID}" for "EventSubscription"
     And Path parameters with values
       | pathVariable   | value                                 |
@@ -62,7 +70,7 @@ Feature:
 
 
   @HappyPath
-  Scenario Outline:POST /event-subscriptions
+  Scenario Outline:POST-SUB-008_POST /event-subscriptions
     Given API End point "/event-subscriptions" for "EventSubscription"
     When Set request for POST with test case "<testcase>"
     And Send a POST http request
@@ -76,7 +84,7 @@ Feature:
 
 
   @NegativeCase
-  Scenario Outline:POST /event-subscriptions:with missing mandatory attributes
+  Scenario Outline:POST-SUB-009_POST /event-subscriptions:with missing mandatory attributes
     Given API End point "/event-subscriptions" for "EventSubscription"
     And Attributes to be removed "<attributes>"
     When Set request for POST
@@ -88,7 +96,7 @@ Feature:
       | secret      |
 
   @NegativeCase
-  Scenario:POST /event-subscriptions:with missing mandatory attributes
+  Scenario:POST-SUB-010_POST /event-subscriptions:with missing mandatory attributes
     Given API End point "/event-subscriptions" for "EventSubscription"
     And Attributes to be removed
       | callbackUrl |
@@ -98,7 +106,7 @@ Feature:
     Then Receive invalid response for POST
 
   @NegativeCase
-  Scenario:POST /event-subscriptions:with invalid attribute value
+  Scenario:POST-SUB-011_POST /event-subscriptions:with invalid attribute value
     Given API End point "/event-subscriptions" for "EventSubscription"
     And Placeholders with values
       | placeholder            | value       |

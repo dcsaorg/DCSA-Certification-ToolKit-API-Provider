@@ -5,12 +5,11 @@ import io.restassured.response.Response;
 import io.restassured.specification.FilterableRequestSpecification;
 import lombok.Data;
 import org.apache.poi.common.usermodel.HyperlinkType;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.*;
 import org.dcsa.api.validator.config.Configuration;
 import org.dcsa.api.validator.hooks.TestSetup;
-import org.dcsa.api.validator.model.TestContext;
+import org.dcsa.api.validator.models.TestContext;
 import org.joda.time.DateTime;
 import org.testng.IReporter;
 import org.testng.ISuite;
@@ -25,10 +24,10 @@ public class CustomReporter implements IReporter {
     public void generateReport(List<XmlSuite> xmlSuites, List<ISuite> suites,
                                String outputDirectory) {
         XSSFWorkbook workbook = new XSSFWorkbook();
-        outputDirectory= Configuration.OUT_PUT_DIR;
+        outputDirectory = Configuration.OUT_PUT_DIR;
         for (ISuite suite : suites) {
             Map<String, TestContext> testContexts = TestSetup.TestContexts;
-            XSSFSheet spreadsheetSummary = workbook.createSheet("TestResult");
+            XSSFSheet spreadsheetSummary = workbook.createSheet("TestSummary");
             Map<String, Integer[]> resultSummary = new TreeMap<>();
             XSSFCreationHelper createHelper = workbook.getCreationHelper();
 
@@ -61,40 +60,40 @@ public class CustomReporter implements IReporter {
             int rowId2 = 0;
 
             sheetRow = spreadsheetSummary.createRow(rowId2++);
-            Object[] header = new Object[]{"Test Name", "Total", "Passed", "Failed"};
-
-            XSSFCellStyle hlinkstyle = workbook.createCellStyle();
-            XSSFFont hlinkfont = workbook.createFont();
-            hlinkfont.setUnderline(XSSFFont.U_SINGLE);
-            hlinkfont.setColor(IndexedColors.BLUE.getIndex());
-            hlinkstyle.setFont(hlinkfont);
+            Object[] header = new Object[]{"Requirement ID", "Requirement", "Total", "Passed", "Failed"};
 
             int cellId = 0;
             for (Object obj : header) {
                 Cell cell = sheetRow.createCell(cellId++);
                 cell.setCellValue((String) obj);
+                cell.setCellStyle(getCellStyle("header", workbook));
             }
             int sheetNo = 1;
             for (String key : testCaseList) {
                 String sheetName = "TestGroup-" + sheetNo++;
                 XSSFSheet spreadsheet = workbook.createSheet(sheetName);
-                fillWithTestResult(spreadsheet, key, testContexts);
+                fillWithTestResult(spreadsheet, key, testContexts, workbook);
                 sheetRow = spreadsheetSummary.createRow(rowId2++);
                 Object[] objectArr = resultSummary.get(key);
                 cellId = 0;
                 Cell cell = sheetRow.createCell(cellId++);
-                cell.setCellValue(key);
+                cell.setCellValue(getRequirementId(key));
+                cell.setCellStyle(getCellStyle("normal", workbook));
+                cell = sheetRow.createCell(cellId++);
+                cell.setCellValue(getRequirement(key));
+                cell.setCellStyle(getCellStyle("normal", workbook));
                 XSSFHyperlink link = (XSSFHyperlink) createHelper.createHyperlink(HyperlinkType.FILE);
                 link.setAddress(fileName);
                 link.setLocation("'" + sheetName + "'!A2");
                 for (Object obj : objectArr) {
                     cell = sheetRow.createCell(cellId++);
                     cell.setCellValue((Integer) obj);
+                    cell.setCellStyle(getCellStyle("normal", workbook));
                 }
                 cell = sheetRow.createCell(cellId++);
                 cell.setCellValue("details");
                 cell.setHyperlink(link);
-                cell.setCellStyle(hlinkstyle);
+                cell.setCellStyle(getCellStyle("link", workbook));
             }
             try {
                 FileOutputStream out = new FileOutputStream(new File(outputDirectory + "/" + fileName));
@@ -109,8 +108,7 @@ public class CustomReporter implements IReporter {
     }
 
 
-
-    private void fillWithTestResult(XSSFSheet spreadsheet, String key, Map<String, TestContext> testContexts) {
+    private void fillWithTestResult(XSSFSheet spreadsheet, String key, Map<String, TestContext> testContexts, XSSFWorkbook workbook) {
         int rowId = 0;
         XSSFRow row;
         Object[] header = new Object[]{"Test Name", "Status", "Reason Of Failure", "Test Details"};
@@ -119,6 +117,7 @@ public class CustomReporter implements IReporter {
         for (Object obj : header) {
             Cell cell = row.createCell(cellId++);
             cell.setCellValue((String) obj);
+            cell.setCellStyle(getCellStyle("header", workbook));
         }
         for (TestContext testContext : testContexts.values()) {
             if (testContext.getTestCaseName().equals(key)) {
@@ -126,30 +125,29 @@ public class CustomReporter implements IReporter {
                 objectArr[0] = key;
                 objectArr[1] = testContext.getStatus();
                 objectArr[2] = testContext.getReasonOfFailure();
-                String testDetails=getTestDetails(testContext);
-                if(testDetails.length()>32766)
-                     objectArr[3] = getTestDetails(testContext).substring(0, 32766);
+                String testDetails = getTestDetails(testContext);
+                if (testDetails.length() > 32766)
+                    objectArr[3] = getTestDetails(testContext).substring(0, 32766);
                 else
                     objectArr[3] = getTestDetails(testContext);
-                cellId=0;
+                cellId = 0;
                 row = spreadsheet.createRow(rowId++);
                 Cell cell;
                 for (Object obj : objectArr) {
                     cell = row.createCell(cellId++);
                     cell.setCellValue((String) obj);
+                    cell.setCellStyle(getCellStyle("normal", workbook));
                 }
             }
 
         }
     }
 
-    private String getTestDetails(TestContext testContext)
-    {
+    private String getTestDetails(TestContext testContext) {
         StringBuffer prettyPrint = new StringBuffer();
-        for(int i=0;i<testContext.getRequestChain().size();i++)
-        {
-            FilterableRequestSpecification requestSpec=testContext.getRequestChain().get(i);
-            Response response=testContext.getResponseChain().get(i);
+        for (int i = 0; i < testContext.getRequestChain().size(); i++) {
+            FilterableRequestSpecification requestSpec = testContext.getRequestChain().get(i);
+            Response response = testContext.getResponseChain().get(i);
             prettyPrint.append("Request method: " + requestSpec.getMethod() + "\n\n");
             prettyPrint.append("Request URI: " + requestSpec.getURI() + "\n\n");
 
@@ -193,9 +191,83 @@ public class CustomReporter implements IReporter {
 
         }
 
-        for(int i=0;i<testContext.getMessage().size();i++)
+        for (int i = 0; i < testContext.getMessage().size(); i++)
             prettyPrint.append(testContext.getMessage().get(i));
         return prettyPrint.toString();
     }
 
+    private CellStyle getCellStyle(String type, XSSFWorkbook workbook) {
+
+        if (type.equals("link")) {
+            XSSFCellStyle hlinkstyle = workbook.createCellStyle();
+            XSSFFont hlinkfont = workbook.createFont();
+            hlinkfont.setUnderline(XSSFFont.U_SINGLE);
+            hlinkfont.setColor(IndexedColors.BLUE.getIndex());
+            hlinkstyle.setFont(hlinkfont);
+            hlinkstyle.setBorderBottom(BorderStyle.THIN);
+            hlinkstyle.setBorderLeft(BorderStyle.THIN);
+            hlinkstyle.setBorderRight(BorderStyle.THIN);
+            hlinkstyle.setBorderTop(BorderStyle.THIN);
+            return hlinkstyle;
+        } else if (type.equals("header")) {
+            CellStyle borderStyle = workbook.createCellStyle();
+            borderStyle.setBorderBottom(BorderStyle.THIN);
+            borderStyle.setBorderLeft(BorderStyle.THIN);
+            borderStyle.setBorderRight(BorderStyle.THIN);
+            borderStyle.setBorderTop(BorderStyle.THIN);
+            borderStyle.setFillForegroundColor(IndexedColors.BLUE_GREY.getIndex());
+            borderStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+            Font font = workbook.createFont();
+            font.setBold(true);
+            font.setColor(IndexedColors.WHITE.getIndex());
+            borderStyle.setFont(font);
+            return borderStyle;
+        } else if (type.equals("covered")) {
+            CellStyle borderStyle = workbook.createCellStyle();
+            borderStyle.setBorderBottom(BorderStyle.THIN);
+            borderStyle.setBorderLeft(BorderStyle.THIN);
+            borderStyle.setBorderRight(BorderStyle.THIN);
+            borderStyle.setBorderTop(BorderStyle.THIN);
+            borderStyle.setFillForegroundColor(IndexedColors.GREEN.getIndex());
+            borderStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+            return borderStyle;
+        } else if (type.equals("notcovered")) {
+            CellStyle borderStyle = workbook.createCellStyle();
+            borderStyle.setBorderBottom(BorderStyle.THIN);
+            borderStyle.setBorderLeft(BorderStyle.THIN);
+            borderStyle.setBorderRight(BorderStyle.THIN);
+            borderStyle.setBorderTop(BorderStyle.THIN);
+            borderStyle.setFillForegroundColor(IndexedColors.RED.getIndex());
+            borderStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+            return borderStyle;
+        } else {
+            CellStyle borderStyle = workbook.createCellStyle();
+            borderStyle.setBorderBottom(BorderStyle.THIN);
+            borderStyle.setBorderLeft(BorderStyle.THIN);
+            borderStyle.setBorderRight(BorderStyle.THIN);
+            borderStyle.setBorderTop(BorderStyle.THIN);
+            return borderStyle;
+        }
+
+    }
+
+    String getRequirementId(String key) {
+        String[] token = key.split("_");
+        if (token.length > 1)
+            return token[0];
+        return null;
+    }
+
+    String getRequirement(String key) {
+        String[] token = key.split("_");
+        if (token.length > 1)
+            return token[1];
+        return key;
+    }
+    String getTestDescription(String key) {
+        String[] token = key.split("_");
+        if (token.length > 2)
+            return token[2];
+        return key;
+    }
 }

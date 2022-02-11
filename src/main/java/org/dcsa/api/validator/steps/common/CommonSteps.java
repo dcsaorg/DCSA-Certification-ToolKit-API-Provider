@@ -9,29 +9,25 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.response.Response;
-import org.dcsa.api.validator.config.Configuration;
 import org.dcsa.api.validator.constants.StatusCode;
 import org.dcsa.api.validator.constants.ValidationCode;
 import org.dcsa.api.validator.hooks.TestSetup;
-import org.dcsa.api.validator.model.TestCase;
-import org.dcsa.api.validator.model.TestContext;
+import org.dcsa.api.validator.models.TestCase;
+import org.dcsa.api.validator.models.TestContext;
 import org.dcsa.api.validator.restassured.extension.RestAssuredExtension;
-import org.dcsa.api.validator.restassured.extension.RestAssuredExtensionImpl;
+import org.dcsa.api.validator.restassured.extension.Impl.RestAssuredExtensionImpl;
 import org.dcsa.api.validator.util.FileUtility;
 import org.dcsa.api.validator.util.JsonUtility;
 import org.dcsa.api.validator.util.TestUtility;
 import org.testng.Assert;
-import org.testng.Reporter;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class CommonSteps {
 
     private RestAssuredExtension restAssuredExtension;
     private Scenario scenario;
+    private List<String> headers;
 
     @Before(order = 1)
     public void testPreparation(Scenario scenario) {
@@ -41,6 +37,8 @@ public class CommonSteps {
             TestSetup.TestContexts.put(scenario.getId(), new TestContext());
         restAssuredExtension= new RestAssuredExtensionImpl(TestSetup.TestContexts.get(scenario.getId()));
         restAssuredExtension.getTestContext().setScenario(scenario);
+        headers=new ArrayList<>();
+        headers.add("Content-Type");
     }
 
     @Given("API End point {string} for {string}")
@@ -263,7 +261,7 @@ public class CommonSteps {
                 .then()
                 .assertThat()
                 .found(StatusCode.OK)
-                .header(StatusCode.OK);
+                .header(headers);
     }
 
 
@@ -273,7 +271,7 @@ public class CommonSteps {
                 .then()
                 .assertThat()
                 .created(StatusCode.OK)
-                .header(StatusCode.OK);
+                .header(headers);
     }
 
     @Then("Receive invalid response for POST")
@@ -300,7 +298,7 @@ public class CommonSteps {
                 .then()
                 .assertThat()
                 .deleted(StatusCode.OK)
-                .header(StatusCode.OK);
+                .header(headers);
     }
 
 
@@ -318,7 +316,7 @@ public class CommonSteps {
                 .then()
                 .assertThat()
                 .modified(StatusCode.OK)
-                .header(StatusCode.OK);
+                .header(headers);
     }
 
     @Then("Receive valid response for GET all")
@@ -327,9 +325,21 @@ public class CommonSteps {
                 .then()
                 .assertThat()
                 .foundAll(StatusCode.OK)
-                .header(StatusCode.OK)
+                .header(headers)
         ;
     }
+
+    @Then("Receive paging attribute in header")
+    public void receivePagingAttributeInHeader() {
+        headers.add("Current-Page");
+        restAssuredExtension
+                .then()
+                .assertThat()
+                .foundAll(StatusCode.OK)
+                .header(headers)
+        ;
+    }
+
 
     @Then("Receive invalid response for PUT")
     public void modificationShouldGetFailed() {

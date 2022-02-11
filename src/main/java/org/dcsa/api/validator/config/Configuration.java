@@ -14,6 +14,7 @@ public class Configuration {
     public static String client_id;
     public static String audience;
     public static String OUT_PUT_DIR;
+    public static String CALLBACK_PATH;
 
     public static void init() throws Exception {
         client_secret = System.getenv("client_secret");
@@ -22,6 +23,7 @@ public class Configuration {
         testSuite = "config/v2/config.json";
         OUT_PUT_DIR = "reports";
         API_VERSION = "2.2.0";
+        CALLBACK_PATH="/v"+Configuration.API_VERSION.split("\\.")[0]+"/notification-endpoints/receive";
         if (System.getenv("API_ROOT_URI") != null)
             ROOT_URI = System.getenv("API_ROOT_URI");
         else
@@ -29,12 +31,12 @@ public class Configuration {
         if (System.getenv("DATA_CONFIG") != null)
             testData = System.getenv("DATA_CONFIG");
         else {
-            testData="dataconfig.json";
+            testData="testdata.json";
         }
         if (System.getenv("CALLBACK_URI") != null)
             CALLBACK_URI = System.getenv("CALLBACK_URI");
         else {
-            CALLBACK_URI="http://localhost:9092/v2";
+            CALLBACK_URI="http://localhost:9092";
         }
         if (System.getenv("CALLBACK_PORT") != null)
             CALLBACK_PORT = Integer.parseInt(System.getenv("CALLBACK_PORT"));
@@ -44,7 +46,7 @@ public class Configuration {
         if (System.getenv("CALLBACK_WAIT") != null)
             CALLBACK_WAIT = Integer.parseInt(System.getenv("CALLBACK_WAIT"));
         else {
-            CALLBACK_WAIT = 20000;
+            CALLBACK_WAIT = 3600000;
         }
     }
 }

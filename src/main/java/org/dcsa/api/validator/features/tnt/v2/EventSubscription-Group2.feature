@@ -11,14 +11,14 @@ Feature:
 
 
   @HappyPath
-  Scenario:DELETE /event-subscriptions/{subscriptionID}:with subscription ID
+  Scenario:DELETE-SUB-012_DELETE /event-subscriptions/{subscriptionID}:with subscription ID
     Given API End point "/event-subscriptions/{subscriptionID}" for "EventSubscription"
     When Set request for DELETE
     And Send a DELETE http request
     Then Receive valid response for DELETE
 
   @HappyPath
-  Scenario:PUT /event-subscriptions/{subscriptionID}:with valid attribute values
+  Scenario:PUT-SUB-013_PUT /event-subscriptions/{subscriptionID}:with valid attribute values
     Given API End point "/event-subscriptions/{subscriptionID}" for "EventSubscription"
     And Placeholders with values
       | placeholder            | value       |
@@ -30,7 +30,7 @@ Feature:
     Then Validated against schema
 
   @HappyPath
-  Scenario Outline:PUT /event-subscriptions/{subscriptionID}:update secret
+  Scenario Outline:PUT-SUB-014_PUT /event-subscriptions/{subscriptionID}:update secret
     Given API End point "/event-subscriptions/{subscriptionID}" for "EventSubscription"
     And Placeholder "<placeholder>" with value "<value>"
     When Set request for PUT
@@ -42,7 +42,7 @@ Feature:
 
 
   @HappyPath
-  Scenario Outline:PUT/ event-subscriptions/{subscriptionID}/secret
+  Scenario Outline:PUT-SUB-015_PUT/ event-subscriptions/{subscriptionID}/secret
     Given API End point "/event-subscriptions/{subscriptionID}/secret" for "EventSubscription"
     When Set request for PUT with test case "<testcase>"
     And Send a PUT http request
@@ -53,7 +53,7 @@ Feature:
 
 
   @NegativeCase
-  Scenario:DELETE /event-subscriptions/{subscriptionID}:with invalid ID
+  Scenario:DELETE-SUB-016_DELETE /event-subscriptions/{subscriptionID}:with invalid ID
     Given API End point "/event-subscriptions/{subscriptionID}" for "EventSubscription"
     And Path parameters with values
       | pathVariable   | value                                 |
@@ -63,7 +63,7 @@ Feature:
     Then Receive response code "400"
 
   @NegativeCase
-  Scenario:PUT /event-subscriptions/{subscriptionID}:with invalid attribute value
+  Scenario:PUT-SUB-017_PUT /event-subscriptions/{subscriptionID}:with invalid attribute value
     Given API End point "/event-subscriptions/{subscriptionID}" for "EventSubscription"
     And Placeholders with values
       | placeholder            | value       |
@@ -74,7 +74,7 @@ Feature:
     Then Receive invalid response for PUT
 
   @NegativeCase
-  Scenario:PUT /event-subscriptions/{subscriptionID}:with mismatch of subscriptionID in body and URL
+  Scenario:PUT-SUB-018_PUT /event-subscriptions/{subscriptionID}:with mismatch of subscriptionID in body and URL
     Given API End point "/event-subscriptions/{subscriptionID}" for "EventSubscription"
     And Placeholders with values
       | placeholder    | value                                |

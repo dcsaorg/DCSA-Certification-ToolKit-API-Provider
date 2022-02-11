@@ -2,15 +2,21 @@ Feature:
   TNT Self Certification Check List
 
   @HappyPath
-  Scenario:GET/Event-without filter queries
+  Scenario:GET-EVENT-001_GET/Event Returns all events
     Given API End point "/events" for "Event"
     When Send GET http request
     Then Receive valid response for GET all
     Then Validated against schema
 
+  @HappyPath
+  Scenario:GET-EVENT-001_GET/Event Returns all events
+    Given API End point "/events" for "Event"
+    When Send GET http request
+    Then Receive valid response for GET all
+    Then Validated against schema
 
   @HappyPath
-  Scenario:GET/Event-with limit parameter
+  Scenario:GET-EVENT-002_GET/Event_With limit parameter
     Given API End point "/events" for "Event"
     And Query parameters with values
       | parameter | value |
@@ -20,7 +26,7 @@ Feature:
     Then Validated against schema
 
   @HappyPath
-  Scenario Outline:GET/Event-with filter parameters
+  Scenario Outline:GET-EVENT-003_GET/Event_With filter parameters
     Given API End point "/events" for "Event"
     And Query parameters "<parameters>"
     When Send GET http request
@@ -44,17 +50,9 @@ Feature:
       | eventCreatedDateTime:gte   |
       | eventCreatedDateTime       |
 
-  @HappyPath
-  Scenario:GET/Event-with Query Parameter Limit
-    Given API End point "/events" for "Event"
-    And Query parameters
-      | limit |
-    When Send GET http request
-    Then Receive valid response for GET all
-    Then Validated against schema
 
   @NegativeCase
-  Scenario Outline:GET/Event-with invalid values of filter parameters
+  Scenario Outline:GET-EVENT-004_GET/Event_With invalid values of filter parameters
     Given API End point "/events" for "Event"
     And Query parameter "<parameter>" with value "<value>"
     When Send GET http request
@@ -77,7 +75,7 @@ Feature:
       | eventCreatedDateTime       | 2021-11-31T17:18:46.160973Z                                                                           |
 
   @NegativeCase
-  Scenario Outline:GET/Event-with invalid values of filter parameters
+  Scenario Outline:GET-EVENT-005_GET/Event_With invalid filter parameters
     Given API End point "/events" for "Event"
     And Query parameter "<parameter>" with value "<value>"
     When Send GET http request

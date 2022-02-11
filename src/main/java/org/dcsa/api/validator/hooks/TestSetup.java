@@ -2,7 +2,7 @@ package org.dcsa.api.validator.hooks;
 
 import io.restassured.http.ContentType;
 import org.dcsa.api.validator.config.Configuration;
-import org.dcsa.api.validator.model.TestContext;
+import org.dcsa.api.validator.models.TestContext;
 import org.dcsa.api.validator.util.TestUtility;
 import org.dcsa.api.validator.webhook.SparkWebHook;
 import org.testng.annotations.AfterSuite;

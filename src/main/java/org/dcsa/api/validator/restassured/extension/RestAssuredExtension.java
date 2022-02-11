@@ -1,6 +1,7 @@
 package org.dcsa.api.validator.restassured.extension;
 
-import org.dcsa.api.validator.model.TestContext;
+import org.dcsa.api.validator.models.TestContext;
+import org.dcsa.api.validator.restassured.extension.Impl.RestAssuredExtensionImpl;
 
 import java.util.List;
 import java.util.Map;

@@ -6,14 +6,15 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import org.dcsa.api.validator.config.Configuration;
 import org.dcsa.api.validator.hooks.TestSetup;
-import org.dcsa.api.validator.model.CallbackContext;
-import org.dcsa.api.validator.model.TestContext;
+import org.dcsa.api.validator.models.CallbackContext;
+import org.dcsa.api.validator.models.TestContext;
 import org.dcsa.api.validator.util.FileUtility;
 import org.dcsa.api.validator.util.JsonUtility;
 import org.dcsa.api.validator.util.TestUtility;
 import org.dcsa.api.validator.webhook.SparkWebHook;
 import org.testng.Assert;
 
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 public class NotificationWebhookSteps {
@@ -92,13 +93,13 @@ public class NotificationWebhookSteps {
     @And("A valid Callback Url")
     public void aValidCallbackUrl() {
         TestContext testcontext = TestSetup.TestContexts.get(scenario.getId());
-        testcontext.setCallbackURL(Configuration.CALLBACK_URI + "/webhook/callback/receive/456eacf9-8cda-412b-b801-4a41be7a6c35");
+        testcontext.setCallbackURL(Configuration.CALLBACK_URI + Configuration.CALLBACK_PATH+"/456eacf9-8cda-412b-b801-4a41be7a6c35");
     }
 
     @And("An invalid Callback Url")
     public void aInvalidCallbackUrl() {
         TestContext testcontext = TestSetup.TestContexts.get(scenario.getId());
-        testcontext.setCallbackURL(Configuration.CALLBACK_URI + "/webhook/callback/reject/456eacf9-8cda-412b-b801-4a41be7a6c35");
+        testcontext.setCallbackURL(Configuration.CALLBACK_URI+ Configuration.CALLBACK_PATH+"/307deecf-e599-4ff2-bf5a-fd47c171b8c4");
     }
 
 }
