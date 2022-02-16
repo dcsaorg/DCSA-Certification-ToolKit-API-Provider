@@ -1,4 +1,4 @@
-package org.dcsa.api.validator.models;
+package org.dcsa.api.validator.model;
 
 import lombok.Data;
 

@@ -3,7 +3,7 @@
 
 <suite name="Subscriber"  >
 <listeners>
-        <listener class-name = "org.dcsa.api.validator.reporter.CustomReporter" />
+        <listener class-name = "org.dcsa.api.validator.reporter.impl.ExcelReporter" />
     </listeners>
     <test  name="Subscriber" >
       <packages>
@@ -12,7 +12,7 @@
 
         <classes>
             <class name="org.dcsa.api.validator.config.Configuration"/>
-            <class name="org.dcsa.api.validator.hooks.TestSetup"/>
+            <class name="org.dcsa.api.validator.hook.TestSetup"/>
             <class name="org.dcsa.api.validator.runner.SubscriberTestRunner"/>
         </classes>
     </test> <!-- Test -->

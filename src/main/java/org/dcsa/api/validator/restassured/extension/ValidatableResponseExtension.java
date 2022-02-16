@@ -1,7 +1,7 @@
 package org.dcsa.api.validator.restassured.extension;
 
-import org.dcsa.api.validator.constants.StatusCode;
-import org.dcsa.api.validator.constants.ValidationCode;
+import org.dcsa.api.validator.constant.StatusCode;
+import org.dcsa.api.validator.constant.ValidationCode;
 
 import java.util.List;
 

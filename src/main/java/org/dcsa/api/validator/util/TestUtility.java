@@ -1,7 +1,7 @@
 package org.dcsa.api.validator.util;
 
 import org.apache.commons.codec.binary.Hex;
-import org.dcsa.api.validator.models.*;
+import org.dcsa.api.validator.model.*;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;

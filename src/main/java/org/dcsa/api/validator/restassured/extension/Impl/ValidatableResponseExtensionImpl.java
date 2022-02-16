@@ -2,11 +2,11 @@ package org.dcsa.api.validator.restassured.extension.Impl;
 
 import io.restassured.response.Response;
 import lombok.Data;
-import org.dcsa.api.validator.constants.StatusCode;
-import org.dcsa.api.validator.constants.ValidationCode;
-import org.dcsa.api.validator.constants.ValidationType;
-import org.dcsa.api.validator.models.TestContext;
-import org.dcsa.api.validator.models.ValidationResult;
+import org.dcsa.api.validator.constant.StatusCode;
+import org.dcsa.api.validator.constant.ValidationCode;
+import org.dcsa.api.validator.constant.ValidationType;
+import org.dcsa.api.validator.model.TestContext;
+import org.dcsa.api.validator.model.ValidationResult;
 import org.dcsa.api.validator.restassured.extension.ValidatableResponseExtension;
 import org.dcsa.api.validator.util.FileUtility;
 import org.dcsa.api.validator.util.JsonUtility;
@@ -245,9 +245,6 @@ public class ValidatableResponseExtensionImpl implements ValidatableResponseExte
                     addValidation(ValidationType.HTTPHEADER, "Failed, Reason:"+header+" is missing in header");
                     Assert.fail(header+" is missing in header");
                 }
-              /*  else {
-                    addValidation(ValidationType.HTTPHEADER, "Passed");
-                }*/
             }
         }
         addValidation(ValidationType.HTTPHEADER, "Passed");

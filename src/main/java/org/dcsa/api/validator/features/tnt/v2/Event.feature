@@ -1,22 +1,50 @@
 Feature:
   TNT Self Certification Check List
 
-  @HappyPath
-  Scenario:GET-EVENT-001_GET/Event Returns all events
+
+  Scenario:TNT.2.2.DPY.PRV.2_Major Version number must be present in URL_GET /events Major Version check
+    Given API End point "/events" for "Event"
+    When Send GET http request
+
+
+  Scenario:TNT.2.2.API.PRV.1_Full Version number present in response headers_GET /events Full Version check
+    Given API End point "/events" for "Event"
+    When Send GET http request
+    Then Receive headers in response
+      | API-Version |
+
+
+  Scenario:TNT.2.2.API.PRV.3_Content type headers must be application/json_GET /events Content type check
+    Given API End point "/events" for "Event"
+    When Send GET http request
+    Then Receive headers in response
+      | Content-Type |
+
+
+  Scenario:TNT.2.2.API.PRV.4_Links to current, previous, next, first and last page SHOULD be available in the response headers_GET /events pagination check
+    Given API End point "/events" for "Event"
+    When Send GET http request
+    Then Receive headers in response
+      | Current-Page |
+
+
+  Scenario Outline:TNT.2.2.ERR.PRV.400_Test case validating "bad request" - HTTP 400_GET /events with invalid parameter name
+    Given API End point "/events" for "Event"
+    And Query parameter "<parameter>" with value "<value>"
+    When Send GET http request
+    Then Receive invalid response for GET
+    Examples: List of query parameters
+      | parameter  | value    |
+      | eventType1 | SHIPMENT |
+
+  Scenario:TNT.2.2.EVN.PRV.1_GET/Event Returns all events_GET /events without any query parameter
     Given API End point "/events" for "Event"
     When Send GET http request
     Then Receive valid response for GET all
     Then Validated against schema
 
-  @HappyPath
-  Scenario:GET-EVENT-001_GET/Event Returns all events
-    Given API End point "/events" for "Event"
-    When Send GET http request
-    Then Receive valid response for GET all
-    Then Validated against schema
 
-  @HappyPath
-  Scenario:GET-EVENT-002_GET/Event_With limit parameter
+  Scenario:TNT.2.2.EVN.PRV.1_GET/Event Returns all events_GET /events with limit parameter
     Given API End point "/events" for "Event"
     And Query parameters with values
       | parameter | value |
@@ -25,8 +53,8 @@ Feature:
     Then Receive valid response for GET all
     Then Validated against schema
 
-  @HappyPath
-  Scenario Outline:GET-EVENT-003_GET/Event_With filter parameters
+
+  Scenario Outline:TNT.2.2.EVN.PRV.1_GET/Event Returns all events_GET /events with filter parameters
     Given API End point "/events" for "Event"
     And Query parameters "<parameters>"
     When Send GET http request
@@ -51,8 +79,8 @@ Feature:
       | eventCreatedDateTime       |
 
 
-  @NegativeCase
-  Scenario Outline:GET-EVENT-004_GET/Event_With invalid values of filter parameters
+
+  Scenario Outline:TNT.2.2.ERR.PRV.400_Test case validating "bad request" - HTTP 400_GET /events with invalid values of filter parameters_GET /events with invalid parameter values
     Given API End point "/events" for "Event"
     And Query parameter "<parameter>" with value "<value>"
     When Send GET http request
@@ -74,15 +102,7 @@ Feature:
       | equipmentReference         | dsfdsAPZU4812090APZU4812090APZU4812090                                                                |
       | eventCreatedDateTime       | 2021-11-31T17:18:46.160973Z                                                                           |
 
-  @NegativeCase
-  Scenario Outline:GET-EVENT-005_GET/Event_With invalid filter parameters
-    Given API End point "/events" for "Event"
-    And Query parameter "<parameter>" with value "<value>"
-    When Send GET http request
-    Then Receive invalid response for GET
-    Examples: List of query parameters
-      | parameter  | value    |
-      | eventType1 | SHIPMENT |
+
 
 
 

@@ -5,16 +5,15 @@ import io.cucumber.java.Scenario;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import org.dcsa.api.validator.config.Configuration;
-import org.dcsa.api.validator.hooks.TestSetup;
-import org.dcsa.api.validator.models.CallbackContext;
-import org.dcsa.api.validator.models.TestContext;
+import org.dcsa.api.validator.hook.TestSetup;
+import org.dcsa.api.validator.model.CallbackContext;
+import org.dcsa.api.validator.model.TestContext;
 import org.dcsa.api.validator.util.FileUtility;
 import org.dcsa.api.validator.util.JsonUtility;
 import org.dcsa.api.validator.util.TestUtility;
 import org.dcsa.api.validator.webhook.SparkWebHook;
 import org.testng.Assert;
 
-import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 public class NotificationWebhookSteps {

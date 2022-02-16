@@ -1,7 +1,7 @@
 package org.dcsa.api.validator.webhook;
 
 import org.dcsa.api.validator.config.Configuration;
-import org.dcsa.api.validator.models.CallbackContext;
+import org.dcsa.api.validator.model.CallbackContext;
 import spark.Spark;
 
 import java.util.HashMap;

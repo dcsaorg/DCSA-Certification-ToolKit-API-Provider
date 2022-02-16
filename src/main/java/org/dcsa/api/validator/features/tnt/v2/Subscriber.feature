@@ -2,7 +2,7 @@ Feature:
   Notifications test check list
 
   @HeadRequest
-  Scenario:Test receiving head request
+  Scenario:TNT.2.2.SUB.PRV.8_Head request must be received_Receipt of a head request and success response
     Given API End point "/event-subscriptions" for "EventSubscription"
     And A valid Callback Url
     When Set request for POST with test case "SubscriptionRequest_CallBackTest"
@@ -12,7 +12,7 @@ Feature:
 
 
   @HeadRequest
-  Scenario:Testing failure of subscription on head request rejection
+  Scenario:TNT.2.2.SUB.PRV.10_Head request must be received_Receipt of a head request and rejection response
     Given API End point "/event-subscriptions" for "EventSubscription"
     And An invalid Callback Url
     When Set request for POST with test case "SubscriptionRequest_CallBackTest"
@@ -21,7 +21,7 @@ Feature:
     Then Receive invalid response for POST
 
   @Notification
-  Scenario:Test receiving notification for eventType Transport
+  Scenario:TNT.2.2.SUB.PRV.7_Subscription requested must be rejected if the secrets are not adequate for the signature algorithm_Receipt an event with valid signature
     Given API End point "/event-subscriptions" for "EventSubscription"
     And A valid Callback Url
     When Set request for POST with test case "EventTypeTRANSPORT"
@@ -32,7 +32,7 @@ Feature:
 
 
   @Notification
-  Scenario:Test receiving notification after secret rotation
+  Scenario:TNT.2.2.SUB.PRV.11_Notification must used rotated secret_Receipt an event after secret rotation
     Given API End point "/event-subscriptions" for "EventSubscription"
     And A valid Callback Url
     When Set request for POST with test case "EventTypeSHIPMENT"

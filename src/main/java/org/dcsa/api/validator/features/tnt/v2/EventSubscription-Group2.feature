@@ -9,16 +9,7 @@ Feature:
     And Receive valid response for POST
     Then Validated against schema
 
-
-  @HappyPath
-  Scenario:DELETE-SUB-012_DELETE /event-subscriptions/{subscriptionID}:with subscription ID
-    Given API End point "/event-subscriptions/{subscriptionID}" for "EventSubscription"
-    When Set request for DELETE
-    And Send a DELETE http request
-    Then Receive valid response for DELETE
-
-  @HappyPath
-  Scenario:PUT-SUB-013_PUT /event-subscriptions/{subscriptionID}:with valid attribute values
+  Scenario:TNT.2.2.SUB.PRV.4_PUT /event-subscriptions/{subscriptionID} Updates a specific subscription with ID={subscriptionID}_PUT /event-subscriptions with valid request
     Given API End point "/event-subscriptions/{subscriptionID}" for "EventSubscription"
     And Placeholders with values
       | placeholder            | value       |
@@ -29,8 +20,8 @@ Feature:
     Then Receive valid response for PUT
     Then Validated against schema
 
-  @HappyPath
-  Scenario Outline:PUT-SUB-014_PUT /event-subscriptions/{subscriptionID}:update secret
+
+  Scenario Outline:TNT.2.2.SUB.PRV.4_PUT /event-subscriptions/{subscriptionID}:PUT /event-subscriptions update secret
     Given API End point "/event-subscriptions/{subscriptionID}" for "EventSubscription"
     And Placeholder "<placeholder>" with value "<value>"
     When Set request for PUT
@@ -41,8 +32,7 @@ Feature:
       | secret | OG1wOWFaRW1HTTF1Y2NuaUN0RlAtaU9JMjM5N25vMWtWd25rS2Vkc2ktZms0c01zaTJQOElZRVNQN29MYUkzcg== |
 
 
-  @HappyPath
-  Scenario Outline:PUT-SUB-015_PUT/ event-subscriptions/{subscriptionID}/secret
+  Scenario Outline:TNT.2.2.SUB.PRV.4_PUT /event-subscriptions/{subscriptionID}:PUT /event-subscriptions update secret
     Given API End point "/event-subscriptions/{subscriptionID}/secret" for "EventSubscription"
     When Set request for PUT with test case "<testcase>"
     And Send a PUT http request
@@ -51,19 +41,30 @@ Feature:
       | testcase           |
       | UpdateSecret  |
 
+  Scenario:TNT.2.2.SUB.PRV.5_DELETE /event-subscriptions/{subscriptionID}_DELETE /event-subscriptions with valid ID
+    Given API End point "/event-subscriptions/{subscriptionID}" for "EventSubscription"
+    When Set request for DELETE
+    And Send a DELETE http request
+    Then Receive valid response for DELETE
 
-  @NegativeCase
-  Scenario:DELETE-SUB-016_DELETE /event-subscriptions/{subscriptionID}:with invalid ID
+
+  Scenario:TNT.2.2.ERR.PRV.404_Test case validating "not found" request - HTTP 404_DELETE /event-subscriptions with invalid ID
+    Given API End point "/event-subscriptions/{subscriptionID}" for "EventSubscription"
+    And Path parameters with values
+      | pathVariable   | value                                 |
+      | subscriptionID | 550173fc-dd7f-403a-9b13-f022a4df99ba |
+    When Send a DELETE http request
+    Then Receive response code "404"
+
+  Scenario:TNT.2.2.ERR.PRV.400_Test case validating "bad request" - HTTP 400_DELETE /event-subscriptions with invalid ID
     Given API End point "/event-subscriptions/{subscriptionID}" for "EventSubscription"
     And Path parameters with values
       | pathVariable   | value                                 |
       | subscriptionID | f9597deb-95cc-4382-8d1d-a66fc76c0b711 |
     When Send a DELETE http request
-    #Then Receive response code "404"
     Then Receive response code "400"
 
-  @NegativeCase
-  Scenario:PUT-SUB-017_PUT /event-subscriptions/{subscriptionID}:with invalid attribute value
+  Scenario:TNT.2.2.ERR.PRV.400_Test case validating "bad request" - HTTP 400_PUT /event-subscriptions with invalid attribute value
     Given API End point "/event-subscriptions/{subscriptionID}" for "EventSubscription"
     And Placeholders with values
       | placeholder            | value       |
@@ -73,8 +74,8 @@ Feature:
     And Send a PUT http request
     Then Receive invalid response for PUT
 
-  @NegativeCase
-  Scenario:PUT-SUB-018_PUT /event-subscriptions/{subscriptionID}:with mismatch of subscriptionID in body and URL
+
+  Scenario:TNT.2.2.ERR.PRV.400_Test case validating "bad request" - HTTP 400_PUT /event-subscriptions with mismatch of subscriptionID in body and URL
     Given API End point "/event-subscriptions/{subscriptionID}" for "EventSubscription"
     And Placeholders with values
       | placeholder    | value                                |

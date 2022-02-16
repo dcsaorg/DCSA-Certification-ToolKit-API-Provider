@@ -9,11 +9,11 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.response.Response;
-import org.dcsa.api.validator.constants.StatusCode;
-import org.dcsa.api.validator.constants.ValidationCode;
-import org.dcsa.api.validator.hooks.TestSetup;
-import org.dcsa.api.validator.models.TestCase;
-import org.dcsa.api.validator.models.TestContext;
+import org.dcsa.api.validator.constant.StatusCode;
+import org.dcsa.api.validator.constant.ValidationCode;
+import org.dcsa.api.validator.hook.TestSetup;
+import org.dcsa.api.validator.model.TestCase;
+import org.dcsa.api.validator.model.TestContext;
 import org.dcsa.api.validator.restassured.extension.RestAssuredExtension;
 import org.dcsa.api.validator.restassured.extension.Impl.RestAssuredExtensionImpl;
 import org.dcsa.api.validator.util.FileUtility;
@@ -31,13 +31,13 @@ public class CommonSteps {
 
     @Before(order = 1)
     public void testPreparation(Scenario scenario) {
-        System.out.println("Thread:"+Thread.currentThread().getName());
+        System.out.println("Thread:" + Thread.currentThread().getName());
         this.scenario = scenario;
-        if(TestSetup.TestContexts.get(scenario.getId())==null)
+        if (TestSetup.TestContexts.get(scenario.getId()) == null)
             TestSetup.TestContexts.put(scenario.getId(), new TestContext());
-        restAssuredExtension= new RestAssuredExtensionImpl(TestSetup.TestContexts.get(scenario.getId()));
+        restAssuredExtension = new RestAssuredExtensionImpl(TestSetup.TestContexts.get(scenario.getId()));
         restAssuredExtension.getTestContext().setScenario(scenario);
-        headers=new ArrayList<>();
+        headers = new ArrayList<>();
         headers.add("Content-Type");
     }
 
@@ -329,7 +329,7 @@ public class CommonSteps {
         ;
     }
 
-    @Then("Receive paging attribute in header")
+/*    @Then("Receive paging attribute in header")
     public void receivePagingAttributeInHeader() {
         headers.add("Current-Page");
         restAssuredExtension
@@ -338,7 +338,9 @@ public class CommonSteps {
                 .foundAll(StatusCode.OK)
                 .header(headers)
         ;
-    }
+    }*/
+
+    @Then("Receive attribute in header")
 
 
     @Then("Receive invalid response for PUT")
@@ -475,12 +477,23 @@ public class CommonSteps {
 
     @Then("Receive response code {string}")
     public void receiveResponseCode(String expectedHttpCode) {
-            restAssuredExtension
-                    .then()
-                    .assertThat()
-                    .statusCode(Integer.parseInt(expectedHttpCode));
+        restAssuredExtension
+                .then()
+                .assertThat()
+                .statusCode(Integer.parseInt(expectedHttpCode));
 
     }
 
 
+    @Then("Receive headers in response")
+    public void receiveBelowHeadersInResponse(DataTable headerList) {
+        List<String> newHeaders = headerList.asList();
+        if (newHeaders != null)
+            headers.addAll(newHeaders);
+        restAssuredExtension
+                .then()
+                .assertThat()
+                .header(headers)
+        ;
+    }
 }
