@@ -9,6 +9,7 @@ Feature:
     And Send a POST http request
     Then Receive Head request for CallBackURL
     Then Receive valid response for POST
+    Then Receive a valid notification
 
 
   @HeadRequest
@@ -19,6 +20,7 @@ Feature:
     And Send a POST http request
     Then Receive Head request for CallBackURL
     Then Receive invalid response for POST
+
 
   @Notification
   Scenario:TNT.2.2.SUB.PRV.7_Subscription requested must be rejected if the secrets are not adequate for the signature algorithm_Receipt an event with valid signature
@@ -37,6 +39,9 @@ Feature:
     And A valid Callback Url
     When Set request for POST with test case "EventTypeSHIPMENT"
     And Send a POST http request
+    Then Receive Head request for CallBackURL
+    Then Receive valid response for POST
+    Then Receive a valid notification
     Given API End point "/event-subscriptions/{subscriptionID}/secret" for "EventSubscription"
     When Set request for PUT with test case "UpdateSecret"
     And Send a PUT http request

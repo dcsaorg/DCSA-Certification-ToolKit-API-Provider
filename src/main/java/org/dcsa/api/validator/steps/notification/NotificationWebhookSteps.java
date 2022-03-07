@@ -23,6 +23,7 @@ public class NotificationWebhookSteps {
 
     @Before(order = 2)
     public void setUp(Scenario s) {
+        System.out.println("Before Each");
         callbackContext = new CallbackContext();
         webhook = TestSetup.sparkWebHook;
         webhook.setContext(callbackContext);
@@ -38,13 +39,15 @@ public class NotificationWebhookSteps {
             System.out.println("Waiting for callback head request ");
             callbackContext.getHeadRequestLock().await(Configuration.CALLBACK_WAIT, TimeUnit.MILLISECONDS);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+           // e.printStackTrace();
+            Assert.fail("Head Request not received");
         }
         if (!callbackContext.isHeadRequestReceived()) {
             TestContext testcontext = TestSetup.TestContexts.get(scenario.getId());
             testcontext.setReasonOfFailure("Head Request not received");
             Assert.fail("Head Request not received");
         }
+        callbackContext.setHeadRequestCountDown(1);
     }
 
     @And("Receive a valid notification")
@@ -55,6 +58,7 @@ public class NotificationWebhookSteps {
             callbackContext.getNotificationRequestLock().await(Configuration.CALLBACK_WAIT, TimeUnit.MILLISECONDS);
         } catch (InterruptedException e) {
             e.printStackTrace();
+            Assert.fail("Head Request not received");
         }
         if (!callbackContext.isNotificationReceived()) {
             testcontext.setReasonOfFailure("Notification not Received");
@@ -86,7 +90,7 @@ public class NotificationWebhookSteps {
             testcontext.setReasonOfFailure("Invalid Signature: Expected=>" + expectedSignature + "\n\n received=>" + receivedSignature);
         }
         Assert.assertEquals(receivedSignature,expectedSignature);
-
+        callbackContext.setNotificationCountDown(1);
     }
 
     @And("A valid Callback Url")

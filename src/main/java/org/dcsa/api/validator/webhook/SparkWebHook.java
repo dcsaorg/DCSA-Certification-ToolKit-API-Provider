@@ -11,8 +11,6 @@ public class SparkWebHook {
     CallbackContext callbackContext;
 
     public void startServer() {
-        // callbackContext.init();
-        System.out.println("Server Started");
         Spark.port(Configuration.CALLBACK_PORT);
 
         Spark.post(Configuration.CALLBACK_PATH+"/:uuid", (req, res) -> {
@@ -44,9 +42,10 @@ public class SparkWebHook {
                 callbackContext.setHeadRequestReceived(true);
                 callbackContext.getHeadRequestLock().countDown();
             }
-            return "Head received!";
+            return "{\"status\":\"OK\"}";
         });
         Spark.awaitInitialization();
+        System.out.println("Server Started");
     }
 
     public void stopServer() {

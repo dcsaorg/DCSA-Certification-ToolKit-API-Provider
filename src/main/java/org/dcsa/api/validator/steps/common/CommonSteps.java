@@ -31,7 +31,6 @@ public class CommonSteps {
 
     @Before(order = 1)
     public void testPreparation(Scenario scenario) {
-        System.out.println("Thread:" + Thread.currentThread().getName());
         this.scenario = scenario;
         if (TestSetup.TestContexts.get(scenario.getId()) == null)
             TestSetup.TestContexts.put(scenario.getId(), new TestContext());

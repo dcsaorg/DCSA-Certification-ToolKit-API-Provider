@@ -29,5 +29,14 @@ public class CallbackContext {
         headers=new HashMap<>();
         notificationBody=null;
     }
+    public void setHeadRequestCountDown(int countDown)
+    {
+        headRequestLock = new CountDownLatch(countDown);
+    }
+
+    public void setNotificationCountDown(int countDown)
+    {
+        notificationRequestLock = new CountDownLatch(countDown);
+    }
 
 }
