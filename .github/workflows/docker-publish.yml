@@ -29,7 +29,7 @@ jobs:
       packages: write
       # This is used to complete the identity challenge
       # with sigstore/fulcio when running outside of PRs.
-      id-token: write
+      #id-token: write
 
     steps:
       - name: Checkout repository
@@ -44,7 +44,7 @@ jobs:
           ${{ runner.os }}-maven-
           
       - name: build Toolkit
-        run:  mvn -B package -DskipTests -X
+        run:  echo ${{ secrets.DCSA_USER }} && mvn -B package -DskipTests -X
         
       - name: Extract Build tag
         id: buildtag
