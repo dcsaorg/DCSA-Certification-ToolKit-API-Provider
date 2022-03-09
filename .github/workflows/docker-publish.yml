@@ -17,7 +17,7 @@ env:
   # Use docker.io for Docker Hub if empty
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
-  IMAGE_NAME: dcsaorg/ctk-provider
+  IMAGE_NAME: dcsaorg/dcsa-ctk-provider
   TAG: 'latest'
 
 jobs:
@@ -55,7 +55,7 @@ jobs:
       - name: Build and push Docker image
         uses: mr-smithers-excellent/docker-build-push@v5
         with:          
-          image: ctk-provider
+          image: dcsa-ctk-provider
           tags: ${{ env.TAG }}, latest
           registry: ghcr.io            
           githubOrg: dcsaorg
