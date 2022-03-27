@@ -21,6 +21,8 @@ public class ExtentReportManager {
 
     private static ExtentReports extentReports;
     private static ExtentTest extentTest;
+    private static String reportPath;
+    private static String reportName;
     private static final String COMPANY = "Company";
     private static final String AUTHOR = "Author";
     private static final String OS_NAME = "os.name";
@@ -60,11 +62,11 @@ public class ExtentReportManager {
 
     public static ExtentSparkReporter getExtentSparkReporter(){
         DateFormat dateFormat = new SimpleDateFormat("dd-M-yyyy__hh-mm-ss");
-        String reportName = PropertyLoader.getInstance().getProperty("report.file.name") +
-                "_" + dateFormat.format(Calendar.getInstance().getTime()) + ".html";
-        String reportPath = System.getProperty("user.dir") + "/" +
-                PropertyLoader.getInstance().getProperty("report.file.location") + "/" + reportName;
-        ExtentSparkReporter reporter = new ExtentSparkReporter(reportPath);
+        reportName = PropertyLoader.getInstance().getProperty("report.file.name") +
+                "_" +dateFormat.format(Calendar.getInstance().getTime()) + ".html";
+        reportPath = System.getProperty("user.dir")+"/"+
+                PropertyLoader.getInstance().getProperty("report.file.location")+"/" + reportName;
+        ExtentSparkReporter reporter = new ExtentSparkReporter( reportPath);
 
         reporter.config().setReportName(PropertyLoader.getInstance().getProperty("report.name"));
         reporter.config().setDocumentTitle(PropertyLoader.getInstance().getProperty("report.title"));
@@ -75,6 +77,14 @@ public class ExtentReportManager {
                 PropertyLoader.getInstance().getProperty("report.timeline.enabled")));
         reporter.config().setTimeStampFormat(PropertyLoader.getInstance().getProperty("report.time.stamp.format"));
         return reporter;
+    }
+
+    public static String getReportPath(){
+        return reportPath;
+    }
+
+    public static String getReportName(){
+        return reportName;
     }
 
     public static ExtentTest getExtentTest(String name){
@@ -89,29 +99,20 @@ public class ExtentReportManager {
             ExtentTest extentTest = ExtentReportManager.getExtentTest(htmlReportModel.getRequirementId()+ " " +
                     htmlReportModel.getRequirement());
             extentTest.assignCategory(htmlReportModel.getRequirementId());
-
             if(htmlReportModel.getTestStatusCode().equals(TestStatusCode.PASSED)){
                 extentTest.pass(htmlReportModel.getTestName());
-                extentTest.info(htmlReportModel.getTestDetails());
+                if(!htmlReportModel.getTestDetails().isEmpty())
+                    extentTest.info(htmlReportModel.getTestDetails());
                 Markup markUp = MarkupHelper.createLabel(TestStatusCode.PASSED.name().toUpperCase(),ExtentColor.GREEN);
                 extentTest.log(Status.INFO, markUp);
             }else if(htmlReportModel.getTestStatusCode().equals(TestStatusCode.FAILED)){
                 extentTest.fail(htmlReportModel.getTestName());
-                extentTest.info(htmlReportModel.getTestDetails());
-                if(htmlReportModel.getFailureReason() != null){
-                    extentTest.info("TEST FAILURE REASON:  "+htmlReportModel.getFailureReason());
-                }
+                if(!htmlReportModel.getTestDetails().isEmpty())
+                    extentTest.info(htmlReportModel.getTestDetails());
                 Markup markUp = MarkupHelper.createLabel(TestStatusCode.FAILED.name().toUpperCase(), ExtentColor.RED);
                 extentTest.log(Status.WARNING, markUp);
-            } else {
-                System.out.printf("stop");
             }
-
             ExtentReportManager.flush();
         }
-    }
-
-    public static void removeLogView(){
-      //  extentTest.config().setJS("document.getElementsByClassName('col-sm-12 col-md-4')[0].style.setProperty('min-inline-size','-webkit-fill-available');");
     }
 }
