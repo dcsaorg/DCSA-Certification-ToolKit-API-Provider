@@ -7,9 +7,12 @@ import org.apache.poi.common.usermodel.HyperlinkType;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.*;
 import org.dcsa.api.validator.config.Configuration;
+import org.dcsa.api.validator.constant.TestStatusCode;
 import org.dcsa.api.validator.hook.TestSetup;
+import org.dcsa.api.validator.model.HtmlReportModel;
 import org.dcsa.api.validator.model.TestContext;
 import org.dcsa.api.validator.reporter.CustomReporter;
+import org.dcsa.api.validator.reporter.report.ExtentReportManager;
 import org.joda.time.DateTime;
 import org.testng.ISuite;
 import org.testng.xml.XmlSuite;
@@ -65,6 +68,8 @@ public class ExcelReporter implements CustomReporter {
             List<String> testCaseList = new ArrayList<>(keyIds);
             Collections.sort(testCaseList);
             int rowId2 = 0;
+            SortedSet<String> keys = new TreeSet<>(childTestCases.keySet());
+
 
             sheetRow = spreadsheetSummary.createRow(rowId2++);
             Object[] header = new Object[]{"Requirement ID", "Requirement", "Total", "Passed", "Failed"};
@@ -82,6 +87,7 @@ public class ExcelReporter implements CustomReporter {
                 int row = 0;
                 for (String str : childTestCases.get(key)) {
                     row = fillWithTestResult(spreadsheet, str, testContexts, workbook, row);
+                    fillHtmlReport(str, testContexts);
                 }
                 sheetRow = spreadsheetSummary.createRow(rowId2++);
                 Object[] objectArr = resultSummary.get(key);
@@ -117,6 +123,31 @@ public class ExcelReporter implements CustomReporter {
         }
     }
 
+    private void fillHtmlReport(String key, Map<String, TestContext> testContexts) {
+        for (TestContext testContext : testContexts.values()) {
+            if (testContext.getTestCaseName().equals(key)) {
+                HtmlReportModel htmlReportModel = new HtmlReportModel();
+                String[] token = key.split("_");
+                if(token.length == 3){
+                    htmlReportModel.setRequirementId(token[0]);
+                    htmlReportModel.setRequirement(token[1]);
+                    htmlReportModel.setTestName(token[2]);
+                }else {
+                    System.out.printf("stop");
+                }
+                if(testContext.getStatus().equals(TestStatusCode.PASSED.name())){
+                    htmlReportModel.setTestStatusCode(TestStatusCode.PASSED);
+                } else if(testContext.getStatus().equals(TestStatusCode.FAILED.name())){
+                    htmlReportModel.setTestStatusCode(TestStatusCode.FAILED);
+                }else {
+                    System.out.printf("stop");
+                }
+                htmlReportModel.setFailureReason(testContext.getReasonOfFailure());
+                htmlReportModel.setTestDetails(getTestDetails(testContext));
+                ExtentReportManager.writeExtentTestReport(htmlReportModel);
+            }
+        }
+    }
 
     private int fillWithTestResult(XSSFSheet spreadsheet, String key, Map<String, TestContext> testContexts, XSSFWorkbook workbook, int startIndex) {
         int rowId = startIndex;

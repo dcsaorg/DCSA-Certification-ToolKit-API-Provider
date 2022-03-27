@@ -21,7 +21,7 @@ Feature:
     Then Validated against schema
 
 
-  Scenario Outline:TNT.2.2.SUB.PRV.4_PUT /event-subscriptions/{subscriptionID}:PUT /event-subscriptions update secret
+  Scenario Outline:TNT.2.2.SUB.PRV.4_PUT /event-subscriptions/{subscriptionID}_PUT /event-subscriptions update secret
     Given API End point "/event-subscriptions/{subscriptionID}" for "EventSubscription"
     And Placeholder "<placeholder>" with value "<value>"
     When Set request for PUT
@@ -32,7 +32,7 @@ Feature:
       | secret | OG1wOWFaRW1HTTF1Y2NuaUN0RlAtaU9JMjM5N25vMWtWd25rS2Vkc2ktZms0c01zaTJQOElZRVNQN29MYUkzcg== |
 
 
-  Scenario Outline:TNT.2.2.SUB.PRV.4_PUT /event-subscriptions/{subscriptionID}:PUT /event-subscriptions update secret
+  Scenario Outline:TNT.2.2.SUB.PRV.4_PUT /event-subscriptions/{subscriptionID}_PUT /event-subscriptions update secret
     Given API End point "/event-subscriptions/{subscriptionID}/secret" for "EventSubscription"
     When Set request for PUT with test case "<testcase>"
     And Send a PUT http request

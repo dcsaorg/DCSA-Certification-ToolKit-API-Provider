@@ -80,7 +80,7 @@ Feature:
 
 
 
-  Scenario Outline:TNT.2.2.ERR.PRV.400_Test case validating "bad request" - HTTP 400_GET /events with invalid values of filter parameters_GET /events with invalid parameter values
+  Scenario Outline:TNT.2.2.ERR.PRV.400_Test case validating "bad request" - HTTP 400_GET /events with invalid values of filter parameters
     Given API End point "/events" for "Event"
     And Query parameter "<parameter>" with value "<value>"
     When Send GET http request
@@ -102,7 +102,27 @@ Feature:
       | equipmentReference         | dsfdsAPZU4812090APZU4812090APZU4812090                                                                |
       | eventCreatedDateTime       | 2021-11-31T17:18:46.160973Z                                                                           |
 
-
+  Scenario Outline:TNT.2.2.ERR.PRV.400_Test case validating "bad request" - HTTP 400_GET /events with invalid parameter values
+    Given API End point "/events" for "Event"
+    And Query parameter "<parameter>" with value "<value>"
+    When Send GET http request
+    Then Receive invalid response for GET
+    Examples: List of query parameters
+      | parameter                  | value                                                                                                 |
+      | eventType                  | SHIPMENT1                                                                                             |
+      | documentTypeCode           | ABCDESEFF                                                                                             |
+      | shipmentEventTypeCode      | ABCFGGHH                                                                                              |
+      | carrierBookingReference    | ABC709951ABC709951ABC709951ABC709951564                                                               |
+      | transportDocumentReference | ABC709951ABC709951ABC709951ABC709951564                                                               |
+      | transportEventTypeCode     | ABC7099                                                                                               |
+      | transportCallID            | IGAcb79ijzjpLT4eicqw70C5X2lN591BhprgTwAkMeaRehoZ6OVcvMYGl0Hyb35jR2tWrWafyUBo89dIXRd1MVJkYkdqleU6XbBxY |
+      | vesselIMONumber            | ABsC70sss99                                                                                           |
+      | exportVoyageNumber         | pZwVm6KNaM6VWTty7yqNEQvB5pf8ElUCzdlu2kWWy4QCMpOnXU3                                                   |
+      | carrierServiceCode         | ABsC70sss99                                                                                           |
+      | UNLocationCode             | UNLocationCode                                                                                        |
+      | equipmentEventTypeCode     | ABCDES                                                                                                |
+      | equipmentReference         | dsfdsAPZU4812090APZU4812090APZU4812090                                                                |
+      | eventCreatedDateTime       | 2021-11-31T17:18:46.160973Z                                                                           |
 
 
 
