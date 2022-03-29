@@ -146,7 +146,7 @@ public class ExcelReporter implements CustomReporter {
                 }
                 htmlReportModel.setFailureReason(testContext.getReasonOfFailure());
                 htmlReportModel.setTestDetails(getTestDetails(testContext));
-                ExtentReportManager.writeExtentTestReport(htmlReportModel);
+                ExtentReportManager.writeExtentTestReport(htmlReportModel, testSuiteName);
             }
         }
     }

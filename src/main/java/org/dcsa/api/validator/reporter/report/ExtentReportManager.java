@@ -26,15 +26,14 @@ public class ExtentReportManager {
     private static final String COMPANY = "Company";
     private static final String AUTHOR = "Author";
     private static final String OS_NAME = "os.name";
-    private static final String USER_COUNTRY = "user.country";
     private static final String USER_LANGUAGE = "user.language";
     private static final String JAVA_RUNTIME = "java.runtime.name";
     private static final String JAVA_VERSION = "java.version";
 
-    public static synchronized  ExtentReports getExtentReports() {
+    public static synchronized  ExtentReports getExtentReports(String filePrefix) {
         if(extentReports == null){
             extentReports = new ExtentReports();
-            extentReports.attachReporter(getExtentSparkReporter());
+            extentReports.attachReporter(getExtentSparkReporter(filePrefix));
             setReportSystemInfo();
         }
         return extentReports;
@@ -46,8 +45,6 @@ public class ExtentReportManager {
         extentReports.setSystemInfo(AUTHOR.toUpperCase(), PropertyLoader.getInstance().getProperty("report.author"));
         extentReports.setSystemInfo(OS_NAME.toUpperCase().replaceAll("\\."," "),
                 (String)properties.get(OS_NAME));
-        extentReports.setSystemInfo(USER_COUNTRY.toUpperCase().replaceAll("\\."," "),
-                (String)properties.get(USER_COUNTRY));
         extentReports.setSystemInfo(USER_LANGUAGE.toUpperCase().replaceAll("\\."," "),
                 ((String)properties.get(USER_LANGUAGE)).toUpperCase());
         extentReports.setSystemInfo(JAVA_RUNTIME.toUpperCase().replaceAll("\\."," "),
@@ -57,13 +54,13 @@ public class ExtentReportManager {
     }
 
     public static void flush(){
-        getExtentReports().flush();
+        getExtentReports(null).flush();
     }
 
-    public static ExtentSparkReporter getExtentSparkReporter(){
+    public static ExtentSparkReporter getExtentSparkReporter(String filePrefix){
         DateFormat dateFormat = new SimpleDateFormat("dd-M-yyyy__hh-mm-ss");
-        reportName = PropertyLoader.getInstance().getProperty("report.file.name") +
-                "_" +dateFormat.format(Calendar.getInstance().getTime()) + ".html";
+        reportName = PropertyLoader.getInstance().getProperty("report.file.name") + "-" + filePrefix +
+                "-" +dateFormat.format(Calendar.getInstance().getTime()) + ".html";
         reportPath = System.getProperty("user.dir")+"/"+
                 PropertyLoader.getInstance().getProperty("report.file.location")+"/" + reportName;
         ExtentSparkReporter reporter = new ExtentSparkReporter( reportPath);
@@ -87,17 +84,17 @@ public class ExtentReportManager {
         return reportName;
     }
 
-    public static ExtentTest getExtentTest(String name){
+    public static ExtentTest getExtentTest(String name, String filePrefix){
         if(name != null){
-            extentTest = ExtentReportManager.getExtentReports().createTest(name);
+            extentTest = ExtentReportManager.getExtentReports(filePrefix).createTest(name);
         }
         return extentTest;
     }
 
-    public static void writeExtentTestReport(HtmlReportModel htmlReportModel){
+    public static void writeExtentTestReport(HtmlReportModel htmlReportModel, String filePerfix){
         if(htmlReportModel != null){
             ExtentTest extentTest = ExtentReportManager.getExtentTest(htmlReportModel.getRequirementId()+ " " +
-                    htmlReportModel.getRequirement());
+                    htmlReportModel.getRequirement(),filePerfix);
             extentTest.assignCategory(htmlReportModel.getRequirementId());
             if(htmlReportModel.getTestStatusCode().equals(TestStatusCode.PASSED)){
                 extentTest.pass(htmlReportModel.getTestName());
