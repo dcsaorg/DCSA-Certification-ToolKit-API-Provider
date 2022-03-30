@@ -134,15 +134,11 @@ public class ExcelReporter implements CustomReporter {
                     htmlReportModel.setRequirementId(token[0]);
                     htmlReportModel.setRequirement(token[1]);
                     htmlReportModel.setTestName(token[2]);
-                }else {
-                    System.out.printf("stop");
                 }
                 if(testContext.getStatus().equals(TestStatusCode.PASSED.name())){
                     htmlReportModel.setTestStatusCode(TestStatusCode.PASSED);
                 } else if(testContext.getStatus().equals(TestStatusCode.FAILED.name())){
                     htmlReportModel.setTestStatusCode(TestStatusCode.FAILED);
-                }else {
-                    System.out.printf("stop");
                 }
                 htmlReportModel.setFailureReason(testContext.getReasonOfFailure());
                 htmlReportModel.setTestDetails(getTestDetails(testContext));
