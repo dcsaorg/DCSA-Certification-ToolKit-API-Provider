@@ -7,9 +7,13 @@ import org.apache.poi.common.usermodel.HyperlinkType;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.*;
 import org.dcsa.api.validator.config.Configuration;
+import org.dcsa.api.validator.constant.TestStatusCode;
 import org.dcsa.api.validator.hook.TestSetup;
+import org.dcsa.api.validator.model.HtmlReportModel;
 import org.dcsa.api.validator.model.TestContext;
 import org.dcsa.api.validator.reporter.CustomReporter;
+import org.dcsa.api.validator.reporter.report.ExtentReportManager;
+import org.dcsa.api.validator.reporter.report.ExtentReportModifier;
 import org.joda.time.DateTime;
 import org.testng.ISuite;
 import org.testng.xml.XmlSuite;
@@ -65,6 +69,8 @@ public class ExcelReporter implements CustomReporter {
             List<String> testCaseList = new ArrayList<>(keyIds);
             Collections.sort(testCaseList);
             int rowId2 = 0;
+            SortedSet<String> keys = new TreeSet<>(childTestCases.keySet());
+
 
             sheetRow = spreadsheetSummary.createRow(rowId2++);
             Object[] header = new Object[]{"Requirement ID", "Requirement", "Total", "Passed", "Failed"};
@@ -82,7 +88,9 @@ public class ExcelReporter implements CustomReporter {
                 int row = 0;
                 for (String str : childTestCases.get(key)) {
                     row = fillWithTestResult(spreadsheet, str, testContexts, workbook, row);
+                    fillHtmlReport(str, testContexts, suite.getName());
                 }
+                ExtentReportModifier.modifyFile(ExtentReportManager.getReportPath());
                 sheetRow = spreadsheetSummary.createRow(rowId2++);
                 Object[] objectArr = resultSummary.get(key);
                 cellId = 0;
@@ -117,6 +125,27 @@ public class ExcelReporter implements CustomReporter {
         }
     }
 
+    private void fillHtmlReport(String key, Map<String, TestContext> testContexts, String testSuiteName) {
+        for (TestContext testContext : testContexts.values()) {
+            if (testContext.getTestCaseName().equals(key)) {
+                HtmlReportModel htmlReportModel = new HtmlReportModel();
+                String[] token = key.split("_");
+                if(token.length == 3){
+                    htmlReportModel.setRequirementId(token[0]);
+                    htmlReportModel.setRequirement(token[1]);
+                    htmlReportModel.setTestName(token[2]);
+                }
+                if(testContext.getStatus().equals(TestStatusCode.PASSED.name())){
+                    htmlReportModel.setTestStatusCode(TestStatusCode.PASSED);
+                } else if(testContext.getStatus().equals(TestStatusCode.FAILED.name())){
+                    htmlReportModel.setTestStatusCode(TestStatusCode.FAILED);
+                }
+                htmlReportModel.setFailureReason(testContext.getReasonOfFailure());
+                htmlReportModel.setTestDetails(getTestDetails(testContext));
+                ExtentReportManager.writeExtentTestReport(htmlReportModel, testSuiteName);
+            }
+        }
+    }
 
     private int fillWithTestResult(XSSFSheet spreadsheet, String key, Map<String, TestContext> testContexts, XSSFWorkbook workbook, int startIndex) {
         int rowId = startIndex;
@@ -137,11 +166,7 @@ public class ExcelReporter implements CustomReporter {
                 objectArr[0] = getTestDescription(key);
                 objectArr[1] = testContext.getStatus();
                 objectArr[2] = testContext.getReasonOfFailure();
-                String testDetails = getTestDetails(testContext);
-                if (testDetails.length() > 32766)
-                    objectArr[3] = getTestDetails(testContext).substring(0, 32766);
-                else
-                    objectArr[3] = getTestDetails(testContext);
+                objectArr[3] = getTestDetails(testContext);
                 cellId = 0;
                 row = spreadsheet.createRow(rowId++);
                 Cell cell;
@@ -211,7 +236,14 @@ public class ExcelReporter implements CustomReporter {
 
         for (int i = 0; i < testContext.getMessage().size(); i++)
             prettyPrint.append(testContext.getMessage().get(i));
-        return prettyPrint.toString();
+        String testDetails;
+        if (prettyPrint.length() > 32766) {
+            testDetails = prettyPrint.substring(0, 32766);
+        }
+        else {
+            testDetails = prettyPrint.toString();
+        }
+        return testDetails;
     }
 
     private CellStyle getCellStyle(String type, XSSFWorkbook workbook) {
