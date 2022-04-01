@@ -1,7 +1,12 @@
 package org.dcsa.api.validator.util;
 
+import org.springframework.core.io.ByteArrayResource;
+
 import java.io.*;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class FileUtility {
 
@@ -54,4 +59,16 @@ public class FileUtility {
         private interface ParserFunction<T, R> {
             R apply(T t) throws Exception;
         }
+
+    public static ByteArrayResource getFile(String resource) throws IOException {
+        try {
+            File file = new File(resource);
+            Path path = Paths.get(file.getAbsolutePath());
+            ByteArrayResource byteArrayResource = new ByteArrayResource(Files.readAllBytes(path));
+            return byteArrayResource;
+        } catch (Exception e)
+        {
+            throw new IllegalStateException("Cannot find file " + resource);
+        }
+    }
 }

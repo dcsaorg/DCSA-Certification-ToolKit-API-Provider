@@ -10,11 +10,9 @@ import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 import org.dcsa.api.validator.constant.TestStatusCode;
 import org.dcsa.api.validator.model.HtmlReportModel;
+import org.dcsa.api.validator.reporter.util.ReportUtil;
 import org.dcsa.api.validator.webservice.init.AppProperty;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Objects;
 import java.util.Properties;
 
@@ -23,7 +21,6 @@ public class ExtentReportManager {
     private static ExtentReports extentReports;
     private static ExtentTest extentTest;
     private static String reportPath;
-    private static String reportName;
     private static final String COMPANY = "Company";
     private static final String AUTHOR = "Author";
     private static final String OS_NAME = "os.name";
@@ -59,10 +56,7 @@ public class ExtentReportManager {
     }
 
     public static ExtentSparkReporter getExtentSparkReporter(String filePrefix){
-        DateFormat dateFormat = new SimpleDateFormat("dd-M-yyyy__hh-mm-ss");
-        reportName = AppProperty.REPORT_NAME  + "-" + filePrefix +
-                "-" +dateFormat.format(Calendar.getInstance().getTime()) + ".html";
-        reportPath = System.getProperty("user.dir")+"/"+ AppProperty.REPORT_DIRECTORY + "/" + reportName;
+        reportPath =  ReportUtil.getReportPath(filePrefix, ReportUtil.HTML_EXTENSION, ReportUtil.HTML);
         ExtentSparkReporter reporter = new ExtentSparkReporter( reportPath);
 
         reporter.config().setReportName(AppProperty.REPORT_NAME);
@@ -72,14 +66,6 @@ public class ExtentReportManager {
         reporter.config().setTimelineEnabled(Boolean.parseBoolean(AppProperty.REPORT_TIMELINE));
         reporter.config().setTimeStampFormat(AppProperty.REPORT_TIME_FORMAT);
         return reporter;
-    }
-
-    public static String getReportPath(){
-        return reportPath;
-    }
-
-    public static String getReportName(){
-        return reportName;
     }
 
     public static ExtentTest getExtentTest(String name, String filePrefix){

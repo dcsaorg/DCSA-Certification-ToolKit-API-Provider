@@ -14,6 +14,8 @@ import org.dcsa.api.validator.model.TestContext;
 import org.dcsa.api.validator.reporter.CustomReporter;
 import org.dcsa.api.validator.reporter.report.ExtentReportManager;
 import org.dcsa.api.validator.reporter.report.ExtentReportModifier;
+import org.dcsa.api.validator.reporter.util.ReportUtil;
+import org.dcsa.api.validator.webservice.init.AppProperty;
 import org.joda.time.DateTime;
 import org.testng.ISuite;
 import org.testng.xml.XmlSuite;
@@ -25,11 +27,11 @@ import java.io.IOException;
 import java.util.*;
 
 public class ExcelReporter implements CustomReporter {
+
     @Override
     public void generateReport(List<XmlSuite> xmlSuites, List<ISuite> suites,
                                String outputDirectory) {
         XSSFWorkbook workbook = new XSSFWorkbook();
-        outputDirectory = Configuration.OUT_PUT_DIR;
         for (ISuite suite : suites) {
             Map<String, TestContext> testContexts = TestSetup.TestContexts;
             XSSFSheet spreadsheetSummary = workbook.createSheet("TestSummary");
@@ -37,7 +39,7 @@ public class ExcelReporter implements CustomReporter {
             Map<String, Set<String>> childTestCases = new TreeMap<>();
             XSSFCreationHelper createHelper = workbook.getCreationHelper();
 
-            String fileName = ("TestResult_" + suite.getName() + "_" + DateTime.now().toString("dd-M-yyyy__hh-mm-ss") + ".xlsx");
+            ReportUtil.getReportPath(suite.getName(), ReportUtil.EXCEL_EXTENSION, ReportUtil.EXCEL);
 
             for (Map.Entry<String, TestContext> testContext : testContexts.entrySet()) {
                 String fullName = testContext.getValue().getTestCaseName();
@@ -71,10 +73,8 @@ public class ExcelReporter implements CustomReporter {
             int rowId2 = 0;
             SortedSet<String> keys = new TreeSet<>(childTestCases.keySet());
 
-
             sheetRow = spreadsheetSummary.createRow(rowId2++);
             Object[] header = new Object[]{"Requirement ID", "Requirement", "Total", "Passed", "Failed"};
-
             int cellId = 0;
             for (Object obj : header) {
                 Cell cell = sheetRow.createCell(cellId++);
@@ -90,7 +90,6 @@ public class ExcelReporter implements CustomReporter {
                     row = fillWithTestResult(spreadsheet, str, testContexts, workbook, row);
                     fillHtmlReport(str, testContexts, suite.getName());
                 }
-                ExtentReportModifier.modifyFile(ExtentReportManager.getReportPath());
                 sheetRow = spreadsheetSummary.createRow(rowId2++);
                 Object[] objectArr = resultSummary.get(key);
                 cellId = 0;
@@ -100,8 +99,9 @@ public class ExcelReporter implements CustomReporter {
                 cell = sheetRow.createCell(cellId++);
                 cell.setCellValue(getRequirement(key));
                 cell.setCellStyle(getCellStyle("normal", workbook));
-                XSSFHyperlink link = (XSSFHyperlink) createHelper.createHyperlink(HyperlinkType.FILE);
-                link.setAddress(fileName);
+                XSSFHyperlink link = createHelper.createHyperlink(HyperlinkType.FILE);
+
+                link.setAddress(ReportUtil.excelReportName);
                 link.setLocation("'" + sheetName + "'!A2");
                 for (Object obj : objectArr) {
                     cell = sheetRow.createCell(cellId++);
@@ -113,8 +113,9 @@ public class ExcelReporter implements CustomReporter {
                 cell.setHyperlink(link);
                 cell.setCellStyle(getCellStyle("link", workbook));
             }
+            ExtentReportModifier.modifyFile(ReportUtil.htmlReportPath);
             try {
-                FileOutputStream out = new FileOutputStream(new File(outputDirectory + "/" + fileName));
+                FileOutputStream out = new FileOutputStream(ReportUtil.excelReportPath);
                 workbook.write(out);
                 out.close();
             } catch (FileNotFoundException e) {
