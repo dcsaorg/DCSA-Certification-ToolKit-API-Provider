@@ -37,7 +37,7 @@ public class ExcelReporter implements CustomReporter {
             Map<String, Set<String>> childTestCases = new TreeMap<>();
             XSSFCreationHelper createHelper = workbook.getCreationHelper();
 
-            String fileName = ("TestResult_" + suite.getName() + "_" + DateTime.now().toString("yyyyMMdd_HHmmss") + ".xlsx");
+            String fileName = ("TestResult_" + suite.getName() + "_" + DateTime.now().toString("dd-M-yyyy__hh-mm-ss") + ".xlsx");
 
             for (Map.Entry<String, TestContext> testContext : testContexts.entrySet()) {
                 String fullName = testContext.getValue().getTestCaseName();
@@ -204,7 +204,7 @@ public class ExcelReporter implements CustomReporter {
                 }
             }
 
-            List<io.restassured.http.Header> headers = requestSpec.getHeaders().asList();
+            List<Header> headers = requestSpec.getHeaders().asList();
             if (headers != null) {
                 prettyPrint.append("Request Headers: ");
                 for (Header header : headers) {
