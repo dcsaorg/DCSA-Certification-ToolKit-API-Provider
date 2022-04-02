@@ -22,22 +22,31 @@ import java.util.Optional;
 @RestController
 public class ProviderCtkController {
 
-   private final AppProperty appProperty;
+    private static final String RUN_TEST_SUCCESS = "The report is ready. Get the report by GET /download/report/{reportType}, reportType is html or excel";
+    private static final String RUN_TEST_FAIL = "The compatibility tool failed to run. Please check all configurations and try again.";
+    private static final String NO_REPORT_ERROR =  "No report was found. Please run the compatibility tool by GET /run to generate reports.";
+    private static final String UNKNOWN_REPORT_TYPE = "Unknown report type. Only html or excel report type is supported.";
+
+    private final AppProperty appProperty;
 
     public ProviderCtkController(AppProperty appProperty) {
         this.appProperty = appProperty;
+        this.appProperty.init();
     }
 
-   @GetMapping(value = "/start" )
-  String startTestNg(){
-      appProperty.init();
+   @GetMapping(value = "/run" )
+  String runTestNg(){
       TestNG testng = new TestNG();
       final String suitePath = System.getProperty("user.dir")+"\\suitexmls\\"+AppProperty.TEST_SUITE_NAME;
       List<String> xmlList = new ArrayList<>();
       xmlList.add(suitePath);
       testng.setTestSuites(xmlList);
       testng.run();
-      return  null;
+      if( testng.getStatus() == 1 ){
+          return RUN_TEST_SUCCESS;
+      }else{
+          return RUN_TEST_FAIL;
+      }
   }
 
     @GetMapping(value = "/download/report/{reportType}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
@@ -48,6 +57,13 @@ public class ProviderCtkController {
         }
         HttpHeaders header = new HttpHeaders();
         ByteArrayResource resource = null;
+
+        if( ReportUtil.htmlReportPath == null || ReportUtil.excelReportPath == null){
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(NO_REPORT_ERROR);
+        }
+
         if(defaultReportType.equalsIgnoreCase(ReportUtil.HTML)){
             resource = FileUtility.getFile( ReportUtil.htmlReportPath);
             header.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + ReportUtil.htmlReportName);
@@ -58,7 +74,7 @@ public class ProviderCtkController {
         } else {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
-                    .body("Unknown report type. Only html or excel report type is supported.");
+                    .body(UNKNOWN_REPORT_TYPE);
         }
         header.add("Cache-Control", "no-cache, no-store, must-revalidate");
         header.add("Pragma", "no-cache");

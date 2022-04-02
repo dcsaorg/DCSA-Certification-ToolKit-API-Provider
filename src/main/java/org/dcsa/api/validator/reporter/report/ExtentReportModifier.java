@@ -14,10 +14,9 @@ import java.util.logging.Level;
 @Log
 public class ExtentReportModifier {
     // to comment the pai chart
-    private static final String htmlStrStart = "<div class=\"row\">";
-    private static final String htmlStartReplaceStr = "<!--";
-    private static final String htmlStrEnd = "<div class=\"row\">";
-    private static final String htmlEndReplaceStr = "--> <div class=\"row\">";
+    private static final String htmlStrStartKey = "<div class=\"row\">";
+    private static final String htmlStrStartVal = "<!--";
+    private static final String htmlStrEndVal = "--> <div class=\"row\">";
 
     public static void modifyFile(String reportPath) {
         Path path = Paths.get(reportPath);
@@ -29,11 +28,10 @@ public class ExtentReportModifier {
         } catch (IOException e) {
             log.log(Level.SEVERE, e.getMessage());
         }
+        // comment the pass chart
+        content = replaceSubStringAtIndex(1, content,htmlStrStartKey, htmlStrStartVal );
         // comment the pai chart
-        int indexOfHtmlStart = indexOfSubstringAt(Objects.requireNonNull(content), htmlStrStart,1);
-        content = replaceStringAtIndex(indexOfHtmlStart, htmlStrStart.length()+indexOfHtmlStart, content, htmlStartReplaceStr);
-        int indexOfHtmlEnd = indexOfSubstringAt(content, htmlStrEnd, 1);
-        content = replaceStringAtIndex(indexOfHtmlEnd, htmlStrEnd.length()+indexOfHtmlEnd, content, htmlEndReplaceStr);
+        content = replaceSubStringAtIndex(1, content,htmlStrStartKey, htmlStrEndVal );
 
         try {
             Files.write(path, content.getBytes(charset));
@@ -42,17 +40,18 @@ public class ExtentReportModifier {
         }
     }
 
+    public static String replaceSubStringAtIndex(int index, String inputStr, String subStr, String replaceStr){
+        int posAt =  indexOfSubstringAt(inputStr, subStr, index);
+        StringBuilder sb = new StringBuilder(inputStr);
+        sb.replace(posAt, subStr.length()+posAt, replaceStr);
+        return  sb.toString();
+    }
+
     public static int indexOfSubstringAt(String inputStr, String subStr, int n) {
         int pos = -1;
         do {
             pos = inputStr.indexOf(subStr, pos + 1);
         } while (n-- > 0 && pos != -1);
         return pos;
-    }
-
-    public static String replaceStringAtIndex(int start, int end, String inputStr,  String replaceStr){
-        StringBuilder sb = new StringBuilder(inputStr);
-        sb.replace(start, end, replaceStr);
-        return  sb.toString();
     }
 }
