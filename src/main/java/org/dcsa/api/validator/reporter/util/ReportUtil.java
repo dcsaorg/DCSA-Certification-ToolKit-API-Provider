@@ -4,7 +4,9 @@ import org.dcsa.api.validator.webservice.init.AppProperty;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class ReportUtil {
 
@@ -32,5 +34,16 @@ public class ReportUtil {
         }else {
             return "";
         }
+    }
+
+    public static List<String> getReports(){
+        List<String> reports = new ArrayList<>();
+        if(excelReportPath != null){
+            reports.add(excelReportPath);
+        }
+        if(htmlReportPath != null){
+            reports.add(htmlReportPath);
+        }
+        return reports;
     }
 }
