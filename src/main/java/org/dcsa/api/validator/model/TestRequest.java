@@ -12,8 +12,8 @@ public class TestRequest {
     String responseSchema;
     Map<String, Object>  payload;
     Map<String, String> pathVariables=new HashMap<>();
-    Map<String,String> queryParameters=new HashMap<>();;
-    Map<String, Object> placeHolders=new HashMap<>();;
+    Map<String,String> queryParameters=new HashMap<>();
+    Map<String, Object> placeHolders=new HashMap<>();
     List<String> removalAttributes;
     List<String> dynamicPathVariables;
     List<String> dynamicQueryParameters;

@@ -1,6 +1,6 @@
 package org.dcsa.api.validator.util;
 
-import com.fasterxml.jackson.databind.JsonNode;;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 
 import java.util.*;
@@ -20,7 +20,7 @@ public class JsonParser {
                 Iterator<JsonNode> node = arrayNode.elements();
                 int index = 1;
                 while (node.hasNext()) {
-                    process(!prefix.isEmpty() ? prefix + ".[" + (index - 1) + "]" : "[" + String.valueOf(index - 1) + "", node.next());
+                    process(!prefix.isEmpty() ? prefix + ".[" + (index - 1) + "]" : "[" + (index - 1) + "", node.next());
                     index += 1;
                 }
             }

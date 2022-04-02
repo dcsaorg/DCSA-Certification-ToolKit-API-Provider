@@ -2,9 +2,9 @@ package org.dcsa.api.validator.constant;
 
 public enum TestStatusCode {
     FAILED("FAILED"),
-    PASSED("PASSED");;
+    PASSED("PASSED");
 
-    private String name;
+    private final String name;
 
     TestStatusCode(String name) {
         this.name = name;

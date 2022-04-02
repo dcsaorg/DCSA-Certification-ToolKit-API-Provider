@@ -75,7 +75,7 @@ public class JsonUtility {
                 if (jsonValue == null)
                     isFound = false;
                 else if (operator != null) {
-                    String operators[] = new String[]{"gte", "gt", "lte", "lt", "eq"};
+                    String[] operators = new String[]{"gte", "gt", "lte", "lt", "eq"};
                     List<String> operatorList = Arrays.asList(operators);
                     if (operatorList.contains(operator)) {
                         int result = ((jsonValue).asText()).compareToIgnoreCase(value);
@@ -226,10 +226,7 @@ public class JsonUtility {
             e.printStackTrace();
             return false;
         }
-        if (rootNode.isArray())
-            return true;
-        else
-            return false;
+        return rootNode.isArray();
     }
 
     public static boolean validateSchema(String schema, String json) throws IOException, ProcessingException {

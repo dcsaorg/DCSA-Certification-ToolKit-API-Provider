@@ -6,5 +6,5 @@ public enum ValidationType {
     RESPONSEBODY,
     LIMIT,
     SCHEMA,
-    FILTER;
+    FILTER
 }
