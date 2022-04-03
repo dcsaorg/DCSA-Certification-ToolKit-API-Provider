@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Data
 @Configuration
-@ConfigurationProperties("app")
+@ConfigurationProperties( prefix = "app")
 public class AppProperty {
     // TNT service static config
     public static String API_ROOT_URI;

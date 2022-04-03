@@ -13,6 +13,9 @@ import org.dcsa.api.validator.model.HtmlReportModel;
 import org.dcsa.api.validator.reporter.util.ReportUtil;
 import org.dcsa.api.validator.webservice.init.AppProperty;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Objects;
 import java.util.Properties;
 
@@ -21,6 +24,7 @@ public class ExtentReportManager {
     private static ExtentReports extentReports;
     private static ExtentTest extentTest;
     private static String reportPath;
+
     private static final String COMPANY = "Company";
     private static final String AUTHOR = "Author";
     private static final String OS_NAME = "os.name";
@@ -68,6 +72,8 @@ public class ExtentReportManager {
         return reporter;
     }
 
+
+
     public static ExtentTest getExtentTest(String name, String filePrefix){
         if(name != null){
             extentTest = ExtentReportManager.getExtentReports(filePrefix).createTest(name);
@@ -88,7 +94,10 @@ public class ExtentReportManager {
                 extentTest.log(Status.INFO, markUp);
             }else if(htmlReportModel.getTestStatusCode().equals(TestStatusCode.FAILED)){
                 extentTest.fail(htmlReportModel.getTestName());
-                if(!htmlReportModel.getTestDetails().isEmpty())
+                if(htmlReportModel.getFailureReason() != null){
+                    extentTest.fail("Failure reason: " + htmlReportModel.getFailureReason());
+                }
+                if(htmlReportModel.getTestDetails() != null){
                     extentTest.info(htmlReportModel.getTestDetails());
                 Markup markUp = MarkupHelper.createLabel(TestStatusCode.FAILED.name().toUpperCase(), ExtentColor.RED);
                 extentTest.log(Status.WARNING, markUp);
