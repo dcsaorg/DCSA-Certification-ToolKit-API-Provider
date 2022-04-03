@@ -30,7 +30,6 @@ public class ExcelReporter implements CustomReporter {
     @Override
     public void generateReport(List<XmlSuite> xmlSuites, List<ISuite> suites,
                                String outputDirectory) {
-        generateHtmlReport(xmlSuites, suites);
         XSSFWorkbook workbook = new XSSFWorkbook();
 
         for (ISuite suite : suites) {
@@ -72,7 +71,6 @@ public class ExcelReporter implements CustomReporter {
             List<String> testCaseList = new ArrayList<>(keyIds);
             Collections.sort(testCaseList);
             int rowId2 = 0;
-            SortedSet<String> keys = new TreeSet<>(childTestCases.keySet());
 
             sheetRow = spreadsheetSummary.createRow(rowId2++);
             Object[] header = new Object[]{"Requirement ID", "Requirement", "Total", "Passed", "Failed"};

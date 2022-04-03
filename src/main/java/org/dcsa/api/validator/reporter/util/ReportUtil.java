@@ -20,7 +20,7 @@ public class ReportUtil {
     public static final String EXCEL = "excel";
 
     public static String getReportPath(String filePrefix, String fileExtension, String reportType){
-        DateFormat dateFormat = new SimpleDateFormat("dd-M-yyyy__hh-mm-ss");
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy__hh-mm-ss");
         if(reportType.equals(HTML)){
             htmlReportName = AppProperty.REPORT_NAME.replaceAll(" ", "-")  + "-" + filePrefix +
                     "-" +dateFormat.format(Calendar.getInstance().getTime()) + fileExtension;
