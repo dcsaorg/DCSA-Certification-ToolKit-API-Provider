@@ -27,11 +27,12 @@ import java.io.IOException;
 import java.util.*;
 
 public class ExcelReporter implements CustomReporter {
-
     @Override
     public void generateReport(List<XmlSuite> xmlSuites, List<ISuite> suites,
                                String outputDirectory) {
+        generateHtmlReport(xmlSuites, suites);
         XSSFWorkbook workbook = new XSSFWorkbook();
+
         for (ISuite suite : suites) {
             Map<String, TestContext> testContexts = TestSetup.TestContexts;
             XSSFSheet spreadsheetSummary = workbook.createSheet("TestSummary");
@@ -75,6 +76,7 @@ public class ExcelReporter implements CustomReporter {
 
             sheetRow = spreadsheetSummary.createRow(rowId2++);
             Object[] header = new Object[]{"Requirement ID", "Requirement", "Total", "Passed", "Failed"};
+
             int cellId = 0;
             for (Object obj : header) {
                 Cell cell = sheetRow.createCell(cellId++);
@@ -205,7 +207,7 @@ public class ExcelReporter implements CustomReporter {
                 }
             }
 
-            List<Header> headers = requestSpec.getHeaders().asList();
+            List<io.restassured.http.Header> headers = requestSpec.getHeaders().asList();
             if (headers != null) {
                 prettyPrint.append("Request Headers: ");
                 for (Header header : headers) {
