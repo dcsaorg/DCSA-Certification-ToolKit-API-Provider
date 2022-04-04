@@ -31,7 +31,6 @@ public class ExcelReporter implements CustomReporter {
     public void generateReport(List<XmlSuite> xmlSuites, List<ISuite> suites,
                                String outputDirectory) {
         XSSFWorkbook workbook = new XSSFWorkbook();
-
         for (ISuite suite : suites) {
             Map<String, TestContext> testContexts = TestSetup.TestContexts;
             XSSFSheet spreadsheetSummary = workbook.createSheet("TestSummary");
@@ -90,6 +89,7 @@ public class ExcelReporter implements CustomReporter {
                     row = fillWithTestResult(spreadsheet, str, testContexts, workbook, row);
                     fillHtmlReport(str, testContexts, suite.getName());
                 }
+
                 sheetRow = spreadsheetSummary.createRow(rowId2++);
                 Object[] objectArr = resultSummary.get(key);
                 cellId = 0;

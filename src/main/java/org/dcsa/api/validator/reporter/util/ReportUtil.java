@@ -20,19 +20,28 @@ public class ReportUtil {
     public static final String EXCEL = "excel";
 
     public static String getReportPath(String filePrefix, String fileExtension, String reportType){
+        if(htmlReportPath == null || excelReportPath == null){
+            populateReportPath(filePrefix, fileExtension, reportType);
+        }
+        if(reportType.equals(HTML)){
+            return htmlReportPath;
+        }else if(reportType.equals(EXCEL)){
+            return excelReportPath;
+        }else {
+            return "";
+        }
+    }
+
+    private static void populateReportPath(String filePrefix, String fileExtension, String reportType){
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy__hh-mm-ss");
         if(reportType.equals(HTML)){
             htmlReportName = AppProperty.REPORT_NAME.replaceAll(" ", "-")  + "-" + filePrefix +
                     "-" +dateFormat.format(Calendar.getInstance().getTime()) + fileExtension;
             htmlReportPath = System.getProperty("user.dir")+"/"+ AppProperty.REPORT_DIRECTORY + "/"+ htmlReportName;
-            return htmlReportPath;
         }else if(reportType.equals(EXCEL)){
             excelReportName = AppProperty.REPORT_NAME.replaceAll(" ", "-")  + "-" + filePrefix +
                     "-" +dateFormat.format(Calendar.getInstance().getTime()) + fileExtension;
             excelReportPath = System.getProperty("user.dir")+"/"+ AppProperty.REPORT_DIRECTORY + "/" + excelReportName;
-            return excelReportPath;
-        }else {
-            return "";
         }
     }
 
