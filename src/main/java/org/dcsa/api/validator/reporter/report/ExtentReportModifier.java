@@ -8,33 +8,58 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Objects;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 
 @Log
 public class ExtentReportModifier {
-    // to comment the pai chart
-    private static final String htmlStrStartKey = "<div class=\"row\">";
-    private static final String htmlStrStartVal = "<!--";
-    private static final String htmlStrEndVal = "--> <div class=\"row\">";
+    private static final String htmlPieCharStartKey = "<div class=\"row\">";
+    private static final String htmlPieCharStartVal = "<!-- 1";
+    private static final String htmlPieCharEndKey = "--> <div class=\"row\">";
+    private static final String htmlDefaultLogoStartKey = "<div class=\"nav-logo\">";
+    private static final String htmlDefaultLogoStartVal = "<!-- 2";
+    private  static final String htmlDefaultLogoEndKey = "</a>\n" + "</div>";
+    private static final String htmlDefaultLogoEndVal = " -->";
+    private static final String htmlLeftNavKey = "<ul class=\"nav-left\">";
+    private static final String htmlLeftNavVal = "<ul class=\"nav-left\">\n" +
+                                                        "<li class=\"m-r-10\">\n" +
+                                                        "  <img src=\"https://dcsa.org/wp-content/uploads/2021/05/logo-files.jpg\" alt=\"dcsa-logo\" width=\"48\" height=\"48\" border=\"0\">\n" +
+                                                        "</li>";
+
+    private static final Map<String, String> htmlTagMap;
+    private static String htmlContent;
+
+    static {
+        htmlTagMap = new HashMap<>();
+        htmlTagMap.put(htmlPieCharStartKey, htmlPieCharStartVal);
+        htmlTagMap.put(htmlDefaultLogoStartKey, htmlDefaultLogoStartVal);
+        htmlTagMap.put(htmlDefaultLogoEndKey, htmlDefaultLogoEndVal);
+        htmlTagMap.put(htmlLeftNavKey, htmlLeftNavVal);
+    }
 
     public static void modifyFile(String reportPath) {
         Path path = Paths.get(reportPath);
         Charset charset = StandardCharsets.UTF_8;
 
-        String content = null;
         try {
-            content = Files.readString(path, charset);
+            htmlContent = Files.readString(path, charset);
         } catch (IOException e) {
             log.log(Level.SEVERE, e.getMessage());
         }
-        // comment the pass chart
-        content = replaceSubStringAtIndex(1, content,htmlStrStartKey, htmlStrStartVal );
-        // comment the pai chart
-        content = replaceSubStringAtIndex(1, content,htmlStrStartKey, htmlStrEndVal );
+        // replace key with value
+        htmlTagMap.forEach((key, val) -> {
+            if(key.equals(htmlPieCharStartKey)){
+                htmlContent = replaceSubStringAtIndex(1, htmlContent, key, val);
+                // comment the pai chart
+                htmlContent = replaceSubStringAtIndex(1, htmlContent, key, htmlPieCharEndKey);
+            }else {
+                htmlContent = htmlContent.replaceAll(key, val);
+            }
+        });
 
         try {
-            Files.write(path, content.getBytes(charset));
+            Files.write(path, htmlContent.getBytes(charset));
         } catch (IOException e) {
             log.log(Level.SEVERE, e.getMessage());
         }
