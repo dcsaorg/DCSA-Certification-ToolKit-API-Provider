@@ -13,9 +13,6 @@ import org.dcsa.api.validator.model.HtmlReportModel;
 import org.dcsa.api.validator.reporter.util.ReportUtil;
 import org.dcsa.api.validator.webservice.init.AppProperty;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Objects;
 import java.util.Properties;
 
