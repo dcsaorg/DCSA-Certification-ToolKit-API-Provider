@@ -14,17 +14,20 @@ endpoints are behaving as expected.
 #### 1. Clone the repository
 https://github.com/dcsaorg/DCSA-Certification-ToolKit-API-Provider.git
 
-#### 1. Setup the enviroment
-Export folowing enviroment variables 
+#### 1. Setup the environment
+Export following environment variables 
 ```shell
 # API_ROOT_URI-This is where the API validator can find the implementation of the API
 exmaple: API_ROOT_URI=http://192.168.178.38:9090/v2 or https://apis.dsca.org/apis/v2 
 # CALLBACK_URI-Base Domain URL/DNS Combability Kit used to send in request body
-exmaple:CALLBACK_URI=http://192.168.178.38:9092 or http://subscriptions.dsca.org/callback
-# CALLBACK_PORT-ballback APIs server listner port. Should be in Sync with CALLBACK_URI port
-exmaple:CALLBACK_PORT=9092
-#Max wait time in milliseconds, CTK will wait for any call back request to be received e.g., notification/head request
-exmaple:CALLBACK_WAIT=20000
+exmaple: CALLBACK_URI=http://192.168.178.38:9092 or http://subscriptions.dsca.org/callback
+# CALLBACK_PORT callback APIs server listener port. Should be in Sync with CALLBACK_URI port
+exmaple: CALLBACK_PORT=9092
+# Max wait time in milliseconds, CTK will wait for any call back request to be received e.g., notification/head request
+exmaple: CALLBACK_WAIT=20000
+# TNT API developer provide test data in json formatted file and define TEST_DATA  defined environment variables 
+# If no TEST_DATA defined, it usages default test data "config/v2/testdata.json"   
+exmaple: TEST_DATA=testdata.json
 ```
 
 #### 2. API under test
