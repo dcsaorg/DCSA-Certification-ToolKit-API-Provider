@@ -58,7 +58,7 @@ public class ProviderCtkController {
             defaultReportType = reportType.get();
         }
         HttpHeaders header = new HttpHeaders();
-        ByteArrayResource resource = null;
+        ByteArrayResource resource;
 
         if (ReportUtil.htmlReportPath == null || ReportUtil.excelReportPath == null) {
             return ResponseEntity

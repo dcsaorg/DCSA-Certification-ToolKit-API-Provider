@@ -14,10 +14,10 @@ import com.jayway.jsonpath.PathNotFoundException;
 import io.restassured.path.json.exception.JsonPathException;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 import static com.github.fge.jsonschema.SchemaVersion.DRAFTV4;
 
@@ -219,7 +219,7 @@ public class JsonUtility {
 
     public static boolean isList(String json) {
         ObjectMapper mapper = new ObjectMapper(new JsonFactory());
-        JsonNode rootNode = null;
+        JsonNode rootNode;
         try {
             rootNode = mapper.readTree(json);
         } catch (JsonProcessingException e) {
@@ -230,7 +230,7 @@ public class JsonUtility {
     }
 
     public static boolean validateSchema(String schema, String json) throws IOException, ProcessingException {
-        boolean isValid = false;
+        boolean isValid;
         ObjectMapper mapper = new ObjectMapper(new JsonFactory());
         if (!isList(json)) {
             JsonSchemaFactory jsonSchemaFactory = JsonSchemaFactory.newBuilder().setValidationConfiguration(ValidationConfiguration.newBuilder().setDefaultVersion(DRAFTV4).freeze()).freeze();
@@ -259,7 +259,7 @@ public class JsonUtility {
             String jsonString = new ObjectMapper().writeValueAsString(map);
             JsonSchemaFactory jsonSchemaFactory = JsonSchemaFactory.newBuilder().setValidationConfiguration(ValidationConfiguration.newBuilder().setDefaultVersion(DRAFTV4).freeze()).freeze();
             try {
-                JsonSchema jsonSchema = null;
+                JsonSchema jsonSchema;
                 JsonNode rootNode = mapper.readTree(schema);
                 jsonSchema = jsonSchemaFactory.getJsonSchema(rootNode);
                 ProcessingReport r = jsonSchema.validate(mapper.readTree(jsonString));

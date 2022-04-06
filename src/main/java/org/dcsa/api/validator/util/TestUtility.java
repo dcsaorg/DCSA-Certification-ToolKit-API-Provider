@@ -189,7 +189,7 @@ public class TestUtility {
         String notificationSignature="sha256=";
         byte[] key = Base64.getDecoder().decode(encodedKey.getBytes(StandardCharsets.UTF_8));
         byte[] payloadByteArray = payload.getBytes(StandardCharsets.UTF_8);
-        byte[] signature = new byte[0];
+        byte[] signature;
         try {
             signature = computeSignature(key, payloadByteArray);
         } catch (Exception e) {
