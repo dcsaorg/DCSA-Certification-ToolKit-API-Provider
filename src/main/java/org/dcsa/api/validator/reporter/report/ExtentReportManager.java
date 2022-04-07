@@ -91,10 +91,10 @@ public class ExtentReportManager {
                 if (htmlReportModel.getFailureReason() != null) {
                     extentTest.fail("Failure reason: " + htmlReportModel.getFailureReason());
                 }
+                Markup markUp = MarkupHelper.createLabel(TestStatusCode.FAILED.name().toUpperCase(), ExtentColor.RED);
+                extentTest.log(Status.WARNING, markUp);
                 if (htmlReportModel.getTestDetails() != null) {
                     extentTest.info(htmlReportModel.getTestDetails());
-                    Markup markUp = MarkupHelper.createLabel(TestStatusCode.FAILED.name().toUpperCase(), ExtentColor.RED);
-                    extentTest.log(Status.WARNING, markUp);
                 }
                 ExtentReportManager.flush();
             }

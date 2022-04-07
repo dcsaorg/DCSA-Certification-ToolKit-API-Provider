@@ -27,6 +27,7 @@ public class ProviderCtkController {
     private static final String RUN_TEST_FAIL = "The compatibility tool failed to run. Please check all configurations and try again.";
     private static final String NO_REPORT_ERROR = "No report was found. Please run the compatibility tool by GET /run to generate reports.";
     private static final String UNKNOWN_REPORT_TYPE = "Unknown report type. Only html or excel report type is supported.";
+    private static final String TEST_SUITE_DIR = "\\suitexmls\\";
 
     private final DownloadService downloadService;
 
@@ -38,7 +39,7 @@ public class ProviderCtkController {
     @GetMapping(value = "/run")
     String runTestNg(HttpServletResponse response) {
         TestNG testng = new TestNG();
-        final String suitePath = System.getProperty("user.dir") + "\\suitexmls\\" + AppProperty.TEST_SUITE_NAME;
+        final String suitePath = System.getProperty("user.dir") + TEST_SUITE_DIR + AppProperty.TEST_SUITE_NAME;
         List<String> xmlList = new ArrayList<>();
         xmlList.add(suitePath);
         testng.setTestSuites(xmlList);

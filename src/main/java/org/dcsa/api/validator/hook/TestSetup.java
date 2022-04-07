@@ -5,6 +5,7 @@ import org.dcsa.api.validator.config.Configuration;
 import org.dcsa.api.validator.model.TestContext;
 import org.dcsa.api.validator.util.TestUtility;
 import org.dcsa.api.validator.webhook.SparkWebHook;
+import org.dcsa.api.validator.webservice.init.AppProperty;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 
@@ -20,6 +21,9 @@ public class TestSetup {
 
     @BeforeSuite(alwaysRun = true)
     public void suiteSetUp() throws Exception {
+        if(!AppProperty.isPropertyLoaded){
+            AppProperty.initByPropertyFile();
+        }
         try {
             Configuration.init();
             sparkWebHook = new SparkWebHook();
