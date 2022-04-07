@@ -14,7 +14,7 @@ public class SparkWebHook {
         Spark.port(Configuration.CALLBACK_PORT);
 
         Spark.post(Configuration.CALLBACK_PATH+"/:uuid", (req, res) -> {
-            res.status(200);
+            res.status(201);
             if (req.params(":uuid").equals("456eacf9-8cda-412b-b801-4a41be7a6c35")) {
                 res.header("Content-Type", "application/json");
                 callbackContext.setNotificationReceived(true);
@@ -33,7 +33,7 @@ public class SparkWebHook {
 
             res.header("Content-Type", "application/json");
             if (req.params(":uuid").equals("456eacf9-8cda-412b-b801-4a41be7a6c35")) {
-                res.status(200);
+                res.status(201);
                 callbackContext.setHeadRequestReceived(true);
                 callbackContext.getHeadRequestLock().countDown();
             }

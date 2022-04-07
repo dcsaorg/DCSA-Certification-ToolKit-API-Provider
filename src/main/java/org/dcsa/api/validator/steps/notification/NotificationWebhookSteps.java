@@ -12,6 +12,7 @@ import org.dcsa.api.validator.util.FileUtility;
 import org.dcsa.api.validator.util.JsonUtility;
 import org.dcsa.api.validator.util.TestUtility;
 import org.dcsa.api.validator.webhook.SparkWebHook;
+import org.dcsa.api.validator.webservice.init.AppProperty;
 import org.testng.Assert;
 
 import java.util.concurrent.TimeUnit;
@@ -96,13 +97,21 @@ public class NotificationWebhookSteps {
     @And("A valid Callback Url")
     public void aValidCallbackUrl() {
         TestContext testcontext = TestSetup.TestContexts.get(scenario.getId());
-        testcontext.setCallbackURL(Configuration.CALLBACK_URI + Configuration.CALLBACK_PATH+"/456eacf9-8cda-412b-b801-4a41be7a6c35");
+        if(AppProperty.EVENT_SUBSCRIPTION_SIMULATION) {
+            testcontext.setCallbackURL(Configuration.CALLBACK_URI + ":" + Configuration.CALLBACK_PORT + Configuration.CALLBACK_PATH + "/456eacf9-8cda-412b-b801-4a41be7a6c35");
+        }else{
+            testcontext.setCallbackURL(Configuration.CALLBACK_URI + Configuration.CALLBACK_PATH+"/456eacf9-8cda-412b-b801-4a41be7a6c35");
+        }
     }
 
     @And("An invalid Callback Url")
     public void aInvalidCallbackUrl() {
         TestContext testcontext = TestSetup.TestContexts.get(scenario.getId());
-        testcontext.setCallbackURL(Configuration.CALLBACK_URI+ Configuration.CALLBACK_PATH+"/307deecf-e599-4ff2-bf5a-fd47c171b8c4");
+        if(AppProperty.EVENT_SUBSCRIPTION_SIMULATION) {
+            testcontext.setCallbackURL(Configuration.CALLBACK_URI + ":" + Configuration.CALLBACK_PORT + Configuration.CALLBACK_PATH + "/307deecf-e599-4ff2-bf5a-fd47c171b8c4");
+        }else {
+            testcontext.setCallbackURL(Configuration.CALLBACK_URI+ Configuration.CALLBACK_PATH+"/307deecf-e599-4ff2-bf5a-fd47c171b8c4");
+        }
     }
 
 }

@@ -42,7 +42,7 @@ public class ValidatableResponseExtensionImpl implements ValidatableResponseExte
             }
             try {
                 response.then()
-                        .assertThat().body("size()", greaterThanOrEqualTo(1));
+                        .assertThat().body(notNullValue());
                 addValidation(ValidationType.RESPONSEBODY, "Passed");
             } catch (AssertionError e) {
                 addValidation(ValidationType.RESPONSEBODY, "Failed, Reason:No Response body");

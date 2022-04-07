@@ -14,11 +14,12 @@ import org.dcsa.api.validator.constant.ValidationCode;
 import org.dcsa.api.validator.hook.TestSetup;
 import org.dcsa.api.validator.model.TestCase;
 import org.dcsa.api.validator.model.TestContext;
-import org.dcsa.api.validator.restassured.extension.RestAssuredExtension;
 import org.dcsa.api.validator.restassured.extension.Impl.RestAssuredExtensionImpl;
+import org.dcsa.api.validator.restassured.extension.RestAssuredExtension;
 import org.dcsa.api.validator.util.FileUtility;
 import org.dcsa.api.validator.util.JsonUtility;
 import org.dcsa.api.validator.util.TestUtility;
+import org.dcsa.api.validator.webservice.init.AppProperty;
 import org.testng.Assert;
 
 import java.util.*;
@@ -60,7 +61,17 @@ public class CommonSteps {
     public void createForGivenTestData() {
         restAssuredExtension
                 .post();
+        if(AppProperty.EVENT_SUBSCRIPTION_SIMULATION){
+            doHeadRequest();
+        }
     }
+
+    @When("Send a HEAD http request")
+    public void doHeadRequest() {
+        restAssuredExtension
+                .head();
+    }
+
 
     @When("Send GET http request")
     public void getAll() {
@@ -359,6 +370,9 @@ public class CommonSteps {
             Map<String, Object> placeholders = new HashMap<>();
             placeholders.put("callbackUrl", restAssuredExtension.getTestContext().getCallbackURL());
             testCase.getRequest().getPlaceHolders().putAll(placeholders);
+        }
+        if(AppProperty.EVENT_SUBSCRIPTION_SIMULATION){
+            restAssuredExtension.setCallbackUri(restAssuredExtension.getTestContext().getCallbackURL());
         }
         body = TestUtility.getTestBody(apiName, "", testCase);
         restAssuredExtension

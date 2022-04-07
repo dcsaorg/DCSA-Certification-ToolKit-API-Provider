@@ -15,6 +15,8 @@ public interface RestAssuredExtension {
 
     void post();
 
+    void head();
+
     void given(String endPoint, String apiName);
 
     ValidatableResponseExtension then();
@@ -30,5 +32,7 @@ public interface RestAssuredExtension {
     RestAssuredExtensionImpl queryParams(Map<String, String> queryParameters);
 
     TestContext getTestContext();
+
+    void setCallbackUri(String callbackUri);
 
 }
