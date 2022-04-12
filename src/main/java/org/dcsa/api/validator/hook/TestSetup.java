@@ -32,7 +32,7 @@ public class TestSetup {
             e.printStackTrace();
             throw e;
         }
-        TestUtility.loadTestSuite(Configuration.testSuite);
+        TestUtility.loadTestSuite(Configuration.configData);
         TestUtility.loadTestData(Configuration.testData);
         if (Configuration.client_secret == null || Configuration.client_id == null || Configuration.audience == null)
             Configuration.accessToken = "AuthDisabled"; //We set the accessToken to this string, so the tests don't complain about an empty accessToken. This is OK, if auth is disabled, it doesn't matter that the accessToken is bogus

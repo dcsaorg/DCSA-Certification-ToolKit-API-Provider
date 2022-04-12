@@ -51,8 +51,8 @@ public class NotificationWebhookSteps {
         callbackContext.setHeadRequestCountDown(1);
     }
 
-    @And("Receive a valid notification")
-    public void receiveAValidNotification() {
+    @And("Receive a notification {string}")
+    public void receiveAValidNotification(String event) {
         TestContext testcontext = TestSetup.TestContexts.get(scenario.getId());
         try {
             System.out.println("Waiting for Notification");
@@ -73,7 +73,7 @@ public class NotificationWebhookSteps {
             Assert.fail("Notification-Signature missing in request header");
         }
 
-        String schemaString= FileUtility.loadFileAsString(TestUtility.getResponseSchema("Event"));
+        String schemaString= FileUtility.loadFileAsString(TestUtility.getResponseSchema(event));
         try {
             boolean isValid=JsonUtility.validateSchema(schemaString,callbackContext.getNotificationBody());
             if(!isValid)

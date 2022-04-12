@@ -5,7 +5,7 @@ import org.dcsa.api.validator.webservice.init.AppProperty;
 public class Configuration {
     public static String ROOT_URI;
     public static String API_VERSION;
-    public static String testSuite;
+    public static String configData;
     public static String testData;
     public static String CALLBACK_URI;
     public static Integer CALLBACK_PORT;
@@ -14,7 +14,6 @@ public class Configuration {
     public static String client_secret;
     public static String client_id;
     public static String audience;
-    public static String OUT_PUT_DIR;
     public static String CALLBACK_PATH;
 
 
@@ -22,12 +21,11 @@ public class Configuration {
         client_secret = System.getenv("client_secret");
         client_id = System.getenv("client_id");
         audience = System.getenv("audience");
-        testSuite = "config/v2/config.json";
-        OUT_PUT_DIR = "reports";
         API_VERSION = "2.2.0";
         CALLBACK_PATH="/v"+Configuration.API_VERSION.split("\\.")[0]+"/notification-endpoints/receive";
 
         String evnApiRootUri = System.getenv("API_ROOT_URI");
+        String evnConfigData = System.getenv("CONFIG_DATA");
         String evnTestData = System.getenv("TEST_DATA");
         String evnCallBackUri = System.getenv("CALLBACK_URI");
         String evnCallBackPort = System.getenv("CALLBACK_PORT");
@@ -39,8 +37,18 @@ public class Configuration {
             }
             ROOT_URI = AppProperty.API_ROOT_URI;
         }
-        else
+        else {
             throw new Exception("API_ROOT_URI is not set as environment variable, please follow the setup document");
+        }
+        if ( AppProperty.CONFIG_DATA != null || evnConfigData != null ) {
+            if (evnConfigData != null) {
+                AppProperty.CONFIG_DATA = evnConfigData;
+            }
+            configData = AppProperty.CONFIG_DATA;
+        }
+        else {
+            configData="config/v2/config.json";
+        }
         if ( AppProperty.TEST_DATA != null || evnTestData != null ) {
             if (evnTestData != null) {
                 AppProperty.TEST_DATA = evnTestData;
@@ -63,7 +71,7 @@ public class Configuration {
             if(evnCallBackPort != null){
                 AppProperty.CALLBACK_PORT = evnCallBackPort;
             }
-            CALLBACK_PORT = Integer.parseInt(AppProperty.CALLBACK_PORT);
+            CALLBACK_PORT = Integer.parseInt(AppProperty.CALLBACK_PORT.trim());
         }
         else {
             CALLBACK_PORT = 9092;
@@ -72,7 +80,7 @@ public class Configuration {
             if(evnCallBackWait != null){
                 AppProperty.CALLBACK_WAIT = evnCallBackWait;
             }
-            CALLBACK_WAIT = Integer.parseInt(AppProperty.CALLBACK_WAIT);
+            CALLBACK_WAIT = Integer.parseInt(AppProperty.CALLBACK_WAIT.trim());
         }
         else {
             CALLBACK_WAIT = 3600000;

@@ -9,7 +9,7 @@ Feature:
     And Send a POST http request
     Then Receive Head request for CallBackURL
     Then Receive valid response for POST
-    Then Receive a valid notification
+    Then Receive a notification "EventSubscription"
 
 
   @HeadRequest
@@ -29,7 +29,7 @@ Feature:
     And Send a POST http request
     Then Receive Head request for CallBackURL
     Then Receive valid response for POST
-    Then Receive a valid notification
+    Then Receive a notification "Event"
 
 
   @Notification
@@ -40,11 +40,11 @@ Feature:
     And Send a POST http request
     Then Receive Head request for CallBackURL
     Then Receive valid response for POST
-    Then Receive a valid notification
+    Then Receive a notification "EventSubscription"
     Given API End point "/event-subscriptions/{subscriptionID}/secret" for "EventSubscription"
     When Set request for PUT with test case "UpdateSecret"
     And Send a PUT http request
     Then Receive response code "204"
-    Then Receive a valid notification
+    Then Receive a notification "EventSubscription"
 
 

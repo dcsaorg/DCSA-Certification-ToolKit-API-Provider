@@ -96,8 +96,8 @@ public class ExtentReportManager {
                 if (htmlReportModel.getTestDetails() != null) {
                     extentTest.info(htmlReportModel.getTestDetails());
                 }
-                ExtentReportManager.flush();
             }
+            ExtentReportManager.flush();
         }
     }
 }

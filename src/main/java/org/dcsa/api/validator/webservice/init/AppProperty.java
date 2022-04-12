@@ -1,6 +1,5 @@
 package org.dcsa.api.validator.webservice.init;
 
-import com.aventstack.extentreports.App;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 public class AppProperty {
     // TNT API keys
     private static final String API_ROOT_URI_KEY = "app.api_root_uri";
+    private static final String CONFIG_DATA_KEY = "app.config_data";
     private static final String TEST_DATA_KEY = "app.test_data";
     private static final String CALL_BACK_URI_KEY = "app.callback_uri";
     private static final String CALL_BACK_PORT_KEY = "app.callback_port";
@@ -30,6 +30,7 @@ public class AppProperty {
 
     // TNT service static config
     public static String API_ROOT_URI;
+    public static String CONFIG_DATA;
     public static String TEST_DATA;
     public static String CALLBACK_URI;
     public static String CALLBACK_PORT;
@@ -48,6 +49,7 @@ public class AppProperty {
     public static String REPORT_TIMELINE;
     // TNT service config
     private String api_root_uri;
+    private String config_data;
     private String test_data;
     private String callback_uri;
     private String callback_port;
@@ -70,6 +72,7 @@ public class AppProperty {
     public void init(){
         // TNT service config
         AppProperty.API_ROOT_URI = api_root_uri;
+        AppProperty.CONFIG_DATA = config_data;
         AppProperty.TEST_DATA = test_data;
         AppProperty.CALLBACK_URI = callback_uri;
         AppProperty.CALLBACK_PORT = callback_port;
@@ -91,6 +94,7 @@ public class AppProperty {
 
     public static void initByPropertyFile(){
         AppProperty.API_ROOT_URI = PropertyLoader.getProperty(API_ROOT_URI_KEY);
+        AppProperty.CONFIG_DATA = PropertyLoader.getProperty(CONFIG_DATA_KEY);
         AppProperty.TEST_DATA = PropertyLoader.getProperty(TEST_DATA_KEY);
         AppProperty.CALLBACK_URI = PropertyLoader.getProperty(CALL_BACK_URI_KEY);
         AppProperty.CALLBACK_PORT = PropertyLoader.getProperty(CALL_BACK_PORT_KEY);

@@ -24,7 +24,6 @@ public class TestUtility {
     public static TestDB loadTestData(String testSuiteJson) {
         String jsonString = FileUtility.loadFileAsString(testSuiteJson);
         testDataSet = JsonUtility.getObjectFromJson(TestDataSet.class, jsonString);
-
         return testDB;
     }
 

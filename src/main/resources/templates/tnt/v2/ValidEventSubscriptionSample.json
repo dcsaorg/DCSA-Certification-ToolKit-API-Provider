@@ -1,4 +1,20 @@
 {
   "callbackUrl": "http://127.0.0.1:9092/v2/notification-endpoints/receive/456eacf9-8cda-412b-b801-4a41be7a6c35",
-  "secret": "OG1wOWFaRW1HTTF1Y2NuaUN0RlAtaU9JMjM5N25vMWtWd25rS2Vkc2ktZms0c01zaTJQOElZRVNQN29MYUkzcg=="
+  "secret": "OG1wOWFaRW1HTTF1Y2NuaUN0RlAtaU9JMjM5N25vMWtWd25rS2Vkc2ktZms0c01zaTJQOElZRVNQN29MYUkzcg==",
+  "subscriptionID": "ABCDEFGHIJKL",
+  "eventType": [],
+  "shipmentEventTypeCode": [],
+  "carrierBookingReference": "ABCDEFGHIJKLMNOPQRSTUVWXYZABC",
+  "bookingReference": "ABCDEFGHIJ",
+  "transportDocumentID": "ABCDEFGHIJKLMNOPQR",
+  "transportDocumentReference": "ABCDEFGHIJKLMNO",
+  "transportDocumentTypeCode": [],
+  "transportEventTypeCode": [],
+  "scheduleID": "ABCDEFGHIJKLMNOPQRSTUVWX",
+  "transportCallID": "ABCDEFGHIJKLMNOPQRSTUVW",
+  "vesselIMONumber": "ABCDEF",
+  "carrierVoyageNumber": null,
+  "carrierServiceCode": "ABCD",
+  "equipmentEventTypeCode": [],
+  "equipmentReference": null
 }

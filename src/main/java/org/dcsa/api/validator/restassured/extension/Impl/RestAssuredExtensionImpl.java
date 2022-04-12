@@ -45,7 +45,7 @@ public class RestAssuredExtensionImpl implements RestAssuredExtension {
     private RequestSpecification buildRequest() {
         RequestSpecification request= RestAssured
                 .given()
-                .header( new Header("Notification-Signature", "simulated signature"))
+                .header( new Header("Notification-Signature", "sha256=1d94e955e34ec8ba21263cde36949af259f7fdce7c4e5336e530f38e57faf23c"))
                 .relaxedHTTPSValidation()
                 .auth()
                 .oauth2(Configuration.accessToken)
@@ -57,7 +57,7 @@ public class RestAssuredExtensionImpl implements RestAssuredExtension {
     private RequestSpecification buildSimulatedRequest() {
         RequestSpecification request= RestAssured
                 .given()
-                .header( new Header("Notification-Signature", "simulated signature"))
+                .header( new Header("Notification-Signature", "sha256=1d94e955e34ec8ba21263cde36949af259f7fdce7c4e5336e530f38e57faf23c"))
                 .relaxedHTTPSValidation()
                 .auth()
                 .oauth2(Configuration.accessToken)
