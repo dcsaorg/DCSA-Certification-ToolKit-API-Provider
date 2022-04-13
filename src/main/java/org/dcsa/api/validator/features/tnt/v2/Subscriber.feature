@@ -29,7 +29,7 @@ Feature:
     And Send a POST http request
     Then Receive Head request for CallBackURL
     Then Receive valid response for POST
-    Then Receive a notification "Event"
+    Then Receive a notification "EventSubscription"
 
 
   @Notification
