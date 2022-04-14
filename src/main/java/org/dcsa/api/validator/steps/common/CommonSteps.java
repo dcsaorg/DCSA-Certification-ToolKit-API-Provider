@@ -17,7 +17,6 @@ import org.dcsa.api.validator.model.TestContext;
 import org.dcsa.api.validator.restassured.extension.Impl.RestAssuredExtensionImpl;
 import org.dcsa.api.validator.restassured.extension.RestAssuredExtension;
 import org.dcsa.api.validator.util.FileUtility;
-import org.dcsa.api.validator.util.JsonUtility;
 import org.dcsa.api.validator.util.TestUtility;
 import org.dcsa.api.validator.webservice.init.AppProperty;
 import org.testng.Assert;

@@ -25,9 +25,12 @@ exmaple: CALLBACK_URI=http://192.168.178.38:9092 or http://subscriptions.dsca.or
 exmaple: CALLBACK_PORT=9092
 # Max wait time in milliseconds, CTK will wait for any call back request to be received e.g., notification/head request
 exmaple: CALLBACK_WAIT=20000
-# TNT API developer provide test data in json formatted file and define TEST_DATA  defined environment variables 
+# TNT API developer provide test data in json formatted file and define TEST_DATA environment variables 
 # If no TEST_DATA defined, it usages default test data "config/v2/testdata.json"   
 exmaple: TEST_DATA=testdata.json
+# TNT API developer provide configuration data in json formatted file and define CONFIG_DATA environment variables 
+# If no CONFIG_DATA defined, it usages default configuration data "config/v2/config.json"   
+exmaple: CONFIG_DATA=testdata.json
 ```
 
 #### 2. API under test

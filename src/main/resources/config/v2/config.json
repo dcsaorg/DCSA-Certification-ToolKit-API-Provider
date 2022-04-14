@@ -8,7 +8,7 @@
     "EventSubscription": {
       "endPoint": "/event-subscriptions",
       "resourceIdentifier": "subscriptionID",
-      "templateFile": "templates/tnt/v2/InvalidEventSubscriptionSample.json",
+      "templateFile": "templates/tnt/v2/ValidEventSubscriptionSample.json",
       "responseSchema": "schemas/tnt/v2/SubscriptionEventSchema.json",
       "testCases": {
         "EventTypeSHIPMENT": {
