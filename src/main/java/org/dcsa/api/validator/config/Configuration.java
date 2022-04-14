@@ -65,7 +65,7 @@ public class Configuration {
             CALLBACK_URI = AppProperty.CALLBACK_URI;
         }
         else {
-            CALLBACK_URI="http://localhost:9092";
+            CALLBACK_URI="http://localhost:9999";
         }
         if ( AppProperty.CALLBACK_PORT != null || evnCallBackPort != null ) {
             if(evnCallBackPort != null){
@@ -74,7 +74,7 @@ public class Configuration {
             CALLBACK_PORT = Integer.parseInt(AppProperty.CALLBACK_PORT.trim());
         }
         else {
-            CALLBACK_PORT = 9092;
+            CALLBACK_PORT = 9999;
         }
         if ( AppProperty.CALLBACK_WAIT != null || evnCallBackWait != null ) {
             if(evnCallBackWait != null){
@@ -83,7 +83,7 @@ public class Configuration {
             CALLBACK_WAIT = Integer.parseInt(AppProperty.CALLBACK_WAIT.trim());
         }
         else {
-            CALLBACK_WAIT = 3600000;
+            CALLBACK_WAIT = 3600;
         }
     }
 }
