@@ -69,11 +69,13 @@ public class ValidatableResponseExtensionImpl implements ValidatableResponseExte
         Response response = getResponse();
         if (statusCode == StatusCode.OK) {
             try {
+                assert response != null;
                 response.then()
                         .assertThat().statusCode(anyOf(is(200)));
                 addValidation(ValidationType.HTTPCODE, "Passed");
             } catch (AssertionError e) {
                 addValidation(ValidationType.HTTPCODE, "Failed");
+                assert response != null;
                 testContext.setReasonOfFailure("Expected status code: in (200) but received " + response.getStatusCode());
                 Assert.fail(e.getMessage());
             }
@@ -88,6 +90,7 @@ public class ValidatableResponseExtensionImpl implements ValidatableResponseExte
             }
         } else {
             try {
+                assert response != null;
                 response.then()
                         .assertThat().statusCode(not(anyOf(is(200), is(202), is(204))));
                 addValidation(ValidationType.HTTPCODE, "Passed");
@@ -106,21 +109,25 @@ public class ValidatableResponseExtensionImpl implements ValidatableResponseExte
         Response response = getResponse();
         if (statusCode == StatusCode.OK) {
             try {
+                assert response != null;
                 response.then()
                         .assertThat().statusCode(anyOf(is(200), is(204)));
                 addValidation(ValidationType.HTTPCODE, "Passed");
             } catch (AssertionError e) {
                 addValidation(ValidationType.HTTPCODE, "Failed");
+                assert response != null;
                 testContext.setReasonOfFailure("Expected status code: in (200,204) but received " + response.getStatusCode());
                 Assert.fail(e.getMessage());
             }
         } else {
             try {
+                assert response != null;
                 response.then()
                         .assertThat().statusCode(not(anyOf(is(200), is(202), is(204))));
                 addValidation(ValidationType.HTTPCODE, "Passed");
             } catch (AssertionError e) {
                 addValidation(ValidationType.HTTPCODE, "Failed");
+                assert response != null;
                 testContext.setReasonOfFailure("Expected status code: not in (200,202,204) but received " + response.getStatusCode());
                 Assert.fail(e.getMessage());
             }
@@ -134,12 +141,14 @@ public class ValidatableResponseExtensionImpl implements ValidatableResponseExte
         if (statusCode == StatusCode.OK) {
 
             try {
+                assert response != null;
                 response.then()
                         .assertThat()
                         .statusCode(anyOf(is(200)));
                 addValidation(ValidationType.HTTPCODE, "Passed");
             } catch (AssertionError e) {
                 addValidation(ValidationType.HTTPCODE, "Failed");
+                assert response != null;
                 testContext.setReasonOfFailure("Expected status code: in (200) but received " + response.getStatusCode());
                 Assert.fail(e.getMessage());
             }
@@ -154,12 +163,14 @@ public class ValidatableResponseExtensionImpl implements ValidatableResponseExte
             }
         } else {
             try {
+                assert response != null;
                 response.then()
                         .assertThat()
                         .statusCode(not(anyOf(is(200), is(201), is(202), is(204))));
                 addValidation(ValidationType.HTTPCODE, "Passed");
             } catch (AssertionError e) {
                 addValidation(ValidationType.HTTPCODE, "Failed");
+                assert response != null;
                 testContext.setReasonOfFailure("Expected status code: not in (200,201,202,204) but received " + response.getStatusCode());
                 Assert.fail(e.getMessage());
             }
@@ -171,11 +182,13 @@ public class ValidatableResponseExtensionImpl implements ValidatableResponseExte
         Response response = getResponse();
         if (statusCode == StatusCode.OK) {
             try {
+                assert response != null;
                 response.then().assertThat()
                         .statusCode(anyOf(is(200)));
                 addValidation(ValidationType.HTTPCODE, "Passed");
             } catch (AssertionError e) {
                 addValidation(ValidationType.HTTPCODE, "Failed");
+                assert response != null;
                 testContext.setReasonOfFailure("Expected status code: in (200) but received " + response.getStatusCode());
                 Assert.fail(e.getMessage());
             }
@@ -193,7 +206,7 @@ public class ValidatableResponseExtensionImpl implements ValidatableResponseExte
                 queryParameters = testContext.getTestCase().getRequest().getQueryParameters();
             if (queryParameters != null) {
                 if (queryParameters.containsKey("limit")) {
-                    if (responseList.size() <= Integer.valueOf(queryParameters.get("limit"))) {
+                    if (responseList.size() <= Integer.parseInt(queryParameters.get("limit"))) {
                         addValidation(ValidationType.LIMIT, "Passed");
                     } else {
                         addValidation(ValidationType.LIMIT, "Failed, Reason:number of records more than limit");
@@ -205,7 +218,7 @@ public class ValidatableResponseExtensionImpl implements ValidatableResponseExte
                 queryParameters.remove("cursor");
                 queryParameters.remove("sort");
                 if (queryParameters.size() > 0) {
-                    Boolean isValid = true;
+                    boolean isValid = true;
                     for (Map.Entry<String, String> entry : queryParameters.entrySet()) {
                         isValid = JsonUtility.validateAttributeValue(responseList, entry.getKey(), entry.getValue());
                         if (!isValid) {
@@ -222,11 +235,13 @@ public class ValidatableResponseExtensionImpl implements ValidatableResponseExte
             }
         } else {
             try {
+                assert response != null;
                 response.then()
                         .statusCode(anyOf(is(404)));
                 addValidation(ValidationType.HTTPCODE, "Passed");
             } catch (AssertionError e) {
                 addValidation(ValidationType.HTTPCODE, "Failed");
+                assert response != null;
                 testContext.setReasonOfFailure("Expected status code: in (404) but received " + response.getStatusCode());
                 Assert.fail(e.getMessage());
             }
@@ -239,6 +254,7 @@ public class ValidatableResponseExtensionImpl implements ValidatableResponseExte
         Response response = getResponse();
         if (headers.size() > 0) {
             for (String header : headers) {
+                assert response != null;
                 String headerValue=response.getHeader(header);
                 if(headerValue==null || (header.equals("Content-Type")&&!headerValue.contains("json")))
                 {
@@ -279,10 +295,12 @@ public class ValidatableResponseExtensionImpl implements ValidatableResponseExte
     public ValidatableResponseExtension statusCode(int expectedHttpCode) {
         Response response = getResponse();
         try {
+            assert response != null;
             Assert.assertEquals(response.getStatusCode(), expectedHttpCode);
             addValidation(ValidationType.HTTPCODE, "Passed");
         } catch (AssertionError e) {
             addValidation(ValidationType.HTTPCODE, "Failed");
+            assert response != null;
             testContext.setReasonOfFailure("Expected status code: in (" + expectedHttpCode + ") but received " + response.getStatusCode());
             Assert.fail("Invalid Http code=" + response.getStatusCode());
 

@@ -122,8 +122,6 @@ public class CommonSteps {
         String apiName = restAssuredExtension.getTestContext().getApiName();
         List<Response> responsesChain = restAssuredExtension.getTestContext().getResponseChain();
         if (!responsesChain.isEmpty()) {
-            Response response = responsesChain.get(responsesChain.size() - 1);
-            body = JsonUtility.getStringFormat(response.jsonPath().get());
             List<Map<String, String>> pathVariableChain = restAssuredExtension.getTestContext().getPathVariableChain();
             if (pathVariableChain.size() > 0)
                 pathVariables.putAll(pathVariableChain.get(pathVariableChain.size() - 1));
@@ -368,7 +366,7 @@ public class CommonSteps {
             placeholders.put("callbackUrl", restAssuredExtension.getTestContext().getCallbackURL());
             testCase.getRequest().getPlaceHolders().putAll(placeholders);
         }
-        if(AppProperty.EVENT_SUBSCRIPTION_SIMULATION){
+        if(AppProperty.EVENT_SUBSCRIPTION_SIMULATION && restAssuredExtension.getTestContext().getCallbackURL() != null){
             restAssuredExtension.setCallbackUri(restAssuredExtension.getTestContext().getCallbackURL());
         }
         body = TestUtility.getTestBody(apiName, "", testCase);
