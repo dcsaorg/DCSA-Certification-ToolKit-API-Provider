@@ -185,7 +185,7 @@ public class ExcelReporter implements CustomReporter {
 
     private String getTestDetails(TestContext testContext) {
         StringBuffer prettyPrint = new StringBuffer();
-        for (int i = 0; i < testContext.getRequestChain().size(); i++) {
+        for (int i = 0; i < testContext.getRequestChain().size() - 1; i++) {
             FilterableRequestSpecification requestSpec = testContext.getRequestChain().get(i);
             Response response = testContext.getResponseChain().get(i);
             prettyPrint.append("Request method: " + requestSpec.getMethod() + "\n\n");

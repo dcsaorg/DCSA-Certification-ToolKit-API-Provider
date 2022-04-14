@@ -100,13 +100,10 @@ public class CommonSteps {
         String apiName = restAssuredExtension.getTestContext().getApiName();
         List<Response> responsesChain = restAssuredExtension.getTestContext().getResponseChain();
         if (!responsesChain.isEmpty()) {
-            Response response = responsesChain.get(responsesChain.size() - 1);
-            body = JsonUtility.getStringFormat(response.jsonPath().get());
             List<Map<String, String>> pathVariableChain = restAssuredExtension.getTestContext().getPathVariableChain();
             if (pathVariableChain.size() > 0)
                 pathVariables.putAll(pathVariableChain.get(pathVariableChain.size() - 1));
         }
-
 
         TestCase testcase = restAssuredExtension.getTestContext().getTestCase();
         body = TestUtility.getTestBody(apiName, body, testcase);

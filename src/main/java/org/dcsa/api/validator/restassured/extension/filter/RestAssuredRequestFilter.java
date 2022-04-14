@@ -8,18 +8,28 @@ import io.restassured.response.Response;
 import io.restassured.specification.FilterableRequestSpecification;
 import io.restassured.specification.FilterableResponseSpecification;
 import lombok.AllArgsConstructor;
+import lombok.extern.java.Log;
 import org.testng.Reporter;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 
+@Log
 @AllArgsConstructor
 public class RestAssuredRequestFilter implements Filter {
     Scenario scenario;
 
     @Override
     public Response filter(FilterableRequestSpecification requestSpec, FilterableResponseSpecification responseSpec, FilterContext ctx) {
-        Response response = ctx.next(requestSpec, responseSpec);
+        Response response = null;
+        try {
+            response = ctx.next(requestSpec, responseSpec);
+        }catch (Exception e){
+            log.log(Level.INFO, e.getMessage());
+        }
+
         StringBuffer prettyPrint = new StringBuffer("Request method: " + requestSpec.getMethod() + "\n\n");
         prettyPrint.append("Request URI: " + requestSpec.getURI() + "\n\n");
 

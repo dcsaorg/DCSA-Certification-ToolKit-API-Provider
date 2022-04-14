@@ -257,7 +257,7 @@ public class ValidatableResponseExtensionImpl implements ValidatableResponseExte
         String jsonString = response.getBody().asString();
         String schemaString = FileUtility.loadFileAsString(TestUtility.getResponseSchema(testContext.getApiName()));
         try {
-            boolean isValid = JsonUtility.validateSchema(schemaString, jsonString);
+            boolean isValid = jsonString.isBlank() ? true : JsonUtility.validateSchema(schemaString, jsonString);
             if (!isValid) {
                 addValidation(ValidationType.SCHEMA, "Failed");
                 Assert.fail("Schema validation failed");
@@ -267,7 +267,6 @@ public class ValidatableResponseExtensionImpl implements ValidatableResponseExte
             addValidation(ValidationType.SCHEMA, "Failed");
             Assert.fail(e.getMessage());
         }
-
         return this;
     }
 
