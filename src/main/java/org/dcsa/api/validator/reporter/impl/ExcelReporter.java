@@ -110,12 +110,11 @@ public class ExcelReporter implements CustomReporter {
                 cell.setCellStyle(getCellStyle("link", workbook));
             }
             ExtentReportModifier.modifyFile(ReportUtil.htmlReportPath);
+            ExtentReportManager.resetExtentTestReport();
             try {
                 FileOutputStream out = new FileOutputStream(ReportUtil.excelReportPath);
                 workbook.write(out);
                 out.close();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }

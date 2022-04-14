@@ -100,4 +100,9 @@ public class ExtentReportManager {
             ExtentReportManager.flush();
         }
     }
+
+    static public void resetExtentTestReport(){
+        extentReports = null;
+        extentTest = null;
+    }
 }
