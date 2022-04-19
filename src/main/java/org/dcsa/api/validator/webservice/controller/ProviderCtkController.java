@@ -21,13 +21,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+
 @RestController
 public class ProviderCtkController {
 
     private static final String RUN_TEST_FAIL = "The compatibility tool failed to run. Please check all configurations and try again.";
+    private static final String RUN_TEST_SUCCESS = "The compatibility tool failed to run. Please check all configurations and try again.";
     private static final String NO_REPORT_ERROR = "No report was found. Please run the compatibility tool by GET /run to generate reports.";
     private static final String UNKNOWN_REPORT_TYPE = "Unknown report type. Only html or excel report type is supported.";
-    private static final String TEST_SUITE_DIR = "\\suitexmls\\";
+    private static final String TEST_SUITE_DIR = "/suitexmls/";
 
     private final DownloadService downloadService;
 
@@ -49,7 +51,7 @@ public class ProviderCtkController {
         } else {
             return RUN_TEST_FAIL;
         }
-        return "";
+        return RUN_TEST_SUCCESS;
     }
 
     @GetMapping(value = "/download/report/{reportType}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)

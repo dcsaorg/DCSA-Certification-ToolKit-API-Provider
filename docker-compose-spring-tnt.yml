@@ -11,7 +11,8 @@ services:
             - TEST_DATA=config/v2/testdata.json
         container_name: testng-tnt
         build:
-            .
+            context: ./
+            dockerfile: Dockerfile-spring
         volumes:
             - C:\workspace\ctk\reports:/ctk/reports
             - C:\workspace\ctk\testdata:/ctk/testdata
