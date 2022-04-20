@@ -109,7 +109,9 @@ public class ExcelReporter implements CustomReporter {
                 cell.setHyperlink(link);
                 cell.setCellStyle(getCellStyle("link", workbook));
             }
-            ExtentReportModifier.modifyFile(ReportUtil.htmlReportPath);
+            if(ReportUtil.htmlReportPath != null){
+                ExtentReportModifier.modifyFile(ReportUtil.htmlReportPath);
+            }
             ExtentReportManager.resetExtentTestReport();
             try {
                 FileOutputStream out = new FileOutputStream(ReportUtil.excelReportPath);
@@ -183,18 +185,23 @@ public class ExcelReporter implements CustomReporter {
     }
 
     private String getTestDetails(TestContext testContext) {
-        StringBuffer prettyPrint = new StringBuffer();
-        for (int i = 0; i < testContext.getRequestChain().size() - 1; i++) {
+        StringBuilder prettyPrint = new StringBuilder();
+        for (int i = 0; i < testContext.getRequestChain().size(); i++) {
             FilterableRequestSpecification requestSpec = testContext.getRequestChain().get(i);
-            Response response = testContext.getResponseChain().get(i);
-            prettyPrint.append("Request method: " + requestSpec.getMethod() + "\n\n");
-            prettyPrint.append("Request URI: " + requestSpec.getURI() + "\n\n");
+            Response response = null;
+            try {
+                response = testContext.getResponseChain().get(i);
+                prettyPrint.append("Request method: ").append(requestSpec.getMethod()).append("\n\n");
+                prettyPrint.append("Request URI: ").append(requestSpec.getURI()).append("\n\n");
+            }catch (Exception e){
+                // ignore it
+            }
 
             if (requestSpec.getQueryParams() != null) {
                 if (requestSpec.getQueryParams().size() > 0) {
                     prettyPrint.append("Query params: ");
                     for (Map.Entry<String, String> queries : requestSpec.getQueryParams().entrySet()) {
-                        prettyPrint.append(queries.getKey() + "=" + queries.getValue() + ", ");
+                        prettyPrint.append(queries.getKey()).append("=").append(queries.getValue()).append(", ");
                     }
                     prettyPrint.append("\n\n");
                 }

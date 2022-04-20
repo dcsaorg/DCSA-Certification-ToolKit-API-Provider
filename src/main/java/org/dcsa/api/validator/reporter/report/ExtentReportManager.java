@@ -82,10 +82,10 @@ public class ExtentReportManager {
             extentTest.assignCategory(htmlReportModel.getRequirementId());
             if (htmlReportModel.getTestStatusCode().equals(TestStatusCode.PASSED)) {
                 extentTest.pass(htmlReportModel.getTestName());
-                if (!htmlReportModel.getTestDetails().isEmpty())
-                    extentTest.info(htmlReportModel.getTestDetails());
                 Markup markUp = MarkupHelper.createLabel(TestStatusCode.PASSED.name().toUpperCase(), ExtentColor.GREEN);
                 extentTest.log(Status.INFO, markUp);
+                if (htmlReportModel.getTestDetails() != null )
+                    extentTest.info(htmlReportModel.getTestDetails());
             } else if (htmlReportModel.getTestStatusCode().equals(TestStatusCode.FAILED)) {
                 extentTest.fail(htmlReportModel.getTestName());
                 if (htmlReportModel.getFailureReason() != null) {

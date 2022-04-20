@@ -1,14 +1,6 @@
 FROM openjdk:11
 WORKDIR /app
-
 copy suitexmls/ /app/suitexmls/
-copy suitexmls/TNT-TestSuite.xml /app/
-copy suitexmls/TNT-Notification-TestSuite.xml /app/
-#copy src/main/resources/config/v2/testdata.json /ctk/testdata/
-#copy src/main/resources/config/v2/config.json /ctk/testdata/
-#copy src/main/java/org/dcsa/api/validator/features/ /ctk/src/main/java/org/dcsa/api/validator/features
-
-
 COPY .mvn/ .mvn
 COPY mvnw pom.xml ./
 RUN ./mvnw dependency:go-offline
