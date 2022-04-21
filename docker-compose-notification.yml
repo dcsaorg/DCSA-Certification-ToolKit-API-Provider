@@ -2,17 +2,18 @@ version: '3.5'
 services:
     ctk-notification:
         environment:
-            - API_ROOT_URI=http://localhost:9090
-            - CALLBACK_PORT=9092
-            - CALLBACK_URI=http://localhost:9092
-            - CALLBACK_WAIT=3600000
+            - API_ROOT_URI=http://192.168.68.109:9090 # change this to host IP
+            - CALLBACK_PORT=9999
+            - CALLBACK_URI=http://localhost
+            - CALLBACK_WAIT=3000
             - TEST_SUITE=TNT-Notification-TestSuite.xml
-            - DATA_CONFIG=/ctk/testdata/testdata.json
-        container_name: test-notification
+            - CONFIG_DATA=config/v2/config.json
+            - TEST_DATA=config/v2/testdata.json
+        container_name: testng-notification
         build:
             .
         volumes:
             - C:\workspace\ctk\reports:/ctk/reports
             - C:\workspace\ctk\testdata:/ctk/testdata
         ports:
-            - 9092:9092
+            - 9999:9999

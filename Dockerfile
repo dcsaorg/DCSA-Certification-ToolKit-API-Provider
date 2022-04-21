@@ -15,7 +15,6 @@ copy suitexmls/TNT-Notification-TestSuite.xml /ctk/
 copy src/main/resources/config/v2/testdata.json /ctk/testdata/
 copy src/main/resources/config/v2/config.json /ctk/testdata/
 copy src/main/java/org/dcsa/api/validator/features/ /ctk/src/main/java/org/dcsa/api/validator/features
-copy suitexmls/ /ctk/suitexmls/
 copy run_ctk.sh /ctk/
 WORKDIR /ctk/
 

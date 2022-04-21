@@ -65,7 +65,7 @@ public class Configuration {
             CALLBACK_URI = AppProperty.CALLBACK_URI;
         }
         else {
-            CALLBACK_URI="http://localhost:9999";
+            CALLBACK_URI="http://localhost";
         }
         if ( AppProperty.CALLBACK_PORT != null || evnCallBackPort != null ) {
             if(evnCallBackPort != null){

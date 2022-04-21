@@ -50,8 +50,9 @@ public class TestSetup {
     }
 
     @AfterSuite(alwaysRun = true)
-    public void tearDown() throws Exception {
+    public void tearDown() {
         sparkWebHook.stopServer();
+        System.out.println("Please check the report");
     }
 
 }
