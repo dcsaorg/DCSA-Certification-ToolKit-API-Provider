@@ -58,6 +58,18 @@ Or
 3. Create package using bat file(for window) e.g. CreatePackage_TNT.bat and run following command from ctk folder under package (e.g. TNT-v2.2.0/ctk)
 java -jar DCSA-Validator-Toolkit.jar TestSuite.xml
 ```
+Also run it by docker-compose:
+```shell
+// build and run
+docker-compose -f docker-compose-spring-tnt.yml up --build --remove-orphans
+docker-compose -f docker-compose-tnt.yml up --build --remove-orphans
+docker-compose -f docker-compose-notification.yml up --build --remove-orphans
+// run
+docker-compose -f docker-compose-spring-tnt.yml up
+docker-compose -f docker-compose-tnt.yml up
+docker-compose -f docker-compose-notification.yml up
+```
+
 
 ### Test Reports
 Following test result reports will be generated under reports folder or under mounted volume(in case of docker), you can verify the result in case of any discrepancies:
