@@ -3,6 +3,7 @@ package org.dcsa.api.validator.hook;
 import io.restassured.http.ContentType;
 import org.dcsa.api.validator.config.Configuration;
 import org.dcsa.api.validator.model.TestContext;
+import org.dcsa.api.validator.reporter.util.ReportUtil;
 import org.dcsa.api.validator.util.TestUtility;
 import org.dcsa.api.validator.webhook.SparkWebHook;
 import org.dcsa.api.validator.webservice.init.AppProperty;
@@ -52,7 +53,7 @@ public class TestSetup {
     @AfterSuite(alwaysRun = true)
     public void tearDown() {
         sparkWebHook.stopServer();
-        System.out.println("Please check the report");
+        System.out.println("Please check the reports at "+AppProperty.REPORT_DIRECTORY);
     }
 
 }
