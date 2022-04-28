@@ -1,3 +1,6 @@
+<p align="left">
+  <a href="https://github.com/dcsaorg/DCSA-Certification-ToolKit-API-Provider"><img alt="GitHub Actions status" src="https://github.com/actions/setup-java/workflows/Main%20workflow/badge.svg"></a>
+</p>
 # DCSA-Certification-ToolKit-API-Provider
 Concept version of a new certification toolkit. 
 
