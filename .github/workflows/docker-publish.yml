@@ -57,7 +57,8 @@ jobs:
         with:          
           image: dcsa-ctk-provider
           tags: ${{ env.TAG }}, latest
-          registry: ghcr.io            
+          registry: ghcr.io
           githubOrg: dcsaorg
           username: ${{ github.actor }}
-          password: ${{ secrets.USER_PACKAGES_PAT }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          addLatest: ${{ true }}
