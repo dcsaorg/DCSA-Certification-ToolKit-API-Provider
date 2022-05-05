@@ -12,8 +12,8 @@ public class TestUtility {
     private static TestDB testDB;
     private static TestDataSet testDataSet;
 
-    public static TestDB loadTestSuite(String testSuiteJson) {
-        String jsonString = FileUtility.loadFileAsString(testSuiteJson);
+    public static TestDB loadConfigDataFromResource(String testSuiteJson) {
+        String jsonString = FileUtility.loadResourceAsString(testSuiteJson);
         testDB = JsonUtility.getObjectFromJson(TestDB.class, jsonString);
         for (Map.Entry<String, TestSuite> entry : testDB.getTestSuites().entrySet()) {
             System.out.println(entry.getKey() + ": " + entry.getValue().getResponseSchema());
@@ -21,9 +21,22 @@ public class TestUtility {
         return testDB;
     }
 
-    public static TestDB loadTestData(String testSuiteJson) {
-        String jsonString = FileUtility.loadFileAsString(testSuiteJson);
+    public static TestDB loadConfigData(String testSuiteJson) {
+        testDB = JsonUtility.getObjectFromJson(TestDB.class, testSuiteJson);
+        for (Map.Entry<String, TestSuite> entry : testDB.getTestSuites().entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue().getResponseSchema());
+        }
+        return testDB;
+    }
+
+    public static TestDB loadTestDataFromResource(String testSuiteJson) {
+        String jsonString = FileUtility.loadResourceAsString(testSuiteJson);
         testDataSet = JsonUtility.getObjectFromJson(TestDataSet.class, jsonString);
+        return testDB;
+    }
+
+    public static TestDB loadTestData(String testData) {
+        testDataSet = JsonUtility.getObjectFromJson(TestDataSet.class, testData);
         return testDB;
     }
 
@@ -123,9 +136,9 @@ public class TestUtility {
         if(body==null || body=="")
         {
             if (testContext.getRequest() != null && testContext.getRequest().getTemplateFile() != null)
-                body = FileUtility.loadFileAsString(testContext.getRequest().getTemplateFile());
+                body = FileUtility.loadResourceAsString(testContext.getRequest().getTemplateFile());
             else
-                body = FileUtility.loadFileAsString(TestUtility.getTemplateFile(apiName));
+                body = FileUtility.loadResourceAsString(TestUtility.getTemplateFile(apiName));
         }
         return getUpdateDBody(apiName, body, testContext);
     }

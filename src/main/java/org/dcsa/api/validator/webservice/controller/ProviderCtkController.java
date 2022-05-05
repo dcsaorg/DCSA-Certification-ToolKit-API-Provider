@@ -1,18 +1,19 @@
 package org.dcsa.api.validator.webservice.controller;
 
 
+import org.dcsa.api.validator.model.UploadType;
 import org.dcsa.api.validator.reporter.util.ReportUtil;
 import org.dcsa.api.validator.util.FileUtility;
 import org.dcsa.api.validator.webservice.downloader.DownloadService;
 import org.dcsa.api.validator.webservice.init.AppProperty;
+import org.dcsa.api.validator.webservice.uploader.service.StorageService;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.testng.TestNG;
 
 import javax.servlet.http.HttpServletResponse;
@@ -32,9 +33,11 @@ public class ProviderCtkController {
     private static final String TEST_SUITE_DIR = "/suitexmls/";
 
     private final DownloadService downloadService;
+    private final StorageService storageService;
 
-    public ProviderCtkController(AppProperty appProperty, DownloadService downloadService) {
+    public ProviderCtkController(AppProperty appProperty, DownloadService downloadService, StorageService storageService) {
         this.downloadService = downloadService;
+        this.storageService = storageService;
         appProperty.init();
     }
 
@@ -88,6 +91,13 @@ public class ProviderCtkController {
                 .headers(header)
                 .contentType(MediaType.parseMediaType("application/octet-stream"))
                 .body(resource);
+    }
+
+    @PostMapping("/upload")
+    public String handleFileUpload(@RequestParam("file") MultipartFile file, String uploadType) {
+        String name = file.getOriginalFilename();
+        storageService.store(file, AppProperty.uploadPath, UploadType.fromValue(uploadType));
+        return "uploaded "+file.getOriginalFilename();
     }
 
 }

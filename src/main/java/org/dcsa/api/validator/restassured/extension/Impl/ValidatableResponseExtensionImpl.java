@@ -271,7 +271,7 @@ public class ValidatableResponseExtensionImpl implements ValidatableResponseExte
     public ValidatableResponseExtension schema(ValidationCode validationCode) {
         Response response = getResponse();
         String jsonString = response.getBody().asString();
-        String schemaString = FileUtility.loadFileAsString(TestUtility.getResponseSchema(testContext.getApiName()));
+        String schemaString = FileUtility.loadResourceAsString(TestUtility.getResponseSchema(testContext.getApiName()));
         try {
             boolean isValid;
             if(jsonString.isBlank()){

@@ -73,7 +73,7 @@ public class NotificationWebhookSteps {
             Assert.fail("Notification-Signature missing in request header");
         }
 
-        String schemaString= FileUtility.loadFileAsString(TestUtility.getResponseSchema(event));
+        String schemaString= FileUtility.loadResourceAsString(TestUtility.getResponseSchema(event));
         try {
             boolean isValid=JsonUtility.validateSchema(schemaString,callbackContext.getNotificationBody());
             if(!isValid)

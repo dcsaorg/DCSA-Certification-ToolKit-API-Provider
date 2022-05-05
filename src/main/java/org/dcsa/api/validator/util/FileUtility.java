@@ -15,7 +15,7 @@ import java.util.logging.Level;
 @Log
 public class FileUtility {
 
-        public static String loadFileAsString(String resource) {
+        public static String loadResourceAsString(String resource) {
             try (InputStream inputStream = ClassLoader.getSystemResourceAsStream(resource)) {
                 return new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
             } catch (IOException e) {
@@ -23,6 +23,18 @@ public class FileUtility {
             }
             return "";
         }
+
+    public static String loadFileAsString(String resource) {
+        String fileData = null;
+        try{
+            Path filePath = Path.of(resource);
+            fileData =  Files.readString(filePath.toAbsolutePath());
+
+        } catch (IOException e) {
+            log.log(Level.SEVERE, e.getMessage());
+        }
+        return fileData;
+    }
 
     public static ByteArrayResource getFile(String resource) throws IOException {
         ByteArrayResource byteArrayResource;

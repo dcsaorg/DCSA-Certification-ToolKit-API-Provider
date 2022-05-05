@@ -450,7 +450,7 @@ public class CommonSteps {
         String apiName = restAssuredExtension.getTestContext().getApiName();
         TestCase testCase = TestUtility.getTestCase(apiName, testName);
         if (testCase.getRequest().getTemplateFile() != null) {
-            body = FileUtility.loadFileAsString(testCase.getRequest().getTemplateFile());
+            body = FileUtility.loadResourceAsString(testCase.getRequest().getTemplateFile());
         }
         if (body != null)
             body = TestUtility.getTestBody(apiName, body, testCase);
