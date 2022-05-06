@@ -1,7 +1,11 @@
 package org.dcsa.api.validator.config;
 
+import lombok.extern.java.Log;
 import org.dcsa.api.validator.webservice.init.AppProperty;
 
+import java.util.logging.Level;
+
+@Log
 public class Configuration {
     public static String ROOT_URI;
     public static String API_VERSION;
@@ -36,6 +40,7 @@ public class Configuration {
                 AppProperty.API_ROOT_URI = evnApiRootUri;
             }
             ROOT_URI = AppProperty.API_ROOT_URI;
+            log.log(Level.INFO, "ROOT_URI: "+ROOT_URI);
         }
         else {
             throw new Exception("API_ROOT_URI is not set as environment variable, please follow the setup document");
