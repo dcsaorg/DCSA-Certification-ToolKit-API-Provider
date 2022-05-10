@@ -1,5 +1,6 @@
 package org.dcsa.api.validator.webservice.uploader.service;
 
+import lombok.extern.java.Log;
 import org.dcsa.api.validator.model.UploadType;
 import org.dcsa.api.validator.util.FileUtility;
 import org.dcsa.api.validator.util.TestUtility;
@@ -17,7 +18,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Objects;
+import java.util.logging.Level;
 
+@Log
 @Service
 public class FileSystemStorageService implements StorageService {
 
@@ -47,8 +50,10 @@ public class FileSystemStorageService implements StorageService {
 	private void overrideConfig(String fileName, UploadType uploadType){
 		if(uploadType == UploadType.ConfigData){
 			TestUtility.loadConfigData(FileUtility.loadFileAsString(AppProperty.uploadPath.toAbsolutePath() + File.separator+ fileName));
+			log.log(Level.INFO, "ConfigData "+AppProperty.uploadPath.toAbsolutePath() + File.separator+ fileName+ " UPLOADED");
 		} else if(uploadType == UploadType.TestData){
 			TestUtility.loadTestData(FileUtility.loadFileAsString(AppProperty.uploadPath.toAbsolutePath() + File.separator+ fileName));
+			log.log(Level.INFO, "TestData "+AppProperty.uploadPath.toAbsolutePath() + File.separator+ fileName+ " UPLOADED");
 		}
 	}
 
