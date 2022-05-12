@@ -1,6 +1,5 @@
 package org.dcsa.api.validator.reporter.util;
 
-import org.dcsa.api.validator.webservice.init.PropertyLoader;
 import org.dcsa.api.validator.webservice.init.AppProperty;
 
 import java.text.DateFormat;
@@ -35,7 +34,7 @@ public class ReportUtil {
 
     private static void populateReportPath(String filePrefix, String fileExtension, String reportType){
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy__hh-mm-ss");
-        if(!AppProperty.isPropertyLoaded){
+        if(!AppProperty.isAppDataUploaded){
             AppProperty.initByPropertyFile();
         }
         if(reportType.equals(HTML)){

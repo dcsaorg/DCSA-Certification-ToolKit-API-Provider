@@ -4,11 +4,12 @@ import java.util.Arrays;
 
 public enum UploadType {
     TestData("testData"),
-    ConfigData("configData");
+    ConfigData("configData"),
+    AppData("appData");
 
     private String value;
 
-    private UploadType(String value){
+    private UploadType(String value) {
         this.value = value;
     }
 
@@ -21,5 +22,4 @@ public enum UploadType {
         throw new IllegalArgumentException(
                 "Unknown enum type " + value + ", Allowed values are " + Arrays.toString(values()));
     }
-
-    }
+}

@@ -6,6 +6,7 @@ import org.springframework.core.io.ByteArrayResource;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.PortUnreachableException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -34,6 +35,17 @@ public class FileUtility {
             log.log(Level.SEVERE, e.getMessage());
         }
         return fileData;
+    }
+
+    public static InputStream getInputStream(String resource){
+        InputStream inputStream = null;
+        try{
+            Path filePath = Path.of(resource);
+            inputStream = Files.newInputStream(filePath.toAbsolutePath());
+        } catch (IOException e) {
+            log.log(Level.SEVERE, e.getMessage());
+        }
+        return inputStream;
     }
 
     public static ByteArrayResource getFile(String resource) throws IOException {

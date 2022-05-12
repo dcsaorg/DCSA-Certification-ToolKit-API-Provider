@@ -8,16 +8,21 @@ import org.dcsa.api.validator.webservice.downloader.DownloadService;
 import org.dcsa.api.validator.webservice.init.AppProperty;
 import org.dcsa.api.validator.webservice.uploader.service.StorageService;
 import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.testng.TestNG;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -42,9 +47,9 @@ public class ProviderCtkController {
     }
 
     @GetMapping(value = "/run")
-    String runTestNg(HttpServletResponse response) {
+    String runTestNg(HttpServletResponse response) throws IOException {
         TestNG testng = new TestNG();
-        final String suitePath = System.getProperty("user.dir") + TEST_SUITE_DIR + AppProperty.TEST_SUITE_NAME;
+        final String suitePath = TEST_SUITE_DIR+AppProperty.TEST_SUITE_NAME;
         List<String> xmlList = new ArrayList<>();
         xmlList.add(suitePath);
         testng.setTestSuites(xmlList);

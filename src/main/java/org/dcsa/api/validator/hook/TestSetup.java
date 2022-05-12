@@ -21,7 +21,7 @@ public class TestSetup {
 
     @BeforeSuite(alwaysRun = true)
     public void suiteSetUp() throws Exception {
-        if(!AppProperty.isPropertyLoaded){
+        if(!AppProperty.isAppDataUploaded){
             AppProperty.initByPropertyFile();
         }
         try {

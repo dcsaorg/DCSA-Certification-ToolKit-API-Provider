@@ -5,6 +5,7 @@ import org.dcsa.api.validator.model.UploadType;
 import org.dcsa.api.validator.util.FileUtility;
 import org.dcsa.api.validator.util.TestUtility;
 import org.dcsa.api.validator.webservice.init.AppProperty;
+import org.dcsa.api.validator.webservice.init.PropertyLoader;
 import org.dcsa.api.validator.webservice.uploader.exception.StorageException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
@@ -54,6 +55,10 @@ public class FileSystemStorageService implements StorageService {
 		} else if(uploadType == UploadType.TestData){
 			TestUtility.loadTestData(FileUtility.loadFileAsString(AppProperty.uploadPath.toAbsolutePath() + File.separator+ fileName));
 			log.log(Level.INFO, "TestData "+AppProperty.uploadPath.toAbsolutePath() + File.separator+ fileName+ " UPLOADED");
+		} else if(uploadType == UploadType.AppData){
+			PropertyLoader.setResourceFilename(fileName);
+			AppProperty.isAppDataUploaded = true;
+			log.log(Level.INFO, "AppData "+AppProperty.uploadPath.toAbsolutePath() + File.separator+ fileName+ " UPLOADED");
 		}
 	}
 

@@ -76,8 +76,8 @@ public class AppProperty {
     private String report_time_format;
     private String report_timeline;
 
-    public static boolean isPropertyLoaded = false;
     public static Path uploadPath;
+    public static boolean isAppDataUploaded = false;
 
     public void init(){
         // TNT service config
@@ -99,7 +99,6 @@ public class AppProperty {
         AppProperty.REPORT_THEME = report_theme;
         AppProperty.REPORT_TIME_FORMAT = report_time_format;
         AppProperty.REPORT_TIMELINE = report_timeline;
-        AppProperty.isPropertyLoaded = true;
         makeUploadPath();
     }
 
@@ -122,7 +121,6 @@ public class AppProperty {
         AppProperty.REPORT_THEME = PropertyLoader.getProperty(REPORT_THEME_KEY);
         AppProperty.REPORT_TIME_FORMAT = PropertyLoader.getProperty(REPORT_TIME_FORMAT_KEY);
         AppProperty.REPORT_TIMELINE = PropertyLoader.getProperty(REPORT_TIMELINE_KEY);
-        AppProperty.isPropertyLoaded = true;
     }
 
     private static void makeUploadPath(){
