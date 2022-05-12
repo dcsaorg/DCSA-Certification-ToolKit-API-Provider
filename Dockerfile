@@ -3,7 +3,7 @@ EXPOSE $CALLBACK_PORT
 
 RUN mkdir -p /ctk/reports
 RUN mkdir -p /ctk/testdata
-COPY target/DCSA-Validator-Toolkit-*-jar-with-dependencies.jar /ctk/DCSA-Validator-Toolkit.jar
+COPY target/DCSA-Validator-Toolkit-*.jar /ctk/DCSA-Validator-Toolkit.jar
 copy suitexmls/TNT-TestSuite.xml /ctk/
 copy suitexmls/TNT-Notification-TestSuite.xml /ctk/
 copy src/main/resources/config/v2/testdata.json /ctk/testdata/
