@@ -50,6 +50,7 @@ public class DownloadServiceImpl implements DownloadService {
         if(ReportUtil.excelReportPath != null){
             System.out.println("Please check the EXCEL report at "+ReportUtil.excelReportPath);
         }
-        System.out.println("Or please call GET /download/report/{reportType} downloads either HTML or Excel report (reportType = html or excel) by the browser");
+        System.out.println("Or please call GET /download/report/html for HTML\n" +
+                "Or please call GET /download/report/excel for excel by any browser");
     }
 }

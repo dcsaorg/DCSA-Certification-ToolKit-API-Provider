@@ -32,7 +32,7 @@ public class TestSetup {
             e.printStackTrace();
             throw e;
         }
-        if(AppProperty.uploadPath == null){
+        if(TestUtility.getTestDB() == null || TestUtility.getTestDataSet() == null ){
             TestUtility.loadConfigDataFromResource(Configuration.configData);
             TestUtility.loadTestDataFromResource(Configuration.testData);
         }

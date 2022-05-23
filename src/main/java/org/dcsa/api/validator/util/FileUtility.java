@@ -17,7 +17,7 @@ import java.util.logging.Level;
 public class FileUtility {
 
         public static String loadResourceAsString(String resource) {
-            try (InputStream inputStream = ClassLoader.getSystemResourceAsStream(resource)) {
+            try (InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(resource)) {
                 return new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
             } catch (IOException e) {
                 log.log(Level.SEVERE, e.getMessage());

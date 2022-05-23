@@ -27,12 +27,13 @@ public class PropertyLoader {
                 log.log(Level.SEVERE, e.getMessage());
             }
         }else {
-            try (InputStream inputStream = ClassLoader.getSystemResourceAsStream(RESOURCE_FILENAME)) {
+            try (InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(RESOURCE_FILENAME)) {
                 properties = new Properties();
                 properties.load(inputStream);
             } catch (IOException e) {
                 log.log(Level.SEVERE, e.getMessage());
             }
+
         }
     }
 

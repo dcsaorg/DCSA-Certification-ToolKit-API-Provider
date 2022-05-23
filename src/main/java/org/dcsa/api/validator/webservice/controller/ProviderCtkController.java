@@ -23,6 +23,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -47,11 +49,12 @@ public class ProviderCtkController {
     }
 
     @GetMapping(value = "/run")
-    String runTestNg(HttpServletResponse response) throws IOException {
+    String runTestNg(HttpServletResponse response) {
         TestNG testng = new TestNG();
         final String suitePath = TEST_SUITE_DIR+AppProperty.TEST_SUITE_NAME;
+        final String absolutePath = System.getProperty("user.dir") + Path.of(suitePath);
         List<String> xmlList = new ArrayList<>();
-        xmlList.add(suitePath);
+        xmlList.add(absolutePath);
         testng.setTestSuites(xmlList);
         testng.run();
         if (testng.getStatus() == 1) {

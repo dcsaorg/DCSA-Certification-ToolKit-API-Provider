@@ -1,5 +1,6 @@
 package org.dcsa.api.validator.util;
 
+
 import org.apache.commons.codec.binary.Hex;
 import org.dcsa.api.validator.model.*;
 
@@ -215,4 +216,13 @@ public class TestUtility {
         return notificationSignature;
     }
 
+    public static TestDB getTestDB() {
+        System.out.println("stop");
+        return testDB;
+    }
+
+    public static TestDataSet getTestDataSet() {
+        System.out.println("stop");
+        return testDataSet;
+    }
 }

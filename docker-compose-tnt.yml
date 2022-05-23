@@ -2,7 +2,7 @@ version: '3.5'
 services:
     ctk-tnt:
         environment:
-            - API_ROOT_URI=http://192.168.68.109:9090 # change this to host IP
+            - API_ROOT_URI=http://192.168.68.107:9090 # change this to host IP
             - CALLBACK_PORT=9999
             - CALLBACK_URI=http://localhost
             - CALLBACK_WAIT=3000
