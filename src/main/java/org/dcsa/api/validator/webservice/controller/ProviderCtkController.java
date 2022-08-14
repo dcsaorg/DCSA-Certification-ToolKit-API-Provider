@@ -8,23 +8,17 @@ import org.dcsa.api.validator.webservice.downloader.DownloadService;
 import org.dcsa.api.validator.webservice.init.AppProperty;
 import org.dcsa.api.validator.webservice.uploader.service.StorageService;
 import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.testng.TestNG;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URL;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -36,7 +30,7 @@ public class ProviderCtkController {
     private static final String RUN_TEST_FAIL = "The compatibility tool failed to run. Please check all configurations and try again.";
     private static final String RUN_TEST_SUCCESS = "The compatibility tool failed to run. Please check all configurations and try again.";
     private static final String NO_REPORT_ERROR = "No report was found. Please run the compatibility tool by GET /run to generate reports.";
-    private static final String UNKNOWN_REPORT_TYPE = "Unknown report type. Only html or excel report type is supported.";
+    private static final String UNKNOWN_REPORT_TYPE = "Unknown report type. Only html report type is supported.";
     private static final String TEST_SUITE_DIR = "/suitexmls/";
 
     private final DownloadService downloadService;
@@ -58,40 +52,25 @@ public class ProviderCtkController {
         testng.setTestSuites(xmlList);
         testng.run();
         if (testng.getStatus() == 1) {
-            downloadService.downloadZipFile(response, ReportUtil.getReports());
+            downloadService.downloadHtmlReport(response, ReportUtil.getReports());
         } else {
             return RUN_TEST_FAIL;
         }
         return RUN_TEST_SUCCESS;
     }
 
-    @GetMapping(value = "/download/report/{reportType}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-    public ResponseEntity<Object> downloadReport(@PathVariable Optional<String> reportType) throws IOException {
-        String defaultReportType = ReportUtil.HTML;
-        if (reportType.isPresent()) {
-            defaultReportType = reportType.get();
-        }
+    @GetMapping(value = "/download/report", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    public ResponseEntity<Object> downloadReport() throws IOException {
         HttpHeaders header = new HttpHeaders();
         ByteArrayResource resource;
 
-        if (ReportUtil.htmlReportPath == null || ReportUtil.excelReportPath == null) {
+        if (ReportUtil.htmlReportPath == null) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
                     .body(NO_REPORT_ERROR);
         }
-
-        if (defaultReportType.equalsIgnoreCase(ReportUtil.HTML)) {
-            resource = FileUtility.getFile(ReportUtil.htmlReportPath);
-            header.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + ReportUtil.htmlReportName);
-
-        } else if (defaultReportType.equalsIgnoreCase(ReportUtil.EXCEL)) {
-            resource = FileUtility.getFile(ReportUtil.excelReportPath);
-            header.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + ReportUtil.excelReportName);
-        } else {
-            return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
-                    .body(UNKNOWN_REPORT_TYPE);
-        }
+        resource = FileUtility.getFile(ReportUtil.htmlReportPath);
+        header.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + ReportUtil.htmlReportName);
         header.add("Cache-Control", "no-cache, no-store, must-revalidate");
         header.add("Pragma", "no-cache");
         header.add("Expires", "0");

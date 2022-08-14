@@ -100,6 +100,7 @@ public class AppProperty {
         AppProperty.REPORT_TIME_FORMAT = report_time_format;
         AppProperty.REPORT_TIMELINE = report_timeline;
         makeUploadPath();
+        isAppDataUploaded = true;
     }
 
     public static void initByPropertyFile(){
@@ -121,6 +122,7 @@ public class AppProperty {
         AppProperty.REPORT_THEME = PropertyLoader.getProperty(REPORT_THEME_KEY);
         AppProperty.REPORT_TIME_FORMAT = PropertyLoader.getProperty(REPORT_TIME_FORMAT_KEY);
         AppProperty.REPORT_TIMELINE = PropertyLoader.getProperty(REPORT_TIMELINE_KEY);
+        isAppDataUploaded = true;
     }
 
     private static void makeUploadPath(){

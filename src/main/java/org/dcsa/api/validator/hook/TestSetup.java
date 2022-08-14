@@ -21,9 +21,6 @@ public class TestSetup {
 
     @BeforeSuite(alwaysRun = true)
     public void suiteSetUp() throws Exception {
-        if(!AppProperty.isAppDataUploaded){
-            AppProperty.initByPropertyFile();
-        }
         try {
             Configuration.init();
             sparkWebHook = new SparkWebHook();

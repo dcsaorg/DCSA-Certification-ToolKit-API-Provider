@@ -60,4 +60,8 @@ public class FileUtility {
         }
         return  byteArrayResource;
     }
+    public static String winPathToUnixPth(String path) {
+        return path.indexOf('\\') < 0 ? path : path.replace('\\', '/');
+    }
+
 }

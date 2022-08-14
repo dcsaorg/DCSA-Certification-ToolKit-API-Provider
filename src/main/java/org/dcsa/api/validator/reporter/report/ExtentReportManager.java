@@ -57,7 +57,7 @@ public class ExtentReportManager {
 
     public static ExtentSparkReporter getExtentSparkReporter(String filePrefix) {
         ExtentSparkReporter reporter = new ExtentSparkReporter(
-                                        ReportUtil.getReportPath(filePrefix, ReportUtil.HTML_EXTENSION, ReportUtil.HTML));
+                                        ReportUtil.getReportPath(filePrefix, ".html"));
         reporter.config().setReportName(AppProperty.REPORT_NAME);
         reporter.config().setDocumentTitle(AppProperty.REPORT_TITLE);
         reporter.config().setTheme(Objects.equals(AppProperty.REPORT_THEME, Theme.DARK.getName()) ?

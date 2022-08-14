@@ -33,7 +33,6 @@ public class PropertyLoader {
             } catch (IOException e) {
                 log.log(Level.SEVERE, e.getMessage());
             }
-
         }
     }
 

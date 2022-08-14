@@ -15,6 +15,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="DCSA-Certification-ToolKit-API-Provider" options="-parameters" />
       <module name="DCSA-Validator-Toolkit" options="-parameters" />
     </option>
   </component>
