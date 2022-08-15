@@ -1,10 +1,11 @@
-FROM openjdk:17
-RUN mkdir -p /ctk
-WORKDIR /ctk
+FROM eclipse-temurin:17-jre-alpine
+EXPOSE $CALLBACK_PORT
+
+RUN mkdir -p /ctk/reports
+RUN mkdir -p /ctk/testdata
+COPY target/DCSA-Validator-Toolkit-*.jar /ctk/DCSA-Validator-Toolkit.jar
 COPY suitexmls/ /ctk/suitexmls/
-COPY .mvn/ .mvn
-COPY mvnw pom.xml ./
-RUN ./mvnw dependency:go-offline
-COPY src ./src
-RUN ./mvnw clean package spring-boot:repackage
-CMD ["./mvnw", "spring-boot:run"]
+copy run_ctk.sh /ctk/
+WORKDIR /ctk/
+
+ENTRYPOINT ["/bin/sh", "./run_ctk.sh"]

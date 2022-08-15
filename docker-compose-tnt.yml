@@ -1,0 +1,20 @@
+version: '3.5'
+services:
+    ctk-tnt:
+        environment:
+            - API_ROOT_URI=http://192.168.68.107:9090 # change this to host IP
+            - CALLBACK_PORT=9999
+            - CALLBACK_URI=http://localhost
+            - CALLBACK_WAIT=3000
+            - TEST_SUITE=TNT-TestSuite.xml
+            - CONFIG_DATA=config/v2/config.json
+            - TEST_DATA=config/v2/testdata.json
+        container_name: testng-tnt
+        build:
+            .
+        volumes:
+            - C:\workspace\ctk\reports:/ctk/reports
+            - C:\workspace\ctk\testdata:/ctk/testdata
+        ports:
+            - 9999:9999
+            - 9000:9000
