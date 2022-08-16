@@ -28,9 +28,8 @@ import java.util.Optional;
 public class ProviderCtkController {
 
     private static final String RUN_TEST_FAIL = "The compatibility tool failed to run. Please check all configurations and try again.";
-    private static final String RUN_TEST_SUCCESS = "The compatibility tool failed to run. Please check all configurations and try again.";
+    private static final String RUN_TEST_SUCCESS = "The compatibility tool was successfully executed. Please check the report.";
     private static final String NO_REPORT_ERROR = "No report was found. Please run the compatibility tool by GET /run to generate reports.";
-    private static final String UNKNOWN_REPORT_TYPE = "Unknown report type. Only html report type is supported.";
     private static final String TEST_SUITE_DIR = "/suitexmls/";
 
     private final DownloadService downloadService;
