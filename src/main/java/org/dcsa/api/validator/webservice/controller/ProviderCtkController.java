@@ -58,6 +58,11 @@ public class ProviderCtkController {
         return RUN_TEST_SUCCESS;
     }
 
+    @GetMapping(value    = "/", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    public String home() {
+        return "ok";
+    }
+
     @GetMapping(value = "/download/report", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public ResponseEntity<Object> downloadReport() throws IOException {
         HttpHeaders header = new HttpHeaders();
