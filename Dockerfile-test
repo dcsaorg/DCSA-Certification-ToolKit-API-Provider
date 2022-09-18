@@ -1,0 +1,8 @@
+FROM openjdk:17
+EXPOSE 9000
+RUN mkdir -p /ctk
+WORKDIR /ctk
+COPY suitexmls/ /ctk/suitexmls/
+VOLUME /tmp
+COPY target/DCSA-Validator-Toolkit-0.0.3.jar /ctk/app.jar
+ENTRYPOINT ["java","-jar","/ctk/app.jar"]
