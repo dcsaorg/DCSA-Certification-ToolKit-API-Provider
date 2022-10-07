@@ -9,14 +9,20 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.response.Response;
+import io.restassured.specification.FilterableRequestSpecification;
 import org.dcsa.api.validator.constant.StatusCode;
+import org.dcsa.api.validator.constant.TestStatusCode;
 import org.dcsa.api.validator.constant.ValidationCode;
+import org.dcsa.api.validator.constant.ValidationType;
 import org.dcsa.api.validator.hook.TestSetup;
+import org.dcsa.api.validator.model.TNTEventSubscriptionTO;
 import org.dcsa.api.validator.model.TestCase;
 import org.dcsa.api.validator.model.TestContext;
 import org.dcsa.api.validator.restassured.extension.Impl.RestAssuredExtensionImpl;
 import org.dcsa.api.validator.restassured.extension.RestAssuredExtension;
+import org.dcsa.api.validator.util.CallbackUtility;
 import org.dcsa.api.validator.util.FileUtility;
+import org.dcsa.api.validator.util.SqlUtility;
 import org.dcsa.api.validator.util.TestUtility;
 import org.dcsa.api.validator.webservice.init.AppProperty;
 import org.testng.Assert;
@@ -502,5 +508,90 @@ public class CommonSteps {
                 .assertThat()
                 .header(headers)
         ;
+    }
+
+    @Given("API End point {string}")
+    public void givenEndPoint(String endpointe){
+        TNTEventSubscriptionTO configTntEventSubscriptionTO = TestUtility.getConfigTNTEventSubscriptionTO();
+        TestContext testcontext = TestSetup.TestContexts.get(scenario.getId());
+        testcontext.setApiName(endpointe);
+        try {
+            String subscriptionId = SqlUtility.insertEventSubscription(configTntEventSubscriptionTO);
+            testcontext.setTntEventSubscriptionTO(SqlUtility.getEventSubscriptionBySubscriptionId(subscriptionId));
+            testcontext.setTestDetails("A valid subscription made with subscription ID: "+subscriptionId);
+            testcontext.setStatus((TestStatusCode.PASSED.name()));
+        } catch (Exception e) {
+            testcontext.setTestDetails("Event subscription failed");
+            testcontext.setStatus((TestStatusCode.FAILED.name()));
+        }
+        TestSetup.TestContexts.put(scenario.getId(),testcontext);
+        Assert.assertNotNull(testcontext.getTntEventSubscriptionTO().getSubscriptionID());
+        Assert.assertNotNull(testcontext.getTntEventSubscriptionTO().getCallbackUrl());
+        Assert.assertNotNull(testcontext.getTntEventSubscriptionTO().getSecret());
+    }
+    @And("A valid callback url")
+    public void aValidCallbackUrl() {
+        TestContext testcontext = TestSetup.TestContexts.get(scenario.getId());
+        if(CallbackUtility.performHttpHead(testcontext.getTntEventSubscriptionTO().getCallbackUrl())){
+            testcontext.addValidation(ValidationType.CALLBACK, "Passed");
+            testcontext.setStatus((TestStatusCode.PASSED.name()));
+            testcontext.setTestDetails("Valid callback found "+testcontext.getTntEventSubscriptionTO().getCallbackUrl());
+        }else{
+            testcontext.addValidation(ValidationType.CALLBACK, "Failed");
+            testcontext.setStatus((TestStatusCode.FAILED.name()));
+            testcontext.setTestDetails("Invalid callback found "+testcontext.getTntEventSubscriptionTO().getCallbackUrl());
+        }
+        TestSetup.TestContexts.put(scenario.getId(),testcontext);
+    }
+
+    @And("A valid secret")
+    public void aValidSecret() {
+        TestContext testcontext = TestSetup.TestContexts.get(scenario.getId());
+        TNTEventSubscriptionTO dBTntEventSubscriptionTO = SqlUtility.getEventSubscriptionBySubscriptionId(
+                testcontext.getTntEventSubscriptionTO().getSubscriptionID().toString());
+        TNTEventSubscriptionTO configTntEventSubscriptionTO = TestUtility.getConfigTNTEventSubscriptionTO();
+        Assert.assertEquals(configTntEventSubscriptionTO.getCallbackUrl(), dBTntEventSubscriptionTO.getCallbackUrl());
+        String dbPlainSecret = Base64.getEncoder().encodeToString(dBTntEventSubscriptionTO.getSecret());
+        String configPlainSecret = Base64.getEncoder().encodeToString(configTntEventSubscriptionTO.getSecret());
+        Assert.assertEquals(dbPlainSecret, configPlainSecret);
+        if(dbPlainSecret.equalsIgnoreCase(configPlainSecret)){
+            testcontext.addValidation(ValidationType.SECRET, "Passed");
+            testcontext.setStatus((TestStatusCode.PASSED.name()));
+            testcontext.setTestDetails("Same secret found");
+        }else{
+            testcontext.addValidation(ValidationType.SECRET, "Failed");
+            testcontext.setStatus((TestStatusCode.FAILED.name()));
+            testcontext.setTestDetails("Wrong secret found");
+        }
+        TestSetup.TestContexts.put(scenario.getId(),testcontext);
+    }
+
+    @Then("Send request for POST")
+    public void postRequest() {
+        TestContext testcontext = TestSetup.TestContexts.get(scenario.getId());
+        String eventSubscriptionJson = TestUtility.getConfigEventSubscriptionJson();
+        if(CallbackUtility.performPostRequest(eventSubscriptionJson, testcontext.getTntEventSubscriptionTO().getCallbackUrl())){
+            testcontext.addValidation(ValidationType.RESPONSEBODY, "Passed");
+            testcontext.setStatus((TestStatusCode.PASSED.name()));
+            testcontext.setTestDetails("Valid POST response found");
+        }else{
+            testcontext.addValidation(ValidationType.RESPONSEBODY, "Failed");
+            testcontext.setStatus((TestStatusCode.FAILED.name()));
+            testcontext.setTestDetails("Invalid POST response");
+        }
+        TestSetup.TestContexts.put(scenario.getId(),testcontext);
+    }
+
+    @Then("Send HEAD request")
+    public void headRequest() {
+        TestContext testcontext = TestSetup.TestContexts.get(scenario.getId());
+        if(CallbackUtility.performHttpHead(testcontext.getTntEventSubscriptionTO().getCallbackUrl())){
+            testcontext.addValidation(ValidationType.RESPONSEBODY, "Passed");
+            testcontext.setStatus((TestStatusCode.PASSED.name()));
+        }else{
+            testcontext.addValidation(ValidationType.RESPONSEBODY, "Failed");
+            testcontext.setStatus((TestStatusCode.FAILED.name()));
+        }
+        TestSetup.TestContexts.put(scenario.getId(),testcontext);
     }
 }

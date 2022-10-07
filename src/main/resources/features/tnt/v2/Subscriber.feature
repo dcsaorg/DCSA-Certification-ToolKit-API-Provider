@@ -1,10 +1,18 @@
 Feature:
   Notifications test check list
 
+  @PostRequest
+  Scenario:TNT.2.2.SUB.PRV_SUBSCRIPTION request must be create new subscription with_POST /event-subscriptions with a valid event type
+   Given API End point "/event-subscriptions"
+   And A valid callback url
+   And A valid secret
+   Then Send HEAD request
+   Then Send request for POST
+
   @HeadRequest
   Scenario:TNT.2.2.SUB.PRV.8_Head request must be received receipt of a head request and success response_POST /event subscriptions with a valid Callback Url
-    Given API End point "/event-subscriptions" for "EventSubscription"
-    And A valid Callback Url
+    Given API End point "/event-subscriptions"
+    And A valid callback url
     When Set request for POST with test case "SubscriptionRequest_CallBackTest"
     And Send a POST http request
     Then Receive Head request for CallBackURL

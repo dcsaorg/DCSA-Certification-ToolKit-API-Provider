@@ -80,21 +80,23 @@ public class ExtentReportManager {
             ExtentTest extentTest = ExtentReportManager.getExtentTest(htmlReportModel.getRequirementId() + " " +
                     htmlReportModel.getRequirement(), filePrefix);
             extentTest.assignCategory(htmlReportModel.getRequirementId());
-            if (htmlReportModel.getTestStatusCode().equals(TestStatusCode.PASSED)) {
-                extentTest.pass(htmlReportModel.getTestName());
-                Markup markUp = MarkupHelper.createLabel(TestStatusCode.PASSED.name().toUpperCase(), ExtentColor.GREEN);
-                extentTest.log(Status.INFO, markUp);
-                if (htmlReportModel.getTestDetails() != null )
-                    extentTest.info(htmlReportModel.getTestDetails());
-            } else if (htmlReportModel.getTestStatusCode().equals(TestStatusCode.FAILED)) {
-                extentTest.fail(htmlReportModel.getTestName());
-                if (htmlReportModel.getFailureReason() != null) {
-                    extentTest.fail("Failure reason: " + htmlReportModel.getFailureReason());
-                }
-                Markup markUp = MarkupHelper.createLabel(TestStatusCode.FAILED.name().toUpperCase(), ExtentColor.RED);
-                extentTest.log(Status.WARNING, markUp);
-                if (htmlReportModel.getTestDetails() != null) {
-                    extentTest.info(htmlReportModel.getTestDetails());
+            if(htmlReportModel.getTestStatusCode() != null) {
+                if (htmlReportModel.getTestStatusCode().equals(TestStatusCode.PASSED)) {
+                    extentTest.pass(htmlReportModel.getTestName());
+                    Markup markUp = MarkupHelper.createLabel(TestStatusCode.PASSED.name().toUpperCase(), ExtentColor.GREEN);
+                    extentTest.log(Status.INFO, markUp);
+                    if (htmlReportModel.getTestDetails() != null)
+                        extentTest.info(htmlReportModel.getTestDetails());
+                } else if (htmlReportModel.getTestStatusCode().equals(TestStatusCode.FAILED)) {
+                    extentTest.fail(htmlReportModel.getTestName());
+                    if (htmlReportModel.getFailureReason() != null) {
+                        extentTest.fail("Failure reason: " + htmlReportModel.getFailureReason());
+                    }
+                    Markup markUp = MarkupHelper.createLabel(TestStatusCode.FAILED.name().toUpperCase(), ExtentColor.RED);
+                    extentTest.log(Status.WARNING, markUp);
+                    if (htmlReportModel.getTestDetails() != null) {
+                        extentTest.info(htmlReportModel.getTestDetails());
+                    }
                 }
             }
             ExtentReportManager.flush();

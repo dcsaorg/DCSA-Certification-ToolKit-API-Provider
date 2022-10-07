@@ -1,0 +1,20 @@
+{
+
+  "callbackUrl": "http://127.0.0.1:9999/v2/notification-endpoints/receive/456eacf9-8cda-412b-b801-4a41be7a6d000",
+
+  "eventType": [
+    "EQUIPMENT"
+  ],
+  "transportCallID": "979bafa8-e5b2-455b-a1eb-b678b6a2b000",
+
+  "vesselIMONumber": "9321483",
+
+  "carrierBookingReference": "ABC709951",
+
+  "carrierServiceCode": "FE1",
+
+  "equipmentReference": "APZU4812090",
+
+  "secret": "OG1wOWFaRW1HTTF1Y2NuaUN0RlAtaU9JMjM5N25vMWtWd25rS2Vkc2ktZms0c01zaTJQOElZRVNQN000000zzz=="
+
+}

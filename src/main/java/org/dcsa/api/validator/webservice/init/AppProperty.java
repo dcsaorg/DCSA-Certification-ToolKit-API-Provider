@@ -12,27 +12,29 @@ import java.nio.file.Paths;
 
 @Data
 @Configuration
-@ConfigurationProperties( prefix = "app")
+@ConfigurationProperties( prefix = "spring")
 public class AppProperty {
     // TNT API keys
-    private static final String API_ROOT_URI_KEY = "app.api_root_uri";
-    private static final String CONFIG_DATA_KEY = "app.config_data";
-    private static final String TEST_DATA_KEY = "app.test_data";
-    private static final String CALL_BACK_URI_KEY = "app.callback_uri";
-    private static final String CALL_BACK_PORT_KEY = "app.callback_port";
-    private static final String CALL_BACK_WAIT_KEY = "app.callback_wait";
-    private static final String TEST_SUITE_NAME_KEY = "app.test_suite_name";
-    private static final String UPLOAD_CONFIG_PATH_NAME_KEY = "app.upload_config_path";
-    private static final String EVENT_SUBSCRIPTION_SIMULATION_KEY = "app.event_subscription_simulation";
+    private static final String API_ROOT_URI_KEY = "spring.api_root_uri";
+    private static final String CONFIG_DATA_KEY = "spring.config_data";
+    private static final String TEST_DATA_KEY = "spring.test_data";
+    private static final String CALL_BACK_URI_KEY = "spring.callback_uri";
+
+    private static String EVENT_PATH_KEY ="spring.event_type";
+    private static final String CALL_BACK_PORT_KEY = "spring.callback_port";
+    private static final String CALL_BACK_WAIT_KEY = "spring.callback_wait";
+    private static final String TEST_SUITE_NAME_KEY = "spring.test_suite_name";
+    private static final String UPLOAD_CONFIG_PATH_NAME_KEY = "spring.upload_config_path";
+    private static final String EVENT_SUBSCRIPTION_SIMULATION_KEY = "spring.event_subscription_simulation";
     // HTML report key
-    private static final String REPORT_AUTHOR_KEY = "app.report_author";
-    private static final String REPORT_COMPANY_KEY = "app.report_company";
-    private static final String REPORT_DIRECTORY_KEY = "app.report_directory";
-    private static final String REPORT_NAME_KEY = "app.report_name";
-    private static final String REPORT_TITLE_KEY = "app.report_title";
-    private static final String REPORT_THEME_KEY = "app.report_theme";
-    private static final String REPORT_TIME_FORMAT_KEY = "app.report_time_format";
-    private static final String REPORT_TIMELINE_KEY = "app.report_timeline";
+    private static final String REPORT_AUTHOR_KEY = "spring.report_author";
+    private static final String REPORT_COMPANY_KEY = "spring.report_company";
+    private static final String REPORT_DIRECTORY_KEY = "spring.report_directory";
+    private static final String REPORT_NAME_KEY = "spring.report_name";
+    private static final String REPORT_TITLE_KEY = "spring.report_title";
+    private static final String REPORT_THEME_KEY = "spring.report_theme";
+    private static final String REPORT_TIME_FORMAT_KEY = "spring.report_time_format";
+    private static final String REPORT_TIMELINE_KEY = "spring.report_timeline";
 
 
     // TNT service static config
@@ -55,6 +57,21 @@ public class AppProperty {
     public static String REPORT_THEME;
     public static String REPORT_TIME_FORMAT;
     public static String REPORT_TIMELINE;
+
+    public static String DATABASE_URL;
+    public static String DATABASE_USER_NAME;
+    public static String DATABASE_PASSWORD;
+    public static String EVENT_PATH;
+
+    private String url;
+    private String password;
+    private String username;
+    private String db_name;
+    private String schema;
+
+    private String event_path;
+
+
     // TNT service config
     private String api_root_uri;
     private String config_data;
@@ -90,6 +107,7 @@ public class AppProperty {
         AppProperty.TEST_SUITE_NAME = test_suite_name;
         AppProperty.UPLOAD_CONFIG_PATH = upload_config_path;
         AppProperty.EVENT_SUBSCRIPTION_SIMULATION = Boolean.parseBoolean(event_subscription_simulation);
+        AppProperty.EVENT_PATH = event_path;
         // HTML report config
         AppProperty.REPORT_AUTHOR = report_author;
         AppProperty.REPORT_COMPANY = report_company;
@@ -99,6 +117,17 @@ public class AppProperty {
         AppProperty.REPORT_THEME = report_theme;
         AppProperty.REPORT_TIME_FORMAT = report_time_format;
         AppProperty.REPORT_TIMELINE = report_timeline;
+
+        String evnDbRootUri = System.getenv("DB_HOST_IP");
+        if(evnDbRootUri != null){
+            AppProperty.DATABASE_URL = url.replace("localhost", evnDbRootUri) ;
+        }else{
+            AppProperty.DATABASE_URL = url;
+        }
+        AppProperty.DATABASE_URL = AppProperty.DATABASE_URL+"/"+db_name+"?currentSchema="+schema;
+        AppProperty.DATABASE_USER_NAME = username;
+        AppProperty.DATABASE_PASSWORD = password;
+
         makeUploadPath();
         isAppDataUploaded = true;
     }
@@ -110,6 +139,7 @@ public class AppProperty {
         AppProperty.CALLBACK_URI = PropertyLoader.getProperty(CALL_BACK_URI_KEY);
         AppProperty.CALLBACK_PORT = PropertyLoader.getProperty(CALL_BACK_PORT_KEY);
         AppProperty.CALLBACK_WAIT = PropertyLoader.getProperty(CALL_BACK_WAIT_KEY);
+        AppProperty.EVENT_PATH = PropertyLoader.getProperty(EVENT_PATH_KEY);
         AppProperty.TEST_SUITE_NAME = PropertyLoader.getProperty(TEST_SUITE_NAME_KEY);
         AppProperty.UPLOAD_CONFIG_PATH = PropertyLoader.getProperty(UPLOAD_CONFIG_PATH_NAME_KEY);
         AppProperty.EVENT_SUBSCRIPTION_SIMULATION = Boolean.parseBoolean(PropertyLoader.getProperty(EVENT_SUBSCRIPTION_SIMULATION_KEY));

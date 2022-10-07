@@ -138,17 +138,19 @@ public class Reporter implements IReporter {
                         prettyPrint.append("Response Body ==> No Response Body\n\n");
                 }
             }
-
         }
-
-        for (int i = 0; i < testContext.getMessage().size(); i++)
+        for (int i = 0; i < testContext.getMessage().size(); i++) {
             prettyPrint.append(testContext.getMessage().get(i));
+        }
         String testDetails;
         if (prettyPrint.length() > 32766) {
             testDetails = prettyPrint.substring(0, 32766);
         }
         else {
             testDetails = prettyPrint.toString();
+        }
+        if(!testContext.getTestDetails().toString().isBlank()){
+            testDetails = testContext.getTestDetails().toString();
         }
         return testDetails;
     }

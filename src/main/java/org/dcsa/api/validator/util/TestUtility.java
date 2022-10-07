@@ -2,11 +2,25 @@ package org.dcsa.api.validator.util;
 
 
 import org.apache.commons.codec.binary.Hex;
+import org.apache.http.conn.ssl.NoopHostnameVerifier;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.dcsa.api.validator.model.*;
+import org.dcsa.api.validator.webservice.init.AppProperty;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.web.client.RestTemplate;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+import java.io.File;
 import java.nio.charset.StandardCharsets;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.X509Certificate;
 import java.util.*;
 
 public class TestUtility {
@@ -225,4 +239,14 @@ public class TestUtility {
         System.out.println("stop");
         return testDataSet;
     }
+
+    public static TNTEventSubscriptionTO getConfigTNTEventSubscriptionTO(){
+        String eventSubscriptionJson = FileUtility.loadFileAsString(new FileSystemResource("").getFile().getAbsolutePath()+ File.separator+ AppProperty.EVENT_PATH);
+        TNTEventSubscriptionTO tntEventSubscriptionTO = JsonUtility.getObjectFromJson(TNTEventSubscriptionTO.class, eventSubscriptionJson);
+        return tntEventSubscriptionTO;
+    }
+    public static String getConfigEventSubscriptionJson(){
+        return FileUtility.loadFileAsString(new FileSystemResource("").getFile().getAbsolutePath()+ File.separator+ AppProperty.EVENT_PATH);
+    }
+
 }
