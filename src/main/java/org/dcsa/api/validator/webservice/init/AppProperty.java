@@ -1,6 +1,7 @@
 package org.dcsa.api.validator.webservice.init;
 
 import lombok.Data;
+import org.dcsa.api.validator.util.TestUtility;
 import org.dcsa.api.validator.webservice.uploader.exception.StorageException;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -25,7 +26,6 @@ public class AppProperty {
     private static final String CALL_BACK_WAIT_KEY = "spring.callback_wait";
     private static final String TEST_SUITE_NAME_KEY = "spring.test_suite_name";
     private static final String UPLOAD_CONFIG_PATH_NAME_KEY = "spring.upload_config_path";
-    private static final String EVENT_SUBSCRIPTION_SIMULATION_KEY = "spring.event_subscription_simulation";
     // HTML report key
     private static final String REPORT_AUTHOR_KEY = "spring.report_author";
     private static final String REPORT_COMPANY_KEY = "spring.report_company";
@@ -46,7 +46,6 @@ public class AppProperty {
     public static String CALLBACK_WAIT;
     public static String TEST_SUITE_NAME;
     public static String UPLOAD_CONFIG_PATH;
-    public static boolean EVENT_SUBSCRIPTION_SIMULATION;
 
     // HTML report static config
     public static String REPORT_AUTHOR;
@@ -81,7 +80,6 @@ public class AppProperty {
     private String callback_wait;
     private String test_suite_name;
     private String upload_config_path;
-    private String event_subscription_simulation;
 
     // HTML report config
     private String report_author;
@@ -106,7 +104,6 @@ public class AppProperty {
         AppProperty.CALLBACK_WAIT = callback_wait;
         AppProperty.TEST_SUITE_NAME = test_suite_name;
         AppProperty.UPLOAD_CONFIG_PATH = upload_config_path;
-        AppProperty.EVENT_SUBSCRIPTION_SIMULATION = Boolean.parseBoolean(event_subscription_simulation);
         AppProperty.EVENT_PATH = event_path;
         // HTML report config
         AppProperty.REPORT_AUTHOR = report_author;
@@ -128,6 +125,7 @@ public class AppProperty {
         AppProperty.DATABASE_USER_NAME = username;
         AppProperty.DATABASE_PASSWORD = password;
 
+        TestUtility.removeTestOutputDirectory();
         makeUploadPath();
         isAppDataUploaded = true;
     }
@@ -142,7 +140,6 @@ public class AppProperty {
         AppProperty.EVENT_PATH = PropertyLoader.getProperty(EVENT_PATH_KEY);
         AppProperty.TEST_SUITE_NAME = PropertyLoader.getProperty(TEST_SUITE_NAME_KEY);
         AppProperty.UPLOAD_CONFIG_PATH = PropertyLoader.getProperty(UPLOAD_CONFIG_PATH_NAME_KEY);
-        AppProperty.EVENT_SUBSCRIPTION_SIMULATION = Boolean.parseBoolean(PropertyLoader.getProperty(EVENT_SUBSCRIPTION_SIMULATION_KEY));
 
         AppProperty.REPORT_AUTHOR = PropertyLoader.getProperty(REPORT_AUTHOR_KEY);
         AppProperty.REPORT_COMPANY = PropertyLoader.getProperty(REPORT_COMPANY_KEY);

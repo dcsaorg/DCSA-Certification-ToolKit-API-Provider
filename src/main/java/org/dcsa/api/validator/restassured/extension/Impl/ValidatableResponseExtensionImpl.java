@@ -53,7 +53,7 @@ public class ValidatableResponseExtensionImpl implements ValidatableResponseExte
         } else {
             try {
                 response.then()
-                        .assertThat().statusCode(not(anyOf(is(201), is(202), is(204))));
+                        .assertThat().statusCode((anyOf(is(201), is(202), is(204))));
                 addValidation(ValidationType.HTTPCODE, "Passed");
             } catch (AssertionError e) {
                 addValidation(ValidationType.HTTPCODE, "Failed");

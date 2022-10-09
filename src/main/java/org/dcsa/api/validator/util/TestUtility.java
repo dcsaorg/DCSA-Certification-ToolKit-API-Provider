@@ -5,6 +5,7 @@ import org.apache.commons.codec.binary.Hex;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.dcsa.api.validator.model.*;
 import org.dcsa.api.validator.webservice.init.AppProperty;
 import org.springframework.core.io.FileSystemResource;
@@ -17,7 +18,10 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 import java.io.File;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
@@ -247,6 +251,16 @@ public class TestUtility {
     }
     public static String getConfigEventSubscriptionJson(){
         return FileUtility.loadFileAsString(new FileSystemResource("").getFile().getAbsolutePath()+ File.separator+ AppProperty.EVENT_PATH);
+    }
+
+    public static void removeTestOutputDirectory() {
+        final String absolutePath = System.getProperty("user.dir") + File.separator + "test-output";
+        File testOutputDir = new File(absolutePath);
+        try {
+            FileUtils.deleteDirectory(testOutputDir);
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
 }

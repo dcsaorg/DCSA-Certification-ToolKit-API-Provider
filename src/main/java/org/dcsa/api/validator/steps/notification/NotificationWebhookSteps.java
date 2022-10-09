@@ -7,6 +7,7 @@ import io.cucumber.java.en.Then;
 import org.dcsa.api.validator.config.Configuration;
 import org.dcsa.api.validator.hook.TestSetup;
 import org.dcsa.api.validator.model.CallbackContext;
+import org.dcsa.api.validator.model.TNTEventSubscriptionTO;
 import org.dcsa.api.validator.model.TestContext;
 import org.dcsa.api.validator.util.FileUtility;
 import org.dcsa.api.validator.util.JsonUtility;
@@ -97,21 +98,31 @@ public class NotificationWebhookSteps {
     @And("A valid Callback Url")
     public void aValidCallbackUrl() {
         TestContext testcontext = TestSetup.TestContexts.get(scenario.getId());
+        TNTEventSubscriptionTO tntEventSubscriptionTO = TestUtility.getConfigTNTEventSubscriptionTO();
+        String uuid = tntEventSubscriptionTO.getCallbackUrl().substring(tntEventSubscriptionTO.getCallbackUrl().lastIndexOf("/"));
+        testcontext.setCallbackURL(Configuration.CALLBACK_URI + ":" + Configuration.CALLBACK_PORT + Configuration.CALLBACK_PATH+ uuid);
+        TestSetup.TestContexts.put(scenario.getId(), testcontext);
+/*
         if(AppProperty.EVENT_SUBSCRIPTION_SIMULATION) {
-            testcontext.setCallbackURL(Configuration.CALLBACK_URI + ":" + Configuration.CALLBACK_PORT + Configuration.CALLBACK_PATH + "/456eacf9-8cda-412b-b801-4a41be7a6c35");
+            testcontext.setCallbackURL(Configuration.CALLBACK_URI + ":" + Configuration.CALLBACK_PORT + Configuration.CALLBACK_PATH + uuid);
         }else{
-            testcontext.setCallbackURL(Configuration.CALLBACK_URI + Configuration.CALLBACK_PATH+"/456eacf9-8cda-412b-b801-4a41be7a6c35");
+            testcontext.setCallbackURL(Configuration.CALLBACK_URI + ":" + Configuration.CALLBACK_PORT + Configuration.CALLBACK_PATH+ uuid);
         }
+*/
     }
 
     @And("An invalid Callback Url")
     public void aInvalidCallbackUrl() {
         TestContext testcontext = TestSetup.TestContexts.get(scenario.getId());
-        if(AppProperty.EVENT_SUBSCRIPTION_SIMULATION) {
+        TNTEventSubscriptionTO tntEventSubscriptionTO = TestUtility.getConfigTNTEventSubscriptionTO();
+        String uuid = tntEventSubscriptionTO.getCallbackUrl().substring(tntEventSubscriptionTO.getCallbackUrl().lastIndexOf("/"));
+        testcontext.setCallbackURL(Configuration.CALLBACK_URI + ":" + Configuration.CALLBACK_PORT + Configuration.CALLBACK_PATH+ uuid+uuid);
+        TestSetup.TestContexts.put(scenario.getId(), testcontext);
+/*        if(AppProperty.EVENT_SUBSCRIPTION_SIMULATION) {
             testcontext.setCallbackURL(Configuration.CALLBACK_URI + ":" + Configuration.CALLBACK_PORT + Configuration.CALLBACK_PATH + "/307deecf-e599-4ff2-bf5a-fd47c171b8c4");
         }else {
             testcontext.setCallbackURL(Configuration.CALLBACK_URI+ Configuration.CALLBACK_PATH+"/307deecf-e599-4ff2-bf5a-fd47c171b8c4");
-        }
+        }*/
     }
 
 }

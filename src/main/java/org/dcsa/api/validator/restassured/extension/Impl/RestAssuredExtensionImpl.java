@@ -45,7 +45,7 @@ public class RestAssuredExtensionImpl implements RestAssuredExtension {
     private RequestSpecification buildRequest() {
         RequestSpecification request= RestAssured
                 .given()
-                .header( new Header("Notification-Signature", "sha256=2d0c25e565eee38c7df968652889002b9fa159d4436af30f3ba5117879f12b6b"))
+                .header( new Header("Notification-Signature", "sha256=05ca1872139f56e039040228f4e55c51550b37c50d905b44314325d171299de7"))
                 .relaxedHTTPSValidation()
                 .auth()
                 .oauth2(Configuration.accessToken)
@@ -54,17 +54,17 @@ public class RestAssuredExtensionImpl implements RestAssuredExtension {
         return request;
     }
 
-    private RequestSpecification buildSimulatedRequest() {
+/*    private RequestSpecification buildSimulatedRequest() {
         RequestSpecification request= RestAssured
                 .given()
-                .header( new Header("Notification-Signature", "sha256=2d0c25e565eee38c7df968652889002b9fa159d4436af30f3ba5117879f12b6b"))
+                .header( new Header("Notification-Signature", "sha256=05ca1872139f56e039040228f4e55c51550b37c50d905b44314325d171299de7"))
                 .relaxedHTTPSValidation()
                 .auth()
                 .oauth2(Configuration.accessToken)
                 .filter(new RestAssuredRequestFilter(testContext.getScenario())).spec(builder.build());
         testContext.getRequestChain().add((FilterableRequestSpecification) request);
         return request;
-    }
+    }*/
 
     @Override
     public void post() {
@@ -81,11 +81,12 @@ public class RestAssuredExtensionImpl implements RestAssuredExtension {
 
     @Override
     public void head() {
-        if(AppProperty.EVENT_SUBSCRIPTION_SIMULATION){
+/*        if(AppProperty.EVENT_SUBSCRIPTION_SIMULATION){
             response = buildSimulatedRequest().head();
         }else{
             response = buildRequest().head();
-        }
+        }*/
+        response = buildRequest().head();
 
         if (response.getStatusCode() == 201) {
             Map<String, String> pathVariables = new HashMap<>();

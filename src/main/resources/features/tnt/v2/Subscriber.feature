@@ -2,7 +2,7 @@ Feature:
   Notifications test check list
 
   @PostRequest
-  Scenario:TNT.2.2.SUB.PRV_SUBSCRIPTION request must be create new subscription with_POST /event-subscriptions with a valid event type
+  Scenario:TNT.2.2.SUB.PRV_SUBSCRIPTION a new subscription request must be create new subscription_POST /event-subscriptions with a valid event type
    Given API End point "/event-subscriptions"
    And A valid callback url
    And A valid secret

@@ -66,9 +66,8 @@ public class CommonSteps {
     public void createForGivenTestData() {
         restAssuredExtension
                 .post();
-        if(AppProperty.EVENT_SUBSCRIPTION_SIMULATION){
-            doHeadRequest();
-        }
+        restAssuredExtension
+                .head();
     }
 
     @When("Send a HEAD http request")
@@ -371,7 +370,7 @@ public class CommonSteps {
             placeholders.put("callbackUrl", restAssuredExtension.getTestContext().getCallbackURL());
             testCase.getRequest().getPlaceHolders().putAll(placeholders);
         }
-        if(AppProperty.EVENT_SUBSCRIPTION_SIMULATION && restAssuredExtension.getTestContext().getCallbackURL() != null){
+        if(restAssuredExtension.getTestContext().getCallbackURL() != null){
             restAssuredExtension.setCallbackUri(restAssuredExtension.getTestContext().getCallbackURL());
         }
         body = TestUtility.getTestBody(apiName, "", testCase);
