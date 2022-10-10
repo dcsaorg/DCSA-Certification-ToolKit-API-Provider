@@ -4,6 +4,7 @@ package org.dcsa.api.validator.webservice.controller;
 import org.dcsa.api.validator.model.UploadType;
 import org.dcsa.api.validator.reporter.util.ReportUtil;
 import org.dcsa.api.validator.util.FileUtility;
+import org.dcsa.api.validator.util.SqlUtility;
 import org.dcsa.api.validator.util.TestUtility;
 import org.dcsa.api.validator.webservice.downloader.DownloadService;
 import org.dcsa.api.validator.webservice.init.AppProperty;
@@ -49,6 +50,7 @@ public class ProviderCtkController {
         xmlList.add(absolutePath);
         testng.setTestSuites(xmlList);
         testng.run();
+        SqlUtility.truncateEventSubscriptionTable();
         downloadService.downloadHtmlReport(response, ReportUtil.getReports());
     }
 

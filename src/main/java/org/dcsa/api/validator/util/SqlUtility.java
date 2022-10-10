@@ -174,14 +174,6 @@ public class SqlUtility {
         return plainSecret;
     }
 
-/*    static public void updateSecretBySubscriptionId(String subscriptionId, String secret){
-        String encryptedSecret = CipherUtil.encrypt(secret);
-        String updateSecretBySubscriptionIdSql = "UPDATE " + SUBSCRIPTION_TABLE + " SET " +
-                                                 "secret = "+StringUtils.quote(encryptedSecret) +
-                                                 "where subscription_id = "+StringUtils.quote(subscriptionId);
-        updateRow(updateSecretBySubscriptionIdSql);
-    }*/
-
     public static int updateRow(String sqlStatement){
         int effectedRow = 0;
         try( Statement statement = SqlUtility.getConnection().createStatement()){
@@ -663,7 +655,7 @@ public class SqlUtility {
     public static void deleteShipmentEventByEventId(String eventId){
         String deleteTransportEventSql = "DELETE FROM dcsa_im_v3_0.shipment_event WHERE event_id = "+
                 StringUtils.quote(eventId);
-        SqlUtility.updateRow(deleteTransportEventSql);
+        updateRow(deleteTransportEventSql);
     }
 
     public static void deleteTableAllRow(String tableName, String columnName, int count){
@@ -844,7 +836,11 @@ public class SqlUtility {
                 throw new RuntimeException(e);
             }
         }
-        String secretStr = Base64.getEncoder().encodeToString(secret);
-        return secretStr;
+        return Base64.getEncoder().encodeToString(secret);
     }
+    public static void truncateEventSubscriptionTable(){
+        String deleteAllSql = "DELETE FROM dcsa_im_v3_0.event_subscription WHERE subscription_id notnull";
+        updateRow(deleteAllSql);
+    }
+
 }
