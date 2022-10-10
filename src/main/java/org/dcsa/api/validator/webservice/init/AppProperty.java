@@ -124,8 +124,6 @@ public class AppProperty {
         AppProperty.DATABASE_URL = AppProperty.DATABASE_URL+"/"+db_name+"?currentSchema="+schema;
         AppProperty.DATABASE_USER_NAME = username;
         AppProperty.DATABASE_PASSWORD = password;
-
-        TestUtility.removeTestOutputDirectory();
         makeUploadPath();
         isAppDataUploaded = true;
     }

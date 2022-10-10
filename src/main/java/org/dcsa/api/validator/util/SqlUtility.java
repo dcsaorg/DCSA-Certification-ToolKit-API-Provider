@@ -827,4 +827,24 @@ public class SqlUtility {
         }
         return callback;
     }
+
+    public static String getSecretBySubscriptionId(String subscriptionId){
+        String selectCallback = "select secret from "+SUBSCRIPTION_TABLE+" where subscription_id = "+
+                StringUtils.quote(subscriptionId);
+        byte[] secret = new byte[0];
+        try (Statement statement = SqlUtility.getConnection().createStatement()) {
+            ResultSet resultSet = statement.executeQuery(selectCallback);
+            while (resultSet.next()) {
+                secret = resultSet.getBytes("secret");
+            }
+        }catch (SQLException e){
+            if(e.getMessage().contains("OFFSET must not be negative")){
+                return null;
+            }else {
+                throw new RuntimeException(e);
+            }
+        }
+        String secretStr = Base64.getEncoder().encodeToString(secret);
+        return secretStr;
+    }
 }

@@ -60,6 +60,9 @@ public class TestUtility {
     }
 
     public static TestCase getTestCase(String apiName, String testName) {
+        if(apiName.equalsIgnoreCase("/event-subscriptions")){
+            apiName = "EventSubscription";
+        }
         TestCase testCase = testDB.getTestSuites().get(apiName).getTestCases().get(testName);
         return testCase;
     }
@@ -85,16 +88,25 @@ public class TestUtility {
     }
 
     public static String getTemplateFile(String apiName) {
+        if(apiName.equalsIgnoreCase("/event-subscriptions")){
+            apiName = "EventSubscription";
+        }
         String templateFile = testDB.getTestSuites().get(apiName).getTemplateFile();
         return templateFile;
     }
 
     public static String getIdentifierAttribute(String apiName) {
+        if(apiName.equalsIgnoreCase("/event-subscriptions")){
+            apiName = "EventSubscription";
+        }
         String identifierAttribute = testDB.getTestSuites().get(apiName).getResourceIdentifier();
         return identifierAttribute;
     }
 
     public static String getEndPoint(String apiName) {
+        if(apiName.equalsIgnoreCase("/event-subscriptions")){
+            apiName = "EventSubscription";
+        }
         String uri = testDB.getTestSuites().get(apiName).getEndPoint();
         return uri;
     }

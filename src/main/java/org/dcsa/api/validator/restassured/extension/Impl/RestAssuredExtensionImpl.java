@@ -9,6 +9,7 @@ import io.restassured.specification.FilterableRequestSpecification;
 import io.restassured.specification.RequestSpecification;
 import lombok.Data;
 import org.dcsa.api.validator.config.Configuration;
+import org.dcsa.api.validator.model.TNTEventSubscriptionTO;
 import org.dcsa.api.validator.model.TestContext;
 import org.dcsa.api.validator.model.ValidationResult;
 import org.dcsa.api.validator.restassured.extension.RestAssuredExtension;
@@ -35,7 +36,9 @@ public class RestAssuredExtensionImpl implements RestAssuredExtension {
     }
     @Override
     public void given(String endPoint, String apiName) {
+        TNTEventSubscriptionTO tntEventSubscriptionTO = TestUtility.getConfigTNTEventSubscriptionTO();
         testContext.setApiName(apiName);
+        testContext.setCallbackURL(tntEventSubscriptionTO.getCallbackUrl());
         this.builder = new RequestSpecBuilder();
         this.builder.addHeader("API-Version", Configuration.API_VERSION.split("\\.")[0]);
         this.builder.setBaseUri(Configuration.ROOT_URI+"/v"+Configuration.API_VERSION.split("\\.")[0]);
@@ -53,19 +56,6 @@ public class RestAssuredExtensionImpl implements RestAssuredExtension {
         testContext.getRequestChain().add((FilterableRequestSpecification) request);
         return request;
     }
-
-/*    private RequestSpecification buildSimulatedRequest() {
-        RequestSpecification request= RestAssured
-                .given()
-                .header( new Header("Notification-Signature", "sha256=05ca1872139f56e039040228f4e55c51550b37c50d905b44314325d171299de7"))
-                .relaxedHTTPSValidation()
-                .auth()
-                .oauth2(Configuration.accessToken)
-                .filter(new RestAssuredRequestFilter(testContext.getScenario())).spec(builder.build());
-        testContext.getRequestChain().add((FilterableRequestSpecification) request);
-        return request;
-    }*/
-
     @Override
     public void post() {
         response = buildRequest().post();
@@ -76,18 +66,11 @@ public class RestAssuredExtensionImpl implements RestAssuredExtension {
             testContext.getPathVariableChain().add(pathVariables);
         }
         testContext.getResponseChain().add(response);
-
     }
 
     @Override
     public void head() {
-/*        if(AppProperty.EVENT_SUBSCRIPTION_SIMULATION){
-            response = buildSimulatedRequest().head();
-        }else{
-            response = buildRequest().head();
-        }*/
         response = buildRequest().head();
-
         if (response.getStatusCode() == 201) {
             Map<String, String> pathVariables = new HashMap<>();
             pathVariables.put(TestUtility.getIdentifierAttribute(testContext.getApiName()), "");
@@ -112,7 +95,6 @@ public class RestAssuredExtensionImpl implements RestAssuredExtension {
     public void put() {
         response = buildRequest().put();
         testContext.getResponseChain().add(response);
-
     }
 
     @Override
@@ -154,8 +136,6 @@ public class RestAssuredExtensionImpl implements RestAssuredExtension {
         }
         return this;
     }
-
-
     @Override
     public RestAssuredExtensionImpl pathParams(Map<String, String> pathVariables) {
         if (pathVariables != null && pathVariables.size() > 0) {
@@ -185,5 +165,4 @@ public class RestAssuredExtensionImpl implements RestAssuredExtension {
         this.builder.setBaseUri(Configuration.CALLBACK_URI+ ":" + Configuration.CALLBACK_PORT);
         this.builder.setBasePath(Configuration.CALLBACK_PATH+"/"+basePath);
     }
-
 }

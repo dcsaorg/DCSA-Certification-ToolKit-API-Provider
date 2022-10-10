@@ -4,6 +4,7 @@ package org.dcsa.api.validator.webservice.controller;
 import org.dcsa.api.validator.model.UploadType;
 import org.dcsa.api.validator.reporter.util.ReportUtil;
 import org.dcsa.api.validator.util.FileUtility;
+import org.dcsa.api.validator.util.TestUtility;
 import org.dcsa.api.validator.webservice.downloader.DownloadService;
 import org.dcsa.api.validator.webservice.init.AppProperty;
 import org.dcsa.api.validator.webservice.uploader.service.StorageService;
@@ -26,9 +27,6 @@ import java.util.Optional;
 
 @RestController
 public class ProviderCtkController {
-
-    private static final String RUN_TEST_FAIL = "The compatibility tool failed to run. Please check all configurations and try again.";
-    private static final String RUN_TEST_SUCCESS = "The compatibility tool was successfully executed. Please check the report.";
     private static final String NO_REPORT_ERROR = "No report was found. Please run the compatibility tool by GET /run to generate reports.";
     private static final String TEST_SUITE_DIR = "/suitexmls/";
 
@@ -42,7 +40,8 @@ public class ProviderCtkController {
     }
 
     @GetMapping(value = "/run")
-    String runTestNg(HttpServletResponse response) {
+    void runTestNg(HttpServletResponse response) {
+        TestUtility.removeTestOutputDirectory();
         TestNG testng = new TestNG();
         final String suitePath = TEST_SUITE_DIR+AppProperty.TEST_SUITE_NAME;
         final String absolutePath = System.getProperty("user.dir") + Path.of(suitePath);
@@ -50,12 +49,7 @@ public class ProviderCtkController {
         xmlList.add(absolutePath);
         testng.setTestSuites(xmlList);
         testng.run();
-        if (testng.getStatus() == 1) {
-            downloadService.downloadHtmlReport(response, ReportUtil.getReports());
-        } else {
-            return RUN_TEST_FAIL;
-        }
-        return RUN_TEST_SUCCESS;
+        downloadService.downloadHtmlReport(response, ReportUtil.getReports());
     }
 
     @GetMapping(value    = "/", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)

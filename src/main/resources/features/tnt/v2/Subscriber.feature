@@ -3,7 +3,7 @@ Feature:
 
   @PostRequest
   Scenario:TNT.2.2.SUB.PRV_SUBSCRIPTION a new subscription request must be create new subscription_POST /event-subscriptions with a valid event type
-   Given API End point "/event-subscriptions"
+   Given API End point "/event-subscriptions" for "EventSubscription"
    And A valid callback url
    And A valid secret
    Then Send HEAD request
@@ -11,7 +11,7 @@ Feature:
 
   @HeadRequest
   Scenario:TNT.2.2.SUB.PRV.8_Head request must be received receipt of a head request and success response_POST /event subscriptions with a valid Callback Url
-    Given API End point "/event-subscriptions"
+    Given API End point "/event-subscriptions" for "EventSubscription"
     And A valid callback url
     When Set request for POST with test case "SubscriptionRequest_CallBackTest"
     And Send a POST http request
@@ -32,7 +32,7 @@ Feature:
   @Notification
   Scenario:TNT.2.2.SUB.PRV.7_Subscription requested must be rejected if the secrets are not adequate for the signature algorithm receipt an event with valid signature_POST /event subscriptions requested must be rejected if the secrets are not adequate
     Given API End point "/event-subscriptions" for "EventSubscription"
-    And A valid Callback Url
+    And A valid callback url
     When Set request for POST with test case "EventTypeTRANSPORT"
     And Send a POST http request
     Then Receive Head request for CallBackURL
@@ -43,7 +43,7 @@ Feature:
   @Notification
   Scenario:TNT.2.2.SUB.PRV.11_Notification must used rotated secret receipt an event after secret rotation_POST /event subscriptions secret receipt must used rotated
     Given API End point "/event-subscriptions" for "EventSubscription"
-    And A valid Callback Url
+    And An invalid Callback Url
     When Set request for POST with test case "EventTypeSHIPMENT"
     And Send a POST http request
     Then Receive Head request for CallBackURL

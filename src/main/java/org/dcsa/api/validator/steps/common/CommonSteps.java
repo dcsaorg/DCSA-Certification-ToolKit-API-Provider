@@ -10,6 +10,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.response.Response;
 import io.restassured.specification.FilterableRequestSpecification;
+import org.dcsa.api.validator.config.Configuration;
 import org.dcsa.api.validator.constant.StatusCode;
 import org.dcsa.api.validator.constant.TestStatusCode;
 import org.dcsa.api.validator.constant.ValidationCode;
@@ -47,10 +48,25 @@ public class CommonSteps {
     }
 
     @Given("API End point {string} for {string}")
-    public void ApiEndPointForAPi(String endPoint, String apiName) {
+    public void ApiEndPointForAPi(String endpointe, String apiName) {
         restAssuredExtension
-                .given(endPoint, apiName);
-
+                .given(endpointe, apiName);
+        TNTEventSubscriptionTO configTntEventSubscriptionTO = TestUtility.getConfigTNTEventSubscriptionTO();
+        TestContext testcontext = TestSetup.TestContexts.get(scenario.getId());
+        testcontext.setApiName(endpointe);
+        try {
+            String subscriptionId = SqlUtility.insertEventSubscription(configTntEventSubscriptionTO);
+            testcontext.setTntEventSubscriptionTO(SqlUtility.getEventSubscriptionBySubscriptionId(subscriptionId));
+            testcontext.setTestDetails("A valid subscription made with subscription ID: "+subscriptionId);
+            testcontext.setStatus((TestStatusCode.PASSED.name()));
+        } catch (Exception e) {
+            testcontext.setTestDetails("Event subscription failed");
+            testcontext.setStatus((TestStatusCode.FAILED.name()));
+        }
+        TestSetup.TestContexts.put(scenario.getId(),testcontext);
+        Assert.assertNotNull(testcontext.getTntEventSubscriptionTO().getSubscriptionID());
+        Assert.assertNotNull(testcontext.getTntEventSubscriptionTO().getCallbackUrl());
+        Assert.assertNotNull(testcontext.getTntEventSubscriptionTO().getSecret());
     }
 
     @When("Set request for POST")
@@ -94,7 +110,6 @@ public class CommonSteps {
             pathVariables.putAll(testcase.getRequest().getPathVariables());
         restAssuredExtension
                 .pathParams(pathVariables);
-
     }
 
     @When("Set request for PUT")
@@ -138,7 +153,7 @@ public class CommonSteps {
         if (testCase.getRequest().getPathVariables() != null)
             if (testCase.getRequest().getPathVariables().size() > 0)
                 pathVariables.putAll(testCase.getRequest().getPathVariables());
-        if (pathVariables != null && !(pathVariables.isEmpty())) {
+        if (!pathVariables.isEmpty()) {
         } else {
             List<String> dynamicPathVariables = testCase.getRequest().getDynamicPathVariables();
             if (dynamicPathVariables != null && !(dynamicPathVariables.isEmpty())) {
@@ -365,6 +380,8 @@ public class CommonSteps {
         String body;
         String apiName = restAssuredExtension.getTestContext().getApiName();
         TestCase testCase = TestUtility.getTestCase(apiName, testName);
+        TestContext testcontext = TestSetup.TestContexts.get(scenario.getId());
+        testcontext.setApiName(apiName);
         if (restAssuredExtension.getTestContext().getCallbackURL() != null) {
             Map<String, Object> placeholders = new HashMap<>();
             placeholders.put("callbackUrl", restAssuredExtension.getTestContext().getCallbackURL());
@@ -376,6 +393,7 @@ public class CommonSteps {
         body = TestUtility.getTestBody(apiName, "", testCase);
         restAssuredExtension
                 .body(body);
+        TestSetup.TestContexts.put(scenario.getId(), testcontext);
     }
 
     @And("Attributes to be removed {string}")
@@ -509,8 +527,8 @@ public class CommonSteps {
         ;
     }
 
-    @Given("API End point {string}")
-    public void givenEndPoint(String endpointe){
+/*    @Given("API End point {string} for {string}")
+    public void givenEndPoint(String endpointe, String apiName){
         TNTEventSubscriptionTO configTntEventSubscriptionTO = TestUtility.getConfigTNTEventSubscriptionTO();
         TestContext testcontext = TestSetup.TestContexts.get(scenario.getId());
         testcontext.setApiName(endpointe);
@@ -524,14 +542,17 @@ public class CommonSteps {
             testcontext.setStatus((TestStatusCode.FAILED.name()));
         }
         TestSetup.TestContexts.put(scenario.getId(),testcontext);
+        restAssuredExtension
+                .given(endpointe, apiName);
         Assert.assertNotNull(testcontext.getTntEventSubscriptionTO().getSubscriptionID());
         Assert.assertNotNull(testcontext.getTntEventSubscriptionTO().getCallbackUrl());
         Assert.assertNotNull(testcontext.getTntEventSubscriptionTO().getSecret());
-    }
+    }*/
     @And("A valid callback url")
     public void aValidCallbackUrl() {
         TestContext testcontext = TestSetup.TestContexts.get(scenario.getId());
         if(CallbackUtility.performHttpHead(testcontext.getTntEventSubscriptionTO().getCallbackUrl())){
+            testcontext.setCallbackURL(testcontext.getTntEventSubscriptionTO().getCallbackUrl());
             testcontext.addValidation(ValidationType.CALLBACK, "Passed");
             testcontext.setStatus((TestStatusCode.PASSED.name()));
             testcontext.setTestDetails("Valid callback found "+testcontext.getTntEventSubscriptionTO().getCallbackUrl());
@@ -587,9 +608,11 @@ public class CommonSteps {
         if(CallbackUtility.performHttpHead(testcontext.getTntEventSubscriptionTO().getCallbackUrl())){
             testcontext.addValidation(ValidationType.RESPONSEBODY, "Passed");
             testcontext.setStatus((TestStatusCode.PASSED.name()));
+            testcontext.setTestDetails("Successfully received HEAD request response");
         }else{
             testcontext.addValidation(ValidationType.RESPONSEBODY, "Failed");
             testcontext.setStatus((TestStatusCode.FAILED.name()));
+            testcontext.setTestDetails("No response from HEAD request");
         }
         TestSetup.TestContexts.put(scenario.getId(),testcontext);
     }
