@@ -46,23 +46,24 @@ public class SqlUtility {
             throw new RuntimeException(e.getMessage());
         }
     }
-   public static Connection getConnection() {
-       try {
-           if (connection == null) {
-               Properties connectionProps = new Properties();
-               connectionProps.put("user", AppProperty.DATABASE_USER_NAME);
-               connectionProps.put("password",AppProperty.DATABASE_PASSWORD);
-               // PostgreSQL JDBC Driver bug to save UUID
-               connectionProps.put("stringtype", "unspecified");
-               connection = DriverManager.getConnection(AppProperty.DATABASE_URL , connectionProps);
-               System.out.println("Connected to database");
-           }else {
-               System.out.println("Connection is initialized: "+connection);
-           }
-       }catch (Exception e){
-           System.out.println(e.getMessage());
-       }
-       return connection;
+    public static Connection getConnection() {
+        try {
+            if (connection == null) {
+                Properties connectionProps = new Properties();
+                connectionProps.put("user", AppProperty.DATABASE_USER_NAME);
+                connectionProps.put("password",AppProperty.DATABASE_PASSWORD);
+                // PostgreSQL JDBC Driver bug to save UUID
+                connectionProps.put("stringtype", "unspecified");
+                connection = DriverManager.getConnection(AppProperty.DATABASE_URL , connectionProps);
+                System.out.println("Connected to database");
+                System.out.println("Connected to the database!");
+            } else {
+                System.out.println("Connection is initialized: "+connection);
+            }
+        } catch (SQLException e) {
+            System.out.println("Connection init error: "+e.getMessage());
+        }
+        return connection;
     }
 
     static public String getSubscriptionCallBackUuid(String subscriptionId){
