@@ -9,13 +9,13 @@ DCSA's OpenAPI against the reference test suite to ensure that all
 endpoints are behaving as expected.
 
 ### Technology Stack
-* Java 11
+* Java 17
 * Cucumber
 * RestAssued/TestNG
 
 ### Project Setup
 #### 1. Clone the repository
-https://github.com/dcsaorg/DCSA-Certification-ToolKit-API-Provider.git
+`git clone https://github.com/dcsaorg/DCSA-Certification-ToolKit-API-Provider.git --recurse-submodules`
 
 #### 1. Setup the environment
 Export following environment variables 
