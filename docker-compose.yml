@@ -11,7 +11,7 @@ services:
             - TEST_DATA=config/v2/testdata.json
             - DB_HOST_IP=192.168.68.107 # change this to host IP
            # - JAVA_TOOL_OPTIONS="-agentlib:jdwp=transport=dt_socket,address=*:5005,server=y,suspend=n"
-        container_name: spring-tnt
+        container_name: provider-ctk
         build:
             context: ./
             dockerfile: Dockerfile

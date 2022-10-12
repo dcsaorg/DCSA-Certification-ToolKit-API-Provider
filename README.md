@@ -44,11 +44,14 @@ To test an API, the implementor will need the following:
  * The API should be loaded with prerequisites reference data.
  * The certification toolkit should be configured with test data provided mentioned in the API testing instructions
  * The certification toolkit SHOULD only be run on test systems(production like)
+
+#### 2. Run DCSA TNT - Track & Trace 
+Follow instruction @ https://github.com/dcsaorg/DCSA-TNT
  
 ### Executing the certification toolkit
 
 #### 1. Configure Compatibility Kit
-Configure the compatibility kit with you test data in dataconfig.json file present under resources as per instruction provided in compatibility tool kit for that API 
+Configure the compatibility kit with you test data in config.json file present under resources as per instruction provided in compatibility tool kit for that API 
 
 #### 2. Run Compatibility Kit
 Run the relevant test suite (here TnT APIs) with following options
@@ -64,17 +67,12 @@ java -jar DCSA-Validator-Toolkit.jar TestSuite.xml
 Also run it by docker-compose:
 ```shell
 // build and run
-docker-compose -f docker-compose-spring-tnt.yml up --build --remove-orphans
-docker-compose -f docker-compose-tnt.yml up --build --remove-orphans
-docker-compose -f docker-compose-notification.yml up --build --remove-orphans
+docker-compose up --build --remove-orphans
 // run
-docker-compose -f docker-compose-spring-tnt.yml up
-docker-compose -f docker-compose-tnt.yml up
-docker-compose -f docker-compose-notification.yml up
+docker-compose up
 ```
 
 
 ### Test Reports
 Following test result reports will be generated under reports folder or under mounted volume(in case of docker), you can verify the result in case of any discrepancies:
-* Excel report indicating status of all test cases and request/response trail 
 * Detailed Html report at technical level to verify each steps performed to validate a test case
