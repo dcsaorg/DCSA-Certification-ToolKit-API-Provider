@@ -15,13 +15,15 @@ import java.nio.file.Paths;
 @Configuration
 @ConfigurationProperties( prefix = "spring")
 public class AppProperty {
+
+    public static String RESOURCE_FILENAME = "application.properties";
     // TNT API keys
     private static final String API_ROOT_URI_KEY = "spring.api_root_uri";
     private static final String CONFIG_DATA_KEY = "spring.config_data";
     private static final String TEST_DATA_KEY = "spring.test_data";
     private static final String CALL_BACK_URI_KEY = "spring.callback_uri";
 
-    private static String EVENT_PATH_KEY ="spring.event_type";
+    private static String EVENT_PATH_KEY ="spring.event_path";
     private static final String CALL_BACK_PORT_KEY = "spring.callback_port";
     private static final String CALL_BACK_WAIT_KEY = "spring.callback_wait";
     private static final String TEST_SUITE_NAME_KEY = "spring.test_suite_name";
@@ -36,6 +38,15 @@ public class AppProperty {
     private static final String REPORT_TIME_FORMAT_KEY = "spring.report_time_format";
     private static final String REPORT_TIMELINE_KEY = "spring.report_timeline";
 
+    private static final String DATABASE_NAME_KEY = "spring.db_name";
+
+    private static final String DATABASE_USERNAME_KEY = "spring.username";
+
+    private static final String DATABASE_PASSWORD_KEY = "spring.password";
+
+    private static final String DATABASE_URL_KEY = "spring.url";
+
+    private static final String DATABASE_SCHEMA_KEY = "spring.schema";
 
     // TNT service static config
     public static String API_ROOT_URI;
@@ -114,40 +125,49 @@ public class AppProperty {
         AppProperty.REPORT_THEME = report_theme;
         AppProperty.REPORT_TIME_FORMAT = report_time_format;
         AppProperty.REPORT_TIMELINE = report_timeline;
-
-        String evnDbRootUri = System.getenv("DB_HOST_IP");
-        if(evnDbRootUri != null){
-            AppProperty.DATABASE_URL = url.replace("localhost", evnDbRootUri) ;
-        }else{
-            AppProperty.DATABASE_URL = url;
-        }
-        AppProperty.DATABASE_URL = AppProperty.DATABASE_URL+"/"+db_name+"?currentSchema="+schema;
-        AppProperty.DATABASE_USER_NAME = username;
-        AppProperty.DATABASE_PASSWORD = password;
+        initDatabaseProperties();
         makeUploadPath();
         isAppDataUploaded = true;
     }
 
-    public static void initByPropertyFile(){
-        AppProperty.API_ROOT_URI = PropertyLoader.getProperty(API_ROOT_URI_KEY);
-        AppProperty.CONFIG_DATA = PropertyLoader.getProperty(CONFIG_DATA_KEY);
-        AppProperty.TEST_DATA = PropertyLoader.getProperty(TEST_DATA_KEY);
-        AppProperty.CALLBACK_URI = PropertyLoader.getProperty(CALL_BACK_URI_KEY);
-        AppProperty.CALLBACK_PORT = PropertyLoader.getProperty(CALL_BACK_PORT_KEY);
-        AppProperty.CALLBACK_WAIT = PropertyLoader.getProperty(CALL_BACK_WAIT_KEY);
-        AppProperty.EVENT_PATH = PropertyLoader.getProperty(EVENT_PATH_KEY);
-        AppProperty.TEST_SUITE_NAME = PropertyLoader.getProperty(TEST_SUITE_NAME_KEY);
-        AppProperty.UPLOAD_CONFIG_PATH = PropertyLoader.getProperty(UPLOAD_CONFIG_PATH_NAME_KEY);
+    private static void initDatabaseProperties(){
+        String evnDbRootUri = System.getenv("DB_HOST_IP");
+        if(evnDbRootUri != null){
+            AppProperty.DATABASE_URL = PropertyLoader.getProperty(DATABASE_URL_KEY).replace("localhost", evnDbRootUri) ;
+        }else{
+            AppProperty.DATABASE_URL = PropertyLoader.getProperty(DATABASE_URL_KEY);
+        }
+        AppProperty.DATABASE_URL = AppProperty.DATABASE_URL+"/"+PropertyLoader.getProperty(DATABASE_NAME_KEY)+"?currentSchema="+
+                                    PropertyLoader.getProperty(DATABASE_SCHEMA_KEY);
+        AppProperty.DATABASE_USER_NAME = PropertyLoader.getProperty(DATABASE_USERNAME_KEY);
+        AppProperty.DATABASE_PASSWORD = PropertyLoader.getProperty(DATABASE_PASSWORD_KEY);
+    }
 
-        AppProperty.REPORT_AUTHOR = PropertyLoader.getProperty(REPORT_AUTHOR_KEY);
-        AppProperty.REPORT_COMPANY = PropertyLoader.getProperty(REPORT_COMPANY_KEY);
-        AppProperty.REPORT_DIRECTORY = PropertyLoader.getProperty(REPORT_DIRECTORY_KEY);
-        AppProperty.REPORT_NAME = PropertyLoader.getProperty(REPORT_NAME_KEY);
-        AppProperty.REPORT_TITLE = PropertyLoader.getProperty(REPORT_TITLE_KEY);
-        AppProperty.REPORT_THEME = PropertyLoader.getProperty(REPORT_THEME_KEY);
-        AppProperty.REPORT_TIME_FORMAT = PropertyLoader.getProperty(REPORT_TIME_FORMAT_KEY);
-        AppProperty.REPORT_TIMELINE = PropertyLoader.getProperty(REPORT_TIMELINE_KEY);
-        isAppDataUploaded = true;
+
+    public static void initByPropertyFile(){
+        if(!isAppDataUploaded) {
+            AppProperty.API_ROOT_URI = PropertyLoader.getProperty(API_ROOT_URI_KEY);
+            AppProperty.CONFIG_DATA = PropertyLoader.getProperty(CONFIG_DATA_KEY);
+            AppProperty.TEST_DATA = PropertyLoader.getProperty(TEST_DATA_KEY);
+            AppProperty.CALLBACK_URI = PropertyLoader.getProperty(CALL_BACK_URI_KEY);
+            AppProperty.CALLBACK_PORT = PropertyLoader.getProperty(CALL_BACK_PORT_KEY);
+            AppProperty.CALLBACK_WAIT = PropertyLoader.getProperty(CALL_BACK_WAIT_KEY);
+            AppProperty.EVENT_PATH = PropertyLoader.getProperty(EVENT_PATH_KEY);
+            AppProperty.TEST_SUITE_NAME = PropertyLoader.getProperty(TEST_SUITE_NAME_KEY);
+            AppProperty.UPLOAD_CONFIG_PATH = PropertyLoader.getProperty(UPLOAD_CONFIG_PATH_NAME_KEY);
+
+            AppProperty.REPORT_AUTHOR = PropertyLoader.getProperty(REPORT_AUTHOR_KEY);
+            AppProperty.REPORT_COMPANY = PropertyLoader.getProperty(REPORT_COMPANY_KEY);
+            AppProperty.REPORT_DIRECTORY = PropertyLoader.getProperty(REPORT_DIRECTORY_KEY);
+            AppProperty.REPORT_NAME = PropertyLoader.getProperty(REPORT_NAME_KEY);
+            AppProperty.REPORT_TITLE = PropertyLoader.getProperty(REPORT_TITLE_KEY);
+            AppProperty.REPORT_THEME = PropertyLoader.getProperty(REPORT_THEME_KEY);
+            AppProperty.REPORT_TIME_FORMAT = PropertyLoader.getProperty(REPORT_TIME_FORMAT_KEY);
+            AppProperty.REPORT_TIMELINE = PropertyLoader.getProperty(REPORT_TIMELINE_KEY);
+
+            initDatabaseProperties();
+            isAppDataUploaded = true;
+        }
     }
 
     private static void makeUploadPath(){

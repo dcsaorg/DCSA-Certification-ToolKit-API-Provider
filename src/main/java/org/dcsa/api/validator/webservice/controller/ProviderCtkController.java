@@ -17,8 +17,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.testng.TestNG;
+import spark.utils.ResourceUtils;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -41,13 +43,12 @@ public class ProviderCtkController {
     }
 
     @GetMapping(value = "/run")
-    void runTestNg(HttpServletResponse response) {
+    void runTestNg(HttpServletResponse response) throws FileNotFoundException {
         TestUtility.removeTestOutputDirectory();
         TestNG testng = new TestNG();
-        final String suitePath = TEST_SUITE_DIR+AppProperty.TEST_SUITE_NAME;
-        final String absolutePath = System.getProperty("user.dir") + Path.of(suitePath);
+        String suitePath = FileUtility.getResourcePath(AppProperty.TEST_SUITE_NAME);
         List<String> xmlList = new ArrayList<>();
-        xmlList.add(absolutePath);
+        xmlList.add(suitePath);
         testng.setTestSuites(xmlList);
         testng.run();
         SqlUtility.truncateEventSubscriptionTable();

@@ -11,6 +11,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Objects;
 import java.util.logging.Level;
 
 @Log
@@ -62,6 +63,16 @@ public class FileUtility {
     }
     public static String winPathToUnixPth(String path) {
         return path.indexOf('\\') < 0 ? path : path.replace('\\', '/');
+    }
+    public static String getResourcePath(String resourceName){
+        String suiteDir = "suitexmls/";
+        ClassLoader classLoader = FileUtility.class.getClassLoader();
+        File file = new File(Objects.requireNonNull(classLoader.getResource(suiteDir+resourceName)).getFile());
+        return file.getAbsolutePath();
+    }
+
+    public static String getExternalConfigPath(){
+       return System.getProperty("user.dir")+"/config/application.properties";
     }
 
 }
