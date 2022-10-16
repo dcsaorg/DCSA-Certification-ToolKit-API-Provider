@@ -8,7 +8,6 @@ import io.restassured.response.Response;
 import io.restassured.specification.FilterableRequestSpecification;
 import io.restassured.specification.RequestSpecification;
 import lombok.Data;
-import org.dcsa.api.validator.config.Configuration;
 import org.dcsa.api.validator.model.TNTEventSubscriptionTO;
 import org.dcsa.api.validator.model.TestContext;
 import org.dcsa.api.validator.model.ValidationResult;
@@ -40,8 +39,8 @@ public class RestAssuredExtensionImpl implements RestAssuredExtension {
         testContext.setApiName(apiName);
         testContext.setCallbackURL(tntEventSubscriptionTO.getCallbackUrl());
         this.builder = new RequestSpecBuilder();
-        this.builder.addHeader("API-Version", Configuration.API_VERSION.split("\\.")[0]);
-        this.builder.setBaseUri(Configuration.ROOT_URI+"/v"+Configuration.API_VERSION.split("\\.")[0]);
+        this.builder.addHeader("API-Version", AppProperty.API_VERSION.split("\\.")[0]);
+        this.builder.setBaseUri(AppProperty.API_ROOT_URI+"/v"+AppProperty.API_VERSION.split("\\.")[0]);
         this.builder.setContentType(ContentType.JSON);
     }
 
@@ -51,7 +50,7 @@ public class RestAssuredExtensionImpl implements RestAssuredExtension {
                 .header( new Header("Notification-Signature", "sha256=05ca1872139f56e039040228f4e55c51550b37c50d905b44314325d171299de7"))
                 .relaxedHTTPSValidation()
                 .auth()
-                .oauth2(Configuration.accessToken)
+                .oauth2(AppProperty.ACCESS_TOKEN)
                 .filter(new RestAssuredRequestFilter(testContext.getScenario())).spec(builder.build());
         testContext.getRequestChain().add((FilterableRequestSpecification) request);
         return request;
@@ -162,7 +161,7 @@ public class RestAssuredExtensionImpl implements RestAssuredExtension {
     public void setCallbackUri(String callbackUri) {
         this.callbackUri = callbackUri;
         String basePath = callbackUri.substring(callbackUri.lastIndexOf('/') + 1);
-        this.builder.setBaseUri(Configuration.CALLBACK_URI+ ":" + Configuration.CALLBACK_PORT);
-        this.builder.setBasePath(Configuration.CALLBACK_PATH+"/"+basePath);
+        this.builder.setBaseUri(AppProperty.CALLBACK_URI+ ":" + AppProperty.CALLBACK_PORT);
+        this.builder.setBasePath(AppProperty.CALLBACK_PATH+"/"+basePath);
     }
 }

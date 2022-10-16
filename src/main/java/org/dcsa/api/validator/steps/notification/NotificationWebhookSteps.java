@@ -4,14 +4,12 @@ import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
-import org.dcsa.api.validator.config.Configuration;
 import org.dcsa.api.validator.hook.TestSetup;
 import org.dcsa.api.validator.model.CallbackContext;
 import org.dcsa.api.validator.model.TNTEventSubscriptionTO;
 import org.dcsa.api.validator.model.TestContext;
 import org.dcsa.api.validator.util.FileUtility;
 import org.dcsa.api.validator.util.JsonUtility;
-import org.dcsa.api.validator.util.SqlUtility;
 import org.dcsa.api.validator.util.TestUtility;
 import org.dcsa.api.validator.webhook.SparkWebHook;
 import org.dcsa.api.validator.webservice.init.AppProperty;
@@ -41,7 +39,7 @@ public class NotificationWebhookSteps {
     public void receiveHeadRequestForCallBackURL() {
         try {
             System.out.println("Waiting for callback head request ");
-            callbackContext.getHeadRequestLock().await(Configuration.CALLBACK_WAIT, TimeUnit.MILLISECONDS);
+            callbackContext.getHeadRequestLock().await(AppProperty.CALLBACK_WAIT, TimeUnit.MILLISECONDS);
         } catch (InterruptedException e) {
            // e.printStackTrace();
             Assert.fail("Head Request not received");
@@ -59,7 +57,7 @@ public class NotificationWebhookSteps {
         TestContext testcontext = TestSetup.TestContexts.get(scenario.getId());
         try {
             System.out.println("Waiting for Notification");
-            callbackContext.getNotificationRequestLock().await(Configuration.CALLBACK_WAIT, TimeUnit.MILLISECONDS);
+            callbackContext.getNotificationRequestLock().await(AppProperty.CALLBACK_WAIT, TimeUnit.MILLISECONDS);
         } catch (InterruptedException e) {
             e.printStackTrace();
             Assert.fail("Head Request not received");
@@ -143,7 +141,7 @@ public class NotificationWebhookSteps {
         TestContext testcontext = TestSetup.TestContexts.get(scenario.getId());
         TNTEventSubscriptionTO tntEventSubscriptionTO = TestUtility.getConfigTNTEventSubscriptionTO();
         String uuid = tntEventSubscriptionTO.getCallbackUrl().substring(tntEventSubscriptionTO.getCallbackUrl().lastIndexOf("/"));
-        testcontext.setCallbackURL(Configuration.CALLBACK_URI + ":" + Configuration.CALLBACK_PORT + Configuration.CALLBACK_PATH+ uuid+uuid);
+        testcontext.setCallbackURL(AppProperty.CALLBACK_URI + ":" + AppProperty.CALLBACK_PORT + AppProperty.CALLBACK_PATH+ uuid+uuid);
         testcontext.setTestDetails(". Set an invalid callback url "+testcontext.getCallbackURL());
         TestSetup.TestContexts.put(scenario.getId(), testcontext);
     }

@@ -9,7 +9,6 @@ import java.io.InputStream;
 import java.util.Properties;
 import java.util.logging.Level;
 
-import static org.dcsa.api.validator.webservice.init.AppProperty.RESOURCE_FILENAME;
 
 @Log
 public class PropertyLoader {
@@ -19,7 +18,7 @@ public class PropertyLoader {
 
     private PropertyLoader(String configName) {
         if(AppProperty.isAppDataUploaded) {
-            try (InputStream inputStream = FileUtility.getInputStream(AppProperty.uploadPath.toAbsolutePath() + File.separator + RESOURCE_FILENAME)) {
+            try (InputStream inputStream = FileUtility.getInputStream(AppProperty.uploadPath.toAbsolutePath() + File.separator + AppProperty.RESOURCE_FILENAME)) {
                 properties = new Properties();
                 properties.load(inputStream);
             } catch (IOException e) {
@@ -33,7 +32,7 @@ public class PropertyLoader {
                 log.log(Level.SEVERE, e.getMessage());
             }
         }else {
-            try (InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(RESOURCE_FILENAME)) {
+            try (InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(AppProperty.RESOURCE_FILENAME)) {
                 properties = new Properties();
                 properties.load(inputStream);
             } catch (IOException e) {
@@ -49,10 +48,10 @@ public class PropertyLoader {
     }
 
     public static String getProperty(String key) {
-        return getInstance(RESOURCE_FILENAME).properties.getProperty(key);
+        return getInstance(AppProperty.RESOURCE_FILENAME).properties.getProperty(key);
     }
 
     public static void setResourceFilename(String resourceFilename){
-        RESOURCE_FILENAME = resourceFilename;
+        AppProperty.RESOURCE_FILENAME = resourceFilename;
     }
 }

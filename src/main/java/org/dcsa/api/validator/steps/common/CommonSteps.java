@@ -9,8 +9,6 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.response.Response;
-import io.restassured.specification.FilterableRequestSpecification;
-import org.dcsa.api.validator.config.Configuration;
 import org.dcsa.api.validator.constant.StatusCode;
 import org.dcsa.api.validator.constant.TestStatusCode;
 import org.dcsa.api.validator.constant.ValidationCode;
@@ -25,7 +23,6 @@ import org.dcsa.api.validator.util.CallbackUtility;
 import org.dcsa.api.validator.util.FileUtility;
 import org.dcsa.api.validator.util.SqlUtility;
 import org.dcsa.api.validator.util.TestUtility;
-import org.dcsa.api.validator.webservice.init.AppProperty;
 import org.testng.Assert;
 
 import java.util.*;

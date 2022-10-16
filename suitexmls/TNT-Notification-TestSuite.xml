@@ -11,7 +11,7 @@
         </packages>
 
         <classes>
-            <class name="org.dcsa.api.validator.config.Configuration"/>
+<!--            <class name="org.dcsa.api.validator.webservice.init.AppProperty"/>-->
             <class name="org.dcsa.api.validator.hook.TestSetup"/>
             <class name="org.dcsa.api.validator.runner.SubscriberTestRunner"/>
         </classes>

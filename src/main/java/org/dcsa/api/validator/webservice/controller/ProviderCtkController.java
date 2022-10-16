@@ -31,24 +31,24 @@ import java.util.Optional;
 @RestController
 public class ProviderCtkController {
     private static final String NO_REPORT_ERROR = "No report was found. Please run the compatibility tool by GET /run to generate reports.";
-    private static final String TEST_SUITE_DIR = "/suitexmls/";
+    private static final String TEST_SUITE_DIR = "/config/suitexmls/";
 
     private final DownloadService downloadService;
     private final StorageService storageService;
 
-    public ProviderCtkController(AppProperty appProperty, DownloadService downloadService, StorageService storageService) {
+    public ProviderCtkController(AppProperty appProperty, DownloadService downloadService, StorageService storageService) throws Exception {
         this.downloadService = downloadService;
         this.storageService = storageService;
         appProperty.init();
     }
 
     @GetMapping(value = "/run")
-    void runTestNg(HttpServletResponse response) throws FileNotFoundException {
+    void runTestNg(HttpServletResponse response){
         TestUtility.removeTestOutputDirectory();
         TestNG testng = new TestNG();
-        String suitePath = FileUtility.getResourcePath(AppProperty.TEST_SUITE_NAME);
+        final String absolutePath = FileUtility.getResourcePath(AppProperty.TEST_SUITE_NAME); //FileUtility.getTestSuitePath();
         List<String> xmlList = new ArrayList<>();
-        xmlList.add(suitePath);
+        xmlList.add(absolutePath);
         testng.setTestSuites(xmlList);
         testng.run();
         SqlUtility.truncateEventSubscriptionTable();

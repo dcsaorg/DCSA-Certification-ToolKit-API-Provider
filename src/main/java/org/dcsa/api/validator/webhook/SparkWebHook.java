@@ -1,9 +1,9 @@
 package org.dcsa.api.validator.webhook;
 
-import org.dcsa.api.validator.config.Configuration;
 import org.dcsa.api.validator.model.CallbackContext;
 import org.dcsa.api.validator.model.TNTEventSubscriptionTO;
 import org.dcsa.api.validator.util.TestUtility;
+import org.dcsa.api.validator.webservice.init.AppProperty;
 import spark.Spark;
 
 import java.util.HashMap;
@@ -13,9 +13,9 @@ public class SparkWebHook {
     CallbackContext callbackContext;
 
     public void startServer() {
-        Spark.port(Configuration.CALLBACK_PORT);
+        Spark.port(AppProperty.CALLBACK_PORT);
 
-        Spark.post(Configuration.CALLBACK_PATH+"/:uuid", (req, res) -> {
+        Spark.post(AppProperty.CALLBACK_PATH+"/:uuid", (req, res) -> {
             TNTEventSubscriptionTO tntEventSubscriptionTO = TestUtility.getConfigTNTEventSubscriptionTO();
             String uuid = tntEventSubscriptionTO.getCallbackUrl().substring(tntEventSubscriptionTO.getCallbackUrl().lastIndexOf("/")+1);
             res.status(201);
@@ -33,7 +33,7 @@ public class SparkWebHook {
             return "{\"status\":\"OK\"}";
         });
 
-        Spark.head(Configuration.CALLBACK_PATH+"/:uuid", (req, res) -> {
+        Spark.head(AppProperty.CALLBACK_PATH+"/:uuid", (req, res) -> {
             TNTEventSubscriptionTO tntEventSubscriptionTO = TestUtility.getConfigTNTEventSubscriptionTO();
             String uuid = tntEventSubscriptionTO.getCallbackUrl().substring(tntEventSubscriptionTO.getCallbackUrl().lastIndexOf("/")+1);
             res.header("Content-Type", "application/json");

@@ -1,6 +1,7 @@
 package org.dcsa.api.validator.util;
 
 import lombok.extern.java.Log;
+import org.dcsa.api.validator.webservice.init.AppProperty;
 import org.springframework.core.io.ByteArrayResource;
 
 import java.io.File;
@@ -68,7 +69,13 @@ public class FileUtility {
         String suiteDir = "suitexmls/";
         ClassLoader classLoader = FileUtility.class.getClassLoader();
         File file = new File(Objects.requireNonNull(classLoader.getResource(suiteDir+resourceName)).getFile());
-        return file.getAbsolutePath();
+            return file.getAbsolutePath();
+    }
+
+    public static String getTestSuitePath(){
+        final String suitePath = "/config/suitexmls/"+AppProperty.TEST_SUITE_NAME;
+        final String absolutePath = System.getProperty("user.dir") + Path.of(suitePath);
+        return absolutePath;
     }
 
     public static String getExternalConfigPath(){

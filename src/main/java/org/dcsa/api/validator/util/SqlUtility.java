@@ -55,7 +55,6 @@ public class SqlUtility {
                 // PostgreSQL JDBC Driver bug to save UUID
                 connectionProps.put("stringtype", "unspecified");
                 connection = DriverManager.getConnection(AppProperty.DATABASE_URL , connectionProps);
-                System.out.println("Connected to database");
                 System.out.println("Connected to the database!");
             } else {
                 System.out.println("Connection is initialized: "+connection);
