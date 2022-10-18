@@ -256,10 +256,12 @@ public class ValidatableResponseExtensionImpl implements ValidatableResponseExte
             for (String header : headers) {
                 assert response != null;
                 String headerValue=response.getHeader(header);
-                if(headerValue==null || (header.equals("Content-Type")&&!headerValue.contains("json")))
-                {
-                    addValidation(ValidationType.HTTPHEADER, "Failed, Reason:"+header+" is missing in header");
-                    Assert.fail(header+" is missing in header");
+                if(headerValue != null){
+                    if( header.equals("Content-Type")&&!headerValue.contains("json") || header.equals("2.2"))
+                    {
+                        addValidation(ValidationType.HTTPHEADER, "Failed, Reason:"+header+" is missing in header");
+                        Assert.fail(header+" is missing in header");
+                    }
                 }
             }
         }
