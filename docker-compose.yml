@@ -2,14 +2,14 @@ version: '3.5'
 services:
     ctk-tnt:
         environment:
-            - API_ROOT_URI=http://192.168.68.107:9090 # change this to host IP
+            - API_ROOT_URI=http://10.201.215.193:9090 # change this to host IP
             - CALLBACK_PORT=9999
             - CALLBACK_URI=http://localhost
             - CALLBACK_WAIT=3000
             - TEST_SUITE=TNT-TestSuite.xml
             - CONFIG_DATA=config/v2/config.json
             - TEST_DATA=config/v2/testdata.json
-            - DB_HOST_IP=192.168.68.107 # change this to host IP
+            - DB_HOST_IP=10.201.215.193 # change this to host IP
            # - JAVA_TOOL_OPTIONS="-agentlib:jdwp=transport=dt_socket,address=*:5005,server=y,suspend=n"
         container_name: provider-ctk
         build:

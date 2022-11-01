@@ -15,7 +15,7 @@ endpoints are behaving as expected.
 
 ### Project Setup
 #### 1. Clone the repository
-`git clone https://github.com/dcsaorg/DCSA-Certification-ToolKit-API-Provider.git --recurse-submodules`
+`git clone https://github.com/dcsaorg/DCSA-Certification-ToolKit-API-Provider.git`
 
 #### 1. Setup the environment
 Export following environment variables 
