@@ -83,6 +83,8 @@ public class AppProperty {
     public static String AUDIENCE;
     public static String CALLBACK_PATH;
 
+    public static String SUBSCRIPTION_ID;
+
     private String url;
     private String password;
     private String username;
@@ -118,6 +120,7 @@ public class AppProperty {
 
     public void init() throws Exception {
         // TNT service config
+        SUBSCRIPTION_ID = "";
         CLIENT_SECRET = System.getenv("client_secret");
         CLIENT_ID = System.getenv("client_id");
         AUDIENCE = System.getenv("audience");

@@ -23,6 +23,7 @@ import org.dcsa.api.validator.util.CallbackUtility;
 import org.dcsa.api.validator.util.FileUtility;
 import org.dcsa.api.validator.util.SqlUtility;
 import org.dcsa.api.validator.util.TestUtility;
+import org.dcsa.api.validator.webservice.init.AppProperty;
 import org.testng.Assert;
 
 import java.util.*;
@@ -44,6 +45,8 @@ public class CommonSteps {
         headers.add("Content-Type");
     }
 
+    private String subscriptionId = "";
+
     @Given("API End point {string} for {string}")
     public void ApiEndPointForAPi(String endpointe, String apiName) {
         restAssuredExtension
@@ -52,9 +55,11 @@ public class CommonSteps {
         TestContext testcontext = TestSetup.TestContexts.get(scenario.getId());
         testcontext.setApiName(endpointe);
         try {
-            String subscriptionId = SqlUtility.insertEventSubscription(configTntEventSubscriptionTO);
-            testcontext.setTntEventSubscriptionTO(SqlUtility.getEventSubscriptionBySubscriptionId(subscriptionId));
-            testcontext.setTestDetails("A valid subscription made with subscription ID: "+subscriptionId);
+            if(AppProperty.SUBSCRIPTION_ID.isBlank()) {
+                AppProperty.SUBSCRIPTION_ID = SqlUtility.insertEventSubscription(configTntEventSubscriptionTO);
+            }
+            testcontext.setTntEventSubscriptionTO(SqlUtility.getEventSubscriptionBySubscriptionId(AppProperty.SUBSCRIPTION_ID));
+            testcontext.setTestDetails("A valid subscription made with subscription ID: "+AppProperty.SUBSCRIPTION_ID);
             testcontext.setStatus((TestStatusCode.PASSED.name()));
         } catch (Exception e) {
             testcontext.setTestDetails("Event subscription failed");
