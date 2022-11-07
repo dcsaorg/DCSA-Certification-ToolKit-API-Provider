@@ -6,7 +6,6 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import org.dcsa.api.validator.hook.TestSetup;
 import org.dcsa.api.validator.model.CallbackContext;
-import org.dcsa.api.validator.model.TNTEventSubscriptionTO;
 import org.dcsa.api.validator.model.TestContext;
 import org.dcsa.api.validator.util.FileUtility;
 import org.dcsa.api.validator.util.JsonUtility;
@@ -15,7 +14,6 @@ import org.dcsa.api.validator.webhook.SparkWebHook;
 import org.dcsa.api.validator.webservice.init.AppProperty;
 import org.testng.Assert;
 
-import java.util.Base64;
 import java.util.concurrent.TimeUnit;
 
 public class NotificationWebhookSteps {
@@ -41,7 +39,6 @@ public class NotificationWebhookSteps {
             System.out.println("Waiting for callback head request ");
             callbackContext.getHeadRequestLock().await(AppProperty.CALLBACK_WAIT, TimeUnit.MILLISECONDS);
         } catch (InterruptedException e) {
-           // e.printStackTrace();
             Assert.fail("Head Request not received");
         }
         if (!callbackContext.isHeadRequestReceived()) {
@@ -52,51 +49,12 @@ public class NotificationWebhookSteps {
         callbackContext.setHeadRequestCountDown(1);
     }
 
-    @And("Receive a notification {string}")
-    public void receiveAValidNotification(String event) {
+    @And("Receive a valid notification")
+    public void receiveAValidNotification() {
         TestContext testcontext = TestSetup.TestContexts.get(scenario.getId());
         try {
             System.out.println("Waiting for Notification");
             callbackContext.getNotificationRequestLock().await(AppProperty.CALLBACK_WAIT, TimeUnit.MILLISECONDS);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            Assert.fail("Head Request not received");
-        }
-        if (!callbackContext.isNotificationReceived()) {
-            testcontext.setReasonOfFailure("Notification not Received");
-            Assert.fail("Notification not Received");
-        }
-        testcontext.getMessage().add("Notification Received \n");
-        testcontext.getMessage().add(callbackContext.getHeaders().toString());
-        String receivedSignature = Base64.getEncoder().encodeToString(TestUtility.getConfigTNTEventSubscriptionTO().getSecret());
-        if (receivedSignature == null) {
-            testcontext.setReasonOfFailure("Notification-Signature missing in request header");
-            Assert.fail("Notification-Signature missing in request header");
-        }
-
-        String schemaString= FileUtility.loadResourceAsString(TestUtility.getResponseSchema(event));
-        try {
-            boolean isValid=JsonUtility.validateSchema(schemaString,callbackContext.getNotificationBody());
-            if(!isValid)
-                Assert.fail("Schema validation failed");
-        } catch (Exception e) {
-            Assert.fail(e.getMessage());
-        }
-        String expectedSignature =  Base64.getEncoder().encodeToString(testcontext.getTntEventSubscriptionTO().getSecret());
-        if (!expectedSignature.equals(receivedSignature)) {
-            testcontext.setReasonOfFailure("Invalid Signature: Expected=>" + expectedSignature + "\n\n received=>" + receivedSignature);
-        }
-        Assert.assertEquals(receivedSignature,expectedSignature);
-        callbackContext.setNotificationCountDown(1);
-    }
-
-/*
-    @And("Receive a notification {string}")
-    public void receiveAValidNotification(String event) {
-        TestContext testcontext = TestSetup.TestContexts.get(scenario.getId());
-        try {
-            System.out.println("Waiting for Notification");
-            callbackContext.getNotificationRequestLock().await(Configuration.CALLBACK_WAIT, TimeUnit.MILLISECONDS);
         } catch (InterruptedException e) {
             e.printStackTrace();
             Assert.fail("Head Request not received");
@@ -113,7 +71,7 @@ public class NotificationWebhookSteps {
             Assert.fail("Notification-Signature missing in request header");
         }
 
-        String schemaString= FileUtility.loadResourceAsString(TestUtility.getResponseSchema(event));
+        String schemaString= FileUtility.loadFileAsString(TestUtility.getResponseSchema("Event"));
         try {
             boolean isValid=JsonUtility.validateSchema(schemaString,callbackContext.getNotificationBody());
             if(!isValid)
@@ -132,18 +90,6 @@ public class NotificationWebhookSteps {
         }
         Assert.assertEquals(receivedSignature,expectedSignature);
         callbackContext.setNotificationCountDown(1);
-    }*/
-
-
-
-    @And("An invalid Callback Url")
-    public void aInvalidCallbackUrl() {
-        TestContext testcontext = TestSetup.TestContexts.get(scenario.getId());
-        TNTEventSubscriptionTO tntEventSubscriptionTO = TestUtility.getConfigTNTEventSubscriptionTO();
-        String uuid = tntEventSubscriptionTO.getCallbackUrl().substring(tntEventSubscriptionTO.getCallbackUrl().lastIndexOf("/"));
-        testcontext.setCallbackURL(AppProperty.CALLBACK_URI + ":" + AppProperty.CALLBACK_PORT + AppProperty.CALLBACK_PATH+ uuid+uuid);
-        testcontext.setTestDetails(". Set an invalid callback url "+testcontext.getCallbackURL());
-        TestSetup.TestContexts.put(scenario.getId(), testcontext);
     }
 
 }

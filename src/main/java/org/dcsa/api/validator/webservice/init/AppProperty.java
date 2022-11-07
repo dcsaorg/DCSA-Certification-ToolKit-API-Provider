@@ -72,11 +72,7 @@ public class AppProperty {
 
     public static String DATABASE_IP;
     public static String API_VERSION = "2.2.0";
-/*    public static String CONFIG_DATA;
-    public static String TEST_DATA;
-    public static String CALLBACK_URI;
-    public static Integer CALLBACK_PORT;
-    public static Integer CALLBACK_WAIT;*/
+
     public static String ACCESS_TOKEN;
     public static String CLIENT_SECRET;
     public static String CLIENT_ID;

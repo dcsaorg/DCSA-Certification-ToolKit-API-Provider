@@ -4,6 +4,7 @@ import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.http.Header;
+import io.restassured.http.Method;
 import io.restassured.response.Response;
 import io.restassured.specification.FilterableRequestSpecification;
 import io.restassured.specification.RequestSpecification;
@@ -57,7 +58,7 @@ public class RestAssuredExtensionImpl implements RestAssuredExtension {
     }
     @Override
     public void post() {
-        response = buildRequest().post();
+        response = performPost();
         if (response.getStatusCode() == 201) {
             String value = response.jsonPath().get(TestUtility.getIdentifierAttribute(testContext.getApiName()));
             Map<String, String> pathVariables = new HashMap<>();
@@ -66,7 +67,11 @@ public class RestAssuredExtensionImpl implements RestAssuredExtension {
         }
         testContext.getResponseChain().add(response);
     }
-
+    public Response performPost() {
+        RequestSpecification httpRequest = RestAssured.given();
+        Response response = httpRequest.request(Method.POST, testContext.getCallbackURL());
+        return response;
+    }
     @Override
     public void head() {
         response = buildRequest().head();

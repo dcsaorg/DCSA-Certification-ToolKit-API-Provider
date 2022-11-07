@@ -1,4 +1,4 @@
-FROM openjdk:17
+FROM eclipse-temurin:17-jre-alpine
 RUN mkdir -p /ctk
 RUN mkdir -p /ctk/config/tnt/v2/
 WORKDIR /ctk
