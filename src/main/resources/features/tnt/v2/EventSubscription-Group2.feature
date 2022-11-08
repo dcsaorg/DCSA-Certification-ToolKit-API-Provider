@@ -3,7 +3,7 @@ Feature:
 
   Background: Create a default subscription
     Given API End point "/event-subscriptions" for "EventSubscription"
-    And A valid Callback Url
+    And A valid callback url
     When Set request for POST with test case "EventTypeSHIPMENT"
     And Send a POST http request
     And Receive valid response for POST
@@ -28,8 +28,8 @@ Feature:
     And Send a PUT http request
     Then Receive invalid response for PUT
     Examples:
-      | placeholder | value                                                                                    |
-      | secret      | OG1wOWFaRW1HTTF1Y2NuaUN0RlAtaU9JMjM5N25vMWtWd25rS2Vkc2ktZms0c01zaTJQOElZRVNQN29MYUkzcg== |
+      | placeholder            | value       |
+      | secret | OG1wOWFaRW1HTTF1Y2NuaUN0RlAtaU9JMjM5N25vMWtWd25rS2Vkc2ktZms0c01zaTJQOElZRVNQN29MYUkzcg== |
 
 
   Scenario Outline:TNT.2.2.SUB.PRV.4_PUT /event-subscriptions/{subscriptionID}_PUT /event-subscriptions update secret
@@ -51,7 +51,7 @@ Feature:
   Scenario:TNT.2.2.ERR.PRV.404_Test case validating "not found" request - HTTP 404_DELETE /event-subscriptions with invalid ID
     Given API End point "/event-subscriptions/{subscriptionID}" for "EventSubscription"
     And Path parameters with values
-      | pathVariable   | value                                |
+      | pathVariable   | value                                 |
       | subscriptionID | 550173fc-dd7f-403a-9b13-f022a4df99ba |
     When Send a DELETE http request
     Then Receive response code "404"

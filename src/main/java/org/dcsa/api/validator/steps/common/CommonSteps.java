@@ -85,7 +85,7 @@ public class CommonSteps {
     @When("Send a POST http request")
     public void createForGivenTestData() {
         restAssuredExtension
-                .post   ();
+                .post();
     }
 
     @When("Send GET http request")

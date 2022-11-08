@@ -17,6 +17,7 @@ import org.dcsa.api.validator.restassured.extension.ValidatableResponseExtension
 import org.dcsa.api.validator.restassured.extension.filter.RestAssuredRequestFilter;
 import org.dcsa.api.validator.util.TestUtility;
 import org.dcsa.api.validator.webservice.init.AppProperty;
+import org.eclipse.jetty.http.HttpStatus;
 
 import java.util.HashMap;
 import java.util.List;
@@ -59,7 +60,7 @@ public class RestAssuredExtensionImpl implements RestAssuredExtension {
     @Override
     public void post() {
         response = performPost();
-        if (response.getStatusCode() == 201) {
+        if (response.getStatusCode() == HttpStatus.CREATED_201) {
             String value = response.jsonPath().get(TestUtility.getIdentifierAttribute(testContext.getApiName()));
             Map<String, String> pathVariables = new HashMap<>();
             pathVariables.put(TestUtility.getIdentifierAttribute(testContext.getApiName()), value);
@@ -70,6 +71,13 @@ public class RestAssuredExtensionImpl implements RestAssuredExtension {
     public Response performPost() {
         RequestSpecification httpRequest = RestAssured.given();
         Response response = httpRequest.request(Method.POST, testContext.getCallbackURL());
+        if (response.getStatusCode() == HttpStatus.CREATED_201) {
+            testContext.setTestDetails(response.asString());
+            testContext.setTestDetails(response.getBody().prettyPrint());
+        }else{
+            testContext.setTestDetails(response.asString());
+            testContext.setTestDetails(response.getBody().prettyPrint());
+        }
         return response;
     }
     @Override
@@ -85,8 +93,21 @@ public class RestAssuredExtensionImpl implements RestAssuredExtension {
 
     @Override
     public void get() {
-        response = buildRequest().get();
+        response = performGet();
         testContext.getResponseChain().add(response);
+    }
+
+    public Response performGet() {
+        RequestSpecification httpRequest = RestAssured.given();
+        Response response = httpRequest.request(Method.GET, AppProperty.API_ROOT_URI+"/v2/events");
+        if(response.getStatusCode() == HttpStatus.OK_200){
+            testContext.setTestDetails(response.asString());
+            testContext.setTestDetails(response.getBody().prettyPrint());
+        }else{
+            testContext.setTestDetails(response.asString());
+            testContext.setTestDetails(response.getBody().prettyPrint());
+        }
+        return response;
     }
 
     @Override
