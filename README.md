@@ -1,6 +1,15 @@
 <p align="left">
   <a href="https://github.com/dcsaorg/DCSA-Certification-ToolKit-API-Provider"><img alt="GitHub Actions status" src="https://github.com/actions/setup-java/workflows/Main%20workflow/badge.svg"></a>
 </p>
+
+Status
+-------------------------------------
+This certification toolkit is targeted at the DCSA standard for Track and Trace v2.2.
+
+This certification toolkit is currently in a "pre-alpha" development stage. It must not be used to establish conformance of implementations of the standard.
+
+It is made available in order to allow early feedback on the toolkit itself.
+
 # DCSA-Certification-ToolKit-API-Provider
 Concept version of a new certification toolkit. 
 
