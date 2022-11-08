@@ -1,8 +1,7 @@
-FROM eclipse-temurin:17-jre-alpine
+FROM openjdk:17
 RUN mkdir -p /ctk
 RUN mkdir -p /ctk/config/tnt/v2/
 WORKDIR /ctk
-#COPY suitexmls/ /ctk/suitexmls/
 COPY config/tnt/v2/EventSubscription.json /ctk/config/tnt/v2/
 COPY config/application.properties /ctk/config/application.properties
 COPY .mvn/ .mvn
