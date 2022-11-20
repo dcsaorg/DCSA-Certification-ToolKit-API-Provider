@@ -14,6 +14,7 @@ import java.nio.file.Paths;
 @Configuration
 @ConfigurationProperties("app")
 public class AppProperty {
+    public static String RESOURCE_FILENAME = "application.properties";
     // TNT service static config
     public static String API_ROOT_URI;
     public static String TEST_DATA;

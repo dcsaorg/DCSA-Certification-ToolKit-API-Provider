@@ -1,65 +1,70 @@
 package org.dcsa.api.validator.webservice.controller;
 
 
+import org.dcsa.api.validator.model.enums.UploadType;
 import org.dcsa.api.validator.reporter.util.ReportUtil;
 import org.dcsa.api.validator.util.FileUtility;
+import org.dcsa.api.validator.util.TestUtility;
 import org.dcsa.api.validator.webservice.init.AppProperty;
+import org.dcsa.api.validator.webservice.service.DownloadService;
+import org.dcsa.api.validator.webservice.service.UploadService;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.testng.TestNG;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class ProviderCtkController {
-
+    private static final String NO_REPORT_ERROR = "No report was found. Please run the compatibility tool by GET /run to generate reports.";
    private final AppProperty appProperty;
+   private final DownloadService downloadService;
+   private final UploadService uploadService;
 
-    public ProviderCtkController(AppProperty appProperty) {
+    public ProviderCtkController(AppProperty appProperty, DownloadService downloadService, UploadService uploadService) {
         this.appProperty = appProperty;
+        this.downloadService = downloadService;
+        this.uploadService = uploadService;
         appProperty.init();
     }
 
-   @GetMapping(value = "/start" )
-  String startTestNg(){
+   @GetMapping(value = "/run" )
+   void runTestNg(HttpServletResponse response){
+      TestUtility.removeTestOutputDirectory();
       TestNG testng = new TestNG();
       final String suitePath = System.getProperty("user.dir")+"\\suitexmls\\"+AppProperty.TEST_SUITE_NAME;
       List<String> xmlList = new ArrayList<>();
       xmlList.add(suitePath);
       testng.setTestSuites(xmlList);
       testng.run();
-      return  null;
+      downloadService.downloadHtmlReport(response, ReportUtil.getReports());
   }
 
-    @GetMapping(value = "/download/report/{reportType}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-    public ResponseEntity<Object> downloadReport(@PathVariable Optional<String> reportType) throws IOException {
-        String defaultReportType = ReportUtil.HTML;
-        if(reportType.isPresent()){
-            defaultReportType = reportType.get();
-        }
-        HttpHeaders header = new HttpHeaders();
-        ByteArrayResource resource = null;
-        if(defaultReportType.equalsIgnoreCase(ReportUtil.HTML)){
-            resource = FileUtility.getFile( ReportUtil.htmlReportPath);
-            header.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + ReportUtil.htmlReportName);
+    @GetMapping(value = "/", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    public String home() {
+        return "provider ctk home";
+    }
 
-        }else if(defaultReportType.equalsIgnoreCase(ReportUtil.EXCEL)){
-            resource = FileUtility.getFile( ReportUtil.excelReportPath);
-            header.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + ReportUtil.excelReportName);
-        } else {
+    @GetMapping(value = "/download/report", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    public ResponseEntity<Object> downloadReport() throws IOException {
+        HttpHeaders header = new HttpHeaders();
+        ByteArrayResource resource;
+
+        if (ReportUtil.htmlReportPath == null) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
-                    .body("Unknown report type. Only html or excel report type is supported.");
+                    .body(NO_REPORT_ERROR);
         }
+        resource = FileUtility.getFile(ReportUtil.htmlReportPath);
+        header.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + ReportUtil.htmlReportName);
         header.add("Cache-Control", "no-cache, no-store, must-revalidate");
         header.add("Pragma", "no-cache");
         header.add("Expires", "0");
@@ -67,6 +72,13 @@ public class ProviderCtkController {
                 .headers(header)
                 .contentType(MediaType.parseMediaType("application/octet-stream"))
                 .body(resource);
+    }
+
+    @PostMapping("/upload")
+    public String handleFileUpload(@RequestParam("file") MultipartFile file, String uploadType) {
+        String name = file.getOriginalFilename();
+        uploadService.store(file, AppProperty.uploadPath, UploadType.fromValue(uploadType));
+        return "uploaded "+file.getOriginalFilename();
     }
 
 }

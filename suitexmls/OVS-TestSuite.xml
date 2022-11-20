@@ -3,7 +3,7 @@
 
 <suite name="TNT" thread-count="5"   parallel = "tests"  >
 <listeners>
-        <listener class-name = "org.dcsa.api.validator.reporter.impl.ExcelReporter" />
+        <listener class-name = "org.dcsa.api.validator.reporter.impl.Reporter" />
     </listeners>
     <test  name="TNT"  >
       <packages>
@@ -11,7 +11,6 @@
         </packages>
 
         <classes>
-            <class name="org.dcsa.api.validator.config.Configuration"/>
             <class name="org.dcsa.api.validator.hook.TestSetup"/>
             <class name="org.dcsa.api.validator.runner.OVSTestRunner"/>
         </classes>

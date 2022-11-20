@@ -1,10 +1,13 @@
 package org.dcsa.api.validator.util;
 
 import org.apache.commons.codec.binary.Hex;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.dcsa.api.validator.model.*;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
+import java.io.File;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
@@ -26,14 +29,10 @@ public class TestUtility {
         testDataSet = JsonUtility.getObjectFromJson(TestDataSet.class, jsonString);
         return testDB;
     }
-
     public static TestDB getTestDB() {
-        System.out.println("stop");
         return testDB;
     }
-
     public static TestDataSet getTestDataSet() {
-        System.out.println("stop");
         return testDataSet;
     }
 
@@ -210,6 +209,24 @@ public class TestUtility {
         System.out.println("< --- PAY LOAD (" + payloadByteArray.length + " bytes) --->");
         System.out.println(payload);
         return notificationSignature;
+    }
+
+    public static void removeTestOutputDirectory() {
+        final String absolutePath = System.getProperty("user.dir") + File.separator + "test-output";
+        File testOutputDir = new File(absolutePath);
+        try {
+            FileUtils.deleteDirectory(testOutputDir);
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    public static TestDB loadConfigData(String testSuiteJson) {
+        testDB = JsonUtility.getObjectFromJson(TestDB.class, testSuiteJson);
+        for (Map.Entry<String, TestSuite> entry : testDB.getTestSuites().entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue().getResponseSchema());
+        }
+        return testDB;
     }
 
 }
