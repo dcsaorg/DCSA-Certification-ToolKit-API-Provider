@@ -24,8 +24,17 @@ public class TestUtility {
     public static TestDB loadTestData(String testSuiteJson) {
         String jsonString = FileUtility.loadFileAsString(testSuiteJson);
         testDataSet = JsonUtility.getObjectFromJson(TestDataSet.class, jsonString);
-
         return testDB;
+    }
+
+    public static TestDB getTestDB() {
+        System.out.println("stop");
+        return testDB;
+    }
+
+    public static TestDataSet getTestDataSet() {
+        System.out.println("stop");
+        return testDataSet;
     }
 
     public static TestCase getTestCase(String apiName, String testName) {

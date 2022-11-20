@@ -5,6 +5,7 @@ import org.dcsa.api.validator.config.Configuration;
 import org.dcsa.api.validator.model.TestContext;
 import org.dcsa.api.validator.util.TestUtility;
 import org.dcsa.api.validator.webhook.SparkWebHook;
+import org.dcsa.api.validator.webservice.init.AppProperty;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 
@@ -28,8 +29,10 @@ public class TestSetup {
             e.printStackTrace();
             throw e;
         }
-        TestUtility.loadTestSuite(Configuration.testSuite);
-        TestUtility.loadTestData(Configuration.testData);
+        if(TestUtility.getTestDB() == null || TestUtility.getTestDataSet() == null ){
+            TestUtility.loadTestSuite(AppProperty.CONFIG_DATA);
+            TestUtility.loadTestData(AppProperty.TEST_DATA);
+        }
         if (Configuration.client_secret == null || Configuration.client_id == null || Configuration.audience == null)
             Configuration.accessToken = "AuthDisabled"; //We set the accessToken to this string, so the tests don't complain about an empty accessToken. This is OK, if auth is disabled, it doesn't matter that the accessToken is bogus
         else {

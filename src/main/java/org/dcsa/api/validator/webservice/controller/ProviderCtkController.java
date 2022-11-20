@@ -1,8 +1,6 @@
 package org.dcsa.api.validator.webservice.controller;
 
 
-import org.dcsa.api.validator.reporter.impl.ExcelReporter;
-import org.dcsa.api.validator.reporter.report.ExtentReportManager;
 import org.dcsa.api.validator.reporter.util.ReportUtil;
 import org.dcsa.api.validator.util.FileUtility;
 import org.dcsa.api.validator.webservice.init.AppProperty;
@@ -28,11 +26,11 @@ public class ProviderCtkController {
 
     public ProviderCtkController(AppProperty appProperty) {
         this.appProperty = appProperty;
+        appProperty.init();
     }
 
    @GetMapping(value = "/start" )
   String startTestNg(){
-      appProperty.init();
       TestNG testng = new TestNG();
       final String suitePath = System.getProperty("user.dir")+"\\suitexmls\\"+AppProperty.TEST_SUITE_NAME;
       List<String> xmlList = new ArrayList<>();
