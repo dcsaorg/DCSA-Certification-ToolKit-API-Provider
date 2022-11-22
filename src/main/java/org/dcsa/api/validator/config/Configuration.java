@@ -36,7 +36,7 @@ public class Configuration {
         else {
             testData="testdata.json";
         }
-        if ( !AppProperty.API_ROOT_URI.isEmpty() )
+        if ( !AppProperty.CALLBACK_URI.isEmpty() )
             CALLBACK_URI = AppProperty.CALLBACK_URI;
         else {
             CALLBACK_URI="http://localhost:9092";
@@ -47,7 +47,7 @@ public class Configuration {
             CALLBACK_PORT = 9092;
         }
         if ( !AppProperty.CALLBACK_WAIT.isEmpty() )
-            CALLBACK_WAIT = Integer.parseInt(AppProperty.CALLBACK_WAIT);
+            CALLBACK_WAIT = Integer.parseInt(AppProperty.CALLBACK_WAIT.trim());
         else {
             CALLBACK_WAIT = 3600000;
         }
