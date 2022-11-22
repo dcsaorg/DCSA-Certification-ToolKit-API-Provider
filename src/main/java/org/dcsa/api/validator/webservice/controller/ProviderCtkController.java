@@ -13,7 +13,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.testng.TestNG;
 
@@ -37,15 +40,15 @@ public class ProviderCtkController {
     }
 
    @GetMapping(value = "/run" )
-   void runTestNg(HttpServletResponse response){
-      TestUtility.removeTestOutputDirectory();
-      TestNG testng = new TestNG();
-      final String suitePath = System.getProperty("user.dir")+"\\suitexmls\\"+AppProperty.TEST_SUITE_NAME;
-      List<String> xmlList = new ArrayList<>();
-      xmlList.add(suitePath);
-      testng.setTestSuites(xmlList);
-      testng.run();
-      downloadService.downloadHtmlReport(response, ReportUtil.getReports());
+   void runTestNg(HttpServletResponse response) {
+        TestUtility.removeTestOutputDirectory();
+        TestNG testng = new TestNG();
+        final String absolutePath = FileUtility.getTestSuitePath(AppProperty.TEST_SUITE_NAME);
+        List<String> xmlList = new ArrayList<>();
+        xmlList.add(absolutePath);
+        testng.setTestSuites(xmlList);
+        testng.run();
+        downloadService.downloadHtmlReport(response, ReportUtil.getReports());
   }
 
     @GetMapping(value = "/", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)

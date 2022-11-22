@@ -7,6 +7,7 @@ import io.cucumber.java.en.Then;
 import org.dcsa.api.validator.config.Configuration;
 import org.dcsa.api.validator.hook.TestSetup;
 import org.dcsa.api.validator.model.CallbackContext;
+import org.dcsa.api.validator.model.TNTEventSubscriptionTO;
 import org.dcsa.api.validator.model.TestContext;
 import org.dcsa.api.validator.util.FileUtility;
 import org.dcsa.api.validator.util.JsonUtility;
@@ -96,7 +97,18 @@ public class NotificationWebhookSteps {
     @And("A valid Callback Url")
     public void aValidCallbackUrl() {
         TestContext testcontext = TestSetup.TestContexts.get(scenario.getId());
-        testcontext.setCallbackURL(Configuration.CALLBACK_URI + Configuration.CALLBACK_PATH+"/456eacf9-8cda-412b-b801-4a41be7a6c35");
+        TNTEventSubscriptionTO configTNTEventSubscriptionTO = TestUtility.getConfigTNTEventSubscriptionTO();
+        String[] splitStr = configTNTEventSubscriptionTO.getCallbackUrl().split("/");
+        String uuid = "";
+        if(splitStr.length > 1){
+            uuid = splitStr[splitStr.length -1];
+        }
+        if(!Configuration.CALLBACK_PATH.isBlank()){
+            testcontext.setCallbackURL(Configuration.CALLBACK_URI + Configuration.CALLBACK_PATH+"/"+uuid);
+        }else{
+            testcontext.setCallbackURL(configTNTEventSubscriptionTO.getCallbackUrl());
+        }
+
     }
 
     @And("An invalid Callback Url")

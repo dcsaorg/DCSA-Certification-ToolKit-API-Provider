@@ -13,7 +13,6 @@ import java.util.logging.Level;
 
 @Log
 public class FileUtility {
-
     public static InputStream getInputStream(String resource){
         InputStream inputStream = null;
         try{
@@ -95,8 +94,17 @@ public class FileUtility {
             throw new IllegalStateException("Cannot find file " + resource);
         }
     }
-
     public static String winPathToUnixPth(String path) {
         return path.indexOf('\\') < 0 ? path : path.replace('\\', '/');
+    }
+
+    public static String getTestSuitePath(String resourceName){
+        String suiteDir = "suitexmls";
+        try {
+            String localPath = new File(".").getCanonicalPath();
+            return localPath+File.separator+suiteDir+File.separator+resourceName;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

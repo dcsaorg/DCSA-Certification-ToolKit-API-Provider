@@ -3,6 +3,8 @@ package org.dcsa.api.validator.util;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.dcsa.api.validator.model.*;
+import org.dcsa.api.validator.webservice.init.AppProperty;
+import org.springframework.core.io.FileSystemResource;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -228,5 +230,15 @@ public class TestUtility {
         }
         return testDB;
     }
+
+    public static TNTEventSubscriptionTO getConfigTNTEventSubscriptionTO(){
+        String eventSubscriptionJson = FileUtility.loadFileAsString(new FileSystemResource("").getFile().getAbsolutePath()+ File.separator+ AppProperty.EVENT_PATH);
+        TNTEventSubscriptionTO tntEventSubscriptionTO = JsonUtility.getObjectFromJson(TNTEventSubscriptionTO.class, eventSubscriptionJson);
+        return tntEventSubscriptionTO;
+    }
+    public static String getConfigEventSubscriptionJson(){
+        return FileUtility.loadFileAsString(new FileSystemResource("").getFile().getAbsolutePath()+ File.separator+ AppProperty.EVENT_PATH);
+    }
+
 
 }
