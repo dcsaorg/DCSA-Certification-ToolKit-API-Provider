@@ -1,6 +1,6 @@
 Feature:
   TNT Self Certification Check List
-
+`
 
   Scenario:TNT.2.2.DPY.PRV.2_Major Version number must be present in URL_GET /events Major Version check
     Given API End point "/events" for "Event"
@@ -28,7 +28,7 @@ Feature:
       | Current-Page |
 
 
-  Scenario Outline:TNT.2.2.ERR.PRV.400_Test case validating "bad request" - HTTP 400_GET /events with invalid parameter name
+  Scenario Outline:TNT.2.2.ERR.PRV.4_Test case validating "bad request" - HTTP 400_GET /events with invalid parameter name
     Given API End point "/events" for "Event"
     And Query parameter "<parameter>" with value "<value>"
     When Send GET http request
@@ -37,14 +37,14 @@ Feature:
       | parameter  | value    |
       | eventType1 | SHIPMENT |
 
-  Scenario:TNT.2.2.EVN.PRV.1_GET/Event Returns all events_GET /events without any query parameter
+  Scenario:TNT.2.2.EVT.PRV.1_GET/Event Returns all events_GET /events without any query parameter
     Given API End point "/events" for "Event"
     When Send GET http request
     Then Receive valid response for GET all
     Then Validated against schema
 
 
-  Scenario:TNT.2.2.EVN.PRV.1_GET/Event Returns all events_GET /events with limit parameter
+  Scenario:TNT.2.2.EVT.PRV.1_GET/Event Returns all events_GET /events with limit parameter
     Given API End point "/events" for "Event"
     And Query parameters with values
       | parameter | value |
@@ -54,7 +54,7 @@ Feature:
     Then Validated against schema
 
 
-  Scenario Outline:TNT.2.2.EVN.PRV.1_GET/Event Returns all events_GET /events with filter parameters
+  Scenario Outline:TNT.2.2.EVT.PRV.1_GET/Event Returns all events_GET /events with filter parameters
     Given API End point "/events" for "Event"
     And Query parameters "<parameters>"
     When Send GET http request
@@ -80,7 +80,7 @@ Feature:
 
 
 
-  Scenario Outline:TNT.2.2.ERR.PRV.400_Test case validating "bad request" - HTTP 400_GET /events with invalid values of filter parameters
+  Scenario Outline:TNT.2.2.ERR.PRV.4_Test case validating "bad request" - HTTP 400_GET /events with invalid values of filter parameters
     Given API End point "/events" for "Event"
     And Query parameter "<parameter>" with value "<value>"
     When Send GET http request
@@ -102,7 +102,7 @@ Feature:
       | equipmentReference         | dsfdsAPZU4812090APZU4812090APZU4812090                                                                |
       | eventCreatedDateTime       | 2021-11-31T17:18:46.160973Z                                                                           |
 
-  Scenario Outline:TNT.2.2.ERR.PRV.400_Test case validating "bad request" - HTTP 400_GET /events with invalid parameter values
+  Scenario Outline:TNT.2.2.ERR.PRV.4_Test case validating "bad request" - HTTP 400_GET /events with invalid parameter values
     Given API End point "/events" for "Event"
     And Query parameter "<parameter>" with value "<value>"
     When Send GET http request

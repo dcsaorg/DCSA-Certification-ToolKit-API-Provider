@@ -43,7 +43,7 @@ Feature:
     Then Validated against schema
 
 
-  Scenario:TNT.2.2.ERR.PRV.400_Test case validating "bad request" - HTTP 400_POST /event-subscriptions with missing mandatory attributes
+  Scenario:TNT.2.2.ERR.PRV.4_Test case validating "bad request" - HTTP 400_POST /event-subscriptions with missing mandatory attributes
     Given API End point "/event-subscriptions" for "EventSubscription"
     And Attributes to be removed
       | callbackUrl |
@@ -54,7 +54,7 @@ Feature:
     #Then Receive invalid response for POST
 
 
-  Scenario:TNT.2.2.ERR.PRV.400_Test case validating "bad request" - HTTP 400_POST /event-subscriptions with invalid attribute value
+  Scenario:TNT.2.2.ERR.PRV.4_Test case validating "bad request" - HTTP 400_POST /event-subscriptions with invalid attribute value
     Given API End point "/event-subscriptions" for "EventSubscription"
     And Placeholders with values
       | placeholder            | value       |
@@ -75,7 +75,7 @@ Feature:
     Then Validated against schema
 
 
-  Scenario Outline:TNT.2.2.ERR.PRV.404_Test case validating "not found" request - HTTP 404_GET /event-subscriptions with invalid Id
+  Scenario Outline:TNT.2.2.ERR.PRV.4_Test case validating "not found" request - HTTP 404_GET /event-subscriptions with invalid Id
     Given API End point "/event-subscriptions/{subscriptionID}" for "EventSubscription"
     And Path parameter "<parameter>" with value "<value>"
     When Send GET http request
@@ -86,7 +86,7 @@ Feature:
       | subscriptionID | 550173fc-dd7f-403a-9b13-f022a4df99ba |
 
 
-  Scenario:TNT.2.2.ERR.PRV.400_Test case validating "bad request" - HTTP 400_GET /event-subscriptions with invalid ID
+  Scenario:TNT.2.2.ERR.PRV.4_Test case validating "bad request" - HTTP 400_GET /event-subscriptions with invalid ID
     Given API End point "/event-subscriptions/{subscriptionID}" for "EventSubscription"
     And Path parameters with values
       | pathVariable   | value                                 |

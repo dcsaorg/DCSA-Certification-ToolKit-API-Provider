@@ -48,7 +48,7 @@ Feature:
     Then Receive valid response for DELETE
 
 
-  Scenario:TNT.2.2.ERR.PRV.404_Test case validating "not found" request - HTTP 404_DELETE /event-subscriptions with invalid ID
+  Scenario:TNT.2.2.ERR.PRV.4_Test case validating "not found" request - HTTP 404_DELETE /event-subscriptions with invalid ID
     Given API End point "/event-subscriptions/{subscriptionID}" for "EventSubscription"
     And Path parameters with values
       | pathVariable   | value                                 |
@@ -56,7 +56,7 @@ Feature:
     When Send a DELETE http request
     Then Receive response code "404"
 
-  Scenario:TNT.2.2.ERR.PRV.400_Test case validating "bad request" - HTTP 400_DELETE /event-subscriptions with invalid ID
+  Scenario:TNT.2.2.ERR.PRV.4_Test case validating "bad request" - HTTP 400_DELETE /event-subscriptions with invalid ID
     Given API End point "/event-subscriptions/{subscriptionID}" for "EventSubscription"
     And Path parameters with values
       | pathVariable   | value                                 |
@@ -64,7 +64,7 @@ Feature:
     When Send a DELETE http request
     Then Receive response code "400"
 
-  Scenario:TNT.2.2.ERR.PRV.400_Test case validating "bad request" - HTTP 400_PUT /event-subscriptions with invalid attribute value
+  Scenario:TNT.2.2.ERR.PRV.4_Test case validating "bad request" - HTTP 400_PUT /event-subscriptions with invalid attribute value
     Given API End point "/event-subscriptions/{subscriptionID}" for "EventSubscription"
     And Placeholders with values
       | placeholder            | value       |
@@ -75,7 +75,7 @@ Feature:
     Then Receive invalid response for PUT
 
 
-  Scenario:TNT.2.2.ERR.PRV.400_Test case validating "bad request" - HTTP 400_PUT /event-subscriptions with mismatch of subscriptionID in body and URL
+  Scenario:TNT.2.2.ERR.PRV.4_Test case validating "bad request" - HTTP 400_PUT /event-subscriptions with mismatch of subscriptionID in body and URL
     Given API End point "/event-subscriptions/{subscriptionID}" for "EventSubscription"
     And Placeholders with values
       | placeholder    | value                                |

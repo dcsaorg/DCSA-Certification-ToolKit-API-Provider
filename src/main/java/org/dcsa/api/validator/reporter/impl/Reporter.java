@@ -77,7 +77,7 @@ public class Reporter implements IReporter {
                     htmlReportModel.setRequirementId(token[0]);
                     htmlReportModel.setRequirement(token[1]);
                     htmlReportModel.setTestName(token[2]);
-                //    htmlReportModel.setValidationRequirementID(ValidationRequirementId.getById(token[0]));
+                    htmlReportModel.setValidationRequirementID(ValidationRequirementId.getById(token[0]));
                 }
                 if(testContext.getStatus().equals(TestStatusCode.PASSED.name())){
                     htmlReportModel.setTestStatusCode(TestStatusCode.PASSED);
