@@ -7,7 +7,12 @@ import io.cucumber.testng.CucumberOptions;
 
 @CucumberOptions(plugin = {"pretty",
         "html:reports/ExecutionReport.html",
-}, features = {"src/main/java/org/dcsa/api/validator/features/ovs/v2/TimeStamp.feature"}, glue = {"org.dcsa.api.validator.steps.common"}
+}, features = {
+        "src/main/resources/features/ovs/v2/TimeStamp.feature"
+   },
+   glue = {
+        "org.dcsa.api.validator.steps.common"
+   }
 )
 public class OVSTestRunner extends AbstractTestNGCucumberTests {
 
