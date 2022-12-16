@@ -14,21 +14,22 @@ Feature:
       | API-Version |
 
 
-  Scenario:TNT.2.2.API.PRV.3_Content type headers must be application/json_GET /events Content type check
+  Scenario:TNT.2.2.API.PRV.5_Content type headers must be application/json_GET /events Content type check
     Given API End point "/events" for "Event"
     When Send GET http request
     Then Receive headers in response
       | Content-Type |
 
 
-  Scenario:TNT.2.2.API.PRV.4_Links to current, previous, next, first and last page SHOULD be available in the response headers_GET /events pagination check
+  Scenario:TNT.2.2.API.PRV.6_Links to current, previous, next, first and last page SHOULD be available in the response headers_GET /events pagination check
     Given API End point "/events" for "Event"
     When Send GET http request
     Then Receive headers in response
       | Current-Page |
 
 
-  Scenario Outline:TNT.2.2.ERR.PRV.4_Test case validating "bad request" - HTTP 400_GET /events with invalid parameter name
+  
+  Scenario Outline:TNT.2.2.ERR.PRV.1_Test case GET /events with invalid parameter name validating "bad request" - HTTP 400_GET /events
     Given API End point "/events" for "Event"
     And Query parameter "<parameter>" with value "<value>"
     When Send GET http request
@@ -80,7 +81,7 @@ Feature:
 
 
 
-  Scenario Outline:TNT.2.2.ERR.PRV.4_Test case validating "bad request" - HTTP 400_GET /events with invalid values of filter parameters
+  Scenario Outline:TNT.2.2.ERR.PRV.2_Test case validating "bad request" - HTTP 400 with invalid values of filter parameters_GET /events 
     Given API End point "/events" for "Event"
     And Query parameter "<parameter>" with value "<value>"
     When Send GET http request
@@ -102,7 +103,8 @@ Feature:
       | equipmentReference         | dsfdsAPZU4812090APZU4812090APZU4812090                                                                |
       | eventCreatedDateTime       | 2021-11-31T17:18:46.160973Z                                                                           |
 
-  Scenario Outline:TNT.2.2.ERR.PRV.4_Test case validating "bad request" - HTTP 400_GET /events with invalid parameter values
+  Scenario Outline:
+  TNT.2.2.ERR.PRV.1_Test case validating "bad request" - HTTP 400 with invalid parameter values_GET /events
     Given API End point "/events" for "Event"
     And Query parameter "<parameter>" with value "<value>"
     When Send GET http request

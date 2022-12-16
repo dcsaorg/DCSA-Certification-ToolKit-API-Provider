@@ -2,7 +2,7 @@ Feature:
   TNT Self Certification Check List
 
 
-  Scenario:TNT.2.2.SUB.PRV.1_GET /event-subscriptions returns all subscriptions_GET /event-subscriptions without any query parameter
+  Scenario:TNT.2.2.SUB.PRV.1_GET /event-subscriptions returns all subscriptions without any query parameter_GET /event-subscriptions without any query parameter
     Given API End point "/event-subscriptions/" for "EventSubscription"
     When Set request for GET
     And Send GET http request
@@ -10,7 +10,7 @@ Feature:
     Then Validated against schema
 
 
-  Scenario:TNT.2.2.SUB.PRV.1_GET /event-subscriptions returns all subscriptions_GET /event-subscriptions with limit parameter
+  Scenario:TNT.2.2.SUB.PRV.2_GET /event-subscriptions returns all subscriptions with limit parameter_GET /event-subscriptions with limit parameter
     Given API End point "/event-subscriptions/" for "EventSubscription"
     And Query parameters with values
       | parameter | value |
@@ -20,7 +20,7 @@ Feature:
     #Then Receive valid response for GET all
 
 
-  Scenario Outline:TNT.2.2.SUB.PRV.2_POST /event-subscriptions Creates a new subscription_GET /event-subscriptions for different Event types
+  Scenario Outline:TNT.2.2.SUB.PRV.3_POST /event-subscriptions Creates a new subscription for different Event types_POST /event-subscriptions for different Event types
     Given API End point "/event-subscriptions" for "EventSubscription"
     When Set request for POST with test case "<testcase>"
     And Send a POST http request
@@ -33,7 +33,7 @@ Feature:
       | EventTypeEQUIPMENT |
 
 
-  Scenario:TNT.2.2.SUB.PRV.3_GET /event-subscriptions/{subscriptionID} Fetches a specific subscription with ID={subscriptionID}_GET /event-subscriptions with valid Id
+  Scenario:TNT.2.2.SUB.PRV.4_GET /event-subscriptions/{subscriptionID} Fetches a specific subscription with ID={subscriptionID} with valid id_GET /event-subscriptions with valid id
     Given API End point "/event-subscriptions/{subscriptionID}" for "EventSubscription"
     And Path parameters
       | subscriptionID |
@@ -43,7 +43,7 @@ Feature:
     Then Validated against schema
 
 
-  Scenario:TNT.2.2.ERR.PRV.4_Test case validating "bad request" - HTTP 400_POST /event-subscriptions with missing mandatory attributes
+  Scenario:TNT.2.2.ERR.PRV.3_Test case POST /event-subscriptions with missing mandatory attributes validating "bad request" - HTTP 400_POST /event-subscriptions
     Given API End point "/event-subscriptions" for "EventSubscription"
     And Attributes to be removed
       | callbackUrl |
@@ -54,7 +54,7 @@ Feature:
     #Then Receive invalid response for POST
 
 
-  Scenario:TNT.2.2.ERR.PRV.4_Test case validating "bad request" - HTTP 400_POST /event-subscriptions with invalid attribute value
+  Scenario:TNT.2.2.ERR.PRV.4_Test case POST /event-subscriptions  with invalid attribute value validating "bad request" - HTTP 400_POST /event-subscriptions
     Given API End point "/event-subscriptions" for "EventSubscription"
     And Placeholders with values
       | placeholder            | value       |
@@ -74,19 +74,7 @@ Feature:
       | Current-Page |
     Then Validated against schema
 
-
-  Scenario Outline:TNT.2.2.ERR.PRV.4_Test case validating "not found" request - HTTP 404_GET /event-subscriptions with invalid Id
-    Given API End point "/event-subscriptions/{subscriptionID}" for "EventSubscription"
-    And Path parameter "<parameter>" with value "<value>"
-    When Send GET http request
-   #Then Receive invalid response for GET
-    Then Receive response code "404"
-    Examples: List of test cases
-      | parameter      | value                                 |
-      | subscriptionID | 550173fc-dd7f-403a-9b13-f022a4df99ba |
-
-
-  Scenario:TNT.2.2.ERR.PRV.4_Test case validating "bad request" - HTTP 400_GET /event-subscriptions with invalid ID
+  Scenario:TNT.2.2.ERR.PRV.5_Test case GET /event-subscriptions with invalid ID validating "bad request" - HTTP 400_GET /event-subscriptions
     Given API End point "/event-subscriptions/{subscriptionID}" for "EventSubscription"
     And Path parameters with values
       | pathVariable   | value                                 |
@@ -94,6 +82,16 @@ Feature:
     When Send GET http request
     Then Receive response code "400"
     #Then Receive invalid response for GET
+
+  Scenario Outline:TNT.2.2.ERR.PRV.6_Test case GET /event-subscriptions with invalid Id validating "not found" request - HTTP 404_GET /event-subscriptions
+    Given API End point "/event-subscriptions/{subscriptionID}" for "EventSubscription"
+    And Path parameter "<parameter>" with value "<value>"
+    When Send GET http request
+   #Then Receive invalid response for GET
+    Then Receive response code "404"
+    Examples: List of test cases
+      | parameter      | value                                |
+      | subscriptionID | 550173fc-dd7f-403a-9b13-f022a4df99ba |
 
 
 

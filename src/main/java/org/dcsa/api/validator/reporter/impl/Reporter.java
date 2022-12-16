@@ -28,6 +28,9 @@ public class Reporter implements IReporter {
 
             for (Map.Entry<String, TestContext> testContext : testContexts.entrySet()) {
                 String fullName = testContext.getValue().getTestCaseName();
+                if(fullName.isBlank()){
+                    continue;
+                }
                 String name = getTestKey(fullName);
                 if (resultSummary.containsKey(name)) {
                     resultSummary.get(name)[0]++;
@@ -65,7 +68,6 @@ public class Reporter implements IReporter {
             ExtentReportModifier.modifyFile(ReportUtil.htmlReportPath);
         }
         ExtentReportManager.resetExtentTestReport();
-
     }
 
     private void fillHtmlReport(String key, Map<String, TestContext> testContexts, String testSuiteName) {
