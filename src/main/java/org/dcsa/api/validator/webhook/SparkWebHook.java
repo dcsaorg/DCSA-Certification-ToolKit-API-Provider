@@ -1,7 +1,9 @@
 package org.dcsa.api.validator.webhook;
 
+import org.apache.http.HttpStatus;
 import org.dcsa.api.validator.config.Configuration;
 import org.dcsa.api.validator.model.CallbackContext;
+import org.dcsa.api.validator.util.TestUtility;
 import spark.Spark;
 
 import java.util.HashMap;
@@ -14,8 +16,10 @@ public class SparkWebHook {
         Spark.port(Configuration.CALLBACK_PORT);
 
         Spark.post(Configuration.CALLBACK_PATH+"/:uuid", (req, res) -> {
-            res.status(200);
-            if (req.params(":uuid").equals("456eacf9-8cda-412b-b801-4a41be7a6c35")) {
+            res.status(HttpStatus.SC_CREATED);
+            System.out.println("POST NOTIFICATION RECEIVED");
+            if (req.params(":uuid").equals(TestUtility.getConfigCallbackUuid())) {
+                System.out.println("POST NOTIFICATION RECEIVED WITH UUID: "+req.params(":uuid"));
                 res.header("Content-Type", "application/json");
                 callbackContext.setNotificationReceived(true);
                 callbackContext.setNotificationBody(req.body());
@@ -25,24 +29,28 @@ public class SparkWebHook {
                 }
                 callbackContext.setHeaders(headers);
                 callbackContext.getNotificationRequestLock().countDown();
+            }else {
+                System.out.println("Wrong UUID return 404");
+                res.status(HttpStatus.SC_NOT_FOUND);
             }
-            return "{\"status\":\"OK\"}";
+            return res;
         });
 
         Spark.head(Configuration.CALLBACK_PATH+"/:uuid", (req, res) -> {
-
+            System.out.println("HEAD NOTIFICATION RECEIVED");
             res.header("Content-Type", "application/json");
-            if (req.params(":uuid").equals("456eacf9-8cda-412b-b801-4a41be7a6c35")) {
-                res.status(200);
+            if (req.params(":uuid").equals(TestUtility.getConfigCallbackUuid())) {
+                System.out.println("HEAD NOTIFICATION RECEIVED WITH UUID: "+req.params(":uuid"));
+                res.status(HttpStatus.SC_CREATED);
                 callbackContext.setHeadRequestReceived(true);
                 callbackContext.getHeadRequestLock().countDown();
             }
-            else if (req.params(":uuid").equals("307deecf-e599-4ff2-bf5a-fd47c171b8c4")) {
-                res.status(400);
+            else {
+                res.status(HttpStatus.SC_NOT_FOUND);
                 callbackContext.setHeadRequestReceived(true);
                 callbackContext.getHeadRequestLock().countDown();
             }
-            return "{\"status\":\"OK\"}";
+            return res;
         });
         Spark.awaitInitialization();
         System.out.println("Server Started");

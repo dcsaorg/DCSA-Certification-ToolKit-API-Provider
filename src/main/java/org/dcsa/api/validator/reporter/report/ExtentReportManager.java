@@ -87,7 +87,7 @@ public class ExtentReportManager {
                     Markup markUp = MarkupHelper.createLabel(TestStatusCode.PASSED.name().toUpperCase(), ExtentColor.GREEN);
                     extentTest.log(Status.INFO, markUp);
                     if (htmlReportModel.getTestDetails() != null)
-                        extentTest.info(htmlReportModel.getTestDetails());
+                        extentTest.info(ReportUtil.modifyTestDetails(htmlReportModel.getTestDetails()));
                 } else if (htmlReportModel.getTestStatusCode().equals(TestStatusCode.FAILED)) {
                     extentTest.fail(htmlReportModel.getTestName());
                     if (htmlReportModel.getFailureReason() != null) {
@@ -96,7 +96,7 @@ public class ExtentReportManager {
                     Markup markUp = MarkupHelper.createLabel(TestStatusCode.FAILED.name().toUpperCase(), ExtentColor.RED);
                     extentTest.log(Status.WARNING, markUp);
                     if (htmlReportModel.getTestDetails() != null) {
-                        extentTest.info(htmlReportModel.getTestDetails());
+                        extentTest.info(ReportUtil.modifyTestDetails(htmlReportModel.getTestDetails()));
                     }
                 }
             }

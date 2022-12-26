@@ -47,7 +47,12 @@ public enum ValidationRequirementId {
     TNT_2_2_ERR_PRV_7("TNT.2.2.ERR.PRV.7","Test case DELETE /event-subscriptions with invalid ID validating \"bad request\" - HTTP 400"),
     TNT_2_2_ERR_PRV_8("TNT.2.2.ERR.PRV.8","Test case PUT /event-subscriptions with mismatch of subscriptionID in body and URL validating \"bad request\" - HTTP 400"),
     TNT_2_2_ERR_PRV_9("TNT.2.2.ERR.PRV.9","Test case DELETE /event-subscriptions with invalid ID validating \"not found\" request - HTTP 404"),
-    TNT_2_2_ERR_PRV_10("TNT.2.2.ERR.PRV.10","Test case PUT /event-subscriptions with invalid attribute value validating \"bad request\" - HTTP 400");
+    TNT_2_2_ERR_PRV_10("TNT.2.2.ERR.PRV.10","Test case PUT /event-subscriptions with invalid attribute value validating \"bad request\" - HTTP 400"),
+    TNT_2_2_PUB_SUB_1("TNT.2.2.PUB.SUB.1", "Http code 204 for HEAD notification must be accepted as the only valid response. Callback URL HEAD response successful"),
+    TNT_2_2_PUB_SUB_2("TNT.2.2.PUB.SUB.2", "Head request must be received. Receipt of a head request and success response"),
+    TNT_2_2_PUB_SUB_3("TNT.2.2.PUB.SUB.3", "Invalid callback URL Head request must be rejected. Rejection of a head request"),
+    TNT_2_2_PUB_SUB_4("TNT.2.2.PUB.SUB.4", "Subscription requested must be rejected if the secrets are not adequate for the signature algorithm"),
+    TNT_2_2_PUB_SUB_5("TNT.2.2.PUB.SUB.5", "Notification must rotated secret. Receipt an event after secret rotation");
     private static final Map<String, ValidationRequirementId> RequirementId = new HashMap<>();
     private static final Map<String, ValidationRequirementId> RequirementDetails = new HashMap<>();
 

@@ -8,6 +8,8 @@ public class Configuration {
     public static String testSuite;
     public static String testData;
     public static String CALLBACK_URI;
+
+    public static String CALLBACK_URL;
     public static Integer CALLBACK_PORT;
     public static Integer CALLBACK_WAIT;
     public static String accessToken;
@@ -16,8 +18,6 @@ public class Configuration {
     public static String audience;
     public static String OUT_PUT_DIR;
     public static String CALLBACK_PATH;
-
-
     public static void init() throws Exception {
         client_secret = System.getenv("client_secret");
         client_id = System.getenv("client_id");
@@ -40,6 +40,9 @@ public class Configuration {
             CALLBACK_URI = AppProperty.CALLBACK_URI;
         else {
             CALLBACK_URI="http://localhost:9092";
+        }
+        if( !AppProperty.CALLBACK_URL.isEmpty()){
+            CALLBACK_URL =  AppProperty.CALLBACK_URL;
         }
         if ( !AppProperty.CALLBACK_PORT.isEmpty() )
             CALLBACK_PORT = Integer.parseInt(AppProperty.CALLBACK_PORT);

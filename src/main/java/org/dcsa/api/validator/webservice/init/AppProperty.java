@@ -1,6 +1,7 @@
 package org.dcsa.api.validator.webservice.init;
 
 import lombok.Data;
+import org.dcsa.api.validator.util.TestUtility;
 import org.dcsa.api.validator.webservice.exception.StorageException;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -76,6 +77,7 @@ public class AppProperty {
     public static String AUDIENCE;
     public static String CALLBACK_PATH;
 
+    public static String CALLBACK_URL;
     public static String SUBSCRIPTION_ID;
     // TNT service config
     private String api_root_uri;
@@ -182,6 +184,8 @@ public class AppProperty {
         }else{
             AppProperty.UPLOAD_CONFIG_PATH = upload_config_path;
         }
+
+        CALLBACK_URL = TestUtility.getConfigCallbackUrl();
 
         if(evnDbHostIp != null){
             AppProperty.DATABASE_IP = evnDbHostIp;

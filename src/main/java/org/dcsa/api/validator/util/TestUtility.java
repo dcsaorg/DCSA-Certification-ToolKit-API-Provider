@@ -231,6 +231,20 @@ public class TestUtility {
         return testDB;
     }
 
+    public static String getConfigCallbackUuid(){
+        TNTEventSubscriptionTO configTNTEventSubscriptionTO = TestUtility.getConfigTNTEventSubscriptionTO();
+        String[] splitStr = configTNTEventSubscriptionTO.getCallbackUrl().split("/");
+        String uuid = "";
+        if(splitStr.length > 1){
+            uuid = splitStr[splitStr.length -1];
+        }
+        return uuid;
+    }
+    public static String getConfigCallbackUrl(){
+        TNTEventSubscriptionTO configTNTEventSubscriptionTO = TestUtility.getConfigTNTEventSubscriptionTO();
+        return configTNTEventSubscriptionTO.getCallbackUrl();
+    }
+
     public static TNTEventSubscriptionTO getConfigTNTEventSubscriptionTO(){
         String eventSubscriptionJson = FileUtility.loadFileAsString(new FileSystemResource("").getFile().getAbsolutePath()+ File.separator+ AppProperty.EVENT_PATH);
         TNTEventSubscriptionTO tntEventSubscriptionTO = JsonUtility.getObjectFromJson(TNTEventSubscriptionTO.class, eventSubscriptionJson);

@@ -44,7 +44,24 @@ public class CommonSteps {
     public void ApiEndPointForAPi(String endPoint, String apiName) {
         restAssuredExtension
                 .given(endPoint, apiName);
+    }
 
+    @Given("Callback url given in config event subscription")
+    public void givenConfig() {
+        restAssuredExtension
+                .configGiven();
+    }
+
+    @And("Send HEAD http request")
+    public void sendHeadRequest() {
+        restAssuredExtension
+                .head();
+    }
+
+    @And("Send HEAD http request for {string}")
+    public void sendHeadRequest(String apiName) {
+        restAssuredExtension
+                .head(apiName);
     }
 
     @When("Set request for POST")
@@ -56,8 +73,8 @@ public class CommonSteps {
                 .body(body);
     }
 
-    @When("Send a POST http request")
-    public void createForGivenTestData() {
+    @And("Send a POST http request")
+    public void sendPostForGivenTestData() {
         restAssuredExtension
                 .post();
     }
@@ -95,7 +112,6 @@ public class CommonSteps {
             if (pathVariableChain.size() > 0)
                 pathVariables.putAll(pathVariableChain.get(pathVariableChain.size() - 1));
         }
-
 
         TestCase testcase = restAssuredExtension.getTestContext().getTestCase();
         body = TestUtility.getTestBody(apiName, body, testcase);

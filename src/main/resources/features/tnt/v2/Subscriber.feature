@@ -2,44 +2,46 @@ Feature:
   Notifications test check list
 
   @HeadRequest
-  Scenario:TNT.2.2.SUB.PRV.8_Head request must be received_Receipt of a head request and success response
-    Given API End point "/event-subscriptions" for "EventSubscription"
+  Scenario:TNT.2.2.PUB.SUB.1_Http code 204 for notification HEAD must be accepted as the only valid response_Callback URL HEAD response successful
+    Given Callback url given in config event subscription
     And A valid Callback Url
-    When Set request for POST with test case "SubscriptionRequest_CallBackTest"
-    And Send a POST http request
-    Then Receive Head request for CallBackURL
-    Then Receive valid response for POST
-    Then Receive a valid notification
-
+    And Send HEAD http request for "EventSubscription"
+    Then Receive Head request for CallBack URL
 
   @HeadRequest
-  Scenario:TNT.2.2.SUB.PRV.10_Head request must be received_Receipt of a head request and rejection response
+  Scenario:TNT.2.2.PUB.SUB.2_Head request must be received_Receipt of a head request and success response
+    Given API End point "/notification-endpoints/receive/{uuid}" for "EventSubscription"
+    And A valid Callback Url
+    And Send HEAD http request
+    Then Receive Head request for CallBack URL
+
+  @HeadRequest
+  Scenario:TNT.2.2.PUB.SUB.3_Invalid callback URL Head request must be rejected_Receipt of a head request and rejection response
     Given API End point "/event-subscriptions" for "EventSubscription"
     And An invalid Callback Url
     When Set request for POST with test case "SubscriptionRequest_CallBackTest"
     And Send a POST http request
-    Then Receive Head request for CallBackURL
+    Then Not receive Head request for invalid callBack URL
     Then Receive invalid response for POST
 
 
   @Notification
-  Scenario:TNT.2.2.SUB.PRV.7_Subscription requested must be rejected if the secrets are not adequate for the signature algorithm_Receipt an event with valid signature
+  Scenario:TNT.2.2.PUB.SUB.4_Subscription requested must be rejected if the secrets are not adequate for the signature algorithm_Receipt an event with valid signature
     Given API End point "/event-subscriptions" for "EventSubscription"
     And A valid Callback Url
     When Set request for POST with test case "EventTypeTRANSPORT"
     And Send a POST http request
-    Then Receive Head request for CallBackURL
+    Then Receive Head request for CallBack URL
     Then Receive valid response for POST
     Then Receive a valid notification
 
-
   @Notification
-  Scenario:TNT.2.2.SUB.PRV.11_Notification must used rotated secret_Receipt an event after secret rotation
+  Scenario:TNT.2.2.PUB.SUB.5_Notification must used rotated secret_Receipt an event after secret rotation
     Given API End point "/event-subscriptions" for "EventSubscription"
     And A valid Callback Url
     When Set request for POST with test case "EventTypeSHIPMENT"
     And Send a POST http request
-    Then Receive Head request for CallBackURL
+    Then Receive Head request for CallBack URL
     Then Receive valid response for POST
     Then Receive a valid notification
     Given API End point "/event-subscriptions/{subscriptionID}/secret" for "EventSubscription"
@@ -47,5 +49,3 @@ Feature:
     And Send a PUT http request
     Then Receive response code "204"
     Then Receive a valid notification
-
-

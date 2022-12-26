@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 public interface RestAssuredExtension {
+    void head(String apiName);
+    void head();
     void get();
 
     void delete();
@@ -16,6 +18,8 @@ public interface RestAssuredExtension {
     void post();
 
     void given(String endPoint, String apiName);
+
+    void configGiven();
 
     ValidatableResponseExtension then();
 

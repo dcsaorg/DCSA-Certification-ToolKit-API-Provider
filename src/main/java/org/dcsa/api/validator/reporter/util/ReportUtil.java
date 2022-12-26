@@ -28,12 +28,14 @@ public class ReportUtil {
                     "-" +dateFormat.format(Calendar.getInstance().getTime()) + fileExtension;
         htmlReportPath = System.getProperty("user.dir")+ File.separator+ AppProperty.REPORT_DIRECTORY +File.separator+ htmlReportName;
     }
-
     public static String getReports(){
         if(htmlReportPath != null){
             return htmlReportPath;
         }else{
             return "";
         }
+    }
+    public static String modifyTestDetails(String testDetails){
+        return testDetails.replace("<h2>404 Not found</h2>", "404 Not found");
     }
 }

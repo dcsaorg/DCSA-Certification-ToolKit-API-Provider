@@ -7,6 +7,7 @@ import io.restassured.response.Response;
 import io.restassured.specification.FilterableRequestSpecification;
 import io.restassured.specification.RequestSpecification;
 import lombok.Data;
+import org.apache.http.HttpStatus;
 import org.dcsa.api.validator.config.Configuration;
 import org.dcsa.api.validator.model.TestContext;
 import org.dcsa.api.validator.model.ValidationResult;
@@ -32,10 +33,18 @@ public class RestAssuredExtensionImpl implements RestAssuredExtension {
     @Override
     public void given(String endPoint, String apiName) {
         testContext.setApiName(apiName);
+        endPoint = endPoint.replace("{uuid}", TestUtility.getConfigCallbackUuid());
         this.builder = new RequestSpecBuilder();
         this.builder.setBasePath(endPoint);
         this.builder.addHeader("API-Version", Configuration.API_VERSION.split("\\.")[0]);
-        this.builder.setBaseUri(Configuration.ROOT_URI+"/v"+Configuration.API_VERSION.split("\\.")[0]);
+        this.builder.setBaseUri(TestUtility.getConfigCallbackUrl().replace(endPoint, ""));
+        this.builder.setContentType(ContentType.JSON);
+    }
+
+    public void configGiven(){
+        this.builder = new RequestSpecBuilder();
+        this.builder.addHeader("API-Version", Configuration.API_VERSION.split("\\.")[0]);
+        this.builder.setBaseUri(TestUtility.getConfigCallbackUrl());
         this.builder.setContentType(ContentType.JSON);
     }
 
@@ -53,12 +62,26 @@ public class RestAssuredExtensionImpl implements RestAssuredExtension {
     @Override
     public void post() {
         response = buildRequest().post();
-        if (response.getStatusCode() == 201) {
-            String value = response.jsonPath().get(TestUtility.getIdentifierAttribute(testContext.getApiName()));
+        if (response.getStatusCode() == HttpStatus.SC_CREATED) {
+            String value = response.getStatusCode()+"";
             Map<String, String> pathVariables = new HashMap<>();
             pathVariables.put(TestUtility.getIdentifierAttribute(testContext.getApiName()), value);
             testContext.getPathVariableChain().add(pathVariables);
         }
+        testContext.getResponseChain().add(response);
+    }
+    public void head(String apiName){
+        response = buildRequest().head();
+        if(response.getStatusCode() == HttpStatus.SC_CREATED){
+            Map<String, String> pathVariables = new HashMap<>();
+            pathVariables.put(TestUtility.getIdentifierAttribute(apiName), HttpStatus.SC_CREATED+"");
+            testContext.getPathVariableChain().add(pathVariables);
+        }
+        testContext.getResponseChain().add(response);
+    }
+
+    public void head(){
+        response = buildRequest().head();
         testContext.getResponseChain().add(response);
     }
 
@@ -143,6 +166,5 @@ public class RestAssuredExtensionImpl implements RestAssuredExtension {
         validatableResponseExtensionImpl=new ValidatableResponseExtensionImpl(testContext);
         return validatableResponseExtensionImpl;
     }
-
 
 }

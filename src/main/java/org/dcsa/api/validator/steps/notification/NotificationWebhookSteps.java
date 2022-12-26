@@ -34,19 +34,32 @@ public class NotificationWebhookSteps {
     }
 
 
-    @Then("Receive Head request for CallBackURL")
+    @Then("Receive Head request for CallBack URL")
     public void receiveHeadRequestForCallBackURL() {
         try {
             System.out.println("Waiting for callback head request ");
             callbackContext.getHeadRequestLock().await(Configuration.CALLBACK_WAIT, TimeUnit.MILLISECONDS);
         } catch (InterruptedException e) {
-           // e.printStackTrace();
+            TestContext testcontext = TestSetup.TestContexts.get(scenario.getId());
+            testcontext.setReasonOfFailure("Head Request not received");
             Assert.fail("Head Request not received");
         }
         if (!callbackContext.isHeadRequestReceived()) {
             TestContext testcontext = TestSetup.TestContexts.get(scenario.getId());
             testcontext.setReasonOfFailure("Head Request not received");
             Assert.fail("Head Request not received");
+        }
+        callbackContext.setHeadRequestCountDown(1);
+    }
+
+    @Then("Not receive Head request for invalid callBack URL")
+    public void notReceiveHeadRequestForInvalidCallBackURL() {
+        try {
+            System.out.println("Waiting for callback head request ");
+            callbackContext.getHeadRequestLock().await(Configuration.CALLBACK_WAIT, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException e) {
+            TestContext testcontext = TestSetup.TestContexts.get(scenario.getId());
+            testcontext.setReasonOfFailure("Head Request not received");
         }
         callbackContext.setHeadRequestCountDown(1);
     }
@@ -98,17 +111,11 @@ public class NotificationWebhookSteps {
     public void aValidCallbackUrl() {
         TestContext testcontext = TestSetup.TestContexts.get(scenario.getId());
         TNTEventSubscriptionTO configTNTEventSubscriptionTO = TestUtility.getConfigTNTEventSubscriptionTO();
-        String[] splitStr = configTNTEventSubscriptionTO.getCallbackUrl().split("/");
-        String uuid = "";
-        if(splitStr.length > 1){
-            uuid = splitStr[splitStr.length -1];
-        }
-        if(!Configuration.CALLBACK_PATH.isBlank()){
-            testcontext.setCallbackURL(Configuration.CALLBACK_URI + Configuration.CALLBACK_PATH+"/"+uuid);
+        if(!Configuration.CALLBACK_URL.isBlank()){
+            testcontext.setCallbackURL(TestUtility.getConfigCallbackUrl());
         }else{
             testcontext.setCallbackURL(configTNTEventSubscriptionTO.getCallbackUrl());
         }
-
     }
 
     @And("An invalid Callback Url")
