@@ -19,6 +19,7 @@ import org.dcsa.api.validator.restassured.extension.Impl.RestAssuredExtensionImp
 import org.dcsa.api.validator.util.FileUtility;
 import org.dcsa.api.validator.util.JsonUtility;
 import org.dcsa.api.validator.util.TestUtility;
+import org.springframework.http.HttpStatus;
 import org.testng.Assert;
 
 import java.util.*;
@@ -41,9 +42,15 @@ public class CommonSteps {
     }
 
     @Given("API End point {string} for {string}")
-    public void ApiEndPointForAPi(String endPoint, String apiName) {
+    public void apiEndPointForGivenApi(String endPoint, String apiName) {
         restAssuredExtension
                 .given(endPoint, apiName);
+    }
+
+    @When("End point {string} for {string}")
+    public void apiEndPointForEventSubscription(String endPoint, String apiName) {
+        restAssuredExtension
+                .when(endPoint, apiName);
     }
 
     @Given("Callback url given in config event subscription")
@@ -128,14 +135,14 @@ public class CommonSteps {
         String body = null;
         Map<String, String> pathVariables = new HashMap<>();
         String apiName = restAssuredExtension.getTestContext().getApiName();
-        List<Response> responsesChain = restAssuredExtension.getTestContext().getResponseChain();
+/*        List<Response> responsesChain = restAssuredExtension.getTestContext().getResponseChain();
         if (!responsesChain.isEmpty()) {
             Response response = responsesChain.get(responsesChain.size() - 1);
             body = JsonUtility.getStringFormat(response.jsonPath().get());
             List<Map<String, String>> pathVariableChain = restAssuredExtension.getTestContext().getPathVariableChain();
             if (pathVariableChain.size() > 0)
                 pathVariables.putAll(pathVariableChain.get(pathVariableChain.size() - 1));
-        }
+        }*/
         TestCase testCase = TestUtility.getTestCase(apiName, testName);
         if (testCase.getRequest().getTemplateFile() != null) {
             body = TestUtility.getTestBody(apiName, "", testCase);

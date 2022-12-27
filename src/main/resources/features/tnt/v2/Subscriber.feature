@@ -10,14 +10,14 @@ Feature:
 
   @HeadRequest
   Scenario:TNT.2.2.PUB.SUB.2_Head request must be received_Receipt of a head request and success response
-    Given API End point "/notification-endpoints/receive/{uuid}" for "EventSubscription"
+    When End point "/notification-endpoints/receive/{uuid}" for "EventSubscription"
     And A valid Callback Url
     And Send HEAD http request
     Then Receive Head request for CallBack URL
 
   @HeadRequest
   Scenario:TNT.2.2.PUB.SUB.3_Invalid callback URL Head request must be rejected_Receipt of a head request and rejection response
-    Given API End point "/event-subscriptions" for "EventSubscription"
+    When End point "/event-subscriptions" for "EventSubscription"
     And An invalid Callback Url
     When Set request for POST with test case "SubscriptionRequest_CallBackTest"
     And Send a POST http request
@@ -41,11 +41,11 @@ Feature:
     And A valid Callback Url
     When Set request for POST with test case "EventTypeSHIPMENT"
     And Send a POST http request
+    When End point "/notification-endpoints/receive/{uuid}" for "EventSubscription"
+    And A valid Callback Url
+    And Send HEAD http request
     Then Receive Head request for CallBack URL
-    Then Receive valid response for POST
-    Then Receive a valid notification
     Given API End point "/event-subscriptions/{subscriptionID}/secret" for "EventSubscription"
     When Set request for PUT with test case "UpdateSecret"
     And Send a PUT http request
     Then Receive response code "204"
-    Then Receive a valid notification

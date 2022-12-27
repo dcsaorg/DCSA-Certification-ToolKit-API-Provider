@@ -18,6 +18,7 @@ import org.dcsa.api.validator.util.TestUtility;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 
 @Data
@@ -26,14 +27,34 @@ public class RestAssuredExtensionImpl implements RestAssuredExtension {
     private Response response;
     private ValidatableResponseExtensionImpl validatableResponseExtensionImpl;
     private TestContext testContext;
-
+    private static String subscriptionId;
     public RestAssuredExtensionImpl(TestContext testContext ) {
         this.testContext = testContext;
     }
     @Override
     public void given(String endPoint, String apiName) {
         testContext.setApiName(apiName);
-        endPoint = endPoint.replace("{uuid}", TestUtility.getConfigCallbackUuid());
+        if(endPoint.contains("{uuid}")){
+            endPoint = endPoint.replace("{uuid}", TestUtility.getConfigCallbackUuid());
+        }
+        if(endPoint.contains("{subscriptionID}")){
+            endPoint = endPoint.replace("{subscriptionID}", subscriptionId);
+        }
+        this.builder = new RequestSpecBuilder();
+        this.builder.setBasePath(endPoint);
+        this.builder.addHeader("API-Version", Configuration.API_VERSION.split("\\.")[0]);
+        this.builder.setBaseUri(Configuration.ROOT_URI+"/v"+Configuration.API_VERSION.split("\\.")[0]);
+        this.builder.setContentType(ContentType.JSON);
+    }
+
+    public void when(String endPoint, String apiName){
+        testContext.setApiName(apiName);
+        if(endPoint.contains("{uuid}")){
+            endPoint = endPoint.replace("{uuid}", TestUtility.getConfigCallbackUuid());
+        }
+        if(endPoint.contains("{subscriptionID}")){
+            endPoint = endPoint.replace("{subscriptionID}", subscriptionId);
+        }
         this.builder = new RequestSpecBuilder();
         this.builder.setBasePath(endPoint);
         this.builder.addHeader("API-Version", Configuration.API_VERSION.split("\\.")[0]);
@@ -63,7 +84,13 @@ public class RestAssuredExtensionImpl implements RestAssuredExtension {
     public void post() {
         response = buildRequest().post();
         if (response.getStatusCode() == HttpStatus.SC_CREATED) {
-            String value = response.getStatusCode()+"";
+            String value = response.jsonPath().get(TestUtility.getIdentifierAttribute(testContext.getApiName()));
+            try {
+                UUID uuid = UUID.fromString(value);
+                subscriptionId = value;
+            }catch (IllegalArgumentException exception){
+                // ignore it
+            }
             Map<String, String> pathVariables = new HashMap<>();
             pathVariables.put(TestUtility.getIdentifierAttribute(testContext.getApiName()), value);
             testContext.getPathVariableChain().add(pathVariables);
