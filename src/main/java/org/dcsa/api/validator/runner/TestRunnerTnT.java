@@ -9,7 +9,8 @@ import io.cucumber.testng.CucumberOptions;
 }, features = {
         "src/main/resources/features/tnt/v2/EventSubscription-Group2.feature",
         "src/main/resources/features/tnt/v2/EventSubscription-Group1.feature",
-        "src/main/resources/features/tnt/v2/Event.feature"
+        "src/main/resources/features/tnt/v2/Event.feature",
+        "src/main/resources/features/tnt/v2/Subscriber.feature"
     },
     glue = {
         "org.dcsa.api.validator.steps.common","org.dcsa.api.validator.steps.notification"
