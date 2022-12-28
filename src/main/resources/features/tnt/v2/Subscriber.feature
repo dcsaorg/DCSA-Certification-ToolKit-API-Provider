@@ -9,11 +9,18 @@ Feature:
     Then Receive Head request for CallBack URL
 
   @HeadRequest
-  Scenario:TNT.2.2.PUB.SUB.2_Head request must be received_Receipt of a head request and success response
+  Scenario:TNT.2.2.PUB.SUB.2_Notification HEAD request must be received_Receipt of a HEAD request and success response
     When End point "/notification-endpoints/receive/{uuid}" for "EventSubscription"
     And A valid Callback Url
     And Send HEAD http request
     Then Receive Head request for CallBack URL
+
+  @PostRequest
+  Scenario:TNT.2.2.PUB.SUB.6_Notification POST request must be received_Receipt of a POST request and success response
+    When End point "/notification-endpoints/receive/{uuid}" for "EventSubscription"
+    And A valid Callback Url
+    And Send a POST http request
+    Then Receive a valid notification
 
   @HeadRequest
   Scenario:TNT.2.2.PUB.SUB.3_Invalid callback URL Head request must be rejected_Receipt of a head request and rejection response

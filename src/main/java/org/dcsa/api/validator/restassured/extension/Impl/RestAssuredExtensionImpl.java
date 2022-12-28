@@ -1,5 +1,7 @@
 package org.dcsa.api.validator.restassured.extension.Impl;
 
+import com.google.gson.JsonParseException;
+import com.jayway.jsonpath.JsonPathException;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
@@ -7,6 +9,7 @@ import io.restassured.response.Response;
 import io.restassured.specification.FilterableRequestSpecification;
 import io.restassured.specification.RequestSpecification;
 import lombok.Data;
+import net.minidev.json.JSONObject;
 import org.apache.http.HttpStatus;
 import org.dcsa.api.validator.config.Configuration;
 import org.dcsa.api.validator.model.TestContext;
@@ -15,6 +18,8 @@ import org.dcsa.api.validator.restassured.extension.RestAssuredExtension;
 import org.dcsa.api.validator.restassured.extension.filter.RestAssuredRequestFilter;
 import org.dcsa.api.validator.restassured.extension.ValidatableResponseExtension;
 import org.dcsa.api.validator.util.TestUtility;
+
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -83,13 +88,22 @@ public class RestAssuredExtensionImpl implements RestAssuredExtension {
     @Override
     public void post() {
         response = buildRequest().post();
+    //    JSONObject jsonObj = new JSONObject(response.asString());
         if (response.getStatusCode() == HttpStatus.SC_CREATED) {
-            String value = response.jsonPath().get(TestUtility.getIdentifierAttribute(testContext.getApiName()));
+            String value = "";
+/*            if(response.jsonPath() != null) {
+                value = response.jsonPath().get(TestUtility.getIdentifierAttribute(testContext.getApiName()));
+            }else{
+                value = response.getStatusCode()+"";
+            }*/
             try {
+                value = response.jsonPath().get(TestUtility.getIdentifierAttribute(testContext.getApiName()));
                 UUID uuid = UUID.fromString(value);
                 subscriptionId = value;
             }catch (IllegalArgumentException exception){
                 // ignore it
+            } catch (Exception e){
+                value = response.getStatusCode()+"";
             }
             Map<String, String> pathVariables = new HashMap<>();
             pathVariables.put(TestUtility.getIdentifierAttribute(testContext.getApiName()), value);
