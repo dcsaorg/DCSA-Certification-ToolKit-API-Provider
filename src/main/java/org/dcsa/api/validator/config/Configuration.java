@@ -39,7 +39,7 @@ public class Configuration {
         if ( !AppProperty.CALLBACK_URI.isEmpty() )
             CALLBACK_URI = AppProperty.CALLBACK_URI;
         else {
-            CALLBACK_URI="http://localhost:9092";
+            CALLBACK_URI="http://localhost:9999";
         }
         if( !AppProperty.CALLBACK_URL.isEmpty()){
             CALLBACK_URL =  AppProperty.CALLBACK_URL;

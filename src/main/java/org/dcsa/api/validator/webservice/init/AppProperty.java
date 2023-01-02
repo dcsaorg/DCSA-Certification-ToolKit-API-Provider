@@ -98,7 +98,6 @@ public class AppProperty {
     private String config_data;
     private String event_path;
     private String upload_config_path;
-    private String db_ip;
     public static Path uploadPath;
     public static boolean isAppDataUploaded = false;
     public void init(){
@@ -115,7 +114,6 @@ public class AppProperty {
         String evnCallBackPort = System.getenv("CALLBACK_PORT");
         String evnCallBackWait = System.getenv("CALLBACK_WAIT");
         String evnTestSuite = System.getenv("TEST_SUITE");
-        String evnDbHostIp = System.getenv("DB_HOST_IP");
 
         if(evnApiRootUri != null){
             AppProperty.API_ROOT_URI = evnApiRootUri;
@@ -187,13 +185,6 @@ public class AppProperty {
 
         CALLBACK_URL = TestUtility.getConfigCallbackUrl();
 
-        if(evnDbHostIp != null){
-            AppProperty.DATABASE_IP = evnDbHostIp;
-        } else if(!PropertyLoader.getProperty(DATABASE_IP_KEY).isBlank()){
-            AppProperty.DATABASE_IP = PropertyLoader.getProperty(DATABASE_IP_KEY);
-        }else{
-            AppProperty.DATABASE_IP = db_ip;
-        }
         // Report config
         if(!PropertyLoader.getProperty(REPORT_AUTHOR_KEY).isBlank()){
             AppProperty.REPORT_AUTHOR = PropertyLoader.getProperty(REPORT_AUTHOR_KEY);
@@ -242,26 +233,6 @@ public class AppProperty {
         }else{
             AppProperty.REPORT_TIME_FORMAT = report_time_format;
         }
-/*        // TNT service config
-        AppProperty.API_ROOT_URI = api_root_uri;
-        AppProperty.TEST_DATA = test_data;
-        AppProperty.CONFIG_DATA = config_data;
-        AppProperty.CALLBACK_URI = callback_uri;
-        AppProperty.CALLBACK_PORT = callback_port;
-        AppProperty.CALLBACK_WAIT = callback_wait;
-        AppProperty.TEST_SUITE_NAME = test_suite_name;
-        // HTML report config
-        AppProperty.REPORT_AUTHOR = report_author;
-        AppProperty.REPORT_COMPANY = report_company;
-        AppProperty.REPORT_DIRECTORY = report_directory;
-        AppProperty.REPORT_NAME = report_name;
-        AppProperty.REPORT_TITLE = report_title;
-        AppProperty.REPORT_THEME = report_theme;
-        AppProperty.REPORT_TIME_FORMAT = report_time_format;
-        AppProperty.REPORT_TIMELINE = report_timeline;
-        AppProperty.UPLOAD_CONFIG_PATH = upload_config_path;
-        AppProperty.EVENT_PATH = event_path;
-        */
         makeUploadPath();
         isAppDataUploaded = true;
     }
