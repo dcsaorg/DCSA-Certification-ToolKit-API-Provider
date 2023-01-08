@@ -253,6 +253,11 @@ public class TestUtility {
     public static String getConfigEventSubscriptionJson(){
         return FileUtility.loadFileAsString(new FileSystemResource("").getFile().getAbsolutePath()+ File.separator+ AppProperty.EVENT_PATH);
     }
+    public static String getOperatingSystem() {
+        String os = System.getProperty("os.name");
+        System.out.println("Using System Property: " + os);
+        return os;
+    }
 
 
 }

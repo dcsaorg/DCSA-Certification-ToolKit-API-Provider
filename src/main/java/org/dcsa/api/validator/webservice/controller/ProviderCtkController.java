@@ -4,6 +4,7 @@ package org.dcsa.api.validator.webservice.controller;
 import org.dcsa.api.validator.model.enums.UploadType;
 import org.dcsa.api.validator.reporter.util.ReportUtil;
 import org.dcsa.api.validator.util.FileUtility;
+import org.dcsa.api.validator.util.ScriptExecutor;
 import org.dcsa.api.validator.util.TestUtility;
 import org.dcsa.api.validator.webservice.init.AppProperty;
 import org.dcsa.api.validator.webservice.service.DownloadService;
@@ -49,33 +50,38 @@ public class ProviderCtkController {
         testng.setTestSuites(xmlList);
         testng.run();
         downloadService.downloadHtmlReport(response, ReportUtil.getReports());
-  }
+   }
 
-    @GetMapping(value = "/", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-    public String home() {
+    @GetMapping(value = "/run-newman" )
+    void runNewman(HttpServletResponse response) {
+        ScriptExecutor.runNewman();
+    }
+
+        @GetMapping(value = "/", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+   public String home() {
         return "provider ctk home";
-    }
+   }
 
-    @GetMapping(value = "/download/report", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-    public ResponseEntity<Object> downloadReport() throws IOException {
-        HttpHeaders header = new HttpHeaders();
-        ByteArrayResource resource;
+   @GetMapping(value = "/download/report", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+   public ResponseEntity<Object> downloadReport() throws IOException {
+       HttpHeaders header = new HttpHeaders();
+       ByteArrayResource resource;
 
-        if (ReportUtil.htmlReportPath == null) {
-            return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
-                    .body(NO_REPORT_ERROR);
-        }
-        resource = FileUtility.getFile(ReportUtil.htmlReportPath);
-        header.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + ReportUtil.htmlReportName);
-        header.add("Cache-Control", "no-cache, no-store, must-revalidate");
-        header.add("Pragma", "no-cache");
-        header.add("Expires", "0");
-        return ResponseEntity.ok()
-                .headers(header)
-                .contentType(MediaType.parseMediaType("application/octet-stream"))
-                .body(resource);
-    }
+       if (ReportUtil.htmlReportPath == null) {
+           return ResponseEntity
+                   .status(HttpStatus.BAD_REQUEST)
+                   .body(NO_REPORT_ERROR);
+       }
+       resource = FileUtility.getFile(ReportUtil.htmlReportPath);
+       header.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + ReportUtil.htmlReportName);
+       header.add("Cache-Control", "no-cache, no-store, must-revalidate");
+       header.add("Pragma", "no-cache");
+       header.add("Expires", "0");
+       return ResponseEntity.ok()
+               .headers(header)
+               .contentType(MediaType.parseMediaType("application/octet-stream"))
+               .body(resource);
+   }
 
     @PostMapping("/upload")
     public String handleFileUpload(@RequestParam("file") MultipartFile file, String uploadType) {

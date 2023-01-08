@@ -107,4 +107,14 @@ public class FileUtility {
             throw new RuntimeException(e);
         }
     }
+
+    public static String getScriptPath(String resourceName){
+        String suiteDir = "script";
+        try {
+            String localPath = new File(".").getCanonicalPath();
+            return localPath+File.separator+suiteDir+File.separator+resourceName;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
