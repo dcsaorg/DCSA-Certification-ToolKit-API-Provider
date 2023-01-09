@@ -83,11 +83,11 @@ public class ExtentReportManager {
             extentTest.info(htmlReportModel.getValidationRequirementID().getDetails());
             if(htmlReportModel.getTestStatusCode() != null) {
                 if (htmlReportModel.getTestStatusCode().equals(TestStatusCode.PASSED)) {
-                    extentTest.pass(htmlReportModel.getTestName());
+                        extentTest.pass(htmlReportModel.getTestName());
                     Markup markUp = MarkupHelper.createLabel(TestStatusCode.PASSED.name().toUpperCase(), ExtentColor.GREEN);
                     extentTest.log(Status.INFO, markUp);
                     if (htmlReportModel.getTestDetails() != null)
-                        extentTest.info(ReportUtil.modifyTestDetails(htmlReportModel.getTestDetails()));
+                        extentTest.info(ReportUtil.modifyTestDetails(htmlReportModel.getTestDetails().toString()));
                 } else if (htmlReportModel.getTestStatusCode().equals(TestStatusCode.FAILED)) {
                     extentTest.fail(htmlReportModel.getTestName());
                     if (htmlReportModel.getFailureReason() != null) {
@@ -96,7 +96,7 @@ public class ExtentReportManager {
                     Markup markUp = MarkupHelper.createLabel(TestStatusCode.FAILED.name().toUpperCase(), ExtentColor.RED);
                     extentTest.log(Status.WARNING, markUp);
                     if (htmlReportModel.getTestDetails() != null) {
-                        extentTest.info(ReportUtil.modifyTestDetails(htmlReportModel.getTestDetails()));
+                        extentTest.info(ReportUtil.modifyTestDetails(htmlReportModel.getTestDetails().toString()));
                     }
                 }
             }

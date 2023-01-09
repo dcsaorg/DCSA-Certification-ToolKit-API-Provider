@@ -91,11 +91,6 @@ public class RestAssuredExtensionImpl implements RestAssuredExtension {
     //    JSONObject jsonObj = new JSONObject(response.asString());
         if (response.getStatusCode() == HttpStatus.SC_CREATED) {
             String value = "";
-/*            if(response.jsonPath() != null) {
-                value = response.jsonPath().get(TestUtility.getIdentifierAttribute(testContext.getApiName()));
-            }else{
-                value = response.getStatusCode()+"";
-            }*/
             try {
                 value = response.jsonPath().get(TestUtility.getIdentifierAttribute(testContext.getApiName()));
                 UUID uuid = UUID.fromString(value);

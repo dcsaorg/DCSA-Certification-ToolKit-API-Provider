@@ -55,6 +55,7 @@ public class ProviderCtkController {
     @GetMapping(value = "/run-newman" )
     void runNewman(HttpServletResponse response) {
         ScriptExecutor.runNewman();
+        downloadService.downloadHtmlReport(response, ReportUtil.getReports());
     }
 
         @GetMapping(value = "/", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)

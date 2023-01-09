@@ -1,3 +1,3 @@
-ECHO OFF
-newman run .\postman_collection.json
+::ECHO OFF
+newman run .\Provider_CTK.postman_collection.json
 PAUSE

@@ -30,7 +30,6 @@ public class ValidatableResponseExtensionImpl implements ValidatableResponseExte
         Response response = getResponse();
 
         if (statusCode == StatusCode.OK) {
-          //  header(null);
             try {
                 response.then()
                         .assertThat().statusCode(201);

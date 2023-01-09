@@ -515,7 +515,6 @@ public class CommonSteps {
         restAssuredExtension
                 .then()
                 .assertThat()
-                .header(headers)
-        ;
+                .header(headers);
     }
 }

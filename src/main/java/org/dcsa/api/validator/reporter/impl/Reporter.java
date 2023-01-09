@@ -86,9 +86,9 @@ public class Reporter implements IReporter {
                 } else if(testContext.getStatus().equals(TestStatusCode.FAILED.name())){
                     htmlReportModel.setTestStatusCode(TestStatusCode.FAILED);
                 }
-                htmlReportModel.setFailureReason(testContext.getReasonOfFailure());
-                htmlReportModel.setTestDetails(getTestDetails(testContext));
-                ExtentReportManager.writeExtentTestReport(htmlReportModel, testSuiteName);
+                htmlReportModel.getFailureReason().append(testContext.getReasonOfFailure());
+                htmlReportModel.getTestDetails().append(getTestDetails(testContext));
+                    ExtentReportManager.writeExtentTestReport(htmlReportModel, testSuiteName);
             }
         }
     }
@@ -153,9 +153,6 @@ public class Reporter implements IReporter {
         else {
             testDetails = prettyPrint.toString();
         }
-/*        if(!testContext.getTestDetails().toString().isBlank()){
-            testDetails = testContext.getTestDetails().toString();
-        }*/
         return testDetails;
     }
 
