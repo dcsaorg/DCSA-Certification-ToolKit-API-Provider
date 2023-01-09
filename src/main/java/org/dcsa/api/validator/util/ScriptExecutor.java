@@ -23,7 +23,7 @@ public class ScriptExecutor {
 
     private static void executeScript(String scriptPath) {
         try {
-            // create a file with the working directory we wish
+            // the working directory for the process is .\script
             File dir = new File(FileUtility.getScriptPath("\\"));
             Process process = Runtime.getRuntime().exec(scriptPath, null, dir);
             String line;
