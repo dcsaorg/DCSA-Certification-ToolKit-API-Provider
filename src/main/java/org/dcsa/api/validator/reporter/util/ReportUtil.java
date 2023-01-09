@@ -2,6 +2,8 @@ package org.dcsa.api.validator.reporter.util;
 
 import org.dcsa.api.validator.model.HtmlReportModel;
 import org.dcsa.api.validator.model.enums.ValidationRequirementId;
+import org.dcsa.api.validator.reporter.report.ExtentReportManager;
+import org.dcsa.api.validator.reporter.report.ExtentReportModifier;
 import org.dcsa.api.validator.webservice.init.AppProperty;
 
 import java.io.File;
@@ -95,8 +97,17 @@ public class ReportUtil {
             currentHtmlReportModel.setValidationRequirementID(ValidationRequirementId.getById(tokens[0].trim()));
         }
     }
-    public static List<HtmlReportModel> getHtmlReportModels(){
-        return htmlReportModels;
+    public static void writeReport(){
+        htmlReportModels.forEach( htmlReportModel -> {
+            ExtentReportManager.writeExtentTestReport(htmlReportModel, "TNT");
+        });
+        addLogo();
     }
+    private static void addLogo() {
+        if(ReportUtil.htmlReportPath != null){
+            ExtentReportModifier.modifyFile(ReportUtil.htmlReportPath);
+        }
+    }
+
 
 }

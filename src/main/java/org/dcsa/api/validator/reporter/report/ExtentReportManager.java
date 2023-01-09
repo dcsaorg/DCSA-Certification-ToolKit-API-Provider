@@ -17,7 +17,6 @@ import java.util.Objects;
 import java.util.Properties;
 
 public class ExtentReportManager {
-
     private static ExtentReports extentReports;
     private static ExtentTest extentTest;
 

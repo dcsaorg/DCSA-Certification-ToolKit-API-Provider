@@ -2,6 +2,7 @@ package org.dcsa.api.validator.webservice.controller;
 
 
 import org.dcsa.api.validator.model.enums.UploadType;
+import org.dcsa.api.validator.reporter.report.ExtentReportManager;
 import org.dcsa.api.validator.reporter.util.ReportUtil;
 import org.dcsa.api.validator.util.FileUtility;
 import org.dcsa.api.validator.util.ScriptExecutor;
@@ -55,6 +56,8 @@ public class ProviderCtkController {
     @GetMapping(value = "/run-newman" )
     void runNewman(HttpServletResponse response) {
         ScriptExecutor.runNewman();
+        ReportUtil.writeReport();
+        ExtentReportManager.resetExtentTestReport();
         downloadService.downloadHtmlReport(response, ReportUtil.getReports());
     }
 

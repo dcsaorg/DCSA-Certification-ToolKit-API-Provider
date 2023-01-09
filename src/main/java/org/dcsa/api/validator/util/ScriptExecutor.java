@@ -1,6 +1,5 @@
 package org.dcsa.api.validator.util;
 
-import org.dcsa.api.validator.reporter.report.ExtentReportManager;
 import org.dcsa.api.validator.reporter.util.ReportUtil;
 
 import java.io.BufferedReader;
@@ -34,13 +33,8 @@ public class ScriptExecutor {
                 ReportUtil.fillHtmlReportModel(line);
             }
             System.out.println("***** Script executed successfully *****");
-            ReportUtil.getHtmlReportModels().forEach( htmlReportModel -> {
-                ExtentReportManager.writeExtentTestReport(htmlReportModel, "TNT");
-            });
-
         } catch (IOException e) {
             System.out.println("Error during script execution "+e.getMessage());
         }
     }
-
 }
