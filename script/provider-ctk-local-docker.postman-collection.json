@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "c643ba8e-9782-4307-96cb-598abb9f8522",
+		"_postman_id": "68789d93-a3d6-42ff-89d7-d5606fa697e3",
 		"name": "provider-ctk-local-docker",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "2551975"
@@ -18,8 +18,8 @@
 							"pm.expect(result).to.be.true    \r",
 							"})\r",
 							"\r",
-							"tests[\"<b>[INFO] Request:</b>\" + JSON.stringify(request)] = true;\r",
-							"tests[\"<b>[INFO] Response:</b>\" + responseBody] = true;\r",
+							"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
+							"tests[\"[INFO] Response:##\" + responseBody] = true;\r",
 							""
 						],
 						"type": "text/javascript"
@@ -57,11 +57,11 @@
 							"//pm.expect(apiVersion).to.be.eql(\"2.2.0\")\r",
 							"\r",
 							"//tests[\"[INFO] Request: \" + JSON.stringify(pm.expect(apiVersion).match(/[-.0-9]+/))] = true;\r",
-							"pm.expect(apiVersion).match(/[-.0-9]+/)\r",
+							"pm.expect(apiVersion).match(/[-.0-9]+/).to.include(\"test messge here\");\r",
 							"})\r",
 							"\r",
-							"tests[\"<b>[INFO] Request:</b>\" + JSON.stringify(request)] = true;\r",
-							"tests[\"<b>[INFO] Response:</b>\" + responseBody] = true;\r",
+							"tests[\"[INFO] Request:##>\" + JSON.stringify(request)] = true;\r",
+							"tests[\"[INFO] Response:##\" + responseBody] = true;\r",
 							"\r",
 							""
 						],
@@ -119,8 +119,8 @@
 							"    pm.expect(httpVerb).eql(\"GET\")\r",
 							"})\r",
 							"\r",
-							"tests[\"<b>[INFO] Request:</b>\" + JSON.stringify(request)] = true;\r",
-							"tests[\"<b>[INFO] Response:</b>\" + responseBody] = true;"
+							"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
+							"tests[\"[INFO] Response:##\" + responseBody] = true;"
 						],
 						"type": "text/javascript"
 					}

@@ -13,7 +13,7 @@ services:
         container_name: provider-ctk
         build:
             context: ./
-            dockerfile: Dockerfile
+            dockerfile: Dockerfile.newman
         volumes:
             - C:\workspace\ctk\reports:/ctk/reports
             - C:\workspace\ctk\testdata:/ctk/testdata
