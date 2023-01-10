@@ -7,14 +7,17 @@ import java.io.InputStreamReader;
 
 public class ScriptExecutor {
 
+    public static boolean isWindows;
     public static void runNewman(){
         String osType = TestUtility.getOperatingSystem();
         String scriptPath = "";
         if(osType.contains("Win")){
             scriptPath = FileUtility.getScriptPath("win_newman.bat");
+            isWindows = true;
         }else if(osType.contains("Linux")){
             scriptPath = FileUtility.getScriptPath("nix_newman.sh");
         }
+        ReportUtil.setIsWindows(isWindows);
         executeScript(scriptPath);
     }
 

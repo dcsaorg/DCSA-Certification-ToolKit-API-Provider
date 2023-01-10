@@ -18,6 +18,17 @@ import static org.dcsa.api.validator.constant.TestStatusCode.*;
 public class ReportUtil {
     private static List<HtmlReportModel> htmlReportModels = new ArrayList<>();
     private static boolean assertionErrorContinue;
+
+    public static void setIsWindows(boolean isWindows) {
+        ReportUtil.isWindows = isWindows;
+        if(isWindows){
+            NEWMAN_TICK = "√";
+        }else {
+            NEWMAN_TICK = "✓";
+        }
+    }
+
+    private static boolean isWindows;
     private static HtmlReportModel currentHtmlReportModel = new HtmlReportModel();
     public static String htmlReportPath;
     public static String htmlReportName;
@@ -29,13 +40,10 @@ public class ReportUtil {
 
     public static final String RESPONSE_REPLACE = "[INFO] Response:";
     public static final String RESPONSE_REPLACE_BOLD = "<b>[[INFO] Response:</b>";
-
     public static final String HTML_NEWLINE = "</br>";
-
     public static final String HTML_BOLD_START = "<b>";
-
     public static final String HTML_BOLD_END = "</b>";
-
+    public static String NEWMAN_TICK = "√";
 
     public static String getReportPath(String filePrefix, String fileExtension){
         if(htmlReportPath == null){
@@ -58,7 +66,11 @@ public class ReportUtil {
         }
     }
     public static String modifyTestDetails(String testDetails){
-        return testDetails.replace("<h2>404 Not found</h2>", "404 Not found");
+        if(isWindows){
+            return testDetails.replace("<h2>404 Not found</h2>", "404 Not found");
+        }else {
+            return testDetails.replace("<h1>HTTP Status 404 – Not Found</h1>", "HTTP Status 404 – Not Found");
+        }
     }
     public static void fillHtmlReportModel(String line){
         if(line.contains(".json")){ // ignore
@@ -81,29 +93,28 @@ public class ReportUtil {
                 }
             });
         } else if(line.contains("[INFO] Request:")){ // test details request
-            line = line.replace("  √  ", "");
+            line = line.replace(NEWMAN_TICK, "").trim();
             String[] tokens = line.split(REQUEST_RESPONSE_SPLIT);
             tokens[0] = tokens[0].replace(REQUEST_REPLACE, REQUEST_REPLACE_BOLD);
             currentHtmlReportModel.getTestDetails().append(tokens[0])
                                     .append(HTML_NEWLINE).append(tokens[1]).append(HTML_NEWLINE);
         }else if(line.contains("[INFO] Response:")){ // test details response
-            line = line.replace("  √  ", "");
+            line = line.replace(NEWMAN_TICK, "").trim();
             String[] tokens = line.split(REQUEST_RESPONSE_SPLIT);
             tokens[0] = tokens[0].replace(RESPONSE_REPLACE, RESPONSE_REPLACE_BOLD);
             currentHtmlReportModel.getTestDetails().append(tokens[0])
                                     .append(HTML_NEWLINE).append(tokens[1]);
             htmlReportModels.add(currentHtmlReportModel);
             currentHtmlReportModel = new HtmlReportModel();
-        }
-        else if(line.contains("√") && line.contains(("_"))){ // pass case
-            line = line.replace("√", "");
+        } else if(line.contains(NEWMAN_TICK) && line.contains(("_"))){ // pass case
+            line = line.replace(NEWMAN_TICK, "").trim();
             currentHtmlReportModel.setTestName(line);
             String[] tokens = line.split("_");
             currentHtmlReportModel.setRequirementId(tokens[0].trim());
             currentHtmlReportModel.setRequirement(tokens[1].trim());
             currentHtmlReportModel.setTestStatusCode(PASSED);
             currentHtmlReportModel.setValidationRequirementID(ValidationRequirementId.getById(tokens[0].trim()));
-        }else if(!line.contains("√") && line.contains(("_"))){ // failed case
+        }else if(!line.contains(NEWMAN_TICK) && line.contains(("_"))){ // failed case
             line = line.substring(4);
             currentHtmlReportModel.setTestName(line);
             String[] tokens = line.split("_");
