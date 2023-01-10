@@ -18,16 +18,6 @@ import static org.dcsa.api.validator.constant.TestStatusCode.*;
 public class ReportUtil {
     private static List<HtmlReportModel> htmlReportModels = new ArrayList<>();
     private static boolean assertionErrorContinue;
-
-    public static void setIsWindows(boolean isWindows) {
-        ReportUtil.isWindows = isWindows;
-        if(isWindows){
-            NEWMAN_TICK = "√";
-        }else {
-            NEWMAN_TICK = "✓";
-        }
-    }
-
     private static boolean isWindows;
     private static HtmlReportModel currentHtmlReportModel = new HtmlReportModel();
     public static String htmlReportPath;
@@ -45,6 +35,14 @@ public class ReportUtil {
     public static final String HTML_BOLD_END = "</b>";
     public static String NEWMAN_TICK = "√";
 
+    public static void setIsWindows(boolean isWindows) {
+        ReportUtil.isWindows = isWindows;
+        if(isWindows){
+            NEWMAN_TICK = "√";
+        }else {
+            NEWMAN_TICK = "✓";
+        }
+    }
     public static String getReportPath(String filePrefix, String fileExtension){
         if(htmlReportPath == null){
             populateReportPath(filePrefix, fileExtension);

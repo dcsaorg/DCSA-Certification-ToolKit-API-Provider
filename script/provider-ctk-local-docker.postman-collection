@@ -1,0 +1,173 @@
+{
+	"info": {
+		"_postman_id": "c643ba8e-9782-4307-96cb-598abb9f8522",
+		"name": "provider-ctk-local-docker",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2551975"
+	},
+	"item": [
+		{
+			"name": "TNT.2.2.DPY.PRV.2 Major Version number must be present in URL",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"TNT.2.2.DPY.PRV.2_Major Version number must be present in URL\", function(){\r",
+							"let result = pm.variables.replaceIn(pm.request.url.toString().includes(\"v2\"))\r",
+							"pm.expect(result).to.be.true    \r",
+							"})\r",
+							"\r",
+							"tests[\"<b>[INFO] Request:</b>\" + JSON.stringify(request)] = true;\r",
+							"tests[\"<b>[INFO] Response:</b>\" + responseBody] = true;\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/v2/events",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v2",
+						"events"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TNT.2.2.API.PRV.1 Full version number present in response headers optional",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let apiVersion = pm.response.headers.get(\"API-Version\")\r",
+							"//tests[\"[INFO] assert: \" + JSON.stringify(pm.expect(apiVersion).match(/[-.0-9]+/))] = true;\r",
+							"\r",
+							"pm.test(\"TNT.2.2.API.PRV.1_Full version number present in response headers optional\", function(){\r",
+							"let apiVersion = pm.response.headers.get(\"API-Version\")\r",
+							"//pm.expect(apiVersion).to.be.eql(\"2.2.0\")\r",
+							"\r",
+							"//tests[\"[INFO] Request: \" + JSON.stringify(pm.expect(apiVersion).match(/[-.0-9]+/))] = true;\r",
+							"pm.expect(apiVersion).match(/[-.0-9]+/)\r",
+							"})\r",
+							"\r",
+							"tests[\"<b>[INFO] Request:</b>\" + JSON.stringify(request)] = true;\r",
+							"tests[\"<b>[INFO] Response:</b>\" + responseBody] = true;\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/v2/events",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v2",
+						"events"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TNT.2.2.API.PRV.3 HTTP verbs (GET, PUT, PATCH, POST, DELETE, HEAD) must be in request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"TNT.2.2.API.PRV.3_HTTP verbs (GET, PUT, PATCH, POST, DELETE, HEAD) must be in request\", function(){\r",
+							"    let httpVerb = pm.request.method;\r",
+							"    //var req = JSON.parse(pm.request.body.raw);\r",
+							"    //this works for form-data:\r",
+							"//var reqBody = pm.request.data\r",
+							"//this works for raw:\r",
+							"//var reqBody = JSON.parse(request.data);\r",
+							"  //  console.log(pm.request.headers)\r",
+							"    //console.log(req);\r",
+							"  // console.log(pm.info.eventName)\r",
+							"   // console.log(pm.info.iteration)\r",
+							"  //  console.log(pm.info.iterationCount)\r",
+							"  // console.log(pm.info.requestName)\r",
+							"   // console.log(pm.info.requestId)\r",
+							"  // console.log(pm.response.text())\r",
+							"  //  console.log(pm.request.text())\r",
+							"  //  console.log(pm.response.headers)\r",
+							"    pm.expect(httpVerb).eql(\"GET\")\r",
+							"})\r",
+							"\r",
+							"tests[\"<b>[INFO] Request:</b>\" + JSON.stringify(request)] = true;\r",
+							"tests[\"<b>[INFO] Response:</b>\" + responseBody] = true;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/v2/events",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v2",
+						"events"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://192.168.178.94:9090",
+			"type": "string"
+		}
+	]
+}

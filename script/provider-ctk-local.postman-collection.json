@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "87d8267a-28a5-462a-8a52-8c67ceee3e39",
-		"name": "provider_ctk_local",
+		"name": "provider-ctk-local",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "2551975"
 	},
@@ -57,7 +57,7 @@
 							"//pm.expect(apiVersion).to.be.eql(\"2.2.0\")\r",
 							"\r",
 							"//tests[\"[INFO] Request: \" + JSON.stringify(pm.expect(apiVersion).match(/[-.0-9]+/))] = true;\r",
-							"pm.expect(apiVersion).match(/[-.0-9]+/)\r",
+							"pm.expect(apiVersion).match(/[-.0-9]+/).to.include(\"test messge here\");\r",
 							"})\r",
 							"\r",
 							"tests[\"[INFO] Request:##>\" + JSON.stringify(request)] = true;\r",
