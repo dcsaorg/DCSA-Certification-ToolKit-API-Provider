@@ -3,7 +3,7 @@ package org.dcsa.api.validator.webservice.controller;
 
 import org.dcsa.api.validator.model.enums.UploadType;
 import org.dcsa.api.validator.reporter.report.ExtentReportManager;
-import org.dcsa.api.validator.reporter.util.ReportUtil;
+import org.dcsa.api.validator.util.ReportUtil;
 import org.dcsa.api.validator.util.FileUtility;
 import org.dcsa.api.validator.util.ScriptExecutor;
 import org.dcsa.api.validator.util.TestUtility;

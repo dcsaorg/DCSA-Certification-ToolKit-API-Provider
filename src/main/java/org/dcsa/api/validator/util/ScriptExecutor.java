@@ -1,7 +1,5 @@
 package org.dcsa.api.validator.util;
 
-import org.dcsa.api.validator.reporter.util.ReportUtil;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -23,7 +21,7 @@ public class ScriptExecutor {
     private static void executeScript(String scriptPath) {
         try {
             // the working directory for the process is .\script
-            File dir = new File(FileUtility.getScriptPath("\\"));
+            File dir = new File(FileUtility.getScriptPath(File.separator));
             Process process = Runtime.getRuntime().exec(scriptPath, null, dir);
             String line;
             System.out.println("***** Script execution Starts *****");

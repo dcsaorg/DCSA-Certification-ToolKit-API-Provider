@@ -1,4 +1,4 @@
-package org.dcsa.api.validator.reporter.util;
+package org.dcsa.api.validator.util;
 
 import org.dcsa.api.validator.model.HtmlReportModel;
 import org.dcsa.api.validator.model.enums.ValidationRequirementId;
@@ -21,7 +21,21 @@ public class ReportUtil {
     private static HtmlReportModel currentHtmlReportModel = new HtmlReportModel();
     public static String htmlReportPath;
     public static String htmlReportName;
-    public static final String HTML1 = "html";
+
+    public static final String REQUEST_RESPONSE_SPLIT = "##";
+
+    public static final String REQUEST_REPLACE = "[INFO] Request:";
+    public static final String REQUEST_REPLACE_BOLD = "<b>[INFO] Request:</b>";
+
+    public static final String RESPONSE_REPLACE = "[INFO] Response:";
+    public static final String RESPONSE_REPLACE_BOLD = "<b>[[INFO] Response:</b>";
+
+    public static final String HTML_NEWLINE = "</br>";
+
+    public static final String HTML_BOLD_START = "<b>";
+
+    public static final String HTML_BOLD_END = "</b>";
+
 
     public static String getReportPath(String filePrefix, String fileExtension){
         if(htmlReportPath == null){
@@ -54,7 +68,7 @@ public class ReportUtil {
             String finalLine = line;
             htmlReportModels.forEach(item ->{
                 if(finalLine.contains(item.getRequirementId())){
-                    item.getFailureReason().append(finalLine.trim()).append("\n");
+                    item.getFailureReason().append(finalLine.trim()).append(HTML_NEWLINE);
                     assertionErrorContinue = true;
                 }
             });
@@ -62,20 +76,22 @@ public class ReportUtil {
             String finalLine = line;
             htmlReportModels.forEach(item ->{
                 if(item.getFailureReason().toString().contains(item.getRequirementId())){
-                    item.getFailureReason().append(finalLine.trim());
+                    item.getFailureReason().append(HTML_BOLD_START+finalLine.trim()+HTML_BOLD_END);
                     assertionErrorContinue = false;
                 }
             });
         } else if(line.contains("[INFO] Request:")){ // test details request
             line = line.replace("  √  ", "");
-            String[] tokens = line.split(":</b>");
-            currentHtmlReportModel.getTestDetails().append(tokens[0]+":</b>")
-                    .append("<br>").append(tokens[1]).append("<br>");
+            String[] tokens = line.split(REQUEST_RESPONSE_SPLIT);
+            tokens[0] = tokens[0].replace(REQUEST_REPLACE, REQUEST_REPLACE_BOLD);
+            currentHtmlReportModel.getTestDetails().append(tokens[0])
+                                    .append(HTML_NEWLINE).append(tokens[1]).append(HTML_NEWLINE);
         }else if(line.contains("[INFO] Response:")){ // test details response
             line = line.replace("  √  ", "");
-            String[] tokens = line.split(":</b>");
-            currentHtmlReportModel.getTestDetails().append(tokens[0]+":</b>")
-                    .append("<br>").append(tokens[1]);
+            String[] tokens = line.split(REQUEST_RESPONSE_SPLIT);
+            tokens[0] = tokens[0].replace(RESPONSE_REPLACE, RESPONSE_REPLACE_BOLD);
+            currentHtmlReportModel.getTestDetails().append(tokens[0])
+                                    .append(HTML_NEWLINE).append(tokens[1]);
             htmlReportModels.add(currentHtmlReportModel);
             currentHtmlReportModel = new HtmlReportModel();
         }

@@ -1,7 +1,7 @@
 package org.dcsa.api.validator.webservice.service.impl;
 
 import lombok.extern.java.Log;
-import org.dcsa.api.validator.reporter.util.ReportUtil;
+import org.dcsa.api.validator.util.ReportUtil;
 import org.dcsa.api.validator.util.FileUtility;
 import org.dcsa.api.validator.webservice.service.DownloadService;
 import org.springframework.core.io.FileSystemResource;

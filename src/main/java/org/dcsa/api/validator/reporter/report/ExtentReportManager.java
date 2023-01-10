@@ -10,7 +10,7 @@ import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 import org.dcsa.api.validator.constant.TestStatusCode;
 import org.dcsa.api.validator.model.HtmlReportModel;
-import org.dcsa.api.validator.reporter.util.ReportUtil;
+import org.dcsa.api.validator.util.ReportUtil;
 import org.dcsa.api.validator.webservice.init.AppProperty;
 
 import java.util.Objects;

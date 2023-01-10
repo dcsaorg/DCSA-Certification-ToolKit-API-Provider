@@ -10,7 +10,7 @@ import org.dcsa.api.validator.model.TestContext;
 import org.dcsa.api.validator.model.enums.ValidationRequirementId;
 import org.dcsa.api.validator.reporter.report.ExtentReportManager;
 import org.dcsa.api.validator.reporter.report.ExtentReportModifier;
-import org.dcsa.api.validator.reporter.util.ReportUtil;
+import org.dcsa.api.validator.util.ReportUtil;
 import org.testng.IReporter;
 import org.testng.ISuite;
 import org.testng.xml.XmlSuite;
