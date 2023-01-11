@@ -1,6 +1,6 @@
 version: '3.5'
 services:
-    ctk-tnt:
+    provider-ctk-tnt:
         environment:
             - API_ROOT_URI=http://192.168.178.94:9090 # change this to host IP
             - CALLBACK_PORT=9999
@@ -9,15 +9,14 @@ services:
             - TEST_SUITE=TNT-TestSuite.xml
             - CONFIG_DATA=config/v2/config.json
             - TEST_DATA=config/v2/testdata.json
-          #  - JAVA_TOOL_OPTIONS="-agentlib:jdwp=transport=dt_socket,address=*:5006,server=y,suspend=n"
         container_name: provider-ctk
         build:
             context: ./
-            dockerfile: Dockerfile.newman
+            dockerfile: Dockerfile
         volumes:
             - C:\workspace\ctk\reports:/ctk/reports
             - C:\workspace\ctk\testdata:/ctk/testdata
         ports:
             - 9999:9999
             - 9000:9000
-           # - 5006:5006
+            - 5005:5005

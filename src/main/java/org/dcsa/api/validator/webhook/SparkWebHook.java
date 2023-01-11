@@ -53,7 +53,7 @@ public class SparkWebHook {
             return res;
         });
         Spark.awaitInitialization();
-        System.out.println("Server Started");
+        System.out.println("Spark notification callback server started");
     }
 
     public void stopServer() {
@@ -61,7 +61,7 @@ public class SparkWebHook {
         Spark.awaitStop();
         if (callbackContext != null)
             callbackContext.init();
-        System.out.println("Server Stopped");
+        System.out.println("Spark notification callback server Stopped");
     }
 
     public void setContext(CallbackContext callbackContext) {

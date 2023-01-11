@@ -44,7 +44,8 @@ public class DownloadServiceImpl implements DownloadService {
     private void displayReportPath(){
         if(ReportUtil.htmlReportPath != null){
             System.out.println("Please check the HTML report at "+ReportUtil.htmlReportPath);
+            System.out.println("The report should be downloaded when execution is done successfully :)");
         }
-        System.out.println("Or please call GET /download/report/html for HTML");
+        System.out.println("Optionally you may call GET /download/report for HTML");
     }
 }

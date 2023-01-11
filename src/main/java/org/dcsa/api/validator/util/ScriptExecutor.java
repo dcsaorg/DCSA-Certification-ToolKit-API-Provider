@@ -1,23 +1,23 @@
 package org.dcsa.api.validator.util;
 
+import org.dcsa.api.validator.model.enums.OsType;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class ScriptExecutor {
-
-    public static boolean isWindows;
+    public static OsType osType;
     public static void runNewman(){
-        String osType = TestUtility.getOperatingSystem();
+         osType = TestUtility.getOperatingSystem();
         String scriptPath = "";
-        if(osType.contains("Win")){
+        if(osType == OsType.WINDOWS ){
             scriptPath = FileUtility.getScriptPath("win_newman.bat");
-            isWindows = true;
-        }else if(osType.contains("Linux")){
+        }else if(osType == OsType.LINUX || osType == OsType.DOCKER){
             scriptPath = FileUtility.getScriptPath("nix_newman.sh");
         }
-        ReportUtil.setIsWindows(isWindows);
+        ReportUtil.setOsType(ScriptExecutor.osType);
         executeScript(scriptPath);
     }
 

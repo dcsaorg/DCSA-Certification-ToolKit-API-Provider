@@ -3,15 +3,21 @@ package org.dcsa.api.validator.util;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.dcsa.api.validator.model.*;
+import org.dcsa.api.validator.model.enums.OsType;
 import org.dcsa.api.validator.webservice.init.AppProperty;
 import org.springframework.core.io.FileSystemResource;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
+import java.util.stream.Stream;
 
 public class TestUtility {
     private static TestDB testDB;
@@ -31,9 +37,11 @@ public class TestUtility {
         testDataSet = JsonUtility.getObjectFromJson(TestDataSet.class, jsonString);
         return testDB;
     }
+
     public static TestDB getTestDB() {
         return testDB;
     }
+
     public static TestDataSet getTestDataSet() {
         return testDataSet;
     }
@@ -89,13 +97,14 @@ public class TestUtility {
 
         List<Map<String, Object>> getTestDataSet = TestUtility.getAllTestDataForGet(apiName);
         List<Map<String, Object>> logicalPostTestDataSet = new ArrayList<>();
-        List<String> attributesWithoutPostFix = new ArrayList<>();;
+        List<String> attributesWithoutPostFix = new ArrayList<>();
+        ;
         for (String query : attributes) {
             List<String> tokens = Arrays.asList(query.split(":"));
             if (tokens.size() > 1) {
                 query = tokens.get(0);
             }
-                attributesWithoutPostFix.add(query);
+            attributesWithoutPostFix.add(query);
         }
 
         for (Map<String, Object> getTestData : getTestDataSet) {
@@ -131,8 +140,7 @@ public class TestUtility {
 
 
     public static String getTestBody(String apiName, String body, TestCase testContext) {
-        if(body==null || body=="")
-        {
+        if (body == null || body == "") {
             if (testContext.getRequest() != null && testContext.getRequest().getTemplateFile() != null)
                 body = FileUtility.loadFileAsString(testContext.getRequest().getTemplateFile());
             else
@@ -195,8 +203,8 @@ public class TestUtility {
         return mac.doFinal(payload);
     }
 
-    public static String getSignature(String encodedKey, String payload)  {
-        String notificationSignature="sha256=";
+    public static String getSignature(String encodedKey, String payload) {
+        String notificationSignature = "sha256=";
         byte[] key = Base64.getDecoder().decode(encodedKey.getBytes(StandardCharsets.UTF_8));
         byte[] payloadByteArray = payload.getBytes(StandardCharsets.UTF_8);
         byte[] signature = new byte[0];
@@ -206,8 +214,8 @@ public class TestUtility {
             e.printStackTrace();
             return null;
         }
-        notificationSignature+=Hex.encodeHexString(signature);
-        System.out.println("Notification-Signature:"+ notificationSignature);
+        notificationSignature += Hex.encodeHexString(signature);
+        System.out.println("Notification-Signature:" + notificationSignature);
         System.out.println("< --- PAY LOAD (" + payloadByteArray.length + " bytes) --->");
         System.out.println(payload);
         return notificationSignature;
@@ -231,33 +239,51 @@ public class TestUtility {
         return testDB;
     }
 
-    public static String getConfigCallbackUuid(){
+    public static String getConfigCallbackUuid() {
         TNTEventSubscriptionTO configTNTEventSubscriptionTO = TestUtility.getConfigTNTEventSubscriptionTO();
         String[] splitStr = configTNTEventSubscriptionTO.getCallbackUrl().split("/");
         String uuid = "";
-        if(splitStr.length > 1){
-            uuid = splitStr[splitStr.length -1];
+        if (splitStr.length > 1) {
+            uuid = splitStr[splitStr.length - 1];
         }
         return uuid;
     }
-    public static String getConfigCallbackUrl(){
+
+    public static String getConfigCallbackUrl() {
         TNTEventSubscriptionTO configTNTEventSubscriptionTO = TestUtility.getConfigTNTEventSubscriptionTO();
         return configTNTEventSubscriptionTO.getCallbackUrl();
     }
 
-    public static TNTEventSubscriptionTO getConfigTNTEventSubscriptionTO(){
-        String eventSubscriptionJson = FileUtility.loadFileAsString(new FileSystemResource("").getFile().getAbsolutePath()+ File.separator+ AppProperty.EVENT_PATH);
+    public static TNTEventSubscriptionTO getConfigTNTEventSubscriptionTO() {
+        String eventSubscriptionJson = FileUtility.loadFileAsString(new FileSystemResource("").getFile().getAbsolutePath() + File.separator + AppProperty.EVENT_PATH);
         TNTEventSubscriptionTO tntEventSubscriptionTO = JsonUtility.getObjectFromJson(TNTEventSubscriptionTO.class, eventSubscriptionJson);
         return tntEventSubscriptionTO;
     }
-    public static String getConfigEventSubscriptionJson(){
-        return FileUtility.loadFileAsString(new FileSystemResource("").getFile().getAbsolutePath()+ File.separator+ AppProperty.EVENT_PATH);
+
+    public static String getConfigEventSubscriptionJson() {
+        return FileUtility.loadFileAsString(new FileSystemResource("").getFile().getAbsolutePath() + File.separator + AppProperty.EVENT_PATH);
     }
-    public static String getOperatingSystem() {
+
+    public static OsType getOperatingSystem() {
         String os = System.getProperty("os.name");
-        System.out.println("Using System Property: " + os);
-        return os;
+        OsType osType = OsType.WINDOWS;
+        if (os.contains("Win")) {
+            osType = OsType.WINDOWS;
+        } else if (os.contains("Linux")) {
+            osType = OsType.LINUX;
+        }
+        if (isRunningInsideDocker()) {
+            osType = OsType.DOCKER;
+        }
+        System.out.println("Using execution system: " + osType.name());
+        return osType;
     }
 
-
+    public static Boolean isRunningInsideDocker() {
+        if(Files.exists(Path.of("/.dockerenv"))){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

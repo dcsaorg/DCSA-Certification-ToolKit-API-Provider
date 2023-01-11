@@ -1,6 +1,7 @@
 package org.dcsa.api.validator.util;
 
 import org.dcsa.api.validator.model.HtmlReportModel;
+import org.dcsa.api.validator.model.enums.OsType;
 import org.dcsa.api.validator.model.enums.ValidationRequirementId;
 import org.dcsa.api.validator.reporter.report.ExtentReportManager;
 import org.dcsa.api.validator.reporter.report.ExtentReportModifier;
@@ -18,7 +19,8 @@ import static org.dcsa.api.validator.constant.TestStatusCode.*;
 public class ReportUtil {
     private static List<HtmlReportModel> htmlReportModels = new ArrayList<>();
     private static boolean assertionErrorContinue;
-    private static boolean isWindows;
+
+    private static OsType osType;
     private static HtmlReportModel currentHtmlReportModel = new HtmlReportModel();
     public static String htmlReportPath;
     public static String htmlReportName;
@@ -35,12 +37,14 @@ public class ReportUtil {
     public static final String HTML_BOLD_END = "</b>";
     public static String NEWMAN_TICK = "√";
 
-    public static void setIsWindows(boolean isWindows) {
-        ReportUtil.isWindows = isWindows;
-        if(isWindows){
+    public static void setOsType(OsType osType) {
+        ReportUtil.osType = osType;
+        if(osType == OsType.WINDOWS ){
             NEWMAN_TICK = "√";
-        }else {
+        }else if(osType == OsType.LINUX ){
             NEWMAN_TICK = "✓";
+        }else if(osType == OsType.DOCKER ){
+            NEWMAN_TICK = "���";
         }
     }
     public static String getReportPath(String filePrefix, String fileExtension){
@@ -64,11 +68,12 @@ public class ReportUtil {
         }
     }
     public static String modifyTestDetails(String testDetails){
-        if(isWindows){
+        if(osType == OsType.WINDOWS ){
             return testDetails.replace("<h2>404 Not found</h2>", "404 Not found");
-        }else {
+        }else if(osType == OsType.LINUX || osType == OsType.DOCKER){
             return testDetails.replace("<h1>HTTP Status 404 – Not Found</h1>", "HTTP Status 404 – Not Found");
         }
+        return "";
     }
     public static void fillHtmlReportModel(String line){
         if(line.contains(".json")){ // ignore
