@@ -279,7 +279,7 @@ public class TestUtility {
         return osType;
     }
 
-    public static Boolean isRunningInsideDocker() {
+    public static boolean isRunningInsideDocker() {
         if(Files.exists(Path.of("/.dockerenv"))){
             return true;
         }else{
