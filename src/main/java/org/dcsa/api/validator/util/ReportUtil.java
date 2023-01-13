@@ -105,8 +105,14 @@ public class ReportUtil {
             line = line.replace(NEWMAN_TICK, "").trim();
             String[] tokens = line.split(REQUEST_RESPONSE_SPLIT);
             tokens[0] = tokens[0].replace(RESPONSE_REPLACE, RESPONSE_REPLACE_BOLD);
-            currentHtmlReportModel.getTestDetails().append(tokens[0])
-                                    .append(HTML_NEWLINE).append(tokens[1]);
+            if(tokens.length > 1) {
+                currentHtmlReportModel.getTestDetails().append(tokens[0])
+                        .append(HTML_NEWLINE).append(tokens[1]);
+            }else{
+                currentHtmlReportModel.getTestDetails().append(tokens[0])
+                        .append(HTML_NEWLINE).append("No response found from the server");
+            }
+
             htmlReportModels.add(currentHtmlReportModel);
             currentHtmlReportModel = new HtmlReportModel();
         } else if(line.contains(NEWMAN_TICK) && line.contains(("_"))){ // pass case

@@ -1,6 +1,8 @@
 package org.dcsa.api.validator.webservice.init;
 
 import lombok.Data;
+import org.dcsa.api.validator.hook.TestSetup;
+import org.dcsa.api.validator.model.CallbackContext;
 import org.dcsa.api.validator.util.TestUtility;
 import org.dcsa.api.validator.webservice.exception.StorageException;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -100,7 +102,7 @@ public class AppProperty {
     private String upload_config_path;
     public static Path uploadPath;
     public static boolean isAppDataUploaded = false;
-    public void init(){
+    public void init() throws Exception {
         // TNT service config
         SUBSCRIPTION_ID = "";
         CLIENT_SECRET = System.getenv("client_secret");
@@ -234,6 +236,7 @@ public class AppProperty {
             AppProperty.REPORT_TIME_FORMAT = report_time_format;
         }
         makeUploadPath();
+        TestSetup.suiteSetUp();
         isAppDataUploaded = true;
     }
 

@@ -14,9 +14,12 @@ public class SparkWebHook {
 
     public void startServer() {
         Spark.port(Configuration.CALLBACK_PORT);
+        if(callbackContext == null){
+            callbackContext = new CallbackContext();
+        }
 
         Spark.post(Configuration.CALLBACK_PATH+"/:uuid", (req, res) -> {
-            res.status(HttpStatus.SC_CREATED);
+            res.status(HttpStatus.SC_NO_CONTENT);
             System.out.println("POST NOTIFICATION RECEIVED");
             if (req.params(":uuid").equals(TestUtility.getConfigCallbackUuid())) {
                 System.out.println("POST NOTIFICATION RECEIVED WITH UUID: "+req.params(":uuid"));
@@ -31,7 +34,7 @@ public class SparkWebHook {
                 callbackContext.getNotificationRequestLock().countDown();
             }else {
                 System.out.println("Wrong UUID return 404");
-                res.status(HttpStatus.SC_NOT_FOUND);
+                res.status(HttpStatus.SC_METHOD_NOT_ALLOWED);
             }
             return res;
         });
@@ -41,12 +44,12 @@ public class SparkWebHook {
             res.header("Content-Type", "application/json");
             if (req.params(":uuid").equals(TestUtility.getConfigCallbackUuid())) {
                 System.out.println("HEAD NOTIFICATION RECEIVED WITH UUID: "+req.params(":uuid"));
-                res.status(HttpStatus.SC_CREATED);
+                res.status(HttpStatus.SC_NO_CONTENT);
                 callbackContext.setHeadRequestReceived(true);
                 callbackContext.getHeadRequestLock().countDown();
             }
             else {
-                res.status(HttpStatus.SC_NOT_FOUND);
+                res.status(HttpStatus.SC_METHOD_NOT_ALLOWED);
                 callbackContext.setHeadRequestReceived(true);
                 callbackContext.getHeadRequestLock().countDown();
             }

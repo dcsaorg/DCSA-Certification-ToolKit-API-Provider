@@ -1,6 +1,7 @@
 package org.dcsa.api.validator.webservice.controller;
 
 
+import org.dcsa.api.validator.hook.TestSetup;
 import org.dcsa.api.validator.model.enums.UploadType;
 import org.dcsa.api.validator.reporter.report.ExtentReportManager;
 import org.dcsa.api.validator.util.ReportUtil;
@@ -34,7 +35,7 @@ public class ProviderCtkController {
    private final DownloadService downloadService;
    private final UploadService uploadService;
 
-    public ProviderCtkController(AppProperty appProperty, DownloadService downloadService, UploadService uploadService) {
+    public ProviderCtkController(AppProperty appProperty, DownloadService downloadService, UploadService uploadService) throws Exception {
         this.appProperty = appProperty;
         this.downloadService = downloadService;
         this.uploadService = uploadService;
@@ -54,7 +55,7 @@ public class ProviderCtkController {
    }
 
     @GetMapping(value = "/run-newman" )
-    void runNewman(HttpServletResponse response) {
+    void runNewman(HttpServletResponse response)    {
         ScriptExecutor.runNewman();
         ReportUtil.writeReport();
         ExtentReportManager.resetExtentTestReport();

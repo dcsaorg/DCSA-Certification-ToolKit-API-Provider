@@ -13,9 +13,9 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"TNT.2.2.DPY.PRV.2_Major Version number must be present in URL\", function(){\r",
+							"pm.test(\"TNT.2.2.DPY.PRV.2_Major Version number must be present in URL\", () => {\r",
 							"let result = pm.variables.replaceIn(pm.request.url.toString().includes(\"v2\"))\r",
-							"pm.expect(result).to.be.true    \r",
+							"pm.expect(result, \".2_Major version must be present in URL. \").to.be.true    \r",
 							"})\r",
 							"\r",
 							"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
@@ -49,15 +49,9 @@
 					"listen": "test",
 					"script": {
 						"exec": [
+							"pm.test(\"TNT.2.2.API.PRV.1_Full version number present in response headers optional\", () => {\r",
 							"let apiVersion = pm.response.headers.get(\"API-Version\")\r",
-							"//tests[\"[INFO] assert: \" + JSON.stringify(pm.expect(apiVersion).match(/[-.0-9]+/))] = true;\r",
-							"\r",
-							"pm.test(\"TNT.2.2.API.PRV.1_Full version number present in response headers optional\", function(){\r",
-							"let apiVersion = pm.response.headers.get(\"API-Version\")\r",
-							"//pm.expect(apiVersion).to.be.eql(\"2.2.0\")\r",
-							"\r",
-							"//tests[\"[INFO] Request: \" + JSON.stringify(pm.expect(apiVersion).match(/[-.0-9]+/))] = true;\r",
-							"pm.expect(apiVersion).match(/[-.0-9]+/).to.include(\"test messge here\");\r",
+							"pm.expect(apiVersion, \"SemVer used to indicate the version of the API. \").match(/[-.0-9]+/)\r",
 							"})\r",
 							"\r",
 							"tests[\"[INFO] Request:##>\" + JSON.stringify(request)] = true;\r",
@@ -99,24 +93,10 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"TNT.2.2.API.PRV.3_HTTP verbs (GET, PUT, PATCH, POST, DELETE, HEAD) must be in request\", function(){\r",
+							"pm.test(\"TNT.2.2.API.PRV.3_HTTP verbs (GET, PUT, PATCH, POST, DELETE, HEAD) must be in request\", () =>\r",
+							"{\r",
 							"    let httpVerb = pm.request.method;\r",
-							"    //var req = JSON.parse(pm.request.body.raw);\r",
-							"    //this works for form-data:\r",
-							"//var reqBody = pm.request.data\r",
-							"//this works for raw:\r",
-							"//var reqBody = JSON.parse(request.data);\r",
-							"  //  console.log(pm.request.headers)\r",
-							"    //console.log(req);\r",
-							"  // console.log(pm.info.eventName)\r",
-							"   // console.log(pm.info.iteration)\r",
-							"  //  console.log(pm.info.iterationCount)\r",
-							"  // console.log(pm.info.requestName)\r",
-							"   // console.log(pm.info.requestId)\r",
-							"  // console.log(pm.response.text())\r",
-							"  //  console.log(pm.request.text())\r",
-							"  //  console.log(pm.response.headers)\r",
-							"    pm.expect(httpVerb).eql(\"GET\")\r",
+							"    pm.expect(httpVerb, \"HTTP verbs must be in request\").eql(\"GET\")\r",
 							"})\r",
 							"\r",
 							"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
@@ -137,6 +117,1251 @@
 					"path": [
 						"v2",
 						"events"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TNT.2.2.API.PRV.5 Content type headers must be application/json",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"TNT.2.2.API.PRV.5_Content type headers must be application/json\", () => \r",
+							"{\r",
+							" pm.expect(pm.response.headers.get('Content-Type', 'Content type headers must be application/json. ')).to.eql('application/json');\r",
+							"})\r",
+							"\r",
+							"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
+							"tests[\"[INFO] Response:##\" + responseBody] = true;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/v2/events",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v2",
+						"events"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TNT.2.2.API.PRV.6 Links to current, previous, next, first and last page SHOULD be available in the response headers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"TNT.2.2.API.PRV.6_Links to current, previous, next, first and last page SHOULD be available in the response headers\", () => \r",
+							"{\r",
+							" pm.expect(pm.response.headers.get('Current-Page', 'Links to current page should be available. ')).is.not.empty\r",
+							" pm.expect(pm.response.headers.get('Next-Page', 'Links to next page should be available. ')).is.not.empty\r",
+							" pm.expect(pm.response.headers.get('Last-Page', 'Links to lasst page should be available. ')).is.not.empty\r",
+							"})\r",
+							"\r",
+							"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
+							"tests[\"[INFO] Response:##\" + responseBody] = true;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/v2/events?limit=2",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v2",
+						"events"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TNT.2.2.ERR.PRV.1 Test case GET /events  with invalid parameter name validating \"bad request\" - HTTP 400",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"TNT.2.2.ERR.PRV.1_Test case GET /events  with invalid parameter name validating \\\"bad request\\\" - HTTP 400\", () => {\r",
+							" pm.expect(pm.response.code, ' With invalid parameter name request response 400. ').to.eql(400);\r",
+							"})\r",
+							"\r",
+							"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
+							"tests[\"[INFO] Response:##\" + responseBody] = true;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/v2/events?limit=20&offset=100",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v2",
+						"events"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "20"
+						},
+						{
+							"key": "offset",
+							"value": "100"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TNT.2.2.ERR.PRV.2 Test case validating \"bad request\" - HTTP 400 with invalid values of filter parameters",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"TNT.2.2.ERR.PRV.2_Test case validating \\\"bad request\\\" - HTTP 400 with invalid values of filter parameters\", () => {\r",
+							" pm.expect(pm.response.code, 'With invalid values of filter parameters request response 400. ').to.eql(400);\r",
+							"})\r",
+							"\r",
+							"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
+							"tests[\"[INFO] Response:##\" + responseBody] = true;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/v2/events?eventType=invalid",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v2",
+						"events"
+					],
+					"query": [
+						{
+							"key": "eventType",
+							"value": "invalid"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TNT.2.2.ERR.PRV.3 \t Test case POST /event-subscriptions with missing mandatory attributes validating \"bad request\" - HTTP 400",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"TNT.2.2.ERR.PRV.3_Test case POST /event-subscriptions with missing mandatory attributes validating \\\"bad request\\\" - HTTP 400\", () => {\r",
+							" pm.expect(pm.response.code, 'With missing mandatory attributes response 400. ').to.eql(400);\r",
+							"\r",
+							"})\r",
+							"\r",
+							"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
+							"tests[\"[INFO] Response:##\" + responseBody] = true;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n  \"callbackUrl\": \"http://127.0.0.1:9999/v2/notification-endpoints/receive/76cef640-546d-11ed-bdc3-0242ac120002\",\r\n\r\n  \"eventType\": [\r\n\r\n    \"EQUIPMENT\"\r\n\r\n  ],\r\n  \"transportCallID\": \"979bafa8-e5b2-455b-a1eb-b678b6a2b6b2\",\r\n\r\n  \"vesselIMONumber\": \"9811000\",\r\n\r\n  \"carrierBookingReference\": \"ABC709951\",\r\n\r\n  \"carrierServiceCode\": \"FE1\",\r\n\r\n  \"equipmentReference\": \"APZU4812090\",\r\n\r\n  \"secret-new\": \"OG1wOWFaRW1HTTF1Y2NuaUN0RlAtaU9JMjM5N25vMWtWd25rS2Vkc2ktZms0c01zaTJQOElZRVNQN000000zzz==\" \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/v2/event-subscriptions",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v2",
+						"event-subscriptions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TNT.2.2.ERR.PRV.4 Test case POST /event-subscriptions  with invalid attribute value validating \"bad request\" - HTTP 400",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"TNT.2.2.ERR.PRV.4_Test case POST /event-subscriptions  with invalid attribute value validating \\\"bad request\\\" - HTTP 400\", () => {\r",
+							" pm.expect(pm.response.code, 'With invalid attribute value response 400. ').to.eql(400);\r",
+							"\r",
+							"})\r",
+							"\r",
+							"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
+							"tests[\"[INFO] Response:##\" + responseBody] = true;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n  \"callbackUrl\": \"http://127.0.0.1:9999/v2/notification-endpoints/receive/76cef640-546d-11ed-bdc3-0242ac120002\",\r\n\r\n  \"eventType\": [\r\n\r\n    \"EQUIPMENT\"\r\n\r\n  ],\r\n  \"transportCallID\": \"979bafa8-e5b2-455b-a1eb-b678b6a2b6b2\",\r\n\r\n  \"vesselIMONumber\": \"9811000nNANA\",\r\n\r\n  \"carrierBookingReference\": \"ABC709951\",\r\n\r\n  \"carrierServiceCode\": \"FE1\",\r\n\r\n  \"equipmentReference\": \"APZU4812090\",\r\n\r\n  \"secret\": \"OG1wOWFaRW1HTTF1Y2NuaUN0RlAtaU9JMjM5N25vMWtWd25rS2Vkc2ktZms0c01zaTJQOElZRVNQN000000zzz==\" \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/v2/event-subscriptions",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v2",
+						"event-subscriptions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TNT.2.2.ERR.PRV.5 Test case GET /event-subscriptions with invalid ID validating \"bad request\" - HTTP 400",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"TNT.2.2.ERR.PRV.5_Test case GET /event-subscriptions with invalid ID validating \\\"bad request\\\" - HTTP 400\", () => {\r",
+							" pm.expect(pm.response.code, 'With invalid subscriptions ID response 400. ').to.eql(400);\r",
+							"})\r",
+							"\r",
+							"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
+							"tests[\"[INFO] Response:##\" + responseBody] = true;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/v2/event-subscriptions/74c66b1b-4975-4287-968f-165676e6b8a0000",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v2",
+						"event-subscriptions",
+						"74c66b1b-4975-4287-968f-165676e6b8a0000"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TNT.2.2.ERR.PRV.6 Test case GET /event-subscriptions with missing subscription Id validating \"not found\" request - HTTP 404",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"TNT.2.2.ERR.PRV.6_Test case GET /event-subscriptions with missing subscription Id validating \\\"not found\\\" request - HTTP 404\", () => {\r",
+							" pm.expect(pm.response.code, 'With missing subscriptions ID response 404. ').to.eql(404);\r",
+							"})\r",
+							"\r",
+							"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
+							"tests[\"[INFO] Response:##\" + responseBody] = true;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/v2/event-subscriptions/127808ff-2a33-4bb6-a232-218ab569e627",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v2",
+						"event-subscriptions",
+						"127808ff-2a33-4bb6-a232-218ab569e627"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TNT.2.2.ERR.PRV.7  Test case DELETE /event-subscriptions with invalid ID validating \"bad request\" - HTTP 400",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"TNT.2.2.ERR.PRV.7_Test case DELETE /event-subscriptions with invalid ID validating \\\"bad request\\\" - HTTP 400\", () => {\r",
+							" pm.expect(pm.response.code, 'With invalid subscriptions ID response 400. ').to.eql(400);\r",
+							"})\r",
+							"\r",
+							"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
+							"tests[\"[INFO] Response:##\" + responseBody] = true;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/v2/event-subscriptions/127808ff-2a33-4bb6-a232-218ab569e627000",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v2",
+						"event-subscriptions",
+						"127808ff-2a33-4bb6-a232-218ab569e627000"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TNT.2.2.ERR.PRV.8  Test case PUT /event-subscriptions with mismatch of subscriptionID in body and URL validating \"bad request\" - HTTP 400",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"TNT.2.2.ERR.PRV.8_Test case PUT /event-subscriptions with mismatch of subscriptionID in body and URL validating \\\"bad request\\\" - HTTP 400\", () => {\r",
+							" pm.expect(pm.response.code, 'with mismatch of subscriptionID in body and URL. ').to.eql(400);\r",
+							"})\r",
+							"\r",
+							"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
+							"tests[\"[INFO] Response:##\" + responseBody] = true;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n  \"callbackUrl\": \"http://127.0.0.1:9990/v2/notification-endpoints/receive/456eacf9-8cda-412b-b801-4a41be7a6d000\",\r\n\r\n  \"eventType\": [\r\n\r\n    \"SHIPMENT\"\r\n\r\n  ],\r\n  \"transportCallID\": \"979bafa8-e5b2-455b-a1eb-b678b6a2b000\",\r\n\r\n  \"vesselIMONumber\": \"9811000\",\r\n\r\n  \"carrierBookingReference\": \"ABC709951\",\r\n\r\n  \"carrierServiceCode\": \"FE1\",\r\n\r\n  \"equipmentReference\": \"APZU4812090\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/v2/event-subscriptions/126835f2-c03d-4c35-b7df-3dd49f335efa",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v2",
+						"event-subscriptions",
+						"126835f2-c03d-4c35-b7df-3dd49f335efa"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TNT.2.2.SUB.PRV.11  Shared secret is not exposed in API endpoints",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"TNT.2.2.ERR.PRV.8_Test case PUT /event-subscriptions with mismatch of subscriptionID in body and URL validating \\\"bad request\\\" - HTTP 400\", () => {\r",
+							" pm.expect(pm.response.code, 'with mismatch of subscriptionID in body and URL. ').to.eql(400);\r",
+							"})\r",
+							"\r",
+							"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
+							"tests[\"[INFO] Response:##\" + responseBody] = true;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n  \"callbackUrl\": \"http://127.0.0.1:9990/v2/notification-endpoints/receive/456eacf9-8cda-412b-b801-4a41be7a6d000\",\r\n\r\n  \"eventType\": [\r\n\r\n    \"SHIPMENT\"\r\n\r\n  ],\r\n  \"transportCallID\": \"979bafa8-e5b2-455b-a1eb-b678b6a2b000\",\r\n\r\n  \"vesselIMONumber\": \"9811000\",\r\n\r\n  \"carrierBookingReference\": \"ABC709951\",\r\n\r\n  \"carrierServiceCode\": \"FE1\",\r\n\r\n  \"equipmentReference\": \"APZU4812090\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/v2/event-subscriptions/126835f2-c03d-4c35-b7df-3dd49f335efa",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v2",
+						"event-subscriptions",
+						"126835f2-c03d-4c35-b7df-3dd49f335efa"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TNT.2.2.ERR.PRV.9  Test case DELETE /event-subscriptions with missing subscription Id validating \"not found\" request - HTTP 404",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"TNT.2.2.ERR.PRV.9_Test case DELETE /event-subscriptions with missing subscription Id validating \\\"not found\\\" request - HTTP 404\", () => {\r",
+							" pm.expect(pm.response.code, 'with missing subscription Id. ').to.eql(404);\r",
+							"})\r",
+							"\r",
+							"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
+							"tests[\"[INFO] Response:##\" + responseBody] = true;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/v2/event-subscriptions/127808ff-2a33-4bb6-a232-218ab569e627",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v2",
+						"event-subscriptions",
+						"127808ff-2a33-4bb6-a232-218ab569e627"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TNT.2.2.ERR.PRV.10  Test case PUT /event-subscriptions with invalid attribute value validating \"bad request\" - HTTP 400",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"TNT.2.2.ERR.PRV.10_Test case PUT /event-subscriptions with invalid attribute value validating \\\"bad request\\\" - HTTP 400\", () => {\r",
+							" pm.expect(pm.response.code, 'With invalid attribute value.  ').to.eql(400);\r",
+							"})\r",
+							"\r",
+							"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
+							"tests[\"[INFO] Response:##\" + responseBody] = true;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"subscriptionID\": \"126835f2-c03d-4c35-b7df-3dd49f335efa\",\r\n\r\n \"callbackUrl\": \"http://127.0.0.1:9990/v2/notification-endpoints/receive/456eacf9-8cda-412b-b801-4a41be7a6d000\",\r\n\r\n  \"eventType\": [\r\n\r\n    \"SHIPMENT-Invlaid\"\r\n\r\n  ],\r\n  \"transportCallID\": \"979bafa8-e5b2-455b-a1eb-b678b6a2b000\",\r\n\r\n  \"vesselIMONumber\": \"9811000\",\r\n\r\n  \"carrierBookingReference\": \"ABC709951\",\r\n\r\n  \"carrierServiceCode\": \"FE1\",\r\n\r\n  \"equipmentReference\": \"APZU4812090\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/v2/event-subscriptions/126835f2-c03d-4c35-b7df-3dd49f335efa",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v2",
+						"event-subscriptions",
+						"126835f2-c03d-4c35-b7df-3dd49f335efa"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TNT.2.2.SUB.PRV.1  GET /event-subscriptions returns all subscriptions without any query parameter",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"TNT.2.2.SUB.PRV.1 _GET /event-subscriptions returns all subscriptions without any query parameter\", () => {\r",
+							" pm.expect(pm.response.code, 'returns all subscriptions without any query parameter. ').to.eql(200);\r",
+							"})\r",
+							"\r",
+							"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
+							"tests[\"[INFO] Response:##\" + responseBody] = true;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/v2/event-subscriptions/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v2",
+						"event-subscriptions",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TNT.2.2.SUB.PRV.2  GET /event-subscriptions returns all subscriptions with limit parameter",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"TNT.2.2.SUB.PRV.2_GET /event-subscriptions returns all subscriptions with limit parameter\", () => {\r",
+							" pm.expect(pm.response.code, 'returns all subscriptions with limit parameter. ').to.eql(200);\r",
+							"})\r",
+							"\r",
+							"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
+							"tests[\"[INFO] Response:##\" + responseBody] = true;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/v2/event-subscriptions?limit=2",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v2",
+						"event-subscriptions"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TNT.2.2.SUB.PRV.3  POST /event-subscriptions creates a new subscription for different Event types",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"TNT.2.2.SUB.PRV.3_POST /event-subscriptions creates a new subscription for different Event types\", () => {\r",
+							" pm.expect(pm.response.code, 'creates a new subscription for different Event types. ').to.eql(201);\r",
+							"})\r",
+							"\r",
+							"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
+							"tests[\"[INFO] Response:##\" + responseBody] = true;\r",
+							"\r",
+							"// set collection variable for future test to reuse it. \r",
+							"var jsonData = pm.response.json();\r",
+							"pm.collectionVariables.set(\"subscriptionID\", jsonData[\"subscriptionID\"])\r",
+							"\r",
+							"postman.setNextRequest(\"TNT.2.2.PUB.SUB.5 Notification must rotated secret. Receipt of an event after secret rotation\");\r",
+							"\r",
+							"postman.setNextRequest(\"TNT.2.2.SUB.PRV.7  PUT /event-subscriptions/{subscriptionID} update secret\");\r",
+							"\r",
+							"postman.setNextRequest(\"TNT.2.2.SUB.PRV.8  DELETE /event-subscriptions/{subscriptionID} delete with valid existed ID and response 204\");\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n  \"callbackUrl\": \"http://127.0.0.1:9900/v2/notification-endpoints/receive/456eacf9-8cda-412b-b801-4a41be7a6d000\",\r\n\r\n  \"eventType\": [\r\n    \"SHIPMENT\"\r\n  ],\r\n  \"transportCallID\": \"979bafa8-e5b2-455b-a1eb-b678b6a2b6b2\",\r\n\r\n  \"vesselIMONumber\": \"9811000\",\r\n\r\n  \"carrierBookingReference\": \"ABC709951\",\r\n\r\n  \"carrierServiceCode\": \"FE1\",\r\n\r\n  \"equipmentReference\": \"APZU4812090\",\r\n\r\n  \"secret\": \"OG1wOWFaRW1HTTF1Y2NuaUN0RlAtaU9JMjM5N25vMWtWd25rS2Vkc2ktZms0c01zaTJQOElZRVNQN000000zzz==\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/v2/event-subscriptions",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v2",
+						"event-subscriptions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TNT.2.2.SUB.PRV.4  GET /event-subscriptions/{subscriptionID} Fetches a specific subscription with ID={subscriptionID} with valid id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"TNT.2.2.SUB.PRV.4_GET /event-subscriptions/{subscriptionID} Fetches a specific subscription with ID={subscriptionID} with valid id\", () => {\r",
+							" pm.expect(pm.response.code, 'returns all subscriptions with limit parameter. ').to.eql(200);\r",
+							"})\r",
+							"\r",
+							"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
+							"tests[\"[INFO] Response:##\" + responseBody] = true;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/v2/event-subscriptions/769a453b-a0f5-4e36-8b42-ca53432dad06",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v2",
+						"event-subscriptions",
+						"769a453b-a0f5-4e36-8b42-ca53432dad06"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TNT.2.2.SUB.PRV.5  PUT /event-subscriptions/{subscriptionID} Updates a specific subscription with ID={subscriptionID} with valid request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"TNT.2.2.SUB.PRV.5_PUT /event-subscriptions/{subscriptionID} Updates a specific subscription with ID={subscriptionID} with valid request\", () => {\r",
+							" pm.expect(pm.response.code, 'With invalid attribute value.  ').to.eql(200);\r",
+							"})\r",
+							"\r",
+							"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
+							"tests[\"[INFO] Response:##\" + responseBody] = true;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n   \"subscriptionID\": \"126835f2-c03d-4c35-b7df-3dd49f335efa\",\r\n\r\n  \"callbackUrl\": \"http://127.0.0.1:9990/v2/notification-endpoints/receive/456eacf9-8cda-412b-b801-4a41be7a6d000\",\r\n\r\n  \"eventType\": [\r\n\r\n    \"SHIPMENT\"\r\n\r\n  ],\r\n  \"transportCallID\": \"979bafa8-e5b2-455b-a1eb-b678b6a2b000\",\r\n\r\n  \"vesselIMONumber\": \"9811000\",\r\n\r\n  \"carrierBookingReference\": \"ABC709951\",\r\n\r\n  \"carrierServiceCode\": \"FE1\",\r\n\r\n  \"equipmentReference\": \"APZU4812090\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/v2/event-subscriptions/126835f2-c03d-4c35-b7df-3dd49f335efa",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v2",
+						"event-subscriptions",
+						"126835f2-c03d-4c35-b7df-3dd49f335efa"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TNT.2.2.SUB.PRV.6  PUT /event-subscriptions/{subscriptionID} update secret receive invalid response",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"TNT.2.2.SUB.PRV.5_PUT /event-subscriptions/{subscriptionID} Updates a specific subscription with ID={subscriptionID} with valid request\", () => {\r",
+							"  let jsonData = pm.response.json(); \r",
+							"  let message = jsonData[\"message\"];\r",
+							"  pm.expect(message, \"\").contain(\"Please omit the \\\"secret\\\" attribute\")\r",
+							"  pm.expect(pm.response.code, 'With invalid response 400. ').to.eql(400);\r",
+							"\r",
+							" });\r",
+							"\r",
+							"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
+							"tests[\"[INFO] Response:##\" + responseBody] = true;\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n   \"subscriptionID\": \"126835f2-c03d-4c35-b7df-3dd49f335efa\",\r\n\r\n  \"callbackUrl\": \"http://127.0.0.1:9900/v2/notification-endpoints/receive/456eacf9-8cda-412b-b801-4a41be7a6d000\",\r\n\r\n  \"eventType\": [\r\n\r\n    \"SHIPMENT\"\r\n\r\n  ],\r\n  \"transportCallID\": \"979bafa8-e5b2-455b-a1eb-b678b6a2b6b2\",\r\n\r\n  \"vesselIMONumber\": \"9811000\",\r\n\r\n  \"carrierBookingReference\": \"ABC709951\",\r\n\r\n  \"carrierServiceCode\": \"FE1\",\r\n\r\n  \"equipmentReference\": \"APZU4812090\",\r\n\r\n  \"secret\": \"OG1wOWFaRW1HTTF1Y2NuaUN0RlAtaU9JMjM5N25vMWtWd25rS2Vkc2ktZms0c01zaTJQOElZRVNQN000000zzz==\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/v2/event-subscriptions/126835f2-c03d-4c35-b7df-3dd49f335efa",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v2",
+						"event-subscriptions",
+						"126835f2-c03d-4c35-b7df-3dd49f335efa"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TNT.2.2.SUB.PRV.7  PUT /event-subscriptions/{subscriptionID} update secret",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"TNT.2.2.SUB.PRV.7_PUT/event-subscriptions/{subscriptionID} update secret\", () => {\r",
+							"  pm.expect(pm.response.code, 'update secret. ').to.eql(204);\r",
+							"\r",
+							" });\r",
+							"\r",
+							"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
+							"tests[\"[INFO] Response:##\" + responseBody] = true;\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"secret\": \"MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTIzNDM2NTc4NjIzODk3NDY5MDgyNzM0OTg3MTIzNzg2XX==\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/v2/event-subscriptions/{{subscriptionID}}/secret",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v2",
+						"event-subscriptions",
+						"{{subscriptionID}}",
+						"secret"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TNT.2.2.SUB.PRV.8  DELETE /event-subscriptions/{subscriptionID} delete with valid existed ID and response 204",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"TNT.2.2.SUB.PRV.8_DELETE /event-subscriptions/{subscriptionID} delete with valid existed ID and response 204\", () => {\r",
+							"  pm.expect(pm.response.code, 'delete subscriptions with response 204 ').to.eql(204);\r",
+							"\r",
+							" });\r",
+							"\r",
+							"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
+							"tests[\"[INFO] Response:##\" + responseBody] = true;\r",
+							"\r",
+							"postman.setNextRequest(\"NT.2.2.SUB.PRV.9  DELETE /event-subscriptions/{subscriptionID} delete with non existed ID fails with response 404\");\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/v2/event-subscriptions/{{subscriptionID}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v2",
+						"event-subscriptions",
+						"{{subscriptionID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TNT.2.2.SUB.PRV.9  DELETE /event-subscriptions/{subscriptionID} delete with non existed ID fails with response 404",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"TNT.2.2.SUB.PRV.9  DELETE /event-subscriptions/{subscriptionID} delete with non existed ID fails with response 404\", () => {\r",
+							"  pm.expect(pm.response.code, 'fails with 404. ').to.eql(404);\r",
+							"\r",
+							" });\r",
+							"\r",
+							"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
+							"tests[\"[INFO] Response:##\" + responseBody] = true;\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/v2/event-subscriptions/{{subscriptionID}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v2",
+						"event-subscriptions",
+						"{{subscriptionID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TNT.2.2.SUB.PRV.10  Subscription requested must be rejected if the secrets are not adequate for the signature algorithm",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"TNT.2.2.SUB.PRV.10_Subscription requested must be rejected if the secrets are not adequate for the signature algorithm\", () => {\r",
+							" pm.expect(pm.response.code, 'Subscription requested must be rejected if the secrets are not adequate for the signature algorithm wiht 400. ').to.eql(400);\r",
+							"})\r",
+							"\r",
+							"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
+							"tests[\"[INFO] Response:##\" + responseBody] = true;\r",
+							"\r",
+							"// set collection variable for future test to reuse it. \r",
+							"var jsonData = pm.response.json();\r",
+							"pm.collectionVariables.set(\"subscriptionID\", jsonData[\"subscriptionID\"])\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n  \"callbackUrl\": \"http://127.0.0.1:9900/v2/notification-endpoints/receive/456eacf9-8cda-412b-b801-4a41be7a6d000\",\r\n\r\n  \"eventType\": [\r\n    \"SHIPMENT\"\r\n  ],\r\n  \"transportCallID\": \"979bafa8-e5b2-455b-a1eb-b678b6a2b6b2\",\r\n\r\n  \"vesselIMONumber\": \"9811000\",\r\n\r\n  \"carrierBookingReference\": \"ABC709951\",\r\n\r\n  \"carrierServiceCode\": \"FE1\",\r\n\r\n  \"equipmentReference\": \"APZU4812090\",\r\n\r\n  \"secret\": \"XXXOG1wOWFaRW1HTTF1Y2NuaUN0RlAtaU9JMjM5N25vMWtWd25rS2Vkc2ktZms0c01zaTJQOElZRVNQN000000zzz==\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/v2/event-subscriptions",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v2",
+						"event-subscriptions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TNT.2.2.PUB.SUB.1  Http code 204 for HEAD notification must be accepted as the only valid response. Callback URL HEAD response successful",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"TNT.2.2.PUB.SUB.1_Http code 204 for HEAD notification must be accepted as the only valid response. Callback URL HEAD response successful\", () => {\r",
+							" pm.expect(pm.response.code, 'HEAD notification must be 204. ').to.eql(204);\r",
+							"})\r",
+							"\r",
+							"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
+							"tests[\"[INFO] Response:##\" + responseBody] = true;\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "HEAD",
+				"header": [],
+				"url": {
+					"raw": "{{callbackUrl}}/456eacf9-8cda-412b-b801-4a41be7a6d000",
+					"host": [
+						"{{callbackUrl}}"
+					],
+					"path": [
+						"456eacf9-8cda-412b-b801-4a41be7a6d000"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TNT.2.2.PUB.SUB.2  Notification HEAD request must be received. Receipt of a HEAD request 204 is a success response",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"TNT.2.2.PUB.SUB.2)_Notification HEAD request must be received. Receipt of a HEAD request 204 is a success response\", () => {\r",
+							" pm.expect(pm.response.code, 'HEAD notification must be 204. ').to.eql(204);\r",
+							"})\r",
+							"\r",
+							"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
+							"tests[\"[INFO] Response:##\" + responseBody] = true;\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "HEAD",
+				"header": [],
+				"url": {
+					"raw": "{{callbackUrl}}/456eacf9-8cda-412b-b801-4a41be7a6d000",
+					"host": [
+						"{{callbackUrl}}"
+					],
+					"path": [
+						"456eacf9-8cda-412b-b801-4a41be7a6d000"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TNT.2.2.PUB.SUB.3  Invalid callback URL Head request must be rejected. Rejection of a head request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"TNT.2.2.PUB.SUB.3_Invalid callback URL Head request must be rejected. Rejection of a head request\", () => {\r",
+							" pm.expect(pm.response.code, 'HEAD notification must be rejected with 405. ').to.eql(405);\r",
+							"})\r",
+							"\r",
+							"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
+							"tests[\"[INFO] Response:##\" + responseBody] = true;\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "HEAD",
+				"header": [],
+				"url": {
+					"raw": "{{callbackUrl}}/456eacf9-8cda-412b-b801-4a41be7a6d111",
+					"host": [
+						"{{callbackUrl}}"
+					],
+					"path": [
+						"456eacf9-8cda-412b-b801-4a41be7a6d111"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TNT.2.2.PUB.SUB.4  Subscription requested must be rejected if the secrets are not adequate for the signature algorithm",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"TNT.2.2.PUB.SUB.4_Subscription requested must be rejected if the secrets are not adequate for the signature algorithm\", () => {\r",
+							" pm.expect(pm.response.code, 'requested must be rejected if the secrets are not adequate for the signature algorithm').to.eql(400);\r",
+							"})\r",
+							"\r",
+							"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
+							"tests[\"[INFO] Response:##\" + responseBody] = true;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n  \"callbackUrl\": \"http://127.0.0.1:9900/v2/notification-endpoints/receive/456eacf9-8cda-412b-b801-4a41be7a6d000\",\r\n\r\n  \"eventType\": [\r\n    \"SHIPMENT\"\r\n  ],\r\n  \"transportCallID\": \"979bafa8-e5b2-455b-a1eb-b678b6a2b6b2\",\r\n\r\n  \"vesselIMONumber\": \"9811000\",\r\n\r\n  \"carrierBookingReference\": \"ABC709951\",\r\n\r\n  \"carrierServiceCode\": \"FE1\",\r\n\r\n  \"equipmentReference\": \"APZU4812090\",\r\n\r\n  \"secret\": \"XXXOG1wOWFaRW1HTTF1Y2NuaUN0RlAtaU9JMjM5N25vMWtWd25rS2Vkc2ktZms0c01zaTJQOElZRVNQN000000zzz==\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/v2/event-subscriptions",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v2",
+						"event-subscriptions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TNT.2.2.PUB.SUB.5 Notification must rotated secret. Receipt of an event after secret rotation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"TNT.2.2.PUB.SUB.5_Notification must rotated secret. Receipt of an event after secret rotation\", () => {\r",
+							"  pm.expect(pm.response.code, 'update secret. ').to.eql(204);\r",
+							"\r",
+							" });\r",
+							"\r",
+							"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
+							"tests[\"[INFO] Response:##\" + responseBody] = true;\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"secret\": \"MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTIzNDM2NTc4NjIzODk3NDY5MDgyNzM0OTg3MTIzNzg2XX==\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/v2/event-subscriptions/{{subscriptionID}}/secret",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v2",
+						"event-subscriptions",
+						"{{subscriptionID}}",
+						"secret"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TNT.2.2.PUB.SUB.6  Notification POST request must be received. Receipt of a POST request with success response 204",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"TNT.2.2.PUB.SUB.6_Notification POST request must be received. Receipt of a POST request with success response 204\", () => {\r",
+							" pm.expect(pm.response.code, 'POST notification must be 204. ').to.eql(204);\r",
+							"})\r",
+							"\r",
+							"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
+							"tests[\"[INFO] Response:##\" + responseBody] = true;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{callbackUrl}}/456eacf9-8cda-412b-b801-4a41be7a6d000",
+					"host": [
+						"{{callbackUrl}}"
+					],
+					"path": [
+						"456eacf9-8cda-412b-b801-4a41be7a6d000"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TNT.2.2.PUB.SUB.7  Notification POST request must be rejectected if callback uuid is not same, it is rejected with 405",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"TNT.2.2.PUB.SUB.7_Notification POST request must be rejectected if callback uuid is not same, it is rejected with 405\", () => {\r",
+							" pm.expect(pm.response.code, 'POST notification must be rejected 405. ').to.eql(405);\r",
+							"})\r",
+							"\r",
+							"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
+							"tests[\"[INFO] Response:##\" + responseBody] = true;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{callbackUrl}}/456eacf9-8cda-412b-b801-4a41be7a6d111",
+					"host": [
+						"{{callbackUrl}}"
+					],
+					"path": [
+						"456eacf9-8cda-412b-b801-4a41be7a6d111"
 					]
 				}
 			},
@@ -167,6 +1392,16 @@
 		{
 			"key": "base_url",
 			"value": "http://localhost:9090",
+			"type": "string"
+		},
+		{
+			"key": "subscriptionID",
+			"value": "769a453b-a0f5-4e36-8b42-ca53432dad06",
+			"type": "string"
+		},
+		{
+			"key": "callbackUrl",
+			"value": "http://127.0.0.1:9999/v2/notification-endpoints/receive",
 			"type": "string"
 		}
 	]

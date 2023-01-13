@@ -20,7 +20,7 @@ public class TestSetup {
     public static SparkWebHook sparkWebHook;
 
     @BeforeSuite(alwaysRun = true)
-    public void suiteSetUp() throws Exception {
+    public static void suiteSetUp() throws Exception {
         try {
             Configuration.init();
             sparkWebHook = new SparkWebHook();
