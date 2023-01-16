@@ -8,5 +8,5 @@ if is_running_in_container; then
   newman run ./provider-ctk-local-docker.postman-collection.json
 else
   echo "Nay!! I'm not in a container"
-  newman run ./provider-ctk-local-docker.postman-collection.json
+  newman run ./provider-ctk-local.postman-collection.json
 fi

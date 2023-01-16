@@ -1391,7 +1391,7 @@
 	"variable": [
 		{
 			"key": "base_url",
-			"value": "http://192.168.178.94:9090\n",
+			"value": "http://192.168.178.94:9090",
 			"type": "string"
 		},
 		{
