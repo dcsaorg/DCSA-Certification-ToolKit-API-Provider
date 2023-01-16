@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SparkWebHook {
-    CallbackContext callbackContext;
+    static CallbackContext callbackContext;
 
     public void startServer() {
         Spark.port(Configuration.CALLBACK_PORT);
@@ -59,7 +59,7 @@ public class SparkWebHook {
         System.out.println("Spark notification callback server started");
     }
 
-    public void stopServer() {
+    public static void stopServer() {
         Spark.stop();
         Spark.awaitStop();
         if (callbackContext != null)
