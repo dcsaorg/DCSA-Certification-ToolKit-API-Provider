@@ -1,3 +1,5 @@
 ::ECHO OFF
-newman run .\provider-ctk-local.postman-collection.json
+set arg1=%1
+newman run .\DCSA-TNT.postman_collection.json
+::newman run .\%arg1%
 PAUSE

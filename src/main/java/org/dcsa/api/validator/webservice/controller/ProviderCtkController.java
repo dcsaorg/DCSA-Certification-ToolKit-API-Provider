@@ -55,7 +55,7 @@ public class ProviderCtkController {
    }
 
     @GetMapping(value = "/run-newman" )
-    void runNewman(HttpServletResponse response)    {
+    void runNewman(HttpServletResponse response) throws IOException {
         ScriptExecutor.runNewman();
         ReportUtil.writeReport();
         ExtentReportManager.resetExtentTestReport();

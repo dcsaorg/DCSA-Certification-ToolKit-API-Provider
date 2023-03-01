@@ -117,4 +117,24 @@ public class FileUtility {
             throw new RuntimeException(e);
         }
     }
+
+    public static String makeFile(BufferedReader bufferedReader) {
+        File testResultFile  = new File("testResultFile.log");
+        BufferedWriter bw = null;
+        String line;
+        try {
+            while ((line = bufferedReader.readLine()) != null) {
+                if (bw==null) {
+                    bw=new BufferedWriter(new FileWriter(testResultFile));
+                }
+                bw.write(line+System.getProperty("line.separator"));
+            }
+            if (bw!=null) {
+                bw.close();
+            }
+        }catch (Exception ex){
+            //throw new RuntimeException(ex.getMessage());
+        }
+        return testResultFile.getAbsolutePath();
+    }
 }

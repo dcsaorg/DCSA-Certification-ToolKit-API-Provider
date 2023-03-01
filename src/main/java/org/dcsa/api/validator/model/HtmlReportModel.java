@@ -13,7 +13,11 @@ public class HtmlReportModel {
     private TestStatusCode testStatusCode;
     private StringBuilder failureReason;
     private StringBuilder testDetails;
+
     private ValidationRequirementId validationRequirementID;
+
+    private boolean isDetailsFilled;
+
     public HtmlReportModel(){
         testDetails= new StringBuilder();
         failureReason = new StringBuilder();

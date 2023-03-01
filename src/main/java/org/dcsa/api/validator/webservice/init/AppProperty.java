@@ -2,7 +2,6 @@ package org.dcsa.api.validator.webservice.init;
 
 import lombok.Data;
 import org.dcsa.api.validator.hook.TestSetup;
-import org.dcsa.api.validator.model.CallbackContext;
 import org.dcsa.api.validator.util.TestUtility;
 import org.dcsa.api.validator.webservice.exception.StorageException;
 import org.springframework.boot.context.properties.ConfigurationProperties;
