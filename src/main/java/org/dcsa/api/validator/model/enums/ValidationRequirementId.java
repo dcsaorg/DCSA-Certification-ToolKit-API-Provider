@@ -108,7 +108,11 @@ public enum ValidationRequirementId {
     TNT_3_0_REQUIREMENT_ID_34("TNT.3.0-REQUIREMENT-ID-34", "Some demo requirement. It will be updated later" ),
     TNT_3_0_REQUIREMENT_ID_34_1("TNT.3.0-REQUIREMENT-ID-34-1", "Some demo requirement. It will be updated later" ),
     TNT_3_0_REQUIREMENT_ID_34_2("TNT.3.0-REQUIREMENT-ID-34-2", "Some demo requirement. It will be updated later" ),
-    TNT_3_0_REQUIREMENT_IDX("TNT.3.0-REQUIREMENT-IDX", "Some demo requirement. It will be updated later" );
+    TNT_3_0_REQUIREMENT_ID_COMMON_1("TNT.3.0-REQUIREMENT-ID-COMMON-1", "Some demo requirement. It will be updated later" ),
+    TNT_3_0_REQUIREMENT_ID_COMMON_2("TNT.3.0-REQUIREMENT-ID-COMMON-2", "Some demo requirement. It will be updated later" ),
+    TNT_3_0_REQUIREMENT_ID_COMMON_3("TNT.3.0-REQUIREMENT-ID-COMMON-3", "Some demo requirement. It will be updated later" ),
+    TNT_3_0_REQUIREMENT_ID_COMMON_4("TNT.3.0-REQUIREMENT-ID-COMMON-4", "Some demo requirement. It will be updated later" ),
+    TNT_3_0_REQUIREMENT_ID_COMMON_5("TNT.3.0-REQUIREMENT-ID-COMMON-5", "Some demo requirement. It will be updated later" );
 
     private static final Map<String, ValidationRequirementId> RequirementId = new HashMap<>();
     private static final Map<String, ValidationRequirementId> RequirementDetails = new HashMap<>();

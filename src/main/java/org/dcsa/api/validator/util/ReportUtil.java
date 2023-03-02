@@ -113,6 +113,8 @@ public class ReportUtil {
             if(!htmlReportModels.contains(htmlReportModel)){
                 htmlReportModels.add(htmlReportModel);
             }
+        }else if(line.contains("Error")){
+            System.out.println("TNT is not running. Pls run TNT and try again.");
         }
     }
     private static void setAssertionLine(String line){
@@ -121,7 +123,7 @@ public class ReportUtil {
         String finalLine = line;
         htmlReportModels.forEach(item -> {
             if(finalLine.equals(item.getTestName())){
-                item.getFailureReason().append(finalLine.trim()).append(HTML_NEWLINE);
+                item.getFailureReason().append(finalLine.trim());
                 assertionTestContinue = true;
             }
         });

@@ -90,7 +90,7 @@ public class ExtentReportManager {
                 } else if (htmlReportModel.getTestStatusCode().equals(TestStatusCode.FAILED)) {
                     extentTest.fail(htmlReportModel.getTestName());
                     if (htmlReportModel.getFailureReason() != null) {
-                        extentTest.fail("Failure reason: " + htmlReportModel.getFailureReason());
+                        extentTest.fail("<b>Failure reason: </b></br>" + htmlReportModel.getFailureReason());
                     }
                     Markup markUp = MarkupHelper.createLabel(TestStatusCode.FAILED.name().toUpperCase(), ExtentColor.RED);
                     extentTest.log(Status.WARNING, markUp);
