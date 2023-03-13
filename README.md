@@ -85,3 +85,9 @@ docker-compose up
 ### Test Reports
 Following test result reports will be generated under reports folder or under mounted volume(in case of docker), you can verify the result in case of any discrepancies:
 * Detailed Html report at technical level to verify each steps performed to validate a test case
+
+For the newman reporting prerequisite must be system must install this extension  
+```shell
+npm install -g newman
+npm install -g newman-reporter-htmlextra
+```

@@ -12,6 +12,7 @@ import io.restassured.response.Response;
 import org.dcsa.api.validator.constant.StatusCode;
 import org.dcsa.api.validator.constant.ValidationCode;
 import org.dcsa.api.validator.hook.TestSetup;
+import org.dcsa.api.validator.model.TNTEventSubscriptionTO;
 import org.dcsa.api.validator.model.TestCase;
 import org.dcsa.api.validator.model.TestContext;
 import org.dcsa.api.validator.restassured.extension.RestAssuredExtension;
@@ -19,7 +20,11 @@ import org.dcsa.api.validator.restassured.extension.Impl.RestAssuredExtensionImp
 import org.dcsa.api.validator.util.FileUtility;
 import org.dcsa.api.validator.util.JsonUtility;
 import org.dcsa.api.validator.util.TestUtility;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.web.client.RestTemplate;
 import org.testng.Assert;
 
 import java.util.*;
@@ -45,6 +50,13 @@ public class CommonSteps {
     public void apiEndPointForGivenApi(String endPoint, String apiName) {
         restAssuredExtension
                 .given(endPoint, apiName);
+    }
+
+    @When("uploaded config given")
+    public void uploadedEventSubscription() {
+        TNTEventSubscriptionTO tntEventSubscriptionTO =TestUtility.getConfigTNTEventSubscriptionTO();
+        restAssuredExtension
+                .when(tntEventSubscriptionTO.getCallbackUrl(), "");
     }
 
     @When("End point {string} for {string}")
@@ -78,6 +90,20 @@ public class CommonSteps {
         String body = TestUtility.getTestBody(apiName, "", testCase);
         restAssuredExtension
                 .body(body);
+    }
+
+    @And("Send a POST request with configured body")
+    public void sendPostForConfigData() {
+        TNTEventSubscriptionTO tntEventSubscriptionTO = TestUtility.getConfigTNTEventSubscriptionTO();
+        String tntEventSubscriptionTOStr = TestUtility.getConfigTNTEventSubscriptionTOStr();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(List.of(MediaType.APPLICATION_JSON));
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> entity = new HttpEntity<>(tntEventSubscriptionTOStr,headers);
+        RestTemplate restTemplate = TestUtility.getRestTemplate();
+        var res = restTemplate
+                .exchange(tntEventSubscriptionTO.getCallbackUrl(), HttpMethod.POST,entity,String.class);
+        System.out.println(res.getBody());
     }
 
     @And("Send a POST http request")

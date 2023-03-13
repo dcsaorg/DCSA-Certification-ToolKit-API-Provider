@@ -55,10 +55,12 @@ public class ProviderCtkController {
    }
 
     @GetMapping(value = "/run-newman" )
-    void runNewman(HttpServletResponse response) throws IOException {
+    void runNewman(HttpServletResponse response) throws Exception {
         ScriptExecutor.runNewman();
         ReportUtil.writeReport();
         ExtentReportManager.resetExtentTestReport();
+        //AppProperty.stropSparkWebHook();
+        TestSetup.tearDown();
         downloadService.downloadHtmlReport(response, ReportUtil.getReports());
     }
 

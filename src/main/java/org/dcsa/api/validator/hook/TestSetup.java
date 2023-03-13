@@ -16,9 +16,8 @@ import static io.restassured.RestAssured.given;
 
 public class TestSetup {
 
-    public static Map<String, TestContext> TestContexts = new HashMap<>();
     public static SparkWebHook sparkWebHook;
-
+    public static Map<String, TestContext> TestContexts = new HashMap<>();
     @BeforeSuite(alwaysRun = true)
     public static void suiteSetUp() throws Exception {
         try {
@@ -49,7 +48,7 @@ public class TestSetup {
     }
 
     @AfterSuite(alwaysRun = true)
-    public void tearDown() throws Exception {
+    public static void tearDown() throws Exception {
         sparkWebHook.stopServer();
     }
 

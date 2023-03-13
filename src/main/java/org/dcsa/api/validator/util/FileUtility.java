@@ -137,4 +137,25 @@ public class FileUtility {
         }
         return testResultFile.getAbsolutePath();
     }
+
+    public static boolean isTntCollection(String filePath){
+        boolean isTntCollection = false;
+        BufferedReader reader;
+
+        try {
+            reader = new BufferedReader(new FileReader(filePath));
+            String line = reader.readLine();
+            while (line != null) {
+                System.out.println(line);
+                // read next line
+                line = reader.readLine();
+                if(line.toLowerCase().contains("tnt")){
+                    isTntCollection = true;
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return isTntCollection;
+    }
 }

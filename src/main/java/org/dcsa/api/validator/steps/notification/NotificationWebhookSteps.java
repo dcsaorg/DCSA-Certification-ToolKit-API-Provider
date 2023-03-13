@@ -13,6 +13,7 @@ import org.dcsa.api.validator.util.FileUtility;
 import org.dcsa.api.validator.util.JsonUtility;
 import org.dcsa.api.validator.util.TestUtility;
 import org.dcsa.api.validator.webhook.SparkWebHook;
+import org.dcsa.api.validator.webservice.init.AppProperty;
 import org.testng.Assert;
 
 import java.util.concurrent.TimeUnit;
@@ -50,6 +51,8 @@ public class NotificationWebhookSteps {
             Assert.fail("Head Request not received");
         }
         callbackContext.setHeadRequestCountDown(1);
+      //  SparkWebHook.setSubscriptionID();
+
     }
 
     @Then("Not receive Head request for invalid callBack URL")

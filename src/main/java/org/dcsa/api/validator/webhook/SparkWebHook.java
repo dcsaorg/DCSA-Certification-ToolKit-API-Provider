@@ -4,21 +4,30 @@ import org.apache.http.HttpStatus;
 import org.dcsa.api.validator.config.Configuration;
 import org.dcsa.api.validator.model.CallbackContext;
 import org.dcsa.api.validator.util.TestUtility;
+import spark.Service;
 import spark.Spark;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
+
+import static spark.Service.ignite;
 
 public class SparkWebHook {
     static CallbackContext callbackContext;
 
+    static boolean isNotificationSent;
+    static Service http;
     public void startServer() {
-        Spark.port(Configuration.CALLBACK_PORT);
+        http = ignite()
+                .port(Configuration.CALLBACK_PORT)
+                .threadPool(20);
+
         if(callbackContext == null){
             callbackContext = new CallbackContext();
         }
 
-        Spark.post(Configuration.CALLBACK_PATH+"/:uuid", (req, res) -> {
+        http.post(Configuration.CALLBACK_PATH+"/:uuid", (req, res) -> {
             res.status(HttpStatus.SC_NO_CONTENT);
             System.out.println("POST NOTIFICATION RECEIVED");
             if (req.params(":uuid").equals(TestUtility.getConfigCallbackUuid())) {
@@ -32,6 +41,8 @@ public class SparkWebHook {
                 }
                 callbackContext.setHeaders(headers);
                 callbackContext.getNotificationRequestLock().countDown();
+                isNotificationSent = true;
+                res.body("Testing");
             }else {
                 System.out.println("Wrong UUID return 404");
                 res.status(HttpStatus.SC_METHOD_NOT_ALLOWED);
@@ -39,7 +50,7 @@ public class SparkWebHook {
             return res;
         });
 
-        Spark.head(Configuration.CALLBACK_PATH+"/:uuid", (req, res) -> {
+        http.head(Configuration.CALLBACK_PATH+"/:uuid", (req, res) -> {
             System.out.println("HEAD NOTIFICATION RECEIVED");
             res.header("Content-Type", "application/json");
             if (req.params(":uuid").equals(TestUtility.getConfigCallbackUuid())) {
@@ -55,13 +66,16 @@ public class SparkWebHook {
             }
             return res;
         });
-        Spark.awaitInitialization();
-        System.out.println("Spark notification callback server started");
+
+        http.get("/notificationSent", (req, res) -> isNotificationSent);
+
+        http.awaitInitialization();
+
+        System.out.println("Spark notification callback server started and listing on "+Configuration.CALLBACK_PORT);
     }
 
     public static void stopServer() {
-        Spark.stop();
-        Spark.awaitStop();
+        http.stop();
         if (callbackContext != null)
             callbackContext.init();
         System.out.println("Spark notification callback server Stopped");
@@ -70,4 +84,5 @@ public class SparkWebHook {
     public void setContext(CallbackContext callbackContext) {
         this.callbackContext = callbackContext;
     }
+
 }

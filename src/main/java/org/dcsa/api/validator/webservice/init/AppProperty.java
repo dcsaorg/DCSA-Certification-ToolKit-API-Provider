@@ -3,6 +3,7 @@ package org.dcsa.api.validator.webservice.init;
 import lombok.Data;
 import org.dcsa.api.validator.hook.TestSetup;
 import org.dcsa.api.validator.util.TestUtility;
+import org.dcsa.api.validator.webhook.SparkWebHook;
 import org.dcsa.api.validator.webservice.exception.StorageException;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -43,6 +44,8 @@ public class AppProperty {
     private static final String DATABASE_URL_KEY = "app.url";
     private static final String DATABASE_SCHEMA_KEY = "app.schema";
     private static final String DATABASE_IP_KEY = "app.db_ip";
+
+    public static SparkWebHook sparkWebHook;
 
     // TNT service static config
     public static String API_ROOT_URI;
@@ -236,8 +239,18 @@ public class AppProperty {
         }
         makeUploadPath();
         TestSetup.suiteSetUp();
+       // startSparkWebHook();
         isAppDataUploaded = true;
     }
+    private void startSparkWebHook(){
+        sparkWebHook = new SparkWebHook();
+        sparkWebHook.startServer();
+    }
+
+    public static void stropSparkWebHook(){
+        sparkWebHook.stopServer();
+    }
+
 
     public static void initByPropertyFile(){
         if(!isAppDataUploaded) {

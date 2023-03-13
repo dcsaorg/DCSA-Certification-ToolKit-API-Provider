@@ -6,6 +6,9 @@ import org.dcsa.api.validator.model.*;
 import org.dcsa.api.validator.model.enums.OsType;
 import org.dcsa.api.validator.webservice.init.AppProperty;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.client.BufferingClientHttpRequestFactory;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
+import org.springframework.web.client.RestTemplate;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -254,6 +257,11 @@ public class TestUtility {
         return configTNTEventSubscriptionTO.getCallbackUrl();
     }
 
+    public static String getConfigTNTEventSubscriptionTOStr() {
+        String eventSubscriptionJson = FileUtility.loadFileAsString(new FileSystemResource("").getFile().getAbsolutePath() + File.separator + AppProperty.EVENT_PATH);
+        return eventSubscriptionJson;
+    }
+
     public static TNTEventSubscriptionTO getConfigTNTEventSubscriptionTO() {
         String eventSubscriptionJson = FileUtility.loadFileAsString(new FileSystemResource("").getFile().getAbsolutePath() + File.separator + AppProperty.EVENT_PATH);
         TNTEventSubscriptionTO tntEventSubscriptionTO = JsonUtility.getObjectFromJson(TNTEventSubscriptionTO.class, eventSubscriptionJson);
@@ -285,5 +293,15 @@ public class TestUtility {
         }else{
             return false;
         }
+    }
+
+    public static RestTemplate getRestTemplate() {
+        RestTemplate restClient = new RestTemplate(
+                new BufferingClientHttpRequestFactory(new SimpleClientHttpRequestFactory()));
+
+        // Add one interceptor like in your example, except using anonymous class.
+        restClient.setInterceptors(Collections.singletonList((request, body, execution) -> execution.execute(request, body)));
+
+        return restClient;
     }
 }
