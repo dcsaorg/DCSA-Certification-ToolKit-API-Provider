@@ -9,10 +9,19 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Objects;
 import java.util.logging.Level;
 
 @Log
 public class FileUtility {
+
+    private static final String SCRIPT_DIR = "postman-collection";
+
+    private static final String NEWMAN_DIR = "newman";
+
     public static InputStream getInputStream(String resource){
         InputStream inputStream = null;
         try{
@@ -109,10 +118,9 @@ public class FileUtility {
     }
 
     public static String getScriptPath(String resourceName){
-        String suiteDir = "script";
         try {
             String localPath = new File(".").getCanonicalPath();
-            return localPath+File.separator+suiteDir+File.separator+resourceName;
+            return localPath+File.separator+SCRIPT_DIR+File.separator+resourceName;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -133,7 +141,7 @@ public class FileUtility {
                 bw.close();
             }
         }catch (Exception ex){
-            //throw new RuntimeException(ex.getMessage());
+            throw new RuntimeException(ex.getMessage());
         }
         return testResultFile.getAbsolutePath();
     }
@@ -141,7 +149,6 @@ public class FileUtility {
     public static boolean isTntCollection(String filePath){
         boolean isTntCollection = false;
         BufferedReader reader;
-
         try {
             reader = new BufferedReader(new FileReader(filePath));
             String line = reader.readLine();
@@ -158,4 +165,35 @@ public class FileUtility {
         }
         return isTntCollection;
     }
+
+    public static String getNewmanReport(){
+        String newmanReportDir = SCRIPT_DIR+File.separator+NEWMAN_DIR;
+        try {
+            String localPath = new File(".").getCanonicalPath();
+            File folder = new File(localPath+File.separator+newmanReportDir);
+            File[] listOfFiles = folder.listFiles();
+            Arrays.sort(Objects.requireNonNull(listOfFiles), Comparator.comparingLong(File::lastModified).reversed());
+            var result = Arrays.stream(listOfFiles).findFirst();
+            return result.map(File::getAbsolutePath).orElse("");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static String getPostmanCollectionName(String fileName){
+        try {
+            String appDir = new File(".").getCanonicalPath();
+            List<String> filenames = Files.list(Paths.get(appDir + File.separator + SCRIPT_DIR))
+                    .filter(Files::isRegularFile)
+                    .filter(file -> file.toAbsolutePath().toString().toLowerCase().contains(fileName.toLowerCase()))
+                    .map(file -> file.getFileName().toString()).toList();
+            if(filenames.size() > 0){
+                return filenames.get(0);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return "";
+    }
+
 }

@@ -2,6 +2,8 @@ package org.dcsa.api.validator.webservice.controller;
 
 
 import org.dcsa.api.validator.hook.TestSetup;
+import org.dcsa.api.validator.model.enums.PostmanCollectionType;
+import org.dcsa.api.validator.model.enums.ReportType;
 import org.dcsa.api.validator.model.enums.UploadType;
 import org.dcsa.api.validator.reporter.report.ExtentReportManager;
 import org.dcsa.api.validator.util.ReportUtil;
@@ -16,10 +18,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.testng.TestNG;
 
@@ -27,6 +26,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.dcsa.api.validator.model.enums.ReportType.UNKNOWN;
 
 @RestController
 public class ProviderCtkController {
@@ -43,7 +44,7 @@ public class ProviderCtkController {
     }
 
    @GetMapping(value = "/run" )
-   void runTestNg(HttpServletResponse response) {
+   ResponseEntity<byte[]> runTestNg(HttpServletResponse response) {
         TestUtility.removeTestOutputDirectory();
         TestNG testng = new TestNG();
         final String absolutePath = FileUtility.getTestSuitePath(AppProperty.TEST_SUITE_NAME);
@@ -51,23 +52,39 @@ public class ProviderCtkController {
         xmlList.add(absolutePath);
         testng.setTestSuites(xmlList);
         testng.run();
-        downloadService.downloadHtmlReport(response, ReportUtil.getReports());
+        String errorMsg = "";
+        if(ReportUtil.getReports().isBlank()){
+            errorMsg = "CTK execution failed no report was found.";
+       }
+       return  downloadService.downloadHtmlReport(response, ReportUtil.getReports(), errorMsg);
    }
 
-    @GetMapping(value = "/run-newman" )
-    void runNewman(HttpServletResponse response) throws Exception {
-        ScriptExecutor.runNewman();
-        ReportUtil.writeReport();
-        ExtentReportManager.resetExtentTestReport();
-        //AppProperty.stropSparkWebHook();
-        TestSetup.tearDown();
-        downloadService.downloadHtmlReport(response, ReportUtil.getReports());
+    @GetMapping(value = "/run-newman/{collectionType}/{reportType}" )
+    ResponseEntity<byte[]> runNewman(HttpServletResponse response, @PathVariable String collectionType, @PathVariable String reportType) throws Exception {
+        ReportType reportTypeEnum = ReportType.fromName(reportType);
+        PostmanCollectionType collectionTypeEnum = PostmanCollectionType.fromName(collectionType);
+        String errorMsg = "";
+        if(reportTypeEnum.name().equalsIgnoreCase(UNKNOWN.name())){
+            errorMsg = "Unknown report type";
+        }else if(collectionTypeEnum.name().equalsIgnoreCase(UNKNOWN.name())){
+            errorMsg = "Unknown collection type";
+        }
+        if(!errorMsg.isBlank()){
+            TestSetup.tearDown();
+            return downloadService.downloadHtmlReport(response, ReportUtil.getReports(), errorMsg);
+        }else{
+            ScriptExecutor.runNewman(collectionTypeEnum, reportTypeEnum);
+            ReportUtil.writeReport();
+            ExtentReportManager.resetExtentTestReport();
+            TestSetup.tearDown();
+            return downloadService.downloadHtmlReport(response, ReportUtil.getReports(), errorMsg);
+        }
     }
 
-        @GetMapping(value = "/", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-   public String home() {
+    @GetMapping(value = "/", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    public String home() {
         return "provider ctk home";
-   }
+    }
 
    @GetMapping(value = "/download/report", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
    public ResponseEntity<Object> downloadReport() throws IOException {

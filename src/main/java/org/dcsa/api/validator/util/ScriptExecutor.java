@@ -1,6 +1,9 @@
 package org.dcsa.api.validator.util;
 
 import org.dcsa.api.validator.model.enums.OsType;
+import org.dcsa.api.validator.model.enums.PostmanCollectionType;
+import org.dcsa.api.validator.model.enums.ReportType;
+import org.springframework.util.StringUtils;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -8,24 +11,62 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
+import static org.dcsa.api.validator.model.enums.PostmanCollectionType.OVS;
+import static org.dcsa.api.validator.model.enums.PostmanCollectionType.TNT;
+import static org.dcsa.api.validator.model.enums.ReportType.HTML;
+import static org.dcsa.api.validator.model.enums.ReportType.NEWMAN;
+
 public class ScriptExecutor {
     public static OsType osType;
-
-    public static void runNewman() {
+    public static void runNewman(PostmanCollectionType postmanCollectionType, ReportType reportType) {
         osType = TestUtility.getOperatingSystem();
         String scriptPath = "";
         if (osType == OsType.WINDOWS) {
             scriptPath = FileUtility.getScriptPath("win_newman.bat");
+            String scriptParameter = getScriptParameter(postmanCollectionType);
+            System.out.println(scriptParameter);
+            if(reportType == NEWMAN){
+                executeScripForNewmanReport(scriptPath, scriptParameter);
+            }else if(reportType == HTML){
+                executeScripForHtmlReport(scriptPath);
+            }
+
         } else if (osType == OsType.LINUX || osType == OsType.DOCKER) {
             scriptPath = FileUtility.getScriptPath("nix_newman.sh");
         }
         ReportUtil.setOsType(ScriptExecutor.osType);
-        executeScript(scriptPath);
+        if(HTML == reportType) {
+            executeScripForHtmlReport(scriptPath);
+        }else if(NEWMAN == reportType) {
+            executeScripForHtmlReport(scriptPath);
+        }
+    }
+    private static void executeScripForNewmanReport(String scriptPath, String scriptParameter) {
+        try {
+            String[] cmdArray = new String[2];
+            // first argument is the script we want to execute
+            cmdArray[0] = scriptPath;
+            // second argument is parameter of the script
+            cmdArray[1] = scriptParameter;
+            System.out.println("***** Script execution Starts *****");
+            System.out.println("Executing script "+scriptPath+" with parameter "+scriptParameter );
+
+            // the execution directory for the script
+            File executionDir = new File(FileUtility.getScriptPath(File.separator));
+            // create a process and execute cmdArray and parameter
+            Process process = Runtime.getRuntime().exec(cmdArray,null, executionDir);
+            // Just to hold the process to finish it's execution
+            new BufferedReader(new InputStreamReader(process.getInputStream()));
+            // print another message
+            System.out.println("Script execution is done!");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
-    private static void executeScript(String scriptPath) {
+    private static void executeScripForHtmlReport(String scriptPath) {
         try {
-            // the working directory for the process is .\script
+            // the working directory for the process
             File dir = new File(FileUtility.getScriptPath(File.separator));
             Process process = Runtime.getRuntime().exec(scriptPath, null, dir);
             System.out.println("***** Script execution Starts *****");
@@ -49,4 +90,14 @@ public class ScriptExecutor {
             throw new RuntimeException(e.getMessage());
         }
     }
+
+    private static String getScriptParameter(PostmanCollectionType postmanCollectionType){
+        if(postmanCollectionType == TNT){
+            return FileUtility.getPostmanCollectionName(postmanCollectionType.name());
+        }else if(postmanCollectionType == OVS){
+            return FileUtility.getPostmanCollectionName(postmanCollectionType.name());
+        }
+        return "";
+    }
+
 }
