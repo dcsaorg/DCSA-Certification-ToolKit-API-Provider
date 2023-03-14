@@ -8,12 +8,12 @@ RUN npm install newman -g
 RUN apt install openjdk-17-jdk openjdk-17-jre -y
 RUN mkdir -p /ctk
 RUN mkdir -p /ctk/config/tnt/v2/
-RUN mkdir -p /ctk/script
+RUN mkdir -p /ctk/postman-collection
 WORKDIR /ctk
 COPY config/tnt/v2/EventSubscription.json /ctk/config/tnt/v2/
 COPY config/application.properties /ctk/config/application.properties
 COPY suitexmls /ctk/suitexmls
-COPY script /ctk/script/
+COPY postman-collection /ctk/postman-collection/
 COPY .mvn/ .mvn
 COPY mvnw pom.xml ./
 RUN chmod +x ./mvnw
