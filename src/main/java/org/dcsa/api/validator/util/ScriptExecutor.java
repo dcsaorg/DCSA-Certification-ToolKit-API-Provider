@@ -3,6 +3,7 @@ package org.dcsa.api.validator.util;
 import org.dcsa.api.validator.model.enums.OsType;
 import org.dcsa.api.validator.model.enums.PostmanCollectionType;
 import org.dcsa.api.validator.model.enums.ReportType;
+import org.dcsa.api.validator.reporter.report.NewmanReportModifier;
 import org.springframework.util.StringUtils;
 
 import java.io.*;
@@ -17,29 +18,34 @@ import static org.dcsa.api.validator.model.enums.ReportType.HTML;
 import static org.dcsa.api.validator.model.enums.ReportType.NEWMAN;
 
 public class ScriptExecutor {
-    public static OsType osType;
-    public static void runNewman(PostmanCollectionType postmanCollectionType, ReportType reportType) {
-        osType = TestUtility.getOperatingSystem();
-        String scriptPath = "";
-        if (osType == OsType.WINDOWS) {
-            scriptPath = FileUtility.getScriptPath("win_newman.bat");
-            String scriptParameter = getScriptParameter(postmanCollectionType);
-            System.out.println(scriptParameter);
-            if(reportType == NEWMAN){
-                executeScripForNewmanReport(scriptPath, scriptParameter);
-            }else if(reportType == HTML){
-                executeScripForHtmlReport(scriptPath);
-            }
 
-        } else if (osType == OsType.LINUX || osType == OsType.DOCKER) {
-            scriptPath = FileUtility.getScriptPath("nix_newman.sh");
-        }
+    private static final String WINDOWS_SCRIPT = "win_newman.bat";
+
+    private static final String NIX_SCRIPT = "nix_newman.sh";
+
+    public static OsType osType;
+    public static String runNewman(PostmanCollectionType postmanCollectionType, ReportType reportType) {
+        osType = TestUtility.getOperatingSystem();
         ReportUtil.setOsType(ScriptExecutor.osType);
-        if(HTML == reportType) {
-            executeScripForHtmlReport(scriptPath);
-        }else if(NEWMAN == reportType) {
+
+        String scriptPath = "";
+        String reportPath = "";
+        if (osType == OsType.WINDOWS) {
+            scriptPath = FileUtility.getScriptPath(WINDOWS_SCRIPT);
+        } else if (osType == OsType.LINUX || osType == OsType.DOCKER) {
+            scriptPath = FileUtility.getScriptPath(NIX_SCRIPT);
+        }
+
+        String scriptParameter = getScriptParameter(postmanCollectionType);
+        System.out.println(scriptParameter);
+        if(reportType == NEWMAN){
+            executeScripForNewmanReport(scriptPath, scriptParameter);
+            reportPath = FileUtility.getNewmanReport(postmanCollectionType.name());
+            System.out.println(reportPath+"it will be updated");
+        }else if(reportType == HTML){
             executeScripForHtmlReport(scriptPath);
         }
+        return reportPath;
     }
     private static void executeScripForNewmanReport(String scriptPath, String scriptParameter) {
         try {
@@ -55,8 +61,10 @@ public class ScriptExecutor {
             File executionDir = new File(FileUtility.getScriptPath(File.separator));
             // create a process and execute cmdArray and parameter
             Process process = Runtime.getRuntime().exec(cmdArray,null, executionDir);
+           process.waitFor();
+
             // Just to hold the process to finish it's execution
-            new BufferedReader(new InputStreamReader(process.getInputStream()));
+        //    new BufferedReader(new InputStreamReader(process.getInputStream()));
             // print another message
             System.out.println("Script execution is done!");
         } catch (Exception ex) {

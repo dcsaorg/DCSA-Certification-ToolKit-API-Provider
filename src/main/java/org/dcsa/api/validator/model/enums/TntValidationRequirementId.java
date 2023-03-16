@@ -3,7 +3,7 @@ package org.dcsa.api.validator.model.enums;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum ValidationRequirementId {
+public enum TntValidationRequirementId {
     TNT_22_DPY_PRV_2("TNT.2.2.DPY.PRV.2", "Major Version number must be present in URL"),
     TNT_2_2_API_PRV_1("TNT.2.2.API.PRV.1", "Full Version number present in response headers"),
     TNT_2_2_API_PRV_3("TNT.2.2.API.PRV.3", "HTTP verbs (GET, PUT, PATCH, POST, DELETE, HEAD) must be in request"),
@@ -114,19 +114,12 @@ public enum ValidationRequirementId {
     TNT_3_0_REQUIREMENT_ID_COMMON_4("TNT.3.0-REQUIREMENT-ID-COMMON-4", "Some demo requirement. It will be updated later" ),
     TNT_3_0_REQUIREMENT_ID_COMMON_5("TNT.3.0-REQUIREMENT-ID-COMMON-5", "Some demo requirement. It will be updated later" );
 
-    private static final Map<String, ValidationRequirementId> RequirementId = new HashMap<>();
-    private static final Map<String, ValidationRequirementId> RequirementDetails = new HashMap<>();
+    private static final Map<String, TntValidationRequirementId> RequirementId = new HashMap<>();
 
-    static {
-        for (ValidationRequirementId v : values()) {
-            RequirementId.put(v.id, v);
-            RequirementDetails.put(v.details, v);
-        }
-    }
     private final String id;
     private final String details;
 
-    ValidationRequirementId(String id, String details) {
+    TntValidationRequirementId(String id, String details) {
         this.id = id;
         this.details = details;
     }
@@ -138,7 +131,7 @@ public enum ValidationRequirementId {
     public String getDetails() {
         return details;
     }
-    public static ValidationRequirementId getById(String id){
+    public static TntValidationRequirementId getById(String id){
         return RequirementId.get(id);
     }
 }

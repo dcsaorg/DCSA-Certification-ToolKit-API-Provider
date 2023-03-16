@@ -6,6 +6,7 @@ import org.dcsa.api.validator.model.enums.PostmanCollectionType;
 import org.dcsa.api.validator.model.enums.ReportType;
 import org.dcsa.api.validator.model.enums.UploadType;
 import org.dcsa.api.validator.reporter.report.ExtentReportManager;
+import org.dcsa.api.validator.reporter.report.NewmanReportModifier;
 import org.dcsa.api.validator.util.ReportUtil;
 import org.dcsa.api.validator.util.FileUtility;
 import org.dcsa.api.validator.util.ScriptExecutor;
@@ -14,6 +15,7 @@ import org.dcsa.api.validator.webservice.init.AppProperty;
 import org.dcsa.api.validator.webservice.service.DownloadService;
 import org.dcsa.api.validator.webservice.service.UploadService;
 import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -44,7 +46,7 @@ public class ProviderCtkController {
     }
 
    @GetMapping(value = "/run" )
-   ResponseEntity<byte[]> runTestNg(HttpServletResponse response) {
+   ResponseEntity<Resource> runTestNg(HttpServletResponse response) throws IOException {
         TestUtility.removeTestOutputDirectory();
         TestNG testng = new TestNG();
         final String absolutePath = FileUtility.getTestSuitePath(AppProperty.TEST_SUITE_NAME);
@@ -60,24 +62,23 @@ public class ProviderCtkController {
    }
 
     @GetMapping(value = "/run-newman/{collectionType}/{reportType}" )
-    ResponseEntity<byte[]> runNewman(HttpServletResponse response, @PathVariable String collectionType, @PathVariable String reportType) throws Exception {
+    ResponseEntity<Resource> runNewman(HttpServletResponse response, @PathVariable String collectionType, @PathVariable String reportType) throws Exception {
         ReportType reportTypeEnum = ReportType.fromName(reportType);
         PostmanCollectionType collectionTypeEnum = PostmanCollectionType.fromName(collectionType);
         String errorMsg = "";
         if(reportTypeEnum.name().equalsIgnoreCase(UNKNOWN.name())){
             errorMsg = "Unknown report type";
         }else if(collectionTypeEnum.name().equalsIgnoreCase(UNKNOWN.name())){
-            errorMsg = "Unknown collection type";
+            errorMsg = "Unknown test collection type";
         }
         if(!errorMsg.isBlank()){
             TestSetup.tearDown();
-            return downloadService.downloadHtmlReport(response, ReportUtil.getReports(), errorMsg);
+            return downloadService.downloadHtmlReport(response, "", errorMsg);
         }else{
-            ScriptExecutor.runNewman(collectionTypeEnum, reportTypeEnum);
-            ReportUtil.writeReport();
-            ExtentReportManager.resetExtentTestReport();
+            String reportPath = ScriptExecutor.runNewman(collectionTypeEnum, reportTypeEnum);
+            NewmanReportModifier.modifyFile(reportPath);
             TestSetup.tearDown();
-            return downloadService.downloadHtmlReport(response, ReportUtil.getReports(), errorMsg);
+            return downloadService.downloadHtmlReport(response, reportPath, errorMsg);
         }
     }
 

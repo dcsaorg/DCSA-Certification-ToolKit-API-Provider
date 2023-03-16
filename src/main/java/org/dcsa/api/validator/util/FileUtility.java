@@ -9,11 +9,9 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 @Log
 public class FileUtility {
@@ -166,15 +164,18 @@ public class FileUtility {
         return isTntCollection;
     }
 
-    public static String getNewmanReport(){
+    public static String getNewmanReport(String reportKeyword){
         String newmanReportDir = SCRIPT_DIR+File.separator+NEWMAN_DIR;
         try {
             String localPath = new File(".").getCanonicalPath();
             File folder = new File(localPath+File.separator+newmanReportDir);
             File[] listOfFiles = folder.listFiles();
-            Arrays.sort(Objects.requireNonNull(listOfFiles), Comparator.comparingLong(File::lastModified).reversed());
-            var result = Arrays.stream(listOfFiles).findFirst();
-            return result.map(File::getAbsolutePath).orElse("");
+            List<File> fileList = Arrays.stream(Objects.requireNonNull(listOfFiles))
+                                        .filter(file -> file.getAbsolutePath().toLowerCase().contains(reportKeyword.toLowerCase()))
+                                        .collect(Collectors.toList());
+            Objects.requireNonNull(fileList).sort(Comparator.comparingLong(File::lastModified).reversed());
+
+            return fileList.stream().findFirst().map(File::getAbsolutePath).orElse("");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

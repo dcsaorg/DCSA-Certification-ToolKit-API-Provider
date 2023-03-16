@@ -2,7 +2,7 @@ package org.dcsa.api.validator.util;
 
 import org.dcsa.api.validator.model.HtmlReportModel;
 import org.dcsa.api.validator.model.enums.OsType;
-import org.dcsa.api.validator.model.enums.ValidationRequirementId;
+import org.dcsa.api.validator.model.enums.TntValidationRequirementId;
 import org.dcsa.api.validator.reporter.report.ExtentReportManager;
 import org.dcsa.api.validator.reporter.report.ExtentReportModifier;
 import org.dcsa.api.validator.webservice.init.AppProperty;
@@ -109,7 +109,7 @@ public class ReportUtil {
             String[] tokens = line.split("_");
             htmlReportModel.setRequirementId(tokens[0].trim());
             htmlReportModel.setRequirement(tokens[1].trim());
-            htmlReportModel.setValidationRequirementID(ValidationRequirementId.getById(tokens[0].trim()));
+            htmlReportModel.setTntValidationRequirementID(TntValidationRequirementId.getById(tokens[0].trim()));
             if(!htmlReportModels.contains(htmlReportModel)){
                 htmlReportModels.add(htmlReportModel);
             }
@@ -195,17 +195,6 @@ public class ReportUtil {
                     item.getFailureReason().append(finalLine.trim()).append(HTML_NEWLINE);
                 }
             });
-        /*}else if(assertionContinueLine1){ // test fail reason continue
-            String finalLine = line;
-            htmlReportModels.forEach(item ->{
-                if(item.getRequirementId() == null ){
-                    return;
-                }
-                if(item.getFailureReason().toString().contains(item.getRequirementId())){
-                    item.getFailureReason().append(HTML_BOLD_START+finalLine.trim()+HTML_BOLD_END);
-                    assertionContinueLine1 = false;
-                }
-            });*/
         } else if(line.contains("[INFO] Request:")){ // test details request
             line = line.replace(NEWMAN_TICK, "").trim();
             String[] tokens = line.split(REQUEST_RESPONSE_SPLIT);
@@ -233,7 +222,7 @@ public class ReportUtil {
             currentHtmlReportModel.setRequirementId(tokens[0].trim());
             currentHtmlReportModel.setRequirement(tokens[1].trim());
             currentHtmlReportModel.setTestStatusCode(PASSED);
-            currentHtmlReportModel.setValidationRequirementID(ValidationRequirementId.getById(tokens[0].trim()));
+            currentHtmlReportModel.setTntValidationRequirementID(TntValidationRequirementId.getById(tokens[0].trim()));
         }else if(!line.contains(NEWMAN_TICK) && line.contains(("_"))){ // failed case
             line = line.substring(4);
             currentHtmlReportModel.setTestName(line);
@@ -241,7 +230,7 @@ public class ReportUtil {
             currentHtmlReportModel.setRequirementId(tokens[0].trim());
             currentHtmlReportModel.setRequirement(tokens[1].trim());
             currentHtmlReportModel.setTestStatusCode(FAILED);
-            currentHtmlReportModel.setValidationRequirementID(ValidationRequirementId.getById(tokens[0].trim()));
+            currentHtmlReportModel.setTntValidationRequirementID(TntValidationRequirementId.getById(tokens[0].trim()));
         }
     }
     public static void writeReport(){
@@ -255,6 +244,5 @@ public class ReportUtil {
             ExtentReportModifier.modifyFile(ReportUtil.htmlReportPath);
         }
     }
-
 
 }

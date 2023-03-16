@@ -2,7 +2,7 @@ package org.dcsa.api.validator.model;
 
 import lombok.Data;
 import org.dcsa.api.validator.constant.TestStatusCode;
-import org.dcsa.api.validator.model.enums.ValidationRequirementId;
+import org.dcsa.api.validator.model.enums.TntValidationRequirementId;
 
 @Data
 public class HtmlReportModel {
@@ -14,7 +14,7 @@ public class HtmlReportModel {
     private StringBuilder failureReason;
     private StringBuilder testDetails;
 
-    private ValidationRequirementId validationRequirementID;
+    private TntValidationRequirementId tntValidationRequirementID;
 
     private boolean isDetailsFilled;
 

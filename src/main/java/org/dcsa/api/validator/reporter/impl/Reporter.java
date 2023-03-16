@@ -7,7 +7,7 @@ import org.dcsa.api.validator.constant.TestStatusCode;
 import org.dcsa.api.validator.hook.TestSetup;
 import org.dcsa.api.validator.model.HtmlReportModel;
 import org.dcsa.api.validator.model.TestContext;
-import org.dcsa.api.validator.model.enums.ValidationRequirementId;
+import org.dcsa.api.validator.model.enums.TntValidationRequirementId;
 import org.dcsa.api.validator.reporter.report.ExtentReportManager;
 import org.dcsa.api.validator.reporter.report.ExtentReportModifier;
 import org.dcsa.api.validator.util.ReportUtil;
@@ -79,7 +79,7 @@ public class Reporter implements IReporter {
                     htmlReportModel.setRequirementId(token[0]);
                     htmlReportModel.setRequirement(token[1]);
                     htmlReportModel.setTestName(token[2]);
-                    htmlReportModel.setValidationRequirementID(ValidationRequirementId.getById(token[0]));
+                    htmlReportModel.setTntValidationRequirementID(TntValidationRequirementId.getById(token[0]));
                 }
                 if(testContext.getStatus().equals(TestStatusCode.PASSED.name())){
                     htmlReportModel.setTestStatusCode(TestStatusCode.PASSED);

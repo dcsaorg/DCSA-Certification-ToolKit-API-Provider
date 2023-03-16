@@ -79,7 +79,7 @@ public class ExtentReportManager {
             ExtentTest extentTest = ExtentReportManager.getExtentTest(htmlReportModel.getRequirementId() + " " +
                     htmlReportModel.getRequirement(), filePrefix);
             extentTest.assignCategory(htmlReportModel.getRequirementId());
-            extentTest.info(htmlReportModel.getValidationRequirementID().getDetails());
+            extentTest.info(htmlReportModel.getTntValidationRequirementID().getDetails());
             if(htmlReportModel.getTestStatusCode() != null) {
                 if (htmlReportModel.getTestStatusCode().equals(TestStatusCode.PASSED)) {
                         extentTest.pass(htmlReportModel.getTestName());
