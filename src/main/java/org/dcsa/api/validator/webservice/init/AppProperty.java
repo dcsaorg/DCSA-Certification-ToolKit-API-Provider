@@ -1,23 +1,40 @@
 package org.dcsa.api.validator.webservice.init;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
 import org.dcsa.api.validator.hook.TestSetup;
+import org.dcsa.api.validator.model.Requirement;
+import org.dcsa.api.validator.model.RequirementListWrapper;
+import org.dcsa.api.validator.util.FileUtility;
 import org.dcsa.api.validator.util.TestUtility;
 import org.dcsa.api.validator.webhook.SparkWebHook;
 import org.dcsa.api.validator.webservice.exception.StorageException;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.List;
 
 @Data
 @Configuration
 @ConfigurationProperties("app")
 public class AppProperty {
     public static String RESOURCE_FILENAME = "application.properties";
+    private static final String TNT_REQUIREMENT = File.separator+"requirementID"+File.separator+"TntRequirementID.json";
+
+    private static final String OVS_REQUIREMENT = File.separator+"requirementID"+File.separator+"OvsRequirementID.json";
+
+    public static List<Requirement> tntRequirements;
+
+    public static List<Requirement> ovsRequirements;
+
+
     // TNT API keys
     private static final String API_ROOT_URI_KEY = "app.api_root_uri";
     private static final String CONFIG_DATA_KEY = "app.config_data";
@@ -239,18 +256,10 @@ public class AppProperty {
         }
         makeUploadPath();
         TestSetup.suiteSetUp();
-       // startSparkWebHook();
+        tntRequirements = convertRequirementIdJson(TNT_REQUIREMENT);
+        ovsRequirements = convertRequirementIdJson(OVS_REQUIREMENT);
         isAppDataUploaded = true;
     }
-    private void startSparkWebHook(){
-        sparkWebHook = new SparkWebHook();
-        sparkWebHook.startServer();
-    }
-
-    public static void stropSparkWebHook(){
-        sparkWebHook.stopServer();
-    }
-
 
     public static void initByPropertyFile(){
         if(!isAppDataUploaded) {
@@ -284,6 +293,17 @@ public class AppProperty {
         }
         catch (IOException e) {
             throw new StorageException("Could not initialize storage", e);
+        }
+    }
+    public static List<Requirement> convertRequirementIdJson(String resourceName) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonString = FileUtility.loadResourceAsString(resourceName);
+        try {
+            RequirementListWrapper requirementListWrapper = mapper.readValue(jsonString, RequirementListWrapper.class);
+            return requirementListWrapper.getRequirement();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 

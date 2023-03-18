@@ -40,5 +40,18 @@ public class NewmanReportModifier {
         }
     }
 
+    public static String getReportString(String reportPath){
+        Path path = Paths.get(reportPath);
+        Charset charset = StandardCharsets.UTF_8;
+
+        try {
+            htmlContent = Files.readString(path, charset);
+        } catch (IOException e) {
+            log.log(Level.SEVERE, e.getMessage());
+        }
+        return htmlContent;
+
+    }
+
 
 }
