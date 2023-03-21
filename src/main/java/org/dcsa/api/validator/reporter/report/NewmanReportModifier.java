@@ -5,15 +5,20 @@ import org.dcsa.api.validator.model.Requirement;
 import org.dcsa.api.validator.model.enums.PostmanCollectionType;
 import org.dcsa.api.validator.webservice.init.AppProperty;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.Level;
+
+import static org.dcsa.api.validator.model.enums.PostmanCollectionType.OVS;
+import static org.dcsa.api.validator.model.enums.PostmanCollectionType.TNT;
 
 @Log
 public class NewmanReportModifier {
@@ -49,9 +54,14 @@ public class NewmanReportModifier {
     private static final String REQUIREMENT_TABLE_END = "</tbody>\n" +
             "                                            </table>\n" +
             "                                        </div>";
+
+    private static final String TNT_REQUIREMENT = File.separator+"requirementID"+File.separator+"TntRequirement.json";
+    private static final String OVS_REQUIREMENT = File.separator+"requirementID"+File.separator+"OvsRequirement.json";
+
     private static StringBuilder stringBuilder = new StringBuilder();
 
     public static void modifyFile(String reportPath, PostmanCollectionType collectionTypeEnum) {
+        populateRequirement(collectionTypeEnum);
         Path path = Paths.get(reportPath);
         Charset charset = StandardCharsets.UTF_8;
         String htmlContent = "";
@@ -68,6 +78,15 @@ public class NewmanReportModifier {
             Files.writeString(path, htmlContent, charset);
         } catch (IOException e) {
             log.log(Level.SEVERE, e.getMessage());
+        }
+    }
+
+    private static void populateRequirement(PostmanCollectionType collectionTypeEnum){
+        AppProperty.requirementList = new ArrayList<>();
+        if(collectionTypeEnum == TNT){
+            AppProperty.requirementList = AppProperty.convertRequirementIdJson(TNT_REQUIREMENT);
+        }else if(collectionTypeEnum == OVS){
+            AppProperty.requirementList = AppProperty.convertRequirementIdJson(OVS_REQUIREMENT);
         }
     }
 

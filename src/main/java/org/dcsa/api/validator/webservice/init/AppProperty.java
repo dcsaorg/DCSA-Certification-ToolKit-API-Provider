@@ -26,10 +26,6 @@ import java.util.List;
 @ConfigurationProperties("app")
 public class AppProperty {
     public static String RESOURCE_FILENAME = "application.properties";
-    private static final String TNT_REQUIREMENT = File.separator+"requirementID"+File.separator+"TntRequirement.json";
-
-    private static final String OVS_REQUIREMENT = File.separator+"requirementID"+File.separator+"OvsRequirement.json";
-
     public static List<Requirement> requirementList;
 
     public static List<Requirement> ovsRequirements;
@@ -256,8 +252,7 @@ public class AppProperty {
         }
         makeUploadPath();
         TestSetup.suiteSetUp();
-        requirementList = convertRequirementIdJson(TNT_REQUIREMENT);
-        requirementList.addAll(convertRequirementIdJson(OVS_REQUIREMENT));
+
         //ovsRequirements = convertRequirementIdJson(OVS_REQUIREMENT);
         isAppDataUploaded = true;
     }
@@ -300,7 +295,7 @@ public class AppProperty {
             throw new StorageException("Could not initialize storage", e);
         }
     }
-    public static List<Requirement> convertRequirementIdJson(String resourceName) throws JsonProcessingException {
+    public static List<Requirement> convertRequirementIdJson(String resourceName) {
         ObjectMapper mapper = new ObjectMapper();
         String jsonString = FileUtility.loadResourceAsString(resourceName);
         try {

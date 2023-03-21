@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "2b0cf26a-9640-45ba-b6ac-6ff7531a247c",
+		"_postman_id": "35217277-a09e-4b29-8ee6-a6ee78c32892",
 		"name": "DCSA-OVS",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "2551975"
@@ -10,7 +10,7 @@
 			"name": "Load Test Data",
 			"item": [
 				{
-					"name": "OVS.REQUIREMENT.ID.1 Load Test Data",
+					"name": "Load Test Data",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -38,7 +38,7 @@
 					"name": "Positive test cases",
 					"item": [
 						{
-							"name": "OVS.REQUIREMENT.ID..2 Get All",
+							"name": "Get All",
 							"event": [
 								{
 									"listen": "test",
@@ -66,7 +66,7 @@
 							"response": []
 						},
 						{
-							"name": "OVS.REQUIREMENT.ID.3 By CarrierServiceCode",
+							"name": "By CarrierServiceCode",
 							"event": [
 								{
 									"listen": "test",
@@ -105,7 +105,7 @@
 							"response": []
 						},
 						{
-							"name": "OVS.REQUIREMENT.ID.4 By UniversalServiceReference",
+							"name": "By UniversalServiceReference",
 							"event": [
 								{
 									"listen": "test",
@@ -144,7 +144,7 @@
 							"response": []
 						},
 						{
-							"name": "OVS.REQUIREMENT.ID.5 By VesselIMONumber",
+							"name": "By VesselIMONumber",
 							"event": [
 								{
 									"listen": "test",
@@ -185,7 +185,7 @@
 							"response": []
 						},
 						{
-							"name": "OVS.REQUIREMENT.ID.6 By VesselName",
+							"name": "By VesselName",
 							"event": [
 								{
 									"listen": "test",
@@ -226,7 +226,7 @@
 							"response": []
 						},
 						{
-							"name": "OVS.REQUIREMENT.ID.7 By VoyageNumber",
+							"name": "By VoyageNumber",
 							"event": [
 								{
 									"listen": "test",
@@ -270,7 +270,7 @@
 							"response": []
 						},
 						{
-							"name": "OVS.REQUIREMENT.ID.8 By UniversalVoyageReference",
+							"name": "By UniversalVoyageReference",
 							"event": [
 								{
 									"listen": "test",
@@ -314,7 +314,7 @@
 							"response": []
 						},
 						{
-							"name": "OVS.REQUIREMENT.ID.9 By UNLocationCode",
+							"name": "By UNLocationCode",
 							"event": [
 								{
 									"listen": "test",
@@ -358,7 +358,7 @@
 							"response": []
 						},
 						{
-							"name": "OVS.REQUIREMENT.ID.10 By FacilitySMDGCode",
+							"name": "By FacilitySMDGCode",
 							"event": [
 								{
 									"listen": "test",
@@ -402,7 +402,7 @@
 							"response": []
 						},
 						{
-							"name": "OVS.REQUIREMENT.ID.11 By startDate & endDate",
+							"name": "By startDate & endDate",
 							"event": [
 								{
 									"listen": "test",
@@ -458,7 +458,7 @@
 							"response": []
 						},
 						{
-							"name": "OVS.REQUIREMENT.ID.12 By Combo: UniversalServiceReference & FacilitySMDGCode",
+							"name": "By Combo: UniversalServiceReference & FacilitySMDGCode",
 							"event": [
 								{
 									"listen": "test",
@@ -507,7 +507,7 @@
 							"response": []
 						},
 						{
-							"name": "OVS.REQUIREMENT.ID.13 By Limit 3",
+							"name": "By Limit 3",
 							"event": [
 								{
 									"listen": "test",

@@ -1,25 +1,70 @@
 {
   "requirement":[
     {
-      "requirementDescription":"value2",
-      "requirementSource":"value3",
-      "testApproach":"value4"
+      "requirementDescription":"Load Test Data",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"value22",
-      "requirementSource":"value22",
-      "testApproach":"value22"
+      "requirementDescription":"Get All",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"value222",
-      "requirementSource":"value333",
-      "testApproach":"value444"
-    },
-    {
+      "requirementDescription":"By CarrierServiceCode",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
 
-      "requirementDescription":"value2222",
-      "requirementSource":"value3333",
-      "testApproach":"value4444"
+    },
+    {
+      "requirementDescription":"By UniversalServiceReference",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":"By VesselIMONumber",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":" By VesselName",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":"By VoyageNumber",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":"By UniversalVoyageReference",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":"By UNLocationCode",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":"By FacilitySMDGCode",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":"By startDate & endDate",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":"By Combo: UniversalServiceReference & FacilitySMDGCode",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":"By Limit 3",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
     }
   ]
 }
