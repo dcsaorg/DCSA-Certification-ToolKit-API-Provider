@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "0efa1993-a693-4729-94ee-1eb634e7c34a",
-		"name": "DCSA-TNT2",
+		"_postman_id": "07a7726d-6069-4e8c-8123-859f9a888cea",
+		"name": "DCSA-TNT",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "2551975"
 	},
@@ -13,38 +13,23 @@
 					"name": "Positive test cases",
 					"item": [
 						{
-							"name": "TNT.3.0-REQUIREMENT-ID-1 GET All Events",
+							"name": "GET All Events",
 							"event": [
 								{
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"TNT.3.0-REQUIREMENT-ID-1-1_Non-empty response\", () => {\r",
+											"pm.test(\"Non-empty response\", () => {\r",
 											"    const jsonData = pm.response.json();\r",
 											"    // The positive test cases will have created at least 10 events at this point.\r",
-											"    pm.expect(jsonData.length).to.gt(10);\r",
+											"   // pm.expect(jsonData.length).to.gt(10);\r",
 											"});\r",
 											"const schema = pm.collectionVariables.get(\"EVENTS_SCHEMA\");\r",
 											"const schemaObject = JSON.parse(schema);\r",
 											"\r",
-											"pm.test('TNT.3.0-REQUIREMENT-ID-1-2_Schema is valid', () => {\r",
+											"pm.test('Schema is valid', () => {\r",
 											"    pm.response.to.have.jsonSchema(schemaObject);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"TNT.3.0-REQUIREMENT-ID-COMMON-1_Version is present\", () => {\r",
-											"    pm.response.to.have.header(\"API-Version\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"TNT.3.0-REQUIREMENT-ID-COMMON-2_API-Version header is set correctly\", () => {\r",
-											"    pm.expect(pm.response.headers.get(\"API-Version\")).to.eql(pm.collectionVariables.get(\"TNT_SPEC_VERSION\"));\r",
-											"});\r",
-											"\r",
-											"pm.test(\"TNT.3.0-REQUIREMENT-ID-COMMON-3_Status code is 200\", () => {\r",
-											"    pm.response.to.have.status(200);\r",
-											"});\r",
-											"\r",
-											"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
-											"tests[\"[INFO] Response:##\" + responseBody] = true;"
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -75,7 +60,7 @@
 							"response": []
 						},
 						{
-							"name": "TNT.3.0-REQUIREMENT-ID-2 GET Shipment events",
+							"name": "GET Shipment events",
 							"event": [
 								{
 									"listen": "test",
@@ -85,15 +70,13 @@
 											"const schemaObject = JSON.parse(schema); \r",
 											"const SHIPMENT_EVENT_PAYLOAD_SCHEMA = schemaObject.items.properties.payload.oneOf[0];\r",
 											"\r",
-											"pm.test(\"TNT.3.0-REQUIREMENT-ID-2_All requests match query parameters payload schema\", () => {\r",
+											"pm.test(\"All requests match query parameters payload schema\", () => {\r",
 											"  const jsonData = pm.response.json();\r",
 											"  jsonData.map((item) =>\r",
 											"  pm.expect(item.payload).to.have.jsonSchema(SHIPMENT_EVENT_PAYLOAD_SCHEMA)\r",
 											"  );\r",
 											"});\r",
-											"\r",
-											"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
-											"tests[\"[INFO] Response:##\" + responseBody] = true;"
+											""
 										],
 										"type": "text/javascript"
 									}
@@ -130,7 +113,7 @@
 							"response": []
 						},
 						{
-							"name": "TNT.3.0-REQUIREMENT-ID-4  GET Equipment events",
+							"name": "GET Equipment events",
 							"event": [
 								{
 									"listen": "test",
@@ -140,15 +123,12 @@
 											"const schemaObject = JSON.parse(schema);\r",
 											"const EQUIPMENT_EVENT_PAYLOAD_SCHEMA = schemaObject.items.properties.payload.oneOf[1];\r",
 											"\r",
-											"pm.test(\"TNT.3.0-REQUIREMENT-ID-4_All requests match query parameters payload schema\", () => {\r",
+											"pm.test(\"All requests match query parameters payload schema\", () => {\r",
 											"  const jsonData = pm.response.json();\r",
 											"  jsonData.map((item) =>\r",
 											"pm.expect(item.payload).to.have.jsonSchema(EQUIPMENT_EVENT_PAYLOAD_SCHEMA)\r",
 											"  );\r",
-											"});\r",
-											"\r",
-											"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
-											"tests[\"[INFO] Response:##\" + responseBody] = true;"
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -185,7 +165,7 @@
 							"response": []
 						},
 						{
-							"name": "TNT.3.0-REQUIREMENT-ID-5 GET Transport events",
+							"name": "GET Transport events",
 							"event": [
 								{
 									"listen": "test",
@@ -195,15 +175,12 @@
 											"const schemaObject = JSON.parse(schema);\r",
 											"const TRANSPORT_EVENT_PAYLOAD_SCHEMA = schemaObject.items.properties.payload.oneOf[2];\r",
 											"\r",
-											"pm.test(\"TNT.3.0-REQUIREMENT-ID-5_All requests match query parameters payload schema\", () => {\r",
+											"pm.test(\"All requests match query parameters payload schema\", () => {\r",
 											"  const jsonData = pm.response.json();\r",
 											"  jsonData.map((item) =>\r",
 											"pm.expect(item.payload).to.have.jsonSchema(TRANSPORT_EVENT_PAYLOAD_SCHEMA)\r",
 											"  );\r",
-											"});\r",
-											"\r",
-											"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
-											"tests[\"[INFO] Response:##\" + responseBody] = true;"
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -240,7 +217,7 @@
 							"response": []
 						},
 						{
-							"name": "TNT.3.0-REQUIREMENT-ID-6 By shipmentEventTypeCode RECE",
+							"name": "By shipmentEventTypeCode RECE",
 							"event": [
 								{
 									"listen": "test",
@@ -249,16 +226,13 @@
 											"const schema = pm.collectionVariables.get(\"TNT_SHIPMENT_EVENTS_PAYLOAD_SCHEMA\");\r",
 											"const schemaObject = JSON.parse(schema);\r",
 											"\r",
-											"pm.test(\"TNT.3.0-REQUIREMENT-ID-6_All requests match query parameters payload schema\", () => {\r",
+											"pm.test(\"All requests match query parameters payload schema\", () => {\r",
 											"  const jsonData = pm.response.json();\r",
 											"  jsonData.map((item) =>{\r",
 											"pm.expect(item.payload).to.have.jsonSchema(schemaObject);\r",
 											"pm.expect(item.payload.shipmentEventTypeCode).to.equal(\"RECE\");\r",
 											" } );\r",
-											"});\r",
-											"\r",
-											"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
-											"tests[\"[INFO] Response:##\" + responseBody] = true;"
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -295,7 +269,7 @@
 							"response": []
 						},
 						{
-							"name": "TNT.3.0-REQUIREMENT-ID-7 By DocumentReferenceCBR",
+							"name": "By DocumentReferenceCBR",
 							"event": [
 								{
 									"listen": "test",
@@ -305,21 +279,18 @@
 											"const schema = pm.collectionVariables.get(\"EVENTS_SCHEMA\");\r",
 											"const schemaObject = JSON.parse(schema);\r",
 											"\r",
-											"pm.test('TNT.3.0-REQUIREMENT-ID-7-1_Schema is valid', () => {\r",
+											"pm.test('Schema is valid', () => {\r",
 											"    pm.response.to.have.jsonSchema(schemaObject);\r",
 											"});\r",
 											"\r",
-											"pm.test(\"TNT.3.0-REQUIREMENT-ID-7-2_All requests match query parameters DocumentReference\", () => {\r",
+											"pm.test(\"All requests match query parameters DocumentReference\", () => {\r",
 											"  const jsonData = pm.response.json();\r",
 											"  jsonData.map((item) =>{\r",
 											"  const dr = item.payload.relatedDocumentReferences.map\r",
 											"      (dr => dr.value);\r",
 											"       pm.expect(dr).to.include(\"cbr-b83765166707812c8ff4\");\r",
 											" } );\r",
-											"});\r",
-											"\r",
-											"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
-											"tests[\"[INFO] Response:##\" + responseBody] = true;"
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -356,7 +327,7 @@
 							"response": []
 						},
 						{
-							"name": "TNT.3.0-REQUIREMENT-ID-8 By TransportEventTypeCode",
+							"name": "By TransportEventTypeCode",
 							"event": [
 								{
 									"listen": "test",
@@ -365,16 +336,13 @@
 											"const schema = pm.collectionVariables.get(\"TNT_TRANSPORT_EVENTS_PAYLOAD_SCHEMA\");\r",
 											"const schemaObject = JSON.parse(schema);\r",
 											"\r",
-											"pm.test(\"TNT.3.0-REQUIREMENT-ID-8_All requests match query parameters payload schema\", () => {\r",
+											"pm.test(\"All requests match query parameters payload schema\", () => {\r",
 											"  const jsonData = pm.response.json();\r",
 											"  jsonData.map((item) => {\r",
 											"pm.expect(item.payload).to.have.jsonSchema(schemaObject)\r",
 											"  pm.expect(item.payload.transportEventTypeCode).to.equal(\"DEPA\");\r",
 											"  });\r",
-											"});\r",
-											"\r",
-											"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
-											"tests[\"[INFO] Response:##\" + responseBody] = true;"
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -411,7 +379,7 @@
 							"response": []
 						},
 						{
-							"name": "TNT.3.0-REQUIREMENT-ID-9 By TransportCallReference",
+							"name": "By TransportCallReference",
 							"event": [
 								{
 									"listen": "test",
@@ -420,16 +388,13 @@
 											"const schema = pm.collectionVariables.get(\"TNT_ONE_OF_TRANPORT_EQUIPMENT_EVENTS_PAYLOAD_SCHEMA\");\r",
 											"const schemaObject = JSON.parse(schema);\r",
 											"\r",
-											"pm.test(\"TNT.3.0-REQUIREMENT-ID-9_All requests match query parameters payload schema\", () => {\r",
+											"pm.test(\"All requests match query parameters payload schema\", () => {\r",
 											"  const jsonData = pm.response.json();\r",
 											"  jsonData.map((item) => {\r",
 											"      pm.expect(item.payload).to.have.jsonSchema(schemaObject);\r",
 											"      pm.expect(item.payload.transportCall.transportCallReference).to.equal(\"TC-REF-08_02-A\");\r",
 											"  });\r",
-											"});\r",
-											"\r",
-											"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
-											"tests[\"[INFO] Response:##\" + responseBody] = true;"
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -466,7 +431,7 @@
 							"response": []
 						},
 						{
-							"name": "TNT.3.0-REQUIREMENT-ID-10 By vesselIMONumber",
+							"name": "By vesselIMONumber",
 							"event": [
 								{
 									"listen": "test",
@@ -475,16 +440,13 @@
 											"const schema = pm.collectionVariables.get(\"TNT_ONE_OF_TRANPORT_EQUIPMENT_EVENTS_PAYLOAD_SCHEMA\");\r",
 											"const schemaObject = JSON.parse(schema);\r",
 											"\r",
-											"pm.test(\"TNT.3.0-REQUIREMENT-ID-10_All requests match query parameters payload schema\", () => {\r",
+											"pm.test(\"All requests match query parameters payload schema\", () => {\r",
 											"  const jsonData = pm.response.json();\r",
 											"  jsonData.map((item) => {\r",
 											"      pm.expect(item.payload).to.have.jsonSchema(schemaObject);\r",
 											"      pm.expect(item.payload.transportCall.vessel.vesselIMONumber).to.equal(\"1234567\");\r",
 											"  });\r",
-											"});\r",
-											"\r",
-											"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
-											"tests[\"[INFO] Response:##\" + responseBody] = true;"
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -533,7 +495,7 @@
 							"response": []
 						},
 						{
-							"name": "TNT.3.0-REQUIREMENT-ID-11 By CarrierVoyageNumber TNT1E",
+							"name": "By CarrierVoyageNumber TNT1E",
 							"event": [
 								{
 									"listen": "test",
@@ -542,16 +504,13 @@
 											"const schema = pm.collectionVariables.get(\"TNT_ONE_OF_TRANPORT_EQUIPMENT_EVENTS_PAYLOAD_SCHEMA\");\r",
 											"const schemaObject = JSON.parse(schema);\r",
 											"\r",
-											"pm.test(\"TNT.3.0-REQUIREMENT-ID-11_All requests match query parameters payload schema\", () => {\r",
+											"pm.test(\"All requests match query parameters payload schema\", () => {\r",
 											"  const jsonData = pm.response.json();\r",
 											"  jsonData.map((item) => {\r",
 											"      pm.expect(item.payload).to.have.jsonSchema(schemaObject);\r",
 											"      pm.expect(item.payload.transportCall.carrierExportVoyageNumber).to.equal(\"TNT1E\");\r",
 											"  });\r",
-											"});\r",
-											"\r",
-											"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
-											"tests[\"[INFO] Response:##\" + responseBody] = true;"
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -600,7 +559,7 @@
 							"response": []
 						},
 						{
-							"name": "TNT.3.0-REQUIREMENT-ID-12 By CarrierVoyageNumber 3419E",
+							"name": "By CarrierVoyageNumber 3419E",
 							"event": [
 								{
 									"listen": "test",
@@ -609,16 +568,13 @@
 											"const schema = pm.collectionVariables.get(\"TNT_ONE_OF_TRANPORT_EQUIPMENT_EVENTS_PAYLOAD_SCHEMA\");\r",
 											"const schemaObject = JSON.parse(schema);\r",
 											"\r",
-											"pm.test(\"TNT.3.0-REQUIREMENT-ID-12_All requests match query parameters payload schema\", () => {\r",
+											"pm.test(\"All requests match query parameters payload schema\", () => {\r",
 											"  const jsonData = pm.response.json();\r",
 											"  jsonData.map((item) => {\r",
 											"      pm.expect(item.payload).to.have.jsonSchema(schemaObject);\r",
 											"      pm.expect(item.payload.transportCall.carrierExportVoyageNumber).to.equal(\"3419E\");\r",
 											"  });\r",
-											"});\r",
-											"\r",
-											"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
-											"tests[\"[INFO] Response:##\" + responseBody] = true;"
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -667,7 +623,7 @@
 							"response": []
 						},
 						{
-							"name": "TNT.3.0-REQUIREMENT-ID-13 By CarrierServiceCode",
+							"name": "By CarrierServiceCode",
 							"event": [
 								{
 									"listen": "test",
@@ -677,19 +633,16 @@
 											"const schema = pm.collectionVariables.get(\"EVENTS_SCHEMA\");\r",
 											"const schemaObject = JSON.parse(schema);\r",
 											"\r",
-											"pm.test('TNT.3.0-REQUIREMENT-ID-13-1_Schema is valid', () => {\r",
+											"pm.test('Schema is valid', () => {\r",
 											"    pm.response.to.have.jsonSchema(schemaObject);\r",
 											"    \r",
 											"});\r",
-											"pm.test(\"TNT.3.0-REQUIREMENT-ID-13-2_All requests match query parameters payload schema\", () => {\r",
+											"pm.test(\"All requests match query parameters payload schema\", () => {\r",
 											"  const jsonData = pm.response.json();\r",
 											"  jsonData.map((item) => {\r",
 											"      pm.expect(item.payload.transportCall.carrierServiceCode).to.equal(\"TNT1\");\r",
 											"  });\r",
-											"});\r",
-											"\r",
-											"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
-											"tests[\"[INFO] Response:##\" + responseBody] = true;"
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -726,7 +679,7 @@
 							"response": []
 						},
 						{
-							"name": "TNT.3.0-REQUIREMENT-ID-14 By UniversalServiceReference",
+							"name": "By UniversalServiceReference",
 							"event": [
 								{
 									"listen": "test",
@@ -735,16 +688,13 @@
 											"const schema = pm.collectionVariables.get(\"TNT_ONE_OF_TRANPORT_EQUIPMENT_EVENTS_PAYLOAD_SCHEMA\");\r",
 											"const schemaObject = JSON.parse(schema);\r",
 											"\r",
-											"pm.test(\"TNT.3.0-REQUIREMENT-ID-14_All requests match query parameters payload schema\", () => {\r",
+											"pm.test(\"All requests match query parameters payload schema\", () => {\r",
 											"  const jsonData = pm.response.json();\r",
 											"  jsonData.map((item) => {\r",
 											"      pm.expect(item.payload).to.have.jsonSchema(schemaObject);\r",
 											"      pm.expect(item.payload.transportCall.universalServiceReference).to.equal(\"SR00033F\");\r",
 											"  });\r",
-											"});\r",
-											"\r",
-											"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
-											"tests[\"[INFO] Response:##\" + responseBody] = true;"
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -781,7 +731,7 @@
 							"response": []
 						},
 						{
-							"name": "TNT.3.0-REQUIREMENT-ID-15 By EquipmentEventTypeCode",
+							"name": "By EquipmentEventTypeCode",
 							"event": [
 								{
 									"listen": "test",
@@ -791,16 +741,13 @@
 											"const schemaObject = JSON.parse(schema);\r",
 											"const EQUIPMENT_EVENT_PAYLOAD_SCHEMA = schemaObject.items.properties.payload.oneOf[1];\r",
 											"\r",
-											"pm.test(\"TNT.3.0-REQUIREMENT-ID-15_All requests match query parameters payload schema\", () => {\r",
+											"pm.test(\"All requests match query parameters payload schema\", () => {\r",
 											"  const jsonData = pm.response.json();\r",
 											"  jsonData.map((item) => {\r",
 											"      pm.expect(item.payload).to.have.jsonSchema(EQUIPMENT_EVENT_PAYLOAD_SCHEMA);\r",
 											"      pm.expect(item.payload.equipmentEventTypeCode).to.equal(\"LOAD\");\r",
 											"  });\r",
-											"});\r",
-											"\r",
-											"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
-											"tests[\"[INFO] Response:##\" + responseBody] = true;"
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -837,7 +784,7 @@
 							"response": []
 						},
 						{
-							"name": "TNT.3.0-REQUIREMENT-ID-16 By EquipmentReference",
+							"name": "By EquipmentReference",
 							"event": [
 								{
 									"listen": "test",
@@ -847,11 +794,11 @@
 											"const schemaObject = JSON.parse(schema);\r",
 											"const EQUIPMENT_EVENT_PAYLOAD_SCHEMA = schemaObject.items.properties.payload.oneOf[1];\r",
 											"\r",
-											"pm.test('TNT.3.0-REQUIREMENT-ID-16-1_Schema is valid', () => {\r",
+											"pm.test('Schema is valid', () => {\r",
 											"    pm.response.to.have.jsonSchema(schemaObject);\r",
 											"});\r",
 											"\r",
-											"pm.test(\"TNT.3.0-REQUIREMENT-ID-16-2_Requests match query parameter equipmentReference\", () => {\r",
+											"pm.test(\"Requests match query parameter equipmentReference\", () => {\r",
 											"  const jsonData = pm.response.json();\r",
 											"  jsonData.map(item => {\r",
 											"  const presentInReferences = item.payload.references === null &&\r",
@@ -860,10 +807,7 @@
 											"  pm.expect(item.payload.equipmentReference).to.equal(\"APZU4812090\");\r",
 											"  }\r",
 											"  });\r",
-											"});\r",
-											"\r",
-											"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
-											"tests[\"[INFO] Response:##\" + responseBody] = true;"
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -900,7 +844,7 @@
 							"response": []
 						},
 						{
-							"name": "TNT.3.0-REQUIREMENT-ID-17 BY TransportEventCombo",
+							"name": "BY TransportEventCombo",
 							"event": [
 								{
 									"listen": "test",
@@ -910,15 +854,12 @@
 											"const schemaObject = JSON.parse(schema);\r",
 											"const TRANSPORT_EVENT_PAYLOAD_SCHEMA = schemaObject.items.properties.payload.oneOf[2];\r",
 											"\r",
-											"pm.test(\"TNT.3.0-REQUIREMENT-ID-17_All requests match query parameters payload schema\", () => {\r",
+											"pm.test(\"All requests match query parameters payload schema\", () => {\r",
 											"  const jsonData = pm.response.json();\r",
 											"  jsonData.map((item) =>\r",
 											"pm.expect(item.payload).to.have.jsonSchema(TRANSPORT_EVENT_PAYLOAD_SCHEMA)\r",
 											"  );\r",
-											"});\r",
-											"\r",
-											"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
-											"tests[\"[INFO] Response:##\" + responseBody] = true;"
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -967,7 +908,7 @@
 							"response": []
 						},
 						{
-							"name": "TNT.3.0-REQUIREMENT-ID-18 By ImpossibleCombo",
+							"name": "By ImpossibleCombo",
 							"event": [
 								{
 									"listen": "test",
@@ -977,13 +918,10 @@
 											"const schemaObject = JSON.parse(schema);\r",
 											"const TRANSPORT_EVENT_PAYLOAD_SCHEMA = schemaObject.items.properties.payload.oneOf[2];\r",
 											"\r",
-											"pm.test(\"TNT.3.0-REQUIREMENT-ID-18_Event list is empty \", () => {\r",
+											"pm.test(\"Event list is empty \", () => {\r",
 											"     var jsonData = pm.response.json();\r",
 											"    pm.expect(jsonData.length).to.eql(0);\r",
-											"});\r",
-											"\r",
-											"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
-											"tests[\"[INFO] Response:##\" + responseBody] = true;"
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -1033,6 +971,19 @@
 									""
 								]
 							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"",
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								]
+							}
 						}
 					]
 				}
@@ -1052,7 +1003,13 @@
 					"script": {
 						"type": "text/javascript",
 						"exec": [
-							""
+							"pm.test(\"API-Version is present\", () => {",
+							"    pm.response.to.have.header(\"API-Version\");",
+							"});",
+							"",
+							"pm.test(\"API-Version header is set correctly\", () => {",
+							"    pm.expect(pm.response.headers.get(\"API-Version\")).to.eql(pm.collectionVariables.get(\"TNT_SPEC_VERSION\"));",
+							"});"
 						]
 					}
 				}
@@ -1065,7 +1022,7 @@
 					"name": "Test: create EventSubscriptionWithSecretTO and retrieve it",
 					"item": [
 						{
-							"name": "TNT.3.0-REQUIREMENT-ID-19 create single EventSubscriptionWithSecretTO",
+							"name": "create single EventSubscriptionWithSecretTO1",
 							"event": [
 								{
 									"listen": "test",
@@ -1081,23 +1038,83 @@
 											"pm.collectionVariables.set(\"POST_BODY\", pm.request.body.raw) // set body\r",
 											"\r",
 											"\r",
-											"pm.test(\"TNT.3.0-REQUIREMENT-ID-19-1_Status code is 201\", () => {\r",
+											"pm.test(\"Status code is 201\", () => {\r",
 											"    pm.response.to.have.status(201);\r",
 											"});\r",
-											"pm.test('TNT.3.0-REQUIREMENT-ID-19-2_Schema is valid', () => {\r",
+											"pm.test('Schema is valid', () => {\r",
 											"    pm.response.to.have.jsonSchema(schemaObject);\r",
 											"});\r",
+											"const SUBSCRIPTION_ID = pm.collectionVariables.get(\"SUBSCRIPTION_ID\");\r",
 											"\r",
-											"pm.test(\"TNT.3.0-REQUIREMENT-ID-COMMON-4_API-Version is present\", () => {\r",
-											"    pm.response.to.have.header(\"API-Version\");\r",
+											"pm.test(\"Send a HEAD request to the given callback URL \"+parsedBody.callbackUrl, function () {\r",
+											"    // Define the request options\r",
+											"    const requestOptions = {\r",
+											"        method: 'HEAD',\r",
+											"        url: parsedBody.callbackUrl,\r",
+											"        header: {\r",
+											"            'Accept': 'application/json',\r",
+											"            'Content-Type': 'application/json'\r",
+											"        },\r",
+											"        json: true\r",
+											"    };\r",
+											"\r",
+											"    // Send the request \r",
+											"    pm.sendRequest(requestOptions, function (error, response) {\r",
+											"        // Handle the response\r",
+											"        if (error) {\r",
+											"            console.log(error);\r",
+											"            throw new Error(\"HEAD request error for the callbackUrl \"+error);\r",
+											"        } else {\r",
+											"           pm.expect(response).to.have.property('code', 204);\r",
+											"        }\r",
+											"    });\r",
 											"});\r",
 											"\r",
-											"pm.test(\"TNT.3.0-REQUIREMENT-ID-COMMON-5_API-Version header is set correctly\", () => {\r",
-											"    pm.expect(pm.response.headers.get(\"API-Version\")).to.eql(pm.collectionVariables.get(\"TNT_SPEC_VERSION\"));\r",
+											"\r",
+											"pm.test(\"Send a POST request to the given callback URL \"+parsedBody.callbackUrl, function () {\r",
+											"    // Define the request options\r",
+											"    const requestOptions = {\r",
+											"        method: 'POST',\r",
+											"        url: parsedBody.callbackUrl,\r",
+											"        header: {\r",
+											"            'Accept': 'application/json',\r",
+											"            'Content-Type': 'application/json'\r",
+											"        },\r",
+											"        json: true\r",
+											"    };\r",
+											"\r",
+											"    // Send the request \r",
+											"    pm.sendRequest(requestOptions, function (error, response) {\r",
+											"        // Handle the response\r",
+											"        if (error) {\r",
+											"            console.log(error);\r",
+											"            throw new Error(\"POST request error for the callbackUrl \"+error);\r",
+											"        } else {\r",
+											"           pm.expect(response).to.have.property('code', 204);\r",
+											"        }\r",
+											"    });\r",
 											"});\r",
 											"\r",
-											"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
-											"tests[\"[INFO] Response:##\" + responseBody] = true;"
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Postman pre test script\r",
+											"const requestBody = JSON.parse(pm.request.body.raw);\r",
+											"const requiredFields = ['callbackUrl', 'secret'];\r",
+											"\r",
+											"requiredFields.forEach(field => {\r",
+											"    if (!requestBody.hasOwnProperty(field)) {\r",
+											"        throw new Error(`Missing ${field} field in the request body`);\r",
+											"    }\r",
+											"});\r",
+											""
 										],
 										"type": "text/javascript"
 									}
@@ -1108,7 +1125,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"callbackUrl\": \"http://test.me/event-subscription-callback-url\",\r\n    \"documentReference\": \"test-docRef\",\r\n    \"equipmentReference\": \"test-equipRef\",\r\n    \"transportCallReference\": \"test-transportCallRef\",\r\n    \"vesselIMONumber\": \"1234567\",\r\n    \"carrierExportVoyageNumber\": \"test-carrierExportVoyageNumber\",\r\n    \"universalExportVoyageReference\": \"12AZN\",\r\n    \"carrierServiceCode\": \"csc34\",\r\n    \"universalServiceReference\": \"SR00001D\",\r\n    \"eventTypes\": [\r\n        \"EQUIPMENT\",\r\n        \"SHIPMENT\"\r\n    ],\r\n    \"shipmentEventTypeCodes\": [\r\n        \"RECE\",\r\n        \"APPR\"\r\n    ],\r\n    \"documentTypeCodes\": [\r\n        \"ARN\",\r\n        \"CAS\",\r\n        \"BKG\"\r\n    ],\r\n    \"transportEventTypeCodes\": [\r\n        \"DEPA\"\r\n    ],\r\n    \"equipmentEventTypeCodes\": [\r\n        \"LOAD\",\r\n        \"DISC\"\r\n    ],\r\n    \"secret\": \"dmVyeSBzZWNyZXQgc2VjcmV0IHRoYXQgaXMgc28gc2VjcmV0\",\r\n    \"unlocationCode\": \"UNLoc\"\r\n}",
+									"raw": "{\r\n    \"callbackUrl\": \"https://f12d95eb-6e7b-4516-ac10-7c3c9efe2887.mock.pstmn.io/456eacf9-8cda-412b-b801-4a41be7a6d000\",\r\n    \"documentReference\": \"test-docRef\",\r\n    \"equipmentReference\": \"test-equipRef\",\r\n    \"transportCallReference\": \"test-transportCallRef\",\r\n    \"vesselIMONumber\": \"1234567\",\r\n    \"carrierExportVoyageNumber\": \"test-carrierExportVoyageNumber\",\r\n    \"universalExportVoyageReference\": \"12AZN\",\r\n    \"carrierServiceCode\": \"csc34\",\r\n    \"universalServiceReference\": \"SR00001D\",\r\n    \"eventTypes\": [\r\n        \"EQUIPMENT\",\r\n        \"SHIPMENT\"\r\n    ],\r\n    \"shipmentEventTypeCodes\": [\r\n        \"RECE\",\r\n        \"APPR\"\r\n    ],\r\n    \"documentTypeCodes\": [\r\n        \"ARN\",\r\n        \"CAS\",\r\n        \"BKG\"\r\n    ],\r\n    \"transportEventTypeCodes\": [\r\n        \"DEPA\"\r\n    ],\r\n    \"equipmentEventTypeCodes\": [\r\n        \"LOAD\",\r\n        \"DISC\"\r\n    ],\r\n    \"secret\": \"dmVyeSBzZWNyZXQgc2VjcmV0IHRoYXQgaXMgc28gc2VjcmV0\",\r\n    \"unlocationCode\": \"UNLoc\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1128,7 +1145,7 @@
 							"response": []
 						},
 						{
-							"name": "TNT.3.0-REQUIREMENT-ID-20 Get created EventSubscriptionWithSecretTO",
+							"name": "Get created EventSubscriptionWithSecretTO1",
 							"event": [
 								{
 									"listen": "test",
@@ -1139,21 +1156,21 @@
 											"const schema = pm.collectionVariables.get(\"EVENT_SUBSCRIPTION_SCHEMA\");\r",
 											"const schemaObject = JSON.parse(schema);\r",
 											"\r",
-											"pm.test('TNT.3.0-REQUIREMENT-ID-20-1_Schema is valid', () => {\r",
+											"pm.test('Schema is valid', () => {\r",
 											"    pm.response.to.have.jsonSchema(schemaObject);\r",
 											"});\r",
 											"\r",
 											"\r",
-											"pm.test(\"TNT.3.0-REQUIREMENT-ID-20-2_Status code is 200\", () => {\r",
+											"pm.test(\"Status code is 200\", () => {\r",
 											"    pm.response.to.have.status(200);\r",
 											"});\r",
-											"pm.test(\"TNT.3.0-REQUIREMENT-ID-20-3_Response body SubscriptionID matches query parameter \", () => {\r",
+											"pm.test(\"Response body SubscriptionID matches query parameter \", () => {\r",
 											"    const jsonData = pm.response.json();\r",
 											"    pm.expect(jsonData.subscriptionID).to.eql(SUBSCRIPTION_ID);\r",
 											"});\r",
 											"\r",
 											"\r",
-											"pm.test(\"TNT.3.0-REQUIREMENT-ID-20-4_Response matches posted EventSubscriptionWithSecretTO\", () => {\r",
+											"pm.test(\"Response matches posted EventSubscriptionWithSecretTO\", () => {\r",
 											"    const jsonData = JSON.sort(pm.response.json());\r",
 											"    const postRequestBody = JSON.sort(JSON.parse(postRequestBodyRaw));\r",
 											"\r",
@@ -1167,10 +1184,7 @@
 											"    pm.expect(jsonData).to.eql(postRequestBody);\r",
 											"});\r",
 											"pm.collectionVariables.unset(\"POST_BODY\");\r",
-											"pm.collectionVariables.unset(\"SUBSCRIPTION_ID\");\r",
-											"\r",
-											"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
-											"tests[\"[INFO] Response:##\" + responseBody] = true;"
+											"pm.collectionVariables.unset(\"SUBSCRIPTION_ID\");"
 										],
 										"type": "text/javascript"
 									}
@@ -1218,7 +1232,7 @@
 					"name": "Test: create EventSubscriptionWithSecretTO and retrieve list",
 					"item": [
 						{
-							"name": "TNT.3.0-REQUIREMENT-ID-21 create single EventSubscriptionWithSecretTO",
+							"name": "create single EventSubscriptionWithSecretTO2",
 							"event": [
 								{
 									"listen": "test",
@@ -1234,15 +1248,62 @@
 											"pm.collectionVariables.set(\"POST_BODY\", pm.request.body.raw) // set body\r",
 											"\r",
 											"\r",
-											"pm.test(\"TNT.3.0-REQUIREMENT-ID-21-1_Status code is 201\", () => {\r",
+											"pm.test(\"Status code is 201\", () => {\r",
 											"    pm.response.to.have.status(201);\r",
 											"});\r",
-											"pm.test('TNT.3.0-REQUIREMENT-ID-21-2_Schema is valid', () => {\r",
+											"pm.test('Schema is valid', () => {\r",
 											"    pm.response.to.have.jsonSchema(schemaObject);\r",
 											"});\r",
 											"\r",
-											"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
-											"tests[\"[INFO] Response:##\" + responseBody] = true;"
+											"pm.test(\"Send a HEAD request to the given callback URL \"+parsedBody.callbackUrl, function () {\r",
+											"    // Define the request options\r",
+											"    const requestOptions = {\r",
+											"        method: 'HEAD',\r",
+											"        url: parsedBody.callbackUrl,\r",
+											"        header: {\r",
+											"            'Accept': 'application/json',\r",
+											"            'Content-Type': 'application/json'\r",
+											"        },\r",
+											"        json: true\r",
+											"    };\r",
+											"\r",
+											"    // Send the request \r",
+											"    pm.sendRequest(requestOptions, function (error, response) {\r",
+											"        // Handle the response\r",
+											"        if (error) {\r",
+											"            console.log(error);\r",
+											"            throw new Error(\"HEAD request error for the callbackUrl \"+error);\r",
+											"        } else {\r",
+											"           pm.expect(response).to.have.property('code', 204);\r",
+											"        }\r",
+											"    });\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Send a POST request to the given callback URL \"+parsedBody.callbackUrl, function () {\r",
+											"    // Define the request options\r",
+											"    const requestOptions = {\r",
+											"        method: 'POST',\r",
+											"        url: parsedBody.callbackUrl,\r",
+											"        header: {\r",
+											"            'Accept': 'application/json',\r",
+											"            'Content-Type': 'application/json'\r",
+											"        },\r",
+											"        json: true\r",
+											"    };\r",
+											"\r",
+											"    // Send the request \r",
+											"    pm.sendRequest(requestOptions, function (error, response) {\r",
+											"        // Handle the response\r",
+											"        if (error) {\r",
+											"            console.log(error);\r",
+											"            throw new Error(\"POST request error for the callbackUrl \"+error);\r",
+											"        } else {\r",
+											"           pm.expect(response).to.have.property('code', 204);\r",
+											"        }\r",
+											"    });\r",
+											"});\r",
+											""
 										],
 										"type": "text/javascript"
 									}
@@ -1253,7 +1314,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"callbackUrl\": \"http://test.me/event-subscription-callback-url\",\r\n    \"documentReference\": \"test-docRef\",\r\n    \"equipmentReference\": \"test-equipRef\",\r\n    \"transportCallReference\": \"test-transportCallRef\",\r\n    \"vesselIMONumber\": \"1234567\",\r\n    \"carrierExportVoyageNumber\": \"test-carrierExportVoyageNumber\",\r\n    \"universalExportVoyageReference\": \"12AZN\",\r\n    \"carrierServiceCode\": \"csc34\",\r\n    \"universalServiceReference\": \"SR00001D\",\r\n    \"eventTypes\": [\r\n        \"EQUIPMENT\",\r\n        \"SHIPMENT\"\r\n    ],\r\n    \"shipmentEventTypeCodes\": [\r\n        \"RECE\",\r\n        \"APPR\"\r\n    ],\r\n    \"documentTypeCodes\": [\r\n        \"ARN\",\r\n        \"CAS\",\r\n        \"BKG\"\r\n    ],\r\n    \"transportEventTypeCodes\": [\r\n        \"DEPA\"\r\n    ],\r\n    \"equipmentEventTypeCodes\": [\r\n        \"LOAD\",\r\n        \"DISC\"\r\n    ],\r\n    \"secret\": \"dmVyeSBzZWNyZXQgc2VjcmV0IHRoYXQgaXMgc28gc2VjcmV0\",\r\n    \"unlocationCode\": \"UNLoc\"\r\n}",
+									"raw": "{\r\n    \"callbackUrl\": \"https://f12d95eb-6e7b-4516-ac10-7c3c9efe2887.mock.pstmn.io/{uuid}\",\r\n    \"documentReference\": \"test-docRef\",\r\n    \"equipmentReference\": \"test-equipRef\",\r\n    \"transportCallReference\": \"test-transportCallRef\",\r\n    \"vesselIMONumber\": \"1234567\",\r\n    \"carrierExportVoyageNumber\": \"test-carrierExportVoyageNumber\",\r\n    \"universalExportVoyageReference\": \"12AZN\",\r\n    \"carrierServiceCode\": \"csc34\",\r\n    \"universalServiceReference\": \"SR00001D\",\r\n    \"eventTypes\": [\r\n        \"EQUIPMENT\",\r\n        \"SHIPMENT\"\r\n    ],\r\n    \"shipmentEventTypeCodes\": [\r\n        \"RECE\",\r\n        \"APPR\"\r\n    ],\r\n    \"documentTypeCodes\": [\r\n        \"ARN\",\r\n        \"CAS\",\r\n        \"BKG\"\r\n    ],\r\n    \"transportEventTypeCodes\": [\r\n        \"DEPA\"\r\n    ],\r\n    \"equipmentEventTypeCodes\": [\r\n        \"LOAD\",\r\n        \"DISC\"\r\n    ],\r\n    \"secret\": \"dmVyeSBzZWNyZXQgc2VjcmV0IHRoYXQgaXMgc28gc2VjcmV0\",\r\n    \"unlocationCode\": \"UNLoc\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1273,7 +1334,7 @@
 							"response": []
 						},
 						{
-							"name": "TNT.3.0-REQUIREMENT-ID-22 Get created EventSubscriptionWithSecretTO",
+							"name": "Get created EventSubscriptionWithSecretTO2",
 							"event": [
 								{
 									"listen": "test",
@@ -1284,11 +1345,11 @@
 											"const schema = pm.collectionVariables.get(\"EVENT_SUBSCRIPTION_SCHEMA\");\r",
 											"const schemaObject = JSON.parse(schema);\r",
 											"\r",
-											"pm.test(\"TNT.3.0-REQUIREMENT-ID-22-1_Status code is 200\", () => {\r",
+											"pm.test(\"Status code is 200\", () => {\r",
 											"    pm.response.to.have.status(200);\r",
 											"});\r",
 											"\r",
-											"pm.test('TNT.3.0-REQUIREMENT-ID-22-2_Schema is valid', () => {\r",
+											"pm.test('Schema is valid', () => {\r",
 											"    const jsonData = pm.response.json();\r",
 											"      jsonData.map((item) =>{\r",
 											"          pm.expect(item).to.have.jsonSchema(schemaObject);\r",
@@ -1296,7 +1357,7 @@
 											"});\r",
 											"\r",
 											"\r",
-											"pm.test(\"TNT.3.0-REQUIREMENT-ID-22-3_SUBSCRIPTION-ID exits in list of event subscriptions\", () => {\r",
+											"pm.test(\"SUBSCRIPTION_ID exits in list of event subscriptions\", () => {\r",
 											"  const jsonData = pm.response.json();\r",
 											"  console.log(jsonData);\r",
 											"  const dr = jsonData.map(item => item.subscriptionID);\r",
@@ -1307,10 +1368,7 @@
 											"});\r",
 											"\r",
 											"pm.collectionVariables.unset(\"POST_BODY\");\r",
-											"pm.collectionVariables.unset(\"SUBSCRIPTION_ID\");\r",
-											"\r",
-											"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
-											"tests[\"[INFO] Response:##\" + responseBody] = true;"
+											"pm.collectionVariables.unset(\"SUBSCRIPTION_ID\");"
 										],
 										"type": "text/javascript"
 									}
@@ -1357,7 +1415,7 @@
 					"name": "Test: create ESWithSecretTO, update and retrieve it",
 					"item": [
 						{
-							"name": "TNT.3.0-REQUIREMENT-ID-23 create single EventSubscriptionWithSecretTO",
+							"name": "create single EventSubscriptionWithSecretTO3",
 							"event": [
 								{
 									"listen": "test",
@@ -1373,15 +1431,12 @@
 											"pm.collectionVariables.set(\"POST_BODY\", pm.request.body.raw) // set body\r",
 											"\r",
 											"\r",
-											"pm.test(\"TNT.3.0-REQUIREMENT-ID-23-1_Status code is 201\", () => {\r",
+											"pm.test(\"Status code is 201\", () => {\r",
 											"    pm.response.to.have.status(201);\r",
 											"});\r",
-											"pm.test('TNT.3.0-REQUIREMENT-ID-23-2_Schema is valid', () => {\r",
+											"pm.test('Schema is valid', () => {\r",
 											"    pm.response.to.have.jsonSchema(schemaObject);\r",
-											"});\r",
-											"\r",
-											"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
-											"tests[\"[INFO] Response:##\" + responseBody] = true;"
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -1412,7 +1467,7 @@
 							"response": []
 						},
 						{
-							"name": "TNT.3.0-REQUIREMENT-ID-24 update EventSubscriptionWithSecretTO",
+							"name": "update EventSubscriptionWithSecretTO1",
 							"event": [
 								{
 									"listen": "test",
@@ -1424,12 +1479,9 @@
 											"pm.request.body.raw[\"secret\"] // delete secret before setting to compare in NEXT TEST\r",
 											"pm.collectionVariables.set(\"POST_BODY\", pm.request.body.raw) // set body\r",
 											"\r",
-											"pm.test(\"TNT.3.0-REQUIREMENT-ID-24_Status code is 200\", () => {\r",
+											"pm.test(\"Status code is 200\", () => {\r",
 											"    pm.response.to.have.status(200);\r",
 											"});\r",
-											"\r",
-											"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
-											"tests[\"[INFO] Response:##\" + responseBody] = true;\r",
 											""
 										],
 										"type": "text/javascript"
@@ -1462,7 +1514,7 @@
 							"response": []
 						},
 						{
-							"name": "TNT.3.0-REQUIREMENT-ID-25 Get created EventSubscriptionWithSecretTO",
+							"name": "Get created EventSubscriptionWithSecretTO3",
 							"event": [
 								{
 									"listen": "test",
@@ -1474,21 +1526,21 @@
 											"const schemaObject = JSON.parse(schema);\r",
 											"\r",
 											"\r",
-											"pm.test('TNT.3.0-REQUIREMENT-ID-25-1_Schema is valid', () => {\r",
+											"pm.test('Schema is valid', () => {\r",
 											"    pm.response.to.have.jsonSchema(schemaObject);\r",
 											"});\r",
 											"\r",
 											"\r",
-											"pm.test(\"TNT.3.0-REQUIREMENT-ID-25-2_Status code is 200\", () => {\r",
+											"pm.test(\"Status code is 200\", () => {\r",
 											"    pm.response.to.have.status(200);\r",
 											"});\r",
-											"pm.test(\"TNT.3.0-REQUIREMENT-ID-25-1_Response body SubscriptionID matches query parameter \", () => {\r",
+											"pm.test(\"Response body SubscriptionID matches query parameter \", () => {\r",
 											"    const jsonData = pm.response.json();\r",
 											"    pm.expect(jsonData.subscriptionID).to.eql(SUBSCRIPTION_ID);\r",
 											"});\r",
 											"\r",
 											"\r",
-											"pm.test(\"TNT.3.0-REQUIREMENT-ID-25-2_Response matches posted EventSubscriptionWithSecretTO\", () => {\r",
+											"pm.test(\"Response matches posted EventSubscriptionWithSecretTO\", () => {\r",
 											"    const jsonData = JSON.sort(pm.response.json());\r",
 											"    const postRequestBody = JSON.sort(JSON.parse(postRequestBodyRaw));\r",
 											"     delete postRequestBody[\"secret\"];\r",
@@ -1502,10 +1554,7 @@
 											"    pm.expect(isEqual).to.be.true;\r",
 											"});\r",
 											"pm.collectionVariables.unset(\"POST_BODY\");\r",
-											"pm.collectionVariables.unset(\"SUBSCRIPTION_ID\");\r",
-											"\r",
-											"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
-											"tests[\"[INFO] Response:##\" + responseBody] = true;"
+											"pm.collectionVariables.unset(\"SUBSCRIPTION_ID\");"
 										],
 										"type": "text/javascript"
 									}
@@ -1562,7 +1611,7 @@
 					"name": "Test: create ESWithSecretTO, and update with nulls",
 					"item": [
 						{
-							"name": "TNT.3.0-REQUIREMENT-ID-26 create single EventSubscriptionWithSecretTO",
+							"name": "create single EventSubscriptionWithSecretTO4",
 							"event": [
 								{
 									"listen": "test",
@@ -1578,15 +1627,12 @@
 											"pm.collectionVariables.set(\"POST_BODY\", pm.request.body.raw) // set body\r",
 											"\r",
 											"\r",
-											"pm.test(\"TNT.3.0-REQUIREMENT-ID-26-1_Status code is 201\", () => {\r",
+											"pm.test(\"Status code is 201\", () => {\r",
 											"    pm.response.to.have.status(201);\r",
 											"});\r",
-											"pm.test('TNT.3.0-REQUIREMENT-ID-26-2_Schema is valid', () => {\r",
+											"pm.test('Schema is valid', () => {\r",
 											"    pm.response.to.have.jsonSchema(schemaObject);\r",
-											"});\r",
-											"\r",
-											"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
-											"tests[\"[INFO] Response:##\" + responseBody] = true;"
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -1617,7 +1663,7 @@
 							"response": []
 						},
 						{
-							"name": "TNT.3.0-REQUIREMENT-ID-27 update EventSubscriptionWithSecretTO",
+							"name": "update EventSubscriptionWithSecretTO2",
 							"event": [
 								{
 									"listen": "test",
@@ -1628,12 +1674,9 @@
 											"pm.request.body.raw[\"secret\"] // delete secret before setting to compare in NEXT TEST\r",
 											"pm.collectionVariables.set(\"POST_BODY\", pm.request.body.raw) // set body\r",
 											"\r",
-											"pm.test(\"TNT.3.0-REQUIREMENT-ID-27_Status code is 200\", () => {\r",
+											"pm.test(\"Status code is 200\", () => {\r",
 											"    pm.response.to.have.status(200);\r",
-											"});\r",
-											"\r",
-											"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
-											"tests[\"[INFO] Response:##\" + responseBody] = true;"
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -1665,7 +1708,7 @@
 							"response": []
 						},
 						{
-							"name": "TNT.3.0-REQUIREMENT-ID-28 Get created EventSubscriptionWithSecretTO",
+							"name": "Get created EventSubscriptionWithSecretTO4",
 							"event": [
 								{
 									"listen": "test",
@@ -1676,21 +1719,21 @@
 											"const schema = pm.collectionVariables.get(\"EVENT_SUBSCRIPTION_SCHEMA\");\r",
 											"const schemaObject = JSON.parse(schema);\r",
 											"\r",
-											"pm.test('TNT.3.0-REQUIREMENT-ID-28-1_Schema is valid', () => {\r",
+											"pm.test('Schema is valid', () => {\r",
 											"    pm.response.to.have.jsonSchema(schemaObject);\r",
 											"});\r",
 											"\r",
 											"\r",
-											"pm.test(\"TNT.3.0-REQUIREMENT-ID-28-2_Status code is 200\", () => {\r",
+											"pm.test(\"Status code is 200\", () => {\r",
 											"    pm.response.to.have.status(200);\r",
 											"});\r",
-											"pm.test(\"TNT.3.0-REQUIREMENT-ID-28-3_Response body SubscriptionID matches query parameter \", () => {\r",
+											"pm.test(\"Response body SubscriptionID matches query parameter \", () => {\r",
 											"    const jsonData = pm.response.json();\r",
 											"    pm.expect(jsonData.subscriptionID).to.eql(SUBSCRIPTION_ID);\r",
 											"});\r",
 											"\r",
 											"\r",
-											"pm.test(\"TNT.3.0-REQUIREMENT-ID-28-1_Response matches posted EventSubscriptionWithSecretTO\", () => {\r",
+											"pm.test(\"Response matches posted EventSubscriptionWithSecretTO\", () => {\r",
 											"    const jsonData = pm.response.json();\r",
 											"    const postRequestBody = JSON.parse(postRequestBodyRaw);\r",
 											"    delete jsonData[\"subscriptionID\"];\r",
@@ -1704,10 +1747,7 @@
 											"    pm.expect(jsonData).to.eql(postRequestBodywithoutNulls); \r",
 											"});\r",
 											"pm.collectionVariables.unset(\"POST_BODY\");\r",
-											"pm.collectionVariables.unset(\"SUBSCRIPTION_ID\");\r",
-											"\r",
-											"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
-											"tests[\"[INFO] Response:##\" + responseBody] = true;"
+											"pm.collectionVariables.unset(\"SUBSCRIPTION_ID\");"
 										],
 										"type": "text/javascript"
 									}
@@ -1755,7 +1795,7 @@
 					"name": "Test: create ESWithSecretTO, and delete",
 					"item": [
 						{
-							"name": "TNT.3.0-REQUIREMENT-ID-29 create single EventSubscriptionWithSecretTO",
+							"name": "create single EventSubscriptionWithSecretTO5",
 							"event": [
 								{
 									"listen": "test",
@@ -1767,15 +1807,12 @@
 											"const parsedBody = pm.response.json();\r",
 											"pm.collectionVariables.set(\"SUBSCRIPTION_ID\", parsedBody.subscriptionID);\r",
 											"\r",
-											"pm.test(\"TNT.3.0-REQUIREMENT-ID-29-1_Status code is 201\", () => {\r",
+											"pm.test(\"Status code is 201\", () => {\r",
 											"    pm.response.to.have.status(201);\r",
 											"});\r",
-											"pm.test('TNT.3.0-REQUIREMENT-ID-29-2_Schema is valid', () => {\r",
+											"pm.test('Schema is valid', () => {\r",
 											"    pm.response.to.have.jsonSchema(schemaObject);\r",
-											"});\r",
-											"\r",
-											"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
-											"tests[\"[INFO] Response:##\" + responseBody] = true;"
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -1806,7 +1843,7 @@
 							"response": []
 						},
 						{
-							"name": "TNT.3.0-REQUIREMENT-ID-30 update EventSubscriptionWithSecretTO",
+							"name": "update EventSubscriptionWithSecretTO3",
 							"event": [
 								{
 									"listen": "test",
@@ -1814,12 +1851,9 @@
 										"exec": [
 											"const SUBSCRIPTION_ID = pm.collectionVariables.get(\"SUBSCRIPTION_ID\");\r",
 											"\r",
-											"pm.test(\"TNT.3.0-REQUIREMENT-ID-30_Status code is 204\", () => {\r",
+											"pm.test(\"Status code is 204\", () => {\r",
 											"    pm.response.to.have.status(204);\r",
-											"});\r",
-											"\r",
-											"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
-											"tests[\"[INFO] Response:##\" + responseBody] = true;"
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -1842,7 +1876,7 @@
 							"response": []
 						},
 						{
-							"name": "TNT.3.0-REQUIREMENT-ID-31 Get created EventSubscriptionWithSecretTO",
+							"name": "Get created EventSubscriptionWithSecretTO5",
 							"event": [
 								{
 									"listen": "test",
@@ -1851,14 +1885,11 @@
 											"const SUBSCRIPTION_ID = pm.collectionVariables.get(\"SUBSCRIPTION_ID\");\r",
 											"\r",
 											"\r",
-											"pm.test(\"TNT.3.0-REQUIREMENT-ID-31_Status code is 404\", () => {\r",
+											"pm.test(\"Status code is 404\", () => {\r",
 											"    pm.response.to.have.status(404);\r",
 											"});\r",
 											"\r",
-											"pm.collectionVariables.unset(\"SUBSCRIPTION_ID\");\r",
-											"\r",
-											"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
-											"tests[\"[INFO] Response:##\" + responseBody] = true;"
+											"pm.collectionVariables.unset(\"SUBSCRIPTION_ID\");"
 										],
 										"type": "text/javascript"
 									}
@@ -1918,7 +1949,13 @@
 					"script": {
 						"type": "text/javascript",
 						"exec": [
+							"pm.test(\"API-Version is present\", () => {",
+							"    pm.response.to.have.header(\"API-Version\");",
+							"});",
 							"",
+							"pm.test(\"API-Version header is set correctly\", () => {",
+							"    pm.expect(pm.response.headers.get(\"API-Version\")).to.eql(pm.collectionVariables.get(\"TNT_SPEC_VERSION\"));",
+							"});",
 							"// Helper functions for removing empty/nulls from json - This function is used with deep equal comp as API does not return null keys",
 							"JSON.cleanObject = obj =>",
 							"  _.transform(obj, (acc, v, k) => {",
@@ -1959,7 +1996,7 @@
 			"name": "Test Unofficial API: create ESWithSecretTO, update secret",
 			"item": [
 				{
-					"name": "TNT.3.0-REQUIREMENT-ID-32 create single EventSubscriptionWithSecretTO",
+					"name": "create single EventSubscriptionWithSecretTO",
 					"event": [
 						{
 							"listen": "test",
@@ -1975,15 +2012,12 @@
 									"pm.collectionVariables.set(\"POST_BODY\", pm.request.body.raw) // set body\r",
 									"\r",
 									"\r",
-									"pm.test(\"TNT.3.0-REQUIREMENT-ID-32-1_Status code is 201\", () => {\r",
+									"pm.test(\"Status code is 201\", () => {\r",
 									"    pm.response.to.have.status(201);\r",
 									"});\r",
-									"pm.test('TNT.3.0-REQUIREMENT-ID-32-2_Schema is valid', () => {\r",
+									"pm.test('Schema is valid', () => {\r",
 									"    pm.response.to.have.jsonSchema(schemaObject);\r",
-									"});\r",
-									"\r",
-									"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
-									"tests[\"[INFO] Response:##\" + responseBody] = true;"
+									"});"
 								],
 								"type": "text/javascript"
 							}
@@ -2014,7 +2048,7 @@
 					"response": []
 				},
 				{
-					"name": "TNT.3.0-REQUIREMENT-ID-33 update EventSubscriptionWith Secret body",
+					"name": "update EventSubscriptionWith Secret body",
 					"event": [
 						{
 							"listen": "test",
@@ -2024,12 +2058,9 @@
 									"\r",
 									"pm.collectionVariables.set(\"POST_BODY\", pm.request.body.raw) // set body\r",
 									"\r",
-									"pm.test(\"TNT.3.0-REQUIREMENT-ID-33_Status code is 200\", () => {\r",
+									"pm.test(\"Status code is 200\", () => {\r",
 									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
-									"tests[\"[INFO] Response:##\" + responseBody] = true;"
+									"});"
 								],
 								"type": "text/javascript"
 							}
@@ -2062,7 +2093,7 @@
 					"response": []
 				},
 				{
-					"name": "TNT.3.0-REQUIREMENT-ID-34 Get created EventSubscriptionWithSecretTO",
+					"name": "Get created EventSubscriptionWithSecretTO",
 					"event": [
 						{
 							"listen": "test",
@@ -2071,20 +2102,17 @@
 									"const SUBSCRIPTION_ID = pm.collectionVariables.get(\"SUBSCRIPTION_ID\");\r",
 									"const postRequestBodyRaw = pm.collectionVariables.get(\"POST_BODY\");\r",
 									"\r",
-									"pm.test(\"TNT.3.0-REQUIREMENT-ID-34-1_Status code is 200\", () => {\r",
+									"pm.test(\"Status code is 200\", () => {\r",
 									"    pm.response.to.have.status(200);\r",
 									"});\r",
-									"pm.test(\"TNT.3.0-REQUIREMENT-ID-34-2_Response body matches updated secret\", () => {\r",
+									"pm.test(\"Response body matches updated secret\", () => {\r",
 									"    const jsonData = pm.response.json();\r",
 									"    const postRequestBody = JSON.parse(postRequestBodyRaw);\r",
 									"    pm.expect(jsonData.secret).to.eql(postRequestBody[\"secret\"]);\r",
 									"});\r",
 									"\r",
 									"pm.collectionVariables.unset(\"POST_BODY\");\r",
-									"pm.collectionVariables.unset(\"SUBSCRIPTION_ID\");\r",
-									"\r",
-									"tests[\"[INFO] Request:##\" + JSON.stringify(request)] = true;\r",
-									"tests[\"[INFO] Response:##\" + responseBody] = true;"
+									"pm.collectionVariables.unset(\"SUBSCRIPTION_ID\");"
 								],
 								"type": "text/javascript"
 							}

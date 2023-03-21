@@ -76,7 +76,7 @@ public class ProviderCtkController {
             return downloadService.downloadHtmlReport(response, "", errorMsg);
         }else{
             String reportPath = ScriptExecutor.runNewman(collectionTypeEnum, reportTypeEnum);
-            NewmanReportModifier.modifyFile(reportPath);
+            NewmanReportModifier.modifyFile(reportPath, collectionTypeEnum);
             TestSetup.tearDown();
             return downloadService.downloadHtmlReport(response, reportPath, errorMsg);
         }

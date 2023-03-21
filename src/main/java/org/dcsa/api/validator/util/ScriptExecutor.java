@@ -61,11 +61,8 @@ public class ScriptExecutor {
             File executionDir = new File(FileUtility.getScriptPath(File.separator));
             // create a process and execute cmdArray and parameter
             Process process = Runtime.getRuntime().exec(cmdArray,null, executionDir);
-           process.waitFor();
-
             // Just to hold the process to finish it's execution
-        //    new BufferedReader(new InputStreamReader(process.getInputStream()));
-            // print another message
+            process.waitFor();
             System.out.println("Script execution is done!");
         } catch (Exception ex) {
             ex.printStackTrace();

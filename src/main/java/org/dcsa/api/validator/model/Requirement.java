@@ -5,7 +5,6 @@ import lombok.Data;
 @Data
 public class Requirement {
 
-    private String requirementID;
     private String requirementDescription;
     private String requirementSource;
     private String testApproach;

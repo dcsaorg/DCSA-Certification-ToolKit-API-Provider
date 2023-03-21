@@ -26,11 +26,11 @@ import java.util.List;
 @ConfigurationProperties("app")
 public class AppProperty {
     public static String RESOURCE_FILENAME = "application.properties";
-    private static final String TNT_REQUIREMENT = File.separator+"requirementID"+File.separator+"TntRequirementID.json";
+    private static final String TNT_REQUIREMENT = File.separator+"requirementID"+File.separator+"TntRequirement.json";
 
-    private static final String OVS_REQUIREMENT = File.separator+"requirementID"+File.separator+"OvsRequirementID.json";
+    private static final String OVS_REQUIREMENT = File.separator+"requirementID"+File.separator+"OvsRequirement.json";
 
-    public static List<Requirement> tntRequirements;
+    public static List<Requirement> requirementList;
 
     public static List<Requirement> ovsRequirements;
 
@@ -256,11 +256,16 @@ public class AppProperty {
         }
         makeUploadPath();
         TestSetup.suiteSetUp();
-        tntRequirements = convertRequirementIdJson(TNT_REQUIREMENT);
-        ovsRequirements = convertRequirementIdJson(OVS_REQUIREMENT);
+        requirementList = convertRequirementIdJson(TNT_REQUIREMENT);
+        requirementList.addAll(convertRequirementIdJson(OVS_REQUIREMENT));
+        //ovsRequirements = convertRequirementIdJson(OVS_REQUIREMENT);
         isAppDataUploaded = true;
     }
 
+/*    public static void temp() throws JsonProcessingException {
+        requirementList = convertRequirementIdJson(TNT_REQUIREMENT);
+      //  requirementList.addAll(convertRequirementIdJson(OVS_REQUIREMENT));
+    }*/
     public static void initByPropertyFile(){
         if(!isAppDataUploaded) {
             AppProperty.API_ROOT_URI = PropertyLoader.getProperty(API_ROOT_URI_KEY);
