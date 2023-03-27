@@ -26,10 +26,6 @@ import java.util.List;
 @ConfigurationProperties("app")
 public class AppProperty {
     public static String RESOURCE_FILENAME = "application.properties";
-    public static List<Requirement> requirementList;
-
-    public static List<Requirement> ovsRequirements;
-
 
     // TNT API keys
     private static final String API_ROOT_URI_KEY = "app.api_root_uri";

@@ -3,8 +3,6 @@ package org.dcsa.api.validator.util;
 import org.dcsa.api.validator.model.enums.OsType;
 import org.dcsa.api.validator.model.enums.PostmanCollectionType;
 import org.dcsa.api.validator.model.enums.ReportType;
-import org.dcsa.api.validator.reporter.report.NewmanReportModifier;
-import org.springframework.util.StringUtils;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -12,8 +10,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
-import static org.dcsa.api.validator.model.enums.PostmanCollectionType.OVS;
-import static org.dcsa.api.validator.model.enums.PostmanCollectionType.TNT;
+import static org.dcsa.api.validator.model.enums.PostmanCollectionType.*;
 import static org.dcsa.api.validator.model.enums.ReportType.HTML;
 import static org.dcsa.api.validator.model.enums.ReportType.NEWMAN;
 
@@ -100,6 +97,8 @@ public class ScriptExecutor {
         if(postmanCollectionType == TNT){
             return FileUtility.getPostmanCollectionName(postmanCollectionType.name());
         }else if(postmanCollectionType == OVS){
+            return FileUtility.getPostmanCollectionName(postmanCollectionType.name());
+        }else if(postmanCollectionType == EDOC){
             return FileUtility.getPostmanCollectionName(postmanCollectionType.name());
         }
         return "";

@@ -1,0 +1,164 @@
+{
+  "requirement":[
+    {
+      "requirementDescription":"Booking request summaries",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":"Booking request summaries CMPL",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":"Booking request status per documentStatus",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":"Booking request summaries sort",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":"Booking request summaries Invalid documentStatus",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":"Shipment summaries",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":"Shipment summaries CMPL",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":"Shipment summaries sort",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":"Shipment summaries invalid documentStatus",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":"Shipping instruction summaries",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":"Shipping instructions summaries CMPL",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":"Shipping instruction summaries per documentStatus",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":"Shipping instruction for carrierBookingReference",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":"Shipping instruction for multiple carrierBookingReferences",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":" Shipping instruction summaries invalid document status",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":"Booking by carrierBookingRequestReference",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":"Booking With ShipmentLocations and commodities",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":"Booking by carrierBookingRequestRereference",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":"Booking not found",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":"ShippingInstruction by shippingInstructionReference",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":"ShippingInstruction not found",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":"Create a booking to be canceled",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":"Cancel the new booking",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":"Get created EventSubscriptionWithSecretTO3",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":"create single EventSubscriptionWithSecretTO4",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":"update EventSubscriptionWithSecretTO2",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":"Get created EventSubscriptionWithSecretTO4",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":"create single EventSubscriptionWithSecretTO5",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":"update EventSubscriptionWithSecretTO3",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":"Get created EventSubscriptionWithSecretTO5",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":"Get created EventSubscriptionWithSecretTO6",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":"create single EventSubscriptionWithSecretTO6",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    }
+  ]
+}

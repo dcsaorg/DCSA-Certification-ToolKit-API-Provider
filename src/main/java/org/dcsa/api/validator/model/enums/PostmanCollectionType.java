@@ -3,6 +3,7 @@ package org.dcsa.api.validator.model.enums;
 public enum PostmanCollectionType {
     TNT("tnt"),
     OVS("ovs"),
+    EDOC("edoc"),
     UNKNOWN("unknown");
     private String type;
     PostmanCollectionType(String value) {
