@@ -152,17 +152,19 @@ public class NewmanReportModifier {
         StringBuilder finalManualTestTable = new StringBuilder();
         final int[] counter = {1};
         if (indexOfTableStart > 0) {
-            manualTestList.forEach(item -> {
+             manualTestList.forEach(item -> {
              String table = String.format(
                                 TABLE_ROW_START + TABLE_DATA_NOW_WRAP_START +BOLD_COUNTER+ " %s" + TABLE_DATA_CLOSE + // title of requirementDescription
                                 TABLE_DATA_WRAP_START + " %s" + TABLE_DATA_CLOSE + TABLE_ROW_CLOSE + // requirementDescription
                                 TABLE_ROW_START + TABLE_DATA_NOW_WRAP_START + " %s" + TABLE_DATA_CLOSE + // title of requirementDescription
                                 TABLE_DATA_WRAP_START + " %s" + TABLE_DATA_CLOSE + TABLE_ROW_CLOSE + // requirementDescription
                                 TABLE_ROW_START + TABLE_DATA_NOW_WRAP_START + " %s" + TABLE_DATA_CLOSE + // title of requirementDescription
-                                TABLE_DATA_WRAP_START + " %s" + TABLE_DATA_CLOSE + TABLE_ROW_CLOSE, // requirementDescription
-                        counter[0],"Validation description: ", item.getRequirementDescription(),
-                        "Validation source: ", item.getRequirementSource(),
-                        "Test approach:", item.getTestApproach());
+                                TABLE_DATA_WRAP_START + " %s" + TABLE_DATA_CLOSE + TABLE_ROW_CLOSE + // requirementDescription
+                                TABLE_ROW_START + TABLE_DATA_NOW_WRAP_START + TABLE_DATA_CLOSE + // empty row
+                                TABLE_DATA_WRAP_START + TABLE_DATA_CLOSE + TABLE_ROW_CLOSE, // empty row
+                                counter[0],"Validation description: ", item.getRequirementDescription(),
+                                "Validation source: ", item.getRequirementSource(),
+                                "Test approach:", item.getTestApproach());
                 finalManualTestTable.append(table);
                 counter[0]++;
             });
