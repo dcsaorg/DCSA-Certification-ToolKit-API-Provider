@@ -1,11 +1,54 @@
 {
 	"info": {
-		"_postman_id": "07a7726d-6069-4e8c-8123-859f9a888cea",
+		"_postman_id": "46965325-2c40-4198-827c-5e88d2fdaca4",
 		"name": "DCSA-TNT",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "2551975"
 	},
 	"item": [
+		{
+			"name": "Setup Test Data",
+			"item": [
+				{
+					"name": "Load Test Data",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}{{TNT_CONTEXT_PATH}}/unofficial/dataloader/load/test",
+							"host": [
+								"{{BASE_URL}}{{TNT_CONTEXT_PATH}}"
+							],
+							"path": [
+								"unofficial",
+								"dataloader",
+								"load",
+								"test"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Trigger Event Caching",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}{{TNT_CONTEXT_PATH}}/unofficial/events-cache-trigger",
+							"host": [
+								"{{BASE_URL}}{{TNT_CONTEXT_PATH}}"
+							],
+							"path": [
+								"unofficial",
+								"events-cache-trigger"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
 		{
 			"name": "GET events",
 			"item": [
@@ -22,7 +65,7 @@
 											"pm.test(\"Non-empty response\", () => {\r",
 											"    const jsonData = pm.response.json();\r",
 											"    // The positive test cases will have created at least 10 events at this point.\r",
-											"   // pm.expect(jsonData.length).to.gt(10);\r",
+											"    pm.expect(jsonData.length).to.gt(10);\r",
 											"});\r",
 											"const schema = pm.collectionVariables.get(\"EVENTS_SCHEMA\");\r",
 											"const schemaObject = JSON.parse(schema);\r",
@@ -1022,13 +1065,16 @@
 					"name": "Test: create EventSubscriptionWithSecretTO and retrieve it",
 					"item": [
 						{
-							"name": "create single EventSubscriptionWithSecretTO1",
+							"name": "create single EventSubscriptionWithSecretTO",
 							"event": [
 								{
 									"listen": "test",
 									"script": {
 										"exec": [
+											"const response_schema = pm.collectionVariables.get(\"EVENT_SUBSCRIPTION_RESPONSE_SCHEMA\");\r",
+											"const request_schema = pm.collectionVariables.get(\"EVENT_SUBSCRIPTION_REQUEST_SCHEMA\");\r",
 											"const schema = pm.collectionVariables.get(\"EVENT_SUBSCRIPTION_SCHEMA\");\r",
+											"\r",
 											"const schemaObject = JSON.parse(schema);\r",
 											"\r",
 											"const parsedBody = pm.response.json();\r",
@@ -1044,59 +1090,47 @@
 											"pm.test('Schema is valid', () => {\r",
 											"    pm.response.to.have.jsonSchema(schemaObject);\r",
 											"});\r",
-											"const SUBSCRIPTION_ID = pm.collectionVariables.get(\"SUBSCRIPTION_ID\");\r",
 											"\r",
-											"pm.test(\"Send a HEAD request to the given callback URL \"+parsedBody.callbackUrl, function () {\r",
-											"    // Define the request options\r",
-											"    const requestOptions = {\r",
-											"        method: 'HEAD',\r",
-											"        url: parsedBody.callbackUrl,\r",
-											"        header: {\r",
-											"            'Accept': 'application/json',\r",
-											"            'Content-Type': 'application/json'\r",
-											"        },\r",
-											"        json: true\r",
-											"    };\r",
+											"const testMode = pm.collectionVariables.get(\"TEST_MODE\");\r",
+											"const ignoreSchemaTest = pm.collectionVariables.get(\"IGNORE_SCHEMA_TEST_MODE\");\r",
+											"const adopterTest = pm.collectionVariables.get(\"ADOPTER_TEST_MODE\");\r",
+											"const and = pm.collectionVariables.get(\"AND\");\r",
+											"console.log(\"testMode: \"+testMode);\r",
+											"console.log(\"ignoreSchemaTest:\"+ignoreSchemaTest);\r",
 											"\r",
-											"    // Send the request \r",
-											"    pm.sendRequest(requestOptions, function (error, response) {\r",
-											"        // Handle the response\r",
-											"        if (error) {\r",
-											"            console.log(error);\r",
-											"            throw new Error(\"HEAD request error for the callbackUrl \"+error);\r",
-											"        } else {\r",
-											"           pm.expect(response).to.have.property('code', 204);\r",
+											"if( !testMode.includes(ignoreSchemaTest) ){\r",
+											"    pm.test(\"Check response schema validation\", function(){\r",
+											"        var result = tv4.validateResult(pm.response.json(), response_schema);\r",
+											"        if(!result.valid){\r",
+											"            console.log(`Schema validation failed: ${JSON.stringify(validationResult.errors)}`);\r",
+											"            console.log(`Response: ${JSON.stringify(response)}`);\r",
+											"            throw new Error(\"Response schema validation failed\");\r",
 											"        }\r",
+											"        pm.expect(result.valid).to.be.true;\r",
 											"    });\r",
-											"});\r",
-											"\r",
-											"\r",
-											"pm.test(\"Send a POST request to the given callback URL \"+parsedBody.callbackUrl, function () {\r",
-											"    // Define the request options\r",
-											"    const requestOptions = {\r",
-											"        method: 'POST',\r",
-											"        url: parsedBody.callbackUrl,\r",
-											"        header: {\r",
-											"            'Accept': 'application/json',\r",
-											"            'Content-Type': 'application/json'\r",
-											"        },\r",
-											"        json: true\r",
-											"    };\r",
-											"\r",
-											"    // Send the request \r",
-											"    pm.sendRequest(requestOptions, function (error, response) {\r",
-											"        // Handle the response\r",
-											"        if (error) {\r",
-											"            console.log(error);\r",
-											"            throw new Error(\"POST request error for the callbackUrl \"+error);\r",
-											"        } else {\r",
-											"           pm.expect(response).to.have.property('code', 204);\r",
+											"    if(testMode === adopterTest){\r",
+											"        pm.test(\"Check request body matches schema\", function(){\r",
+											"        const adopterPostBody = pm.collectionVariables.get(\"NEW_EVENT_SUBSCRIPTION_POST_REQUEST_BODY\");\r",
+											"        const validationResult = tv4.validateResult(adopterPostBody, request_schema);\r",
+											"        if (!validationResult.valid) {\r",
+											"            console.log(`Schema validation failed: ${JSON.stringify(validationResult.errors)}`);\r",
+											"            console.log(`Response: ${JSON.stringify(response)}`);\r",
+											"            throw new Error(\"Schema validation failed\");\r",
 											"        }\r",
+											"        pm.expect(validationResult.valid).to.be.true;\r",
 											"    });\r",
-											"});\r",
-											"\r",
-											"\r",
-											""
+											"    }else{\r",
+											"        var requestData = JSON.parse(pm.request.data);\r",
+											"        console.log(request_schema);\r",
+											"        pm.test(\"Check request body matches schema\", function() {\r",
+											"        var validate = tv4.validate(requestData, request_schema);\r",
+											"            if(!result.valid){\r",
+											"                console.log(result);\r",
+											"            }\r",
+											"        pm.expect(validate).to.be.true;\r",
+											"        });\r",
+											"    }\r",
+											"}"
 										],
 										"type": "text/javascript"
 									}
@@ -1105,15 +1139,13 @@
 									"listen": "prerequest",
 									"script": {
 										"exec": [
-											"// Postman pre test script\r",
-											"const requestBody = JSON.parse(pm.request.body.raw);\r",
-											"const requiredFields = ['callbackUrl', 'secret'];\r",
-											"\r",
-											"requiredFields.forEach(field => {\r",
-											"    if (!requestBody.hasOwnProperty(field)) {\r",
-											"        throw new Error(`Missing ${field} field in the request body`);\r",
-											"    }\r",
-											"});\r",
+											"const testMode = pm.collectionVariables.get(\"TEST_MODE\");\r",
+											"const adopterTest = pm.collectionVariables.get(\"ADOPTER_TEST_MODE\");\r",
+											"if(testMode.includes(adopterTest) ){\r",
+											"    const requestBody = pm.collectionVariables.get(\"NEW_EVENT_SUBSCRIPTION_POST_REQUEST_BODY\");\r",
+											"    pm.request.body = requestBody;\r",
+											"    pm.request.headers.add({key: \"Content-Type\", value: \"application/json\"});\r",
+											"}\r",
 											""
 										],
 										"type": "text/javascript"
@@ -1125,7 +1157,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"callbackUrl\": \"https://f12d95eb-6e7b-4516-ac10-7c3c9efe2887.mock.pstmn.io/456eacf9-8cda-412b-b801-4a41be7a6d000\",\r\n    \"documentReference\": \"test-docRef\",\r\n    \"equipmentReference\": \"test-equipRef\",\r\n    \"transportCallReference\": \"test-transportCallRef\",\r\n    \"vesselIMONumber\": \"1234567\",\r\n    \"carrierExportVoyageNumber\": \"test-carrierExportVoyageNumber\",\r\n    \"universalExportVoyageReference\": \"12AZN\",\r\n    \"carrierServiceCode\": \"csc34\",\r\n    \"universalServiceReference\": \"SR00001D\",\r\n    \"eventTypes\": [\r\n        \"EQUIPMENT\",\r\n        \"SHIPMENT\"\r\n    ],\r\n    \"shipmentEventTypeCodes\": [\r\n        \"RECE\",\r\n        \"APPR\"\r\n    ],\r\n    \"documentTypeCodes\": [\r\n        \"ARN\",\r\n        \"CAS\",\r\n        \"BKG\"\r\n    ],\r\n    \"transportEventTypeCodes\": [\r\n        \"DEPA\"\r\n    ],\r\n    \"equipmentEventTypeCodes\": [\r\n        \"LOAD\",\r\n        \"DISC\"\r\n    ],\r\n    \"secret\": \"dmVyeSBzZWNyZXQgc2VjcmV0IHRoYXQgaXMgc28gc2VjcmV0\",\r\n    \"unlocationCode\": \"UNLoc\"\r\n}",
+									"raw": "{\r\n    \"callbackUrl\": \"http://test.me/event-subscription-callback-url\",\r\n    \"documentReference\": \"test-docRef\",\r\n    \"equipmentReference\": \"test-equipRef\",\r\n    \"transportCallReference\": \"test-transportCallRef\",\r\n    \"vesselIMONumber\": \"1234567\",\r\n    \"carrierExportVoyageNumber\": \"test-carrierExportVoyageNumber\",\r\n    \"universalExportVoyageReference\": \"12AZN\",\r\n    \"carrierServiceCode\": \"csc34\",\r\n    \"universalServiceReference\": \"SR00001D\",\r\n    \"eventTypes\": [\r\n        \"EQUIPMENT\",\r\n        \"SHIPMENT\"\r\n    ],\r\n    \"shipmentEventTypeCodes\": [\r\n        \"RECE\",\r\n        \"APPR\"\r\n    ],\r\n    \"documentTypeCodes\": [\r\n        \"ARN\",\r\n        \"CAS\",\r\n        \"BKG\"\r\n    ],\r\n    \"transportEventTypeCodes\": [\r\n        \"DEPA\"\r\n    ],\r\n    \"equipmentEventTypeCodes\": [\r\n        \"LOAD\",\r\n        \"DISC\"\r\n    ],\r\n    \"secret\": \"dmVyeSBzZWNyZXQgc2VjcmV0IHRoYXQgaXMgc28gc2VjcmV0\",\r\n    \"unlocationCode\": \"UNLoc\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1145,7 +1177,7 @@
 							"response": []
 						},
 						{
-							"name": "Get created EventSubscriptionWithSecretTO1",
+							"name": "Get created EventSubscriptionWithSecretTO",
 							"event": [
 								{
 									"listen": "test",
@@ -1232,7 +1264,7 @@
 					"name": "Test: create EventSubscriptionWithSecretTO and retrieve list",
 					"item": [
 						{
-							"name": "create single EventSubscriptionWithSecretTO2",
+							"name": "create single EventSubscriptionWithSecretTO",
 							"event": [
 								{
 									"listen": "test",
@@ -1253,57 +1285,7 @@
 											"});\r",
 											"pm.test('Schema is valid', () => {\r",
 											"    pm.response.to.have.jsonSchema(schemaObject);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Send a HEAD request to the given callback URL \"+parsedBody.callbackUrl, function () {\r",
-											"    // Define the request options\r",
-											"    const requestOptions = {\r",
-											"        method: 'HEAD',\r",
-											"        url: parsedBody.callbackUrl,\r",
-											"        header: {\r",
-											"            'Accept': 'application/json',\r",
-											"            'Content-Type': 'application/json'\r",
-											"        },\r",
-											"        json: true\r",
-											"    };\r",
-											"\r",
-											"    // Send the request \r",
-											"    pm.sendRequest(requestOptions, function (error, response) {\r",
-											"        // Handle the response\r",
-											"        if (error) {\r",
-											"            console.log(error);\r",
-											"            throw new Error(\"HEAD request error for the callbackUrl \"+error);\r",
-											"        } else {\r",
-											"           pm.expect(response).to.have.property('code', 204);\r",
-											"        }\r",
-											"    });\r",
-											"});\r",
-											"\r",
-											"\r",
-											"pm.test(\"Send a POST request to the given callback URL \"+parsedBody.callbackUrl, function () {\r",
-											"    // Define the request options\r",
-											"    const requestOptions = {\r",
-											"        method: 'POST',\r",
-											"        url: parsedBody.callbackUrl,\r",
-											"        header: {\r",
-											"            'Accept': 'application/json',\r",
-											"            'Content-Type': 'application/json'\r",
-											"        },\r",
-											"        json: true\r",
-											"    };\r",
-											"\r",
-											"    // Send the request \r",
-											"    pm.sendRequest(requestOptions, function (error, response) {\r",
-											"        // Handle the response\r",
-											"        if (error) {\r",
-											"            console.log(error);\r",
-											"            throw new Error(\"POST request error for the callbackUrl \"+error);\r",
-											"        } else {\r",
-											"           pm.expect(response).to.have.property('code', 204);\r",
-											"        }\r",
-											"    });\r",
-											"});\r",
-											""
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -1314,7 +1296,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"callbackUrl\": \"https://f12d95eb-6e7b-4516-ac10-7c3c9efe2887.mock.pstmn.io/{uuid}\",\r\n    \"documentReference\": \"test-docRef\",\r\n    \"equipmentReference\": \"test-equipRef\",\r\n    \"transportCallReference\": \"test-transportCallRef\",\r\n    \"vesselIMONumber\": \"1234567\",\r\n    \"carrierExportVoyageNumber\": \"test-carrierExportVoyageNumber\",\r\n    \"universalExportVoyageReference\": \"12AZN\",\r\n    \"carrierServiceCode\": \"csc34\",\r\n    \"universalServiceReference\": \"SR00001D\",\r\n    \"eventTypes\": [\r\n        \"EQUIPMENT\",\r\n        \"SHIPMENT\"\r\n    ],\r\n    \"shipmentEventTypeCodes\": [\r\n        \"RECE\",\r\n        \"APPR\"\r\n    ],\r\n    \"documentTypeCodes\": [\r\n        \"ARN\",\r\n        \"CAS\",\r\n        \"BKG\"\r\n    ],\r\n    \"transportEventTypeCodes\": [\r\n        \"DEPA\"\r\n    ],\r\n    \"equipmentEventTypeCodes\": [\r\n        \"LOAD\",\r\n        \"DISC\"\r\n    ],\r\n    \"secret\": \"dmVyeSBzZWNyZXQgc2VjcmV0IHRoYXQgaXMgc28gc2VjcmV0\",\r\n    \"unlocationCode\": \"UNLoc\"\r\n}",
+									"raw": "{\r\n    \"callbackUrl\": \"http://test.me/event-subscription-callback-url\",\r\n    \"documentReference\": \"test-docRef\",\r\n    \"equipmentReference\": \"test-equipRef\",\r\n    \"transportCallReference\": \"test-transportCallRef\",\r\n    \"vesselIMONumber\": \"1234567\",\r\n    \"carrierExportVoyageNumber\": \"test-carrierExportVoyageNumber\",\r\n    \"universalExportVoyageReference\": \"12AZN\",\r\n    \"carrierServiceCode\": \"csc34\",\r\n    \"universalServiceReference\": \"SR00001D\",\r\n    \"eventTypes\": [\r\n        \"EQUIPMENT\",\r\n        \"SHIPMENT\"\r\n    ],\r\n    \"shipmentEventTypeCodes\": [\r\n        \"RECE\",\r\n        \"APPR\"\r\n    ],\r\n    \"documentTypeCodes\": [\r\n        \"ARN\",\r\n        \"CAS\",\r\n        \"BKG\"\r\n    ],\r\n    \"transportEventTypeCodes\": [\r\n        \"DEPA\"\r\n    ],\r\n    \"equipmentEventTypeCodes\": [\r\n        \"LOAD\",\r\n        \"DISC\"\r\n    ],\r\n    \"secret\": \"dmVyeSBzZWNyZXQgc2VjcmV0IHRoYXQgaXMgc28gc2VjcmV0\",\r\n    \"unlocationCode\": \"UNLoc\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1334,7 +1316,7 @@
 							"response": []
 						},
 						{
-							"name": "Get created EventSubscriptionWithSecretTO2",
+							"name": "Get created EventSubscriptionWithSecretTO",
 							"event": [
 								{
 									"listen": "test",
@@ -1415,7 +1397,7 @@
 					"name": "Test: create ESWithSecretTO, update and retrieve it",
 					"item": [
 						{
-							"name": "create single EventSubscriptionWithSecretTO3",
+							"name": "create single EventSubscriptionWithSecretTO",
 							"event": [
 								{
 									"listen": "test",
@@ -1467,7 +1449,7 @@
 							"response": []
 						},
 						{
-							"name": "update EventSubscriptionWithSecretTO1",
+							"name": "update EventSubscriptionWithSecretTO",
 							"event": [
 								{
 									"listen": "test",
@@ -1514,7 +1496,7 @@
 							"response": []
 						},
 						{
-							"name": "Get created EventSubscriptionWithSecretTO3",
+							"name": "Get created EventSubscriptionWithSecretTO",
 							"event": [
 								{
 									"listen": "test",
@@ -1611,7 +1593,7 @@
 					"name": "Test: create ESWithSecretTO, and update with nulls",
 					"item": [
 						{
-							"name": "create single EventSubscriptionWithSecretTO4",
+							"name": "create single EventSubscriptionWithSecretTO",
 							"event": [
 								{
 									"listen": "test",
@@ -1663,7 +1645,7 @@
 							"response": []
 						},
 						{
-							"name": "update EventSubscriptionWithSecretTO2",
+							"name": "update EventSubscriptionWithSecretTO",
 							"event": [
 								{
 									"listen": "test",
@@ -1708,7 +1690,7 @@
 							"response": []
 						},
 						{
-							"name": "Get created EventSubscriptionWithSecretTO4",
+							"name": "Get created EventSubscriptionWithSecretTO",
 							"event": [
 								{
 									"listen": "test",
@@ -1795,7 +1777,7 @@
 					"name": "Test: create ESWithSecretTO, and delete",
 					"item": [
 						{
-							"name": "create single EventSubscriptionWithSecretTO5",
+							"name": "create single EventSubscriptionWithSecretTO",
 							"event": [
 								{
 									"listen": "test",
@@ -1843,7 +1825,7 @@
 							"response": []
 						},
 						{
-							"name": "update EventSubscriptionWithSecretTO3",
+							"name": "update EventSubscriptionWithSecretTO",
 							"event": [
 								{
 									"listen": "test",
@@ -1876,7 +1858,7 @@
 							"response": []
 						},
 						{
-							"name": "Get created EventSubscriptionWithSecretTO5",
+							"name": "Get created EventSubscriptionWithSecretTO",
 							"event": [
 								{
 									"listen": "test",
@@ -2216,6 +2198,41 @@
 		{
 			"key": "POST_BODY",
 			"value": ""
+		},
+		{
+			"key": "EVENT_SUBSCRIPTION_REQUEST_SCHEMA",
+			"value": "{\n    \"$schema\": \"https://json-schema.org/draft/2019-09/schema\",\n    \"$id\": \"https://dcsa.org/\",\n    \"title\": \"Root Schema\",\n    \"type\": \"object\",\n    \"default\": {},\n    \"required\": [\n        \"callbackUrl\",\n        \"eventTypes\",\n        \"shipmentEventTypeCodes\",\n        \"documentTypeCodes\",\n        \"documentReference\",\n        \"equipmentReference\",\n        \"transportEventTypeCodes\",\n        \"transportCallReference\",\n        \"vesselIMONumber\",\n        \"carrierExportVoyageNumber\",\n        \"universalExportVoyageReference\",\n        \"carrierServiceCode\",\n        \"universalServiceReference\",\n        \"UNLocationCode\",\n        \"equipmentEventTypeCodes\",\n        \"secret\"\n    ],\n    \"properties\": {\n        \"callbackUrl\": {\n            \"title\": \"The callbackUrl Schema\",\n            \"type\": \"string\",\n            \"default\": \"\",\n            \"examples\": [\n                \"https://myserver.com/send/callback/here?shipperRef=\\u003cshipper defined unique id\\u003e\"\n            ]\n        },\n        \"eventTypes\": {\n            \"title\": \"The eventTypes Schema\",\n            \"type\": \"array\",\n            \"default\": [],\n            \"items\": {\n                \"title\": \"A Schema\",\n                \"type\": \"string\",\n                \"examples\": [\n                    \"TRANSPORT\",\n                    \"EQUIPMENT\"\n                ]\n            },\n            \"examples\": [\n                [\"TRANSPORT\",\n                    \"EQUIPMENT\"\n                ]\n            ]\n        },\n        \"shipmentEventTypeCodes\": {\n            \"title\": \"The shipmentEventTypeCodes Schema\",\n            \"type\": \"array\",\n            \"default\": [],\n            \"items\": {\n                \"title\": \"A Schema\",\n                \"type\": \"string\",\n                \"examples\": [\n                    \"RECE\",\n                    \"DRFT\"\n                ]\n            },\n            \"examples\": [\n                [\"RECE\",\n                    \"DRFT\"\n                ]\n            ]\n        },\n        \"documentTypeCodes\": {\n            \"title\": \"The documentTypeCodes Schema\",\n            \"type\": \"array\",\n            \"default\": [],\n            \"items\": {\n                \"title\": \"A Schema\",\n                \"type\": \"string\",\n                \"examples\": [\n                    \"SHI\",\n                    \"TRD\"\n                ]\n            },\n            \"examples\": [\n                [\"SHI\",\n                    \"TRD\"\n                ]\n            ]\n        },\n        \"documentReference\": {\n            \"title\": \"The documentReference Schema\",\n            \"type\": \"string\",\n            \"default\": \"\",\n            \"examples\": [\n                \"\\u003cthe-reference-of-the-documentTypeCode\\u003e\"\n            ]\n        },\n        \"equipmentReference\": {\n            \"title\": \"The equipmentReference Schema\",\n            \"type\": \"string\",\n            \"default\": \"\",\n            \"examples\": [\n                \"APZU4812090\"\n            ]\n        },\n        \"transportEventTypeCodes\": {\n            \"title\": \"The transportEventTypeCodes Schema\",\n            \"type\": \"array\",\n            \"default\": [],\n            \"items\": {\n                \"title\": \"A Schema\",\n                \"type\": \"string\",\n                \"examples\": [\n                    \"ARRI\",\n                    \"DEPA\"\n                ]\n            },\n            \"examples\": [\n                [\"ARRI\",\n                    \"DEPA\"\n                ]\n            ]\n        },\n        \"transportCallReference\": {\n            \"title\": \"The transportCallReference Schema\",\n            \"type\": \"string\",\n            \"default\": \"\",\n            \"examples\": [\n                \"987e4567\"\n            ]\n        },\n        \"vesselIMONumber\": {\n            \"title\": \"The vesselIMONumber Schema\",\n            \"type\": \"string\",\n            \"default\": \"\",\n            \"examples\": [\n                \"9321483\"\n            ]\n        },\n        \"carrierExportVoyageNumber\": {\n            \"title\": \"The carrierExportVoyageNumber Schema\",\n            \"type\": \"string\",\n            \"default\": \"\",\n            \"examples\": [\n                \"2103S\"\n            ]\n        },\n        \"universalExportVoyageReference\": {\n            \"title\": \"The universalExportVoyageReference Schema\",\n            \"type\": \"string\",\n            \"default\": \"\",\n            \"examples\": [\n                \"2103N\"\n            ]\n        },\n        \"carrierServiceCode\": {\n            \"title\": \"The carrierServiceCode Schema\",\n            \"type\": \"string\",\n            \"default\": \"\",\n            \"examples\": [\n                \"FE1\"\n            ]\n        },\n        \"universalServiceReference\": {\n            \"title\": \"The universalServiceReference Schema\",\n            \"type\": \"string\",\n            \"default\": \"\",\n            \"examples\": [\n                \"SR12345A\"\n            ]\n        },\n        \"UNLocationCode\": {\n            \"title\": \"The UNLocationCode Schema\",\n            \"type\": \"string\",\n            \"default\": \"\",\n            \"examples\": [\n                \"FRPAR\"\n            ]\n        },\n        \"equipmentEventTypeCodes\": {\n            \"title\": \"The equipmentEventTypeCodes Schema\",\n            \"type\": \"array\",\n            \"default\": [],\n            \"items\": {\n                \"title\": \"A Schema\",\n                \"type\": \"string\",\n                \"examples\": [\n                    \"GTIN\",\n                    \"GTOT\"\n                ]\n            },\n            \"examples\": [\n                [\"GTIN\",\n                    \"GTOT\"\n                ]\n            ]\n        },\n        \"secret\": {\n            \"title\": \"The secret Schema\",\n            \"type\": \"string\",\n            \"default\": \"\",\n            \"examples\": [\n                \"MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTIzNDM2NTc4NjIzODk3NDY5MDgyNzM0OTg3MTIzNzg2NA==\"\n            ]\n        }\n    },\n    \"examples\": [{\n        \"callbackUrl\": \"https://myserver.com/send/callback/here?shipperRef=\\u003cshipper defined unique id\\u003e\",\n        \"eventTypes\": [\n            \"TRANSPORT\",\n            \"EQUIPMENT\"\n        ],\n        \"shipmentEventTypeCodes\": [\n            \"RECE\",\n            \"DRFT\"\n        ],\n        \"documentTypeCodes\": [\n            \"SHI\",\n            \"TRD\"\n        ],\n        \"documentReference\": \"\\u003cthe-reference-of-the-documentTypeCode\\u003e\",\n        \"equipmentReference\": \"APZU4812090\",\n        \"transportEventTypeCodes\": [\n            \"ARRI\",\n            \"DEPA\"\n        ],\n        \"transportCallReference\": \"987e4567\",\n        \"vesselIMONumber\": \"9321483\",\n        \"carrierExportVoyageNumber\": \"2103S\",\n        \"universalExportVoyageReference\": \"2103N\",\n        \"carrierServiceCode\": \"FE1\",\n        \"universalServiceReference\": \"SR12345A\",\n        \"UNLocationCode\": \"FRPAR\",\n        \"equipmentEventTypeCodes\": [\n            \"GTIN\",\n            \"GTOT\"\n        ],\n        \"secret\": \"MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTIzNDM2NTc4NjIzODk3NDY5MDgyNzM0OTg3MTIzNzg2NA==\"\n    }]\n}",
+			"type": "string"
+		},
+		{
+			"key": "EVENT_SUBSCRIPTION_RESPONSE_SCHEMA",
+			"value": "{\n    \"$schema\": \"https://json-schema.org/draft/2019-09/schema\",\n    \"$id\": \"https://dcsa.org/\",\n    \"title\": \"TNT event subscription response schema\",\n    \"type\": \"object\",\n    \"default\": {},\n    \"required\": [\n        \"callbackUrl\",\n        \"documentReference\",\n        \"equipmentReference\",\n        \"transportCallReference\",\n        \"vesselIMONumber\",\n        \"carrierExportVoyageNumber\",\n        \"universalExportVoyageReference\",\n        \"carrierServiceCode\",\n        \"universalServiceReference\",\n        \"eventTypes\",\n        \"shipmentEventTypeCodes\",\n        \"documentTypeCodes\",\n        \"transportEventTypeCodes\",\n        \"equipmentEventTypeCodes\",\n        \"subscriptionID\",\n        \"unlocationCode\"\n    ],\n    \"properties\": {\n        \"callbackUrl\": {\n            \"title\": \"The callbackUrl Schema\",\n            \"type\": \"string\",\n            \"default\": \"\",\n            \"examples\": [\n                \"https://f12d95eb-6e7b-4516-ac10-7c3c9efe2887.mock.pstmn.io/{uuid}\"\n            ]\n        },\n        \"documentReference\": {\n            \"title\": \"The documentReference Schema\",\n            \"type\": \"string\",\n            \"default\": \"\",\n            \"examples\": [\n                \"test-docRef\"\n            ]\n        },\n        \"equipmentReference\": {\n            \"title\": \"The equipmentReference Schema\",\n            \"type\": \"string\",\n            \"default\": \"\",\n            \"examples\": [\n                \"test-equipRef\"\n            ]\n        },\n        \"transportCallReference\": {\n            \"title\": \"The transportCallReference Schema\",\n            \"type\": \"string\",\n            \"default\": \"\",\n            \"examples\": [\n                \"test-transportCallRef\"\n            ]\n        },\n        \"vesselIMONumber\": {\n            \"title\": \"The vesselIMONumber Schema\",\n            \"type\": \"string\",\n            \"default\": \"\",\n            \"examples\": [\n                \"1234567\"\n            ]\n        },\n        \"carrierExportVoyageNumber\": {\n            \"title\": \"The carrierExportVoyageNumber Schema\",\n            \"type\": \"string\",\n            \"default\": \"\",\n            \"examples\": [\n                \"test-carrierExportVoyageNumber\"\n            ]\n        },\n        \"universalExportVoyageReference\": {\n            \"title\": \"The universalExportVoyageReference Schema\",\n            \"type\": \"string\",\n            \"default\": \"\",\n            \"examples\": [\n                \"12AZN\"\n            ]\n        },\n        \"carrierServiceCode\": {\n            \"title\": \"The carrierServiceCode Schema\",\n            \"type\": \"string\",\n            \"default\": \"\",\n            \"examples\": [\n                \"csc34\"\n            ]\n        },\n        \"universalServiceReference\": {\n            \"title\": \"The universalServiceReference Schema\",\n            \"type\": \"string\",\n            \"default\": \"\",\n            \"examples\": [\n                \"SR00001D\"\n            ]\n        },\n        \"eventTypes\": {\n            \"title\": \"The eventTypes Schema\",\n            \"type\": \"array\",\n            \"default\": [],\n            \"items\": {\n                \"title\": \"A Schema\",\n                \"type\": \"string\",\n                \"examples\": [\n                    \"SHIPMENT\",\n                    \"EQUIPMENT\"\n                ]\n            },\n            \"examples\": [\n                [\"SHIPMENT\",\n                    \"EQUIPMENT\"\n                ]\n            ]\n        },\n        \"shipmentEventTypeCodes\": {\n            \"title\": \"The shipmentEventTypeCodes Schema\",\n            \"type\": \"array\",\n            \"default\": [],\n            \"items\": {\n                \"title\": \"A Schema\",\n                \"type\": \"string\",\n                \"examples\": [\n                    \"RECE\",\n                    \"APPR\"\n                ]\n            },\n            \"examples\": [\n                [\"RECE\",\n                    \"APPR\"\n                ]\n            ]\n        },\n        \"documentTypeCodes\": {\n            \"title\": \"The documentTypeCodes Schema\",\n            \"type\": \"array\",\n            \"default\": [],\n            \"items\": {\n                \"title\": \"A Schema\",\n                \"type\": \"string\",\n                \"examples\": [\n                    \"BKG\",\n                    \"CAS\",\n                    \"ARN\"\n                ]\n            },\n            \"examples\": [\n                [\"BKG\",\n                    \"CAS\",\n                    \"ARN\"\n                ]\n            ]\n        },\n        \"transportEventTypeCodes\": {\n            \"title\": \"The transportEventTypeCodes Schema\",\n            \"type\": \"array\",\n            \"default\": [],\n            \"items\": {\n                \"title\": \"A Schema\",\n                \"type\": \"string\",\n                \"default\": \"\",\n                \"examples\": [\n                    \"DEPA\"\n                ]\n            },\n            \"examples\": [\n                [\n                    \"DEPA\"]\n            ]\n        },\n        \"equipmentEventTypeCodes\": {\n            \"title\": \"The equipmentEventTypeCodes Schema\",\n            \"type\": \"array\",\n            \"default\": [],\n            \"items\": {\n                \"title\": \"A Schema\",\n                \"type\": \"string\",\n                \"examples\": [\n                    \"LOAD\",\n                    \"DISC\"\n                ]\n            },\n            \"examples\": [\n                [\"LOAD\",\n                    \"DISC\"\n                ]\n            ]\n        },\n        \"subscriptionID\": {\n            \"title\": \"The subscriptionID Schema\",\n            \"type\": \"string\",\n            \"default\": \"\",\n            \"examples\": [\n                \"7e73be2e-da6e-43a2-beb4-d358329406d8\"\n            ]\n        },\n        \"unlocationCode\": {\n            \"title\": \"The unlocationCode Schema\",\n            \"type\": \"string\",\n            \"default\": \"\",\n            \"examples\": [\n                \"UNLoc\"\n            ]\n        }\n    },\n    \"examples\": [{\n        \"callbackUrl\": \"https://f12d95eb-6e7b-4516-ac10-7c3c9efe2887.mock.pstmn.io/{uuid}\",\n        \"documentReference\": \"test-docRef\",\n        \"equipmentReference\": \"test-equipRef\",\n        \"transportCallReference\": \"test-transportCallRef\",\n        \"vesselIMONumber\": \"1234567\",\n        \"carrierExportVoyageNumber\": \"test-carrierExportVoyageNumber\",\n        \"universalExportVoyageReference\": \"12AZN\",\n        \"carrierServiceCode\": \"csc34\",\n        \"universalServiceReference\": \"SR00001D\",\n        \"eventTypes\": [\n            \"SHIPMENT\",\n            \"EQUIPMENT\"\n        ],\n        \"shipmentEventTypeCodes\": [\n            \"RECE\",\n            \"APPR\"\n        ],\n        \"documentTypeCodes\": [\n            \"BKG\",\n            \"CAS\",\n            \"ARN\"\n        ],\n        \"transportEventTypeCodes\": [\n            \"DEPA\"\n        ],\n        \"equipmentEventTypeCodes\": [\n            \"LOAD\",\n            \"DISC\"\n        ],\n        \"subscriptionID\": \"7e73be2e-da6e-43a2-beb4-d358329406d8\",\n        \"unlocationCode\": \"UNLoc\"\n    }]\n}",
+			"type": "string"
+		},
+		{
+			"key": "NEW_EVENT_SUBSCRIPTION_POST_REQUEST_BODY",
+			"value": "{\n    \"callbackUrl\": \"https://f12d95eb-6e7b-4516-ac10-7c3c9efe2887.mock.pstmn.io/456eacf9-8cda-412b-b801-4a41be7a6d000\",\n    \"documentReference\": \"test-docRef2\",\n    \"equipmentReference\": \"test-equipRef2\",\n    \"transportCallReference\": \"test-transportCallRef\",\n    \"vesselIMONumber\": \"1234567\",\n    \"carrierExportVoyageNumber\": \"test-carrierExportVoyageNumber\",\n    \"universalExportVoyageReference\": \"12AZN\",\n    \"carrierServiceCode\": \"csc34\",\n    \"universalServiceReference\": \"SR00001D\",\n    \"eventTypes\": [\"EQUIPMENT\", \"SHIPMENT\"],\n    \"shipmentEventTypeCodes\": [\"RECE\", \"APPR\"],\n    \"documentTypeCodes\": [\"ARN\", \"CAS\", \"BKG\"],\n    \"transportEventTypeCodes\": [\"DEPA\"],\n    \"equipmentEventTypeCodes\": [\"LOAD\", \"DISC\"],\n    \"secret\": \"dmVyeSBzZWNyZXQgc2VjcmV0IHRoYXQgaXMgc28gc2VjcmV0\",\n    \"unlocationCode\": \"UNLoc\"\n}",
+			"type": "string"
+		},
+		{
+			"key": "AND",
+			"value": " and ",
+			"type": "string"
+		},
+		{
+			"key": "ADOPTER_TEST_MODE",
+			"value": "adopter",
+			"type": "string"
+		},
+		{
+			"key": "TEST_MODE",
+			"value": "adopter and ignore schema ",
+			"type": "string"
+		},
+		{
+			"key": "IGNORE_SCHEMA_TEST_MODE",
+			"value": "ignore schema",
+			"type": "string"
 		}
 	]
 }

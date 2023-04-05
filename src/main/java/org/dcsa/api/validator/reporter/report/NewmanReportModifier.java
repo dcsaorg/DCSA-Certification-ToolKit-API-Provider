@@ -45,7 +45,7 @@ public class NewmanReportModifier {
 
     private static final String REQUIREMENT_TABLE_START = "<div class=\"table-responsive\">\n" +
             "                                            <table class=\"table table-bordered\">\n" +
-            "                                            <thead class=\"thead-light text-center\"><tr><th>Header Name</th><th>Header Value</th></tr></thead>\n" +
+            "                                            <thead class=\"thead-light text-center\"><tr><th>Validation Header</th><th>Validation Description</th></tr></thead>\n" +
             "                                                <tbody>";
 
 
