@@ -3,6 +3,7 @@ package org.dcsa.api.validator.reporter.report;
 import lombok.extern.java.Log;
 import org.dcsa.api.validator.model.Requirement;
 import org.dcsa.api.validator.model.enums.PostmanCollectionType;
+import org.dcsa.api.validator.util.JsonUtility;
 import org.dcsa.api.validator.webservice.init.AppProperty;
 
 import java.io.File;
@@ -93,7 +94,6 @@ public class NewmanReportModifier {
         }
         htmlContent = htmlContent.replaceAll(BODY_LOGO, BODY_LOGO_REPLACE);
         htmlContent = htmlContent.replaceAll(NEWMAN_DASHBOARD, DCSA_DASHBOARD);
-        htmlContent = addManualTestTitle(htmlContent);
         htmlContent = addRequirementTable(htmlContent);
         htmlContent = addManualTestTable(htmlContent);
         try {
@@ -113,12 +113,12 @@ public class NewmanReportModifier {
         requirementList = new ArrayList<>();
         manualTestList = new ArrayList<>();
         if(collectionTypeEnum == TNT){
-            requirementList = AppProperty.convertRequirementIdJson(TNT_REQUIREMENT);
-            manualTestList = AppProperty.convertRequirementIdJson(TNT_MANUAL_TEST);
+            requirementList = JsonUtility.convertRequirementIdJson(TNT_REQUIREMENT);
+            manualTestList = JsonUtility.convertRequirementIdJson(TNT_MANUAL_TEST);
         }else if(collectionTypeEnum == OVS){
-            requirementList = AppProperty.convertRequirementIdJson(OVS_REQUIREMENT);
+            requirementList = JsonUtility.convertRequirementIdJson(OVS_REQUIREMENT);
         }else if(collectionTypeEnum == EDOC){
-            requirementList = AppProperty.convertRequirementIdJson(E_DOCUMENTATION_REQUIREMENT);
+            requirementList = JsonUtility.convertRequirementIdJson(E_DOCUMENTATION_REQUIREMENT);
         }
     }
 

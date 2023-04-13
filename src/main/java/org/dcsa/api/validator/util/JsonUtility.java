@@ -12,12 +12,16 @@ import com.github.fge.jsonschema.main.JsonSchemaFactory;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.PathNotFoundException;
 import io.restassured.path.json.exception.JsonPathException;
+import org.dcsa.api.validator.model.Requirement;
+import org.dcsa.api.validator.model.RequirementListWrapper;
+import org.dcsa.api.validator.model.TestFolderName;
+import org.dcsa.api.validator.model.TestFolderNameWrapper;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 import static com.github.fge.jsonschema.SchemaVersion.DRAFTV4;
 
@@ -273,6 +277,29 @@ public class JsonUtility {
             }
         }
         return isValid;
+    }
+
+    public static List<Requirement> convertRequirementIdJson(String resourceName) {
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonString = FileUtility.loadResourceAsString(resourceName);
+        try {
+            RequirementListWrapper requirementListWrapper = mapper.readValue(jsonString, RequirementListWrapper.class);
+            return requirementListWrapper.getRequirement();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            throw new RuntimeException(e);
+        }
+    }
+    public static List<TestFolderName> getTestFolderNames(String resourceName){
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonString = FileUtility.loadResourceAsString(resourceName);
+        try {
+            TestFolderNameWrapper folderNameWrapper = mapper.readValue(jsonString, TestFolderNameWrapper.class);
+            return folderNameWrapper.getFolder();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            throw new RuntimeException(e);
+        }
     }
 
 }

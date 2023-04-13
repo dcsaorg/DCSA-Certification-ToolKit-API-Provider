@@ -291,16 +291,5 @@ public class AppProperty {
             throw new StorageException("Could not initialize storage", e);
         }
     }
-    public static List<Requirement> convertRequirementIdJson(String resourceName) {
-        ObjectMapper mapper = new ObjectMapper();
-        String jsonString = FileUtility.loadResourceAsString(resourceName);
-        try {
-            RequirementListWrapper requirementListWrapper = mapper.readValue(jsonString, RequirementListWrapper.class);
-            return requirementListWrapper.getRequirement();
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-            throw new RuntimeException(e);
-        }
-    }
 
 }

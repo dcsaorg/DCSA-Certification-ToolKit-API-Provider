@@ -28,6 +28,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 import static org.dcsa.api.validator.model.enums.ReportType.UNKNOWN;
 
@@ -61,10 +63,12 @@ public class ProviderCtkController {
        return  downloadService.downloadHtmlReport(response, ReportUtil.getReports(), errorMsg);
    }
 
-    @GetMapping(value = "/run-newman/{collectionType}/{reportType}" )
-    ResponseEntity<Resource> runNewman(HttpServletResponse response, @PathVariable String collectionType, @PathVariable String reportType) throws Exception {
+    @GetMapping(value = "/run-newman/{collectionType}/{reportType}/{official}")
+    ResponseEntity<Resource> runNewman(HttpServletResponse response, @PathVariable String collectionType, @PathVariable String reportType, @PathVariable String official) throws Exception {
         ReportType reportTypeEnum = ReportType.fromName(reportType);
         PostmanCollectionType collectionTypeEnum = PostmanCollectionType.fromName(collectionType);
+        boolean isOfficial = official.toLowerCase().equalsIgnoreCase("official");
+
         String errorMsg = "";
         if(reportTypeEnum.name().equalsIgnoreCase(UNKNOWN.name())){
             errorMsg = "Unknown report type";
@@ -75,7 +79,7 @@ public class ProviderCtkController {
             TestSetup.tearDown();
             return downloadService.downloadHtmlReport(response, "", errorMsg);
         }else{
-            String reportPath = ScriptExecutor.runNewman(collectionTypeEnum, reportTypeEnum);
+            String reportPath = ScriptExecutor.runNewman(collectionTypeEnum, reportTypeEnum, isOfficial);
             NewmanReportModifier.modifyFile(reportPath, collectionTypeEnum);
             TestSetup.tearDown();
             return downloadService.downloadHtmlReport(response, reportPath, errorMsg);

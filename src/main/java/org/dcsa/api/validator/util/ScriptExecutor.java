@@ -1,13 +1,17 @@
 package org.dcsa.api.validator.util;
 
+import org.dcsa.api.validator.model.TestFolderName;
 import org.dcsa.api.validator.model.enums.OsType;
 import org.dcsa.api.validator.model.enums.PostmanCollectionType;
 import org.dcsa.api.validator.model.enums.ReportType;
+import org.springframework.util.StringUtils;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 import static org.dcsa.api.validator.model.enums.PostmanCollectionType.*;
@@ -20,8 +24,14 @@ public class ScriptExecutor {
 
     private static final String NIX_SCRIPT = "nix_newman.sh";
 
+    private static final String TNT_TEST_FOLDER = File.separator+ "requirement" +File.separator+"TntTestFolder.json";
+
+    private static final String OVS_TEST_FOLDER = File.separator+ "requirement" +File.separator+"OvsTestFolder.json";
+
+    private static final String EDOC_TEST_FOLDER = File.separator+ "requirement" +File.separator+"EDocTestFolder.json";
+
     public static OsType osType;
-    public static String runNewman(PostmanCollectionType postmanCollectionType, ReportType reportType) {
+    public static String runNewman(PostmanCollectionType postmanCollectionType, ReportType reportType, boolean isOfficial) {
         osType = TestUtility.getOperatingSystem();
         ReportUtil.setOsType(ScriptExecutor.osType);
 
@@ -32,11 +42,17 @@ public class ScriptExecutor {
         } else if (osType == OsType.LINUX || osType == OsType.DOCKER) {
             scriptPath = FileUtility.getScriptPath(NIX_SCRIPT);
         }
-
-        String scriptParameter = getScriptParameter(postmanCollectionType);
+        String collectionName = getScriptParameter(postmanCollectionType);
+        String scriptParameter = collectionName;
+        if(isOfficial){
+            List<TestFolderName> testFolderNames = getTestFolderNames(postmanCollectionType);
+            String scriptFolderName = makeFoldrNameParameter(Objects.requireNonNull(testFolderNames));
+            scriptParameter = collectionName + " "+scriptFolderName;
+        }
+        System.out.println(collectionName);
         System.out.println(scriptParameter);
         if(reportType == NEWMAN){
-            executeScripForNewmanReport(scriptPath, scriptParameter);
+            executeScripForNewmanReport(scriptPath, scriptParameter, isOfficial);
             reportPath = FileUtility.getNewmanReport(postmanCollectionType.name());
             System.out.println(reportPath+"it will be updated");
         }else if(reportType == HTML){
@@ -44,15 +60,20 @@ public class ScriptExecutor {
         }
         return reportPath;
     }
-    private static void executeScripForNewmanReport(String scriptPath, String scriptParameter) {
+    private static void executeScripForNewmanReport(String scriptPath, String scriptParameter, boolean isOfficial) {
         try {
-            String[] cmdArray = new String[2];
+            String[] cmdArray = new String[3];
             // first argument is the script we want to execute
-            cmdArray[0] = scriptPath;
+            cmdArray[0] = "cmd.exe";
             // second argument is parameter of the script
-            cmdArray[1] = scriptParameter;
+            cmdArray[1] = "/c";
+            if(isOfficial){
+                cmdArray[2] = scriptPath + " " + scriptParameter;
+            }else{
+                cmdArray[2] = scriptPath;
+            }
             System.out.println("***** Script execution Starts *****");
-            System.out.println("Executing script "+scriptPath+" with parameter "+scriptParameter );
+            System.out.println("Executing script "+scriptPath+" with parameter "+scriptParameter);
 
             // the execution directory for the script
             File executionDir = new File(FileUtility.getScriptPath(File.separator));
@@ -76,14 +97,15 @@ public class ScriptExecutor {
             String filePath = FileUtility.makeFile(bufferedReader);
             System.out.println(filePath);
 
-            try (Stream<String> stream = Files.lines(Paths.get(filePath))) {
+            Path path = Paths.get(filePath);
+            try (Stream<String> stream = Files.lines(path)) {
                 stream.forEach(line -> {
                     if (!line.isEmpty()) {
                         System.out.println(line);
                         ReportUtil.fillHtmlReportTNT(line);
                     }
                 });
-                Files.deleteIfExists(Path.of(filePath));
+                Files.deleteIfExists(path);
                 System.out.println("***** Script executed successfully *****");
             } catch (IOException e) {
                 System.out.println("Error during script execution " + e.getMessage());
@@ -102,6 +124,31 @@ public class ScriptExecutor {
             return FileUtility.getPostmanCollectionName(postmanCollectionType.name());
         }
         return "";
+    }
+
+    private static List<TestFolderName> getTestFolderNames(PostmanCollectionType postmanCollectionType){
+        List<TestFolderName> testFolderNames;
+        if(postmanCollectionType == TNT){
+            testFolderNames = JsonUtility.getTestFolderNames(TNT_TEST_FOLDER);
+            return testFolderNames;
+        }else if(postmanCollectionType == OVS){
+            testFolderNames = JsonUtility.getTestFolderNames(OVS_TEST_FOLDER);
+            return testFolderNames;
+        }else if(postmanCollectionType == EDOC){
+            testFolderNames = JsonUtility.getTestFolderNames(EDOC_TEST_FOLDER);
+            return testFolderNames;
+        }
+        return null;
+    }
+
+    private static String makeFoldrNameParameter(List<TestFolderName> testFolderNames){
+        String folderParameter = "--folder";
+        String doubleQuot = "\"";
+        StringBuilder sb = new StringBuilder();
+        testFolderNames.forEach(item -> {
+            sb.append(folderParameter).append(" ").append(doubleQuot).append(item.getName()).append(doubleQuot).append(" ");
+        });
+        return sb.toString();
     }
 
 }

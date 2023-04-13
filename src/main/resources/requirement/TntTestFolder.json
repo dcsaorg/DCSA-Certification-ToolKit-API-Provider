@@ -1,0 +1,10 @@
+{
+  "folder":[
+    {
+      "name": "GET events"
+    },
+    {
+      "name": "Post EventSubscription"
+    }
+  ]
+}
