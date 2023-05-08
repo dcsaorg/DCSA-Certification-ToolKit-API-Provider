@@ -1,0 +1,40 @@
+{
+  "folder":[
+    {
+      "name": "Booking request summaries"
+    },
+    {
+      "name": "Shipment summaries"
+    },
+    {
+      "name": "Shipping instruction summaries"
+    },
+    {
+      "name": "GET Booking request"
+    },
+    {
+      "name": "GET ShippingInstruction"
+    },
+    {
+      "name": "Cancel booking"
+    },
+    {
+      "name": "Put booking"
+    },
+    {
+      "name": "Post booking"
+    },
+    {
+      "name": "Post Shipping instruction"
+    },
+    {
+      "name": "Get Shipment"
+    },
+    {
+      "name": "Transport Document summaries"
+    },
+    {
+      "name": "Get TransportDocument"
+    }
+  ]
+}

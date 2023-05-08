@@ -73,7 +73,10 @@ public class NewmanReportModifier {
     private static final String TNT_MANUAL_TEST = File.separator+ "requirement" +File.separator+"TntManualTest.json";
     private static final String OVS_REQUIREMENT = File.separator+ "requirement" +File.separator+"OvsRequirement.json";
 
+    private static final String OVS_MANUAL_TEST = File.separator+ "requirement" +File.separator+"OvsManualTest.json";
     private static final String E_DOCUMENTATION_REQUIREMENT = File.separator+ "requirement" +File.separator+"EDocumentationRequirement.json";
+
+    private static final String E_DOCUMENTATION_MANUAL_TEST = File.separator+ "requirement" +File.separator+"EDocumentationManualTest.json";
 
     public static List<Requirement> requirementList;
     public static List<Requirement> manualTestList;
@@ -117,8 +120,10 @@ public class NewmanReportModifier {
             manualTestList = JsonUtility.convertRequirementIdJson(TNT_MANUAL_TEST);
         }else if(collectionTypeEnum == OVS){
             requirementList = JsonUtility.convertRequirementIdJson(OVS_REQUIREMENT);
+            manualTestList = JsonUtility.convertRequirementIdJson(OVS_MANUAL_TEST);
         }else if(collectionTypeEnum == EDOC){
             requirementList = JsonUtility.convertRequirementIdJson(E_DOCUMENTATION_REQUIREMENT);
+            manualTestList = JsonUtility.convertRequirementIdJson(E_DOCUMENTATION_MANUAL_TEST);
         }
     }
 

@@ -4,7 +4,6 @@ import org.dcsa.api.validator.model.TestFolderName;
 import org.dcsa.api.validator.model.enums.OsType;
 import org.dcsa.api.validator.model.enums.PostmanCollectionType;
 import org.dcsa.api.validator.model.enums.ReportType;
-import org.springframework.util.StringUtils;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -24,11 +23,11 @@ public class ScriptExecutor {
 
     private static final String NIX_SCRIPT = "nix_newman.sh";
 
-    private static final String TNT_TEST_FOLDER = File.separator+ "requirement" +File.separator+"TntTestFolder.json";
+    private static final String TNT_POSTMAN_FOLDER = File.separator+ "requirement" +File.separator+"TntPostmanFolder.json";
 
-    private static final String OVS_TEST_FOLDER = File.separator+ "requirement" +File.separator+"OvsTestFolder.json";
+    private static final String OVS_POSTMAN_FOLDER = File.separator+ "requirement" +File.separator+"OvsPostmanFolder.json";
 
-    private static final String EDOC_TEST_FOLDER = File.separator+ "requirement" +File.separator+"EDocTestFolder.json";
+    private static final String EDOC_POSTMAN_FOLDER = File.separator+ "requirement" +File.separator+"EDocumentationPostmanFolder.json";
 
     public static OsType osType;
     public static String runNewman(PostmanCollectionType postmanCollectionType, ReportType reportType, boolean isOfficial) {
@@ -129,13 +128,13 @@ public class ScriptExecutor {
     private static List<TestFolderName> getTestFolderNames(PostmanCollectionType postmanCollectionType){
         List<TestFolderName> testFolderNames;
         if(postmanCollectionType == TNT){
-            testFolderNames = JsonUtility.getTestFolderNames(TNT_TEST_FOLDER);
+            testFolderNames = JsonUtility.getTestFolderNames(TNT_POSTMAN_FOLDER);
             return testFolderNames;
         }else if(postmanCollectionType == OVS){
-            testFolderNames = JsonUtility.getTestFolderNames(OVS_TEST_FOLDER);
+            testFolderNames = JsonUtility.getTestFolderNames(OVS_POSTMAN_FOLDER);
             return testFolderNames;
         }else if(postmanCollectionType == EDOC){
-            testFolderNames = JsonUtility.getTestFolderNames(EDOC_TEST_FOLDER);
+            testFolderNames = JsonUtility.getTestFolderNames(EDOC_POSTMAN_FOLDER);
             return testFolderNames;
         }
         return null;
