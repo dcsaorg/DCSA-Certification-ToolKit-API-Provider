@@ -4,7 +4,6 @@ import lombok.extern.java.Log;
 import org.dcsa.api.validator.model.Requirement;
 import org.dcsa.api.validator.model.enums.PostmanCollectionType;
 import org.dcsa.api.validator.util.JsonUtility;
-import org.dcsa.api.validator.webservice.init.AppProperty;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,8 +30,6 @@ public class NewmanReportModifier {
     private static final String COLLAPSE = "collapse-";
 
     private static final String GREATER_THAN_MARKER = ">";
-
-    private static final String LESS_THAN_MARKER = "<";
 
     private static final String DIV = "<div>";
 
@@ -80,8 +77,8 @@ public class NewmanReportModifier {
 
     public static List<Requirement> requirementList;
     public static List<Requirement> manualTestList;
-    public static void modifyFile(String reportPath, PostmanCollectionType collectionTypeEnum) {
-        populateRequirement(collectionTypeEnum);
+    public static void modifyFile(String reportPath, PostmanCollectionType collectionTypeEnum, boolean isOfficial) {
+        populateRequirementAndManualTest(collectionTypeEnum);
         Path path = Paths.get(reportPath);
         Charset charset = StandardCharsets.UTF_8;
         String htmlContent = "";
@@ -95,8 +92,14 @@ public class NewmanReportModifier {
         }else{
             DCSA_DASHBOARD = String.format(DCSA_DASHBOARD, collectionTypeEnum.name().toUpperCase());
         }
+        if(isOfficial){
+            DCSA_DASHBOARD = "OFFICIAL "+DCSA_DASHBOARD;
+        }else{
+            DCSA_DASHBOARD = "UNOFFICIAL "+DCSA_DASHBOARD;
+        }
         htmlContent = htmlContent.replaceAll(BODY_LOGO, BODY_LOGO_REPLACE);
         htmlContent = htmlContent.replaceAll(NEWMAN_DASHBOARD, DCSA_DASHBOARD);
+        htmlContent = addManualTestTitle(htmlContent);
         htmlContent = addRequirementTable(htmlContent);
         htmlContent = addManualTestTable(htmlContent);
         try {
@@ -112,7 +115,7 @@ public class NewmanReportModifier {
         return addSubStringAt(mainHtmlContent, MANUAL_TEST_TITLE, indexOfAddManualTestTitle);
     }
 
-    private static void populateRequirement(PostmanCollectionType collectionTypeEnum){
+    private static void populateRequirementAndManualTest(PostmanCollectionType collectionTypeEnum){
         requirementList = new ArrayList<>();
         manualTestList = new ArrayList<>();
         if(collectionTypeEnum == TNT){

@@ -1,14 +1,12 @@
 package org.dcsa.api.validator.webservice.controller;
 
 
-import org.dcsa.api.validator.hook.TestSetup;
 import org.dcsa.api.validator.model.enums.PostmanCollectionType;
 import org.dcsa.api.validator.model.enums.ReportType;
 import org.dcsa.api.validator.model.enums.UploadType;
-import org.dcsa.api.validator.reporter.report.ExtentReportManager;
 import org.dcsa.api.validator.reporter.report.NewmanReportModifier;
-import org.dcsa.api.validator.util.ReportUtil;
 import org.dcsa.api.validator.util.FileUtility;
+import org.dcsa.api.validator.util.ReportUtil;
 import org.dcsa.api.validator.util.ScriptExecutor;
 import org.dcsa.api.validator.util.TestUtility;
 import org.dcsa.api.validator.webservice.init.AppProperty;
@@ -28,8 +26,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 import static org.dcsa.api.validator.model.enums.ReportType.UNKNOWN;
 
@@ -67,7 +63,7 @@ public class ProviderCtkController {
     ResponseEntity<Resource> runNewman(HttpServletResponse response, @PathVariable String collectionType, @PathVariable String reportType, @PathVariable String official) throws Exception {
         ReportType reportTypeEnum = ReportType.fromName(reportType);
         PostmanCollectionType collectionTypeEnum = PostmanCollectionType.fromName(collectionType);
-        boolean isOfficial = official.toLowerCase().equalsIgnoreCase("official");
+        boolean isOfficial = official.equalsIgnoreCase("official");
 
         String errorMsg = "";
         if(reportTypeEnum.name().equalsIgnoreCase(UNKNOWN.name())){
@@ -76,12 +72,10 @@ public class ProviderCtkController {
             errorMsg = "Unknown test collection type";
         }
         if(!errorMsg.isBlank()){
-            TestSetup.tearDown();
             return downloadService.downloadHtmlReport(response, "", errorMsg);
         }else{
             String reportPath = ScriptExecutor.runNewman(collectionTypeEnum, reportTypeEnum, isOfficial);
-            NewmanReportModifier.modifyFile(reportPath, collectionTypeEnum);
-            TestSetup.tearDown();
+            NewmanReportModifier.modifyFile(reportPath, collectionTypeEnum, isOfficial);
             return downloadService.downloadHtmlReport(response, reportPath, errorMsg);
         }
     }

@@ -1,9 +1,10 @@
 {
 	"info": {
-		"_postman_id": "46965325-2c40-4198-827c-5e88d2fdaca4",
+		"_postman_id": "0b9ac9f4-b8dc-45f7-99f8-a2f0e4cf99eb",
 		"name": "DCSA-TNT",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "2551975"
+		"_exporter_id": "2551975",
+		"_collection_link": "https://www.postman.com/winter-trinity-270101/workspace/dcsa/collection/2551975-0b9ac9f4-b8dc-45f7-99f8-a2f0e4cf99eb?action=share&creator=2551975&source=collection_link"
 	},
 	"item": [
 		{
@@ -14,34 +15,24 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"metadata\": {\n            \"eventID\": \"41533e39-df30-45c8-8035-127c92f93f8f\",\n            \"eventCreatedDateTime\": \"2003-05-01T00:00:00Z\",\n            \"eventType\": \"TRANSPORT\"\n        },\n        \"payload\": {\n            \"eventDateTime\": \"2003-05-03T00:00:00Z\",\n            \"eventClassifierCode\": \"EST\",\n            \"relatedDocumentReferences\": [\n                {\n                    \"type\": \"CBR\",\n                    \"value\": \"CARRIER_BOOKING_REQUEST_REFERENCE_02\"\n                },\n                {\n                    \"type\": \"BKG\",\n                    \"value\": \"ABC123123123\"\n                }\n            ],\n            \"transportEventTypeCode\": \"DEPA\",\n            \"delayReasonCode\": \"ANA\",\n            \"changeRemark\": \"Authorities not available\",\n            \"transportCall\": {\n                \"transportCallReference\": \"TC-REF-08_02-B\",\n                \"carrierServiceCode\": \"TNT1\",\n                \"universalServiceReference\": \"SR00033F\",\n                \"carrierExportVoyageNumber\": \"TNT1E\",\n                \"carrierImportVoyageNumber\": \"TNT1E\",\n                \"transportCallSequenceNumber\": 1,\n                \"modeOfTransport\": \"VESSEL\",\n                \"location\": {\n                    \"UNLocationCode\": \"USNYC\",\n                    \"locationName\": \"Eiffel Tower\",\n                    \"latitude\": \"48.8585500\",\n                    \"longitude\": \"2.294492036\"\n                },\n                \"facilityTypeCode\": \"POTE\",\n                \"vessel\": {\n                    \"vesselIMONumber\": \"9321483\",\n                    \"name\": \"Emma Maersk\",\n                    \"flag\": \"DK\",\n                    \"operatorCarrierCode\": \"MSK\",\n                    \"operatorCarrierCodeListProvider\": \"SMDG\"\n                }\n            }\n        }\n    },\n    {\n        \"metadata\": {\n            \"eventID\": \"3065fd6c-f63e-4bcd-b028-937a640db5ba\",\n            \"eventCreatedDateTime\": \"2003-05-03T00:00:00Z\",\n            \"eventType\": \"TRANSPORT\"\n        },\n        \"payload\": {\n            \"eventDateTime\": \"2003-05-03T00:00:00Z\",\n            \"eventClassifierCode\": \"ACT\",\n            \"relatedDocumentReferences\": [\n                {\n                    \"type\": \"CBR\",\n                    \"value\": \"CARRIER_BOOKING_REQUEST_REFERENCE_02\"\n                },\n                {\n                    \"type\": \"BKG\",\n                    \"value\": \"ABC123123123\"\n                }\n            ],\n            \"transportEventTypeCode\": \"DEPA\",\n            \"delayReasonCode\": \"ANA\",\n            \"changeRemark\": \"Authorities not available\",\n            \"transportCall\": {\n                \"transportCallReference\": \"TC-REF-08_02-B\",\n                \"carrierServiceCode\": \"TNT1\",\n                \"universalServiceReference\": \"SR00033F\",\n                \"carrierExportVoyageNumber\": \"TNT1E\",\n                \"carrierImportVoyageNumber\": \"TNT1E\",\n                \"transportCallSequenceNumber\": 1,\n                \"modeOfTransport\": \"VESSEL\",\n                \"location\": {\n                    \"UNLocationCode\": \"USNYC\",\n                    \"locationName\": \"Eiffel Tower\",\n                    \"latitude\": \"48.8585500\",\n                    \"longitude\": \"2.294492036\"\n                },\n                \"facilityTypeCode\": \"POTE\",\n                \"vessel\": {\n                    \"vesselIMONumber\": \"9321483\",\n                    \"name\": \"Emma Maersk\",\n                    \"flag\": \"DK\",\n                    \"operatorCarrierCode\": \"MSK\",\n                    \"operatorCarrierCodeListProvider\": \"SMDG\"\n                }\n            }\n        }\n    },\n    {\n        \"metadata\": {\n            \"eventID\": \"0210bf51-3d8b-4c7e-8ef9-d143b401ad2f\",\n            \"eventCreatedDateTime\": \"2021-01-08T13:22:53Z\",\n            \"eventType\": \"SHIPMENT\"\n        },\n        \"payload\": {\n            \"eventDateTime\": \"2021-01-08T13:22:53Z\",\n            \"eventClassifierCode\": \"ACT\",\n            \"relatedDocumentReferences\": [\n                {\n                    \"type\": \"SHI\",\n                    \"value\": \"SI_REF_4\"\n                }\n            ],\n            \"shipmentEventTypeCode\": \"RECE\",\n            \"documentTypeCode\": \"SHI\",\n            \"documentReference\": \"SI_REF_4\"\n        }\n    },\n    {\n        \"metadata\": {\n            \"eventID\": \"97eb7c09-571e-438f-8f65-ac6a29ba04e5\",\n            \"eventCreatedDateTime\": \"2021-01-08T13:22:53Z\",\n            \"eventType\": \"SHIPMENT\"\n        },\n        \"payload\": {\n            \"eventDateTime\": \"2021-01-08T13:22:53Z\",\n            \"eventClassifierCode\": \"ACT\",\n            \"relatedDocumentReferences\": [\n                {\n                    \"type\": \"CBR\",\n                    \"value\": \"cbrr-b83765166707812c8ff4\"\n                }\n            ],\n            \"shipmentEventTypeCode\": \"RECE\",\n            \"documentTypeCode\": \"CBR\",\n            \"documentReference\": \"cbrr-b83765166707812c8ff4\"\n        }\n    },\n    {\n        \"metadata\": {\n            \"eventID\": \"d7dde15f-5ddc-42ce-8103-9fa1c4da0bde\",\n            \"eventCreatedDateTime\": \"2021-01-08T13:22:53Z\",\n            \"eventType\": \"SHIPMENT\"\n        },\n        \"payload\": {\n            \"eventDateTime\": \"2021-01-08T13:22:53Z\",\n            \"eventClassifierCode\": \"ACT\",\n            \"relatedDocumentReferences\": [\n                {\n                    \"type\": \"BKG\",\n                    \"value\": \"cbr-b83765166707812c8ff4\"\n                }\n            ],\n            \"shipmentEventTypeCode\": \"RECE\",\n            \"documentTypeCode\": \"BKG\",\n            \"documentReference\": \"cbr-b83765166707812c8ff4\"\n        }\n    },\n    {\n        \"metadata\": {\n            \"eventID\": \"8b654176-fe41-41fd-a457-a632d6811246\",\n            \"eventCreatedDateTime\": \"2021-01-08T13:22:53Z\",\n            \"eventType\": \"SHIPMENT\"\n        },\n        \"payload\": {\n            \"eventDateTime\": \"2021-01-08T13:22:53Z\",\n            \"eventClassifierCode\": \"ACT\",\n            \"relatedDocumentReferences\": [\n                {\n                    \"type\": \"SHI\",\n                    \"value\": \"c144c6dff46b9fa67e65\"\n                }\n            ],\n            \"shipmentEventTypeCode\": \"RECE\",\n            \"documentTypeCode\": \"SHI\",\n            \"documentReference\": \"c144c6dff46b9fa67e65\"\n        }\n    },\n    {\n        \"metadata\": {\n            \"eventID\": \"576731c5-1aca-4e05-a279-bae1350b7961\",\n            \"eventCreatedDateTime\": \"2021-01-08T17:22:53Z\",\n            \"eventType\": \"SHIPMENT\"\n        },\n        \"payload\": {\n            \"eventDateTime\": \"2021-01-08T17:22:53Z\",\n            \"eventClassifierCode\": \"ACT\",\n            \"relatedDocumentReferences\": [\n                {\n                    \"type\": \"SHI\",\n                    \"value\": \"SI_REF_4\"\n                }\n            ],\n            \"shipmentEventTypeCode\": \"PENU\",\n            \"documentTypeCode\": \"SHI\",\n            \"documentReference\": \"SI_REF_4\",\n            \"reason\": \"Carrier Booking Reference present in both shipping instruction as well as cargo items.\"\n        }\n    },\n    {\n        \"metadata\": {\n            \"eventID\": \"037bb03d-1310-4011-bc9b-3956b1e166bd\",\n            \"eventCreatedDateTime\": \"2021-01-08T18:22:53Z\",\n            \"eventType\": \"SHIPMENT\"\n        },\n        \"payload\": {\n            \"eventDateTime\": \"2021-01-08T18:22:53Z\",\n            \"eventClassifierCode\": \"ACT\",\n            \"relatedDocumentReferences\": [\n                {\n                    \"type\": \"SHI\",\n                    \"value\": \"SI_REF_4\"\n                }\n            ],\n            \"shipmentEventTypeCode\": \"DRFT\",\n            \"documentTypeCode\": \"SHI\",\n            \"documentReference\": \"SI_REF_4\"\n        }\n    },\n    {\n        \"metadata\": {\n            \"eventID\": \"84db923d-2a19-4eb0-beb5-446c1ec17d34\",\n            \"eventCreatedDateTime\": \"2021-01-09T13:12:56Z\",\n            \"eventType\": \"TRANSPORT\"\n        },\n        \"payload\": {\n            \"eventDateTime\": \"2019-11-11T23:11:00Z\",\n            \"eventClassifierCode\": \"ACT\",\n            \"relatedDocumentReferences\": [\n                {\n                    \"type\": \"CBR\",\n                    \"value\": \"CARRIER_BOOKING_REQUEST_REFERENCE_02\"\n                },\n                {\n                    \"type\": \"BKG\",\n                    \"value\": \"ABC123123123\"\n                }\n            ],\n            \"transportEventTypeCode\": \"ARRI\",\n            \"delayReasonCode\": \"WEA\",\n            \"changeRemark\": \"Bad weather\",\n            \"transportCall\": {\n                \"transportCallReference\": \"TC-REF-08_02-A\",\n                \"transportCallSequenceNumber\": 1,\n                \"modeOfTransport\": \"VESSEL\",\n                \"location\": {\n                    \"UNLocationCode\": \"USNYC\",\n                    \"locationName\": \"Eiffel Tower\",\n                    \"latitude\": \"48.8585500\",\n                    \"longitude\": \"2.294492036\"\n                },\n                \"facilityTypeCode\": \"POTE\",\n                \"vessel\": {\n                    \"vesselIMONumber\": \"1234567\",\n                    \"name\": \"King of the Seas\",\n                    \"flag\": \"DE\",\n                    \"callSign\": \"NCVV\",\n                    \"operatorCarrierCode\": \"MSK\",\n                    \"operatorCarrierCodeListProvider\": \"SMDG\"\n                }\n            }\n        }\n    },\n    {\n        \"metadata\": {\n            \"eventID\": \"2c645424-a125-4431-9dc4-5aff488173b7\",\n            \"eventCreatedDateTime\": \"2021-01-09T13:12:56Z\",\n            \"eventType\": \"EQUIPMENT\"\n        },\n        \"payload\": {\n            \"eventDateTime\": \"2019-11-11T23:11:00Z\",\n            \"eventClassifierCode\": \"EST\",\n            \"relatedDocumentReferences\": [\n                {\n                    \"type\": \"CBR\",\n                    \"value\": \"CARRIER_BOOKING_REQUEST_REFERENCE_02\"\n                },\n                {\n                    \"type\": \"BKG\",\n                    \"value\": \"ABC123123123\"\n                }\n            ],\n            \"equipmentEventTypeCode\": \"LOAD\",\n            \"equipmentReference\": \"APZU4812090\",\n            \"emptyIndicatorCode\": \"EMPTY\",\n            \"transportCall\": {\n                \"transportCallReference\": \"TC-REF-08_02-A\",\n                \"transportCallSequenceNumber\": 1,\n                \"modeOfTransport\": \"VESSEL\",\n                \"location\": {\n                    \"UNLocationCode\": \"USNYC\",\n                    \"locationName\": \"Eiffel Tower\",\n                    \"latitude\": \"48.8585500\",\n                    \"longitude\": \"2.294492036\"\n                },\n                \"facilityTypeCode\": \"POTE\",\n                \"vessel\": {\n                    \"vesselIMONumber\": \"1234567\",\n                    \"name\": \"King of the Seas\",\n                    \"flag\": \"DE\",\n                    \"callSign\": \"NCVV\",\n                    \"operatorCarrierCode\": \"MSK\",\n                    \"operatorCarrierCodeListProvider\": \"SMDG\"\n                }\n            },\n            \"isoequipmentCode\": \"22G2\",\n            \"isTransshipmentMove\": false\n        }\n    },\n    {\n        \"metadata\": {\n            \"eventID\": \"2968b966-ee81-46ba-af87-0c5031c641f4\",\n            \"eventCreatedDateTime\": \"2021-11-28T13:12:56Z\",\n            \"eventType\": \"TRANSPORT\"\n        },\n        \"payload\": {\n            \"eventDateTime\": \"2021-11-30T23:11:00Z\",\n            \"eventClassifierCode\": \"PLN\",\n            \"relatedDocumentReferences\": [\n                {\n                    \"type\": \"CBR\",\n                    \"value\": \"a3a34f10-acc5-4e23-b52e-146f63458c90\"\n                },\n                {\n                    \"type\": \"CBR\",\n                    \"value\": \"ef223019-ff16-4870-be69-9dbaaaae9b11\"\n                },\n                {\n                    \"type\": \"BKG\",\n                    \"value\": \"C501576CD94F\"\n                },\n                {\n                    \"type\": \"BKG\",\n                    \"value\": \"DCR987876762\"\n                }\n            ],\n            \"transportEventTypeCode\": \"ARRI\",\n            \"delayReasonCode\": \"WEA\",\n            \"changeRemark\": \"Bad weather\",\n            \"transportCall\": {\n                \"transportCallReference\": \"TC-REF-08_04-A\",\n                \"carrierExportVoyageNumber\": \"2107E\",\n                \"carrierImportVoyageNumber\": \"2106W\",\n                \"transportCallSequenceNumber\": 1,\n                \"modeOfTransport\": \"VESSEL\",\n                \"location\": {\n                    \"UNLocationCode\": \"DEHAM\",\n                    \"locationName\": \"Hamburg\",\n                    \"address\": {\n                        \"name\": \"Lukas\",\n                        \"street\": \"Rohrdamm\",\n                        \"streetNumber\": \"81\",\n                        \"floor\": \"5\",\n                        \"postCode\": \"32108\",\n                        \"city\": \"Bad Salzuflen Grastrup-hölsen\",\n                        \"stateRegion\": \"Nordrhein-Westfalen\",\n                        \"country\": \"Germany\"\n                    },\n                    \"facilityCode\": \"DPWJA\",\n                    \"facilityCodeListProvider\": \"SMDG\",\n                    \"latitude\": \"53.551° N\",\n                    \"longitude\": \"9.9937° E\"\n                },\n                \"facilityTypeCode\": \"POTE\",\n                \"vessel\": {\n                    \"vesselIMONumber\": \"9321483\",\n                    \"name\": \"Emma Maersk\",\n                    \"flag\": \"DK\",\n                    \"operatorCarrierCode\": \"MSK\",\n                    \"operatorCarrierCodeListProvider\": \"SMDG\"\n                }\n            }\n        }\n    },\n    {\n        \"metadata\": {\n            \"eventID\": \"2968b966-ee81-46ba-af87-0c5031c641f3\",\n            \"eventCreatedDateTime\": \"2021-11-28T13:12:56Z\",\n            \"eventType\": \"TRANSPORT\"\n        },\n        \"payload\": {\n            \"eventDateTime\": \"2021-11-30T23:11:00Z\",\n            \"eventClassifierCode\": \"PLN\",\n            \"relatedDocumentReferences\": [\n                {\n                    \"type\": \"CBR\",\n                    \"value\": \"CARRIER_BOOKING_REQUEST_REFERENCE_01\"\n                },\n                {\n                    \"type\": \"BKG\",\n                    \"value\": \"AR1239719871\"\n                },\n                {\n                    \"type\": \"BKG\",\n                    \"value\": \"BR1239719871\"\n                },\n                {\n                    \"type\": \"SHI\",\n                    \"value\": \"SI_REF_2\"\n                },\n                {\n                    \"type\": \"SHI\",\n                    \"value\": \"SI_REF_7\"\n                },\n                {\n                    \"type\": \"TRD\",\n                    \"value\": \"9b02401c-b2fb-5009\"\n                }\n            ],\n            \"references\": [\n                {\n                    \"type\": \"CR\",\n                    \"value\": \"AB-123743CR\"\n                },\n                {\n                    \"type\": \"PO\",\n                    \"value\": \"PO0027\"\n                }\n            ],\n            \"transportEventTypeCode\": \"DEPA\",\n            \"delayReasonCode\": \"WEA\",\n            \"changeRemark\": \"Bad weather\",\n            \"transportCall\": {\n                \"transportCallReference\": \"TC-REF-08_01-C\",\n                \"carrierExportVoyageNumber\": \"2419E\",\n                \"carrierImportVoyageNumber\": \"2418W\",\n                \"transportCallSequenceNumber\": 1,\n                \"modeOfTransport\": \"RAIL\",\n                \"location\": {\n                    \"UNLocationCode\": \"USMIA\",\n                    \"locationName\": \"Genneb\"\n                },\n                \"facilityTypeCode\": \"COFS\"\n            }\n        }\n    },\n    {\n        \"metadata\": {\n            \"eventID\": \"2968b966-ee81-46ba-af87-0c5031c641f2\",\n            \"eventCreatedDateTime\": \"2021-11-28T13:12:56Z\",\n            \"eventType\": \"TRANSPORT\"\n        },\n        \"payload\": {\n            \"eventDateTime\": \"2021-11-30T23:11:00Z\",\n            \"eventClassifierCode\": \"PLN\",\n            \"relatedDocumentReferences\": [\n                {\n                    \"type\": \"CBR\",\n                    \"value\": \"CARRIER_BOOKING_REQUEST_REFERENCE_01\"\n                },\n                {\n                    \"type\": \"BKG\",\n                    \"value\": \"AR1239719871\"\n                },\n                {\n                    \"type\": \"BKG\",\n                    \"value\": \"BR1239719871\"\n                },\n                {\n                    \"type\": \"SHI\",\n                    \"value\": \"SI_REF_2\"\n                },\n                {\n                    \"type\": \"SHI\",\n                    \"value\": \"SI_REF_7\"\n                },\n                {\n                    \"type\": \"TRD\",\n                    \"value\": \"9b02401c-b2fb-5009\"\n                }\n            ],\n            \"references\": [\n                {\n                    \"type\": \"CR\",\n                    \"value\": \"AB-123743CR\"\n                },\n                {\n                    \"type\": \"PO\",\n                    \"value\": \"PO0027\"\n                }\n            ],\n            \"transportEventTypeCode\": \"ARRI\",\n            \"delayReasonCode\": \"WEA\",\n            \"changeRemark\": \"Bad weather\",\n            \"transportCall\": {\n                \"transportCallReference\": \"TC-REF-08_01-D\",\n                \"carrierExportVoyageNumber\": \"3419E\",\n                \"carrierImportVoyageNumber\": \"3418W\",\n                \"transportCallSequenceNumber\": 1,\n                \"modeOfTransport\": \"RAIL\",\n                \"location\": {\n                    \"UNLocationCode\": \"USMIA\",\n                    \"locationName\": \"Nijmegen\"\n                },\n                \"facilityTypeCode\": \"INTE\"\n            }\n        }\n    },\n    {\n        \"metadata\": {\n            \"eventID\": \"2968b966-ee81-46ba-af87-0c5031c64142\",\n            \"eventCreatedDateTime\": \"2021-11-28T13:12:56Z\",\n            \"eventType\": \"TRANSPORT\"\n        },\n        \"payload\": {\n            \"eventDateTime\": \"2021-11-30T23:11:00Z\",\n            \"eventClassifierCode\": \"PLN\",\n            \"relatedDocumentReferences\": [\n                {\n                    \"type\": \"CBR\",\n                    \"value\": \"CARRIER_BOOKING_REQUEST_REFERENCE_02\"\n                },\n                {\n                    \"type\": \"BKG\",\n                    \"value\": \"ABC123123123\"\n                }\n            ],\n            \"transportEventTypeCode\": \"DEPA\",\n            \"delayReasonCode\": \"WEA\",\n            \"changeRemark\": \"Bad weather\",\n            \"transportCall\": {\n                \"transportCallReference\": \"TC-REF-08_02-A\",\n                \"transportCallSequenceNumber\": 1,\n                \"modeOfTransport\": \"VESSEL\",\n                \"location\": {\n                    \"UNLocationCode\": \"USNYC\",\n                    \"locationName\": \"Eiffel Tower\",\n                    \"latitude\": \"48.8585500\",\n                    \"longitude\": \"2.294492036\"\n                },\n                \"facilityTypeCode\": \"POTE\",\n                \"vessel\": {\n                    \"vesselIMONumber\": \"1234567\",\n                    \"name\": \"King of the Seas\",\n                    \"flag\": \"DE\",\n                    \"callSign\": \"NCVV\",\n                    \"operatorCarrierCode\": \"MSK\",\n                    \"operatorCarrierCodeListProvider\": \"SMDG\"\n                }\n            }\n        }\n    },\n    {\n        \"metadata\": {\n            \"eventID\": \"9d5d0824-b228-4ea8-b2cb-4ebd8da76e15\",\n            \"eventCreatedDateTime\": \"2021-11-29T13:12:56Z\",\n            \"eventType\": \"TRANSPORT\"\n        },\n        \"payload\": {\n            \"eventDateTime\": \"2021-12-02T23:11:00Z\",\n            \"eventClassifierCode\": \"PLN\",\n            \"relatedDocumentReferences\": [\n                {\n                    \"type\": \"CBR\",\n                    \"value\": \"a3a34f10-acc5-4e23-b52e-146f63458c90\"\n                },\n                {\n                    \"type\": \"CBR\",\n                    \"value\": \"ef223019-ff16-4870-be69-9dbaaaae9b11\"\n                },\n                {\n                    \"type\": \"BKG\",\n                    \"value\": \"C501576CD94F\"\n                },\n                {\n                    \"type\": \"BKG\",\n                    \"value\": \"DCR987876762\"\n                }\n            ],\n            \"transportEventTypeCode\": \"DEPA\",\n            \"delayReasonCode\": \"WEA\",\n            \"changeRemark\": \"Bad weather\",\n            \"transportCall\": {\n                \"transportCallReference\": \"TC-REF-08_04-B\",\n                \"carrierExportVoyageNumber\": \"2107E\",\n                \"carrierImportVoyageNumber\": \"2106W\",\n                \"transportCallSequenceNumber\": 1,\n                \"modeOfTransport\": \"VESSEL\",\n                \"location\": {\n                    \"UNLocationCode\": \"USNYC\",\n                    \"locationName\": \"Lagkagehuset Islands Brygge\",\n                    \"address\": {\n                        \"name\": \"Lagkagehuset\",\n                        \"street\": \"Islands Brygge\",\n                        \"streetNumber\": \"43\",\n                        \"floor\": \"St\",\n                        \"postCode\": \"2300\",\n                        \"city\": \"København S\",\n                        \"stateRegion\": \"N/A\",\n                        \"country\": \"Denmark\"\n                    },\n                    \"latitude\": \"55.6642249\",\n                    \"longitude\": \"12.57341045\"\n                },\n                \"facilityTypeCode\": \"POTE\",\n                \"vessel\": {\n                    \"vesselIMONumber\": \"9321483\",\n                    \"name\": \"Emma Maersk\",\n                    \"flag\": \"DK\",\n                    \"operatorCarrierCode\": \"MSK\",\n                    \"operatorCarrierCodeListProvider\": \"SMDG\"\n                }\n            }\n        }\n    },\n    {\n        \"metadata\": {\n            \"eventID\": \"bad67dfa-a866-46bb-8889-b71c77d0f405\",\n            \"eventCreatedDateTime\": \"2021-11-30T23:11:00Z\",\n            \"eventType\": \"TRANSPORT\"\n        },\n        \"payload\": {\n            \"eventDateTime\": \"2021-11-28T13:12:56Z\",\n            \"eventClassifierCode\": \"PLN\",\n            \"relatedDocumentReferences\": [\n                {\n                    \"type\": \"CBR\",\n                    \"value\": \"CARRIER_BOOKING_REQUEST_REFERENCE_02\"\n                },\n                {\n                    \"type\": \"BKG\",\n                    \"value\": \"ABC123123123\"\n                }\n            ],\n            \"transportEventTypeCode\": \"ARRI\",\n            \"delayReasonCode\": \"ANA\",\n            \"changeRemark\": \"Authorities not available\",\n            \"transportCall\": {\n                \"transportCallReference\": \"TC-REF-08_02-B\",\n                \"carrierServiceCode\": \"TNT1\",\n                \"universalServiceReference\": \"SR00033F\",\n                \"universalExportVoyageReference\": \"SR00034F\",\n                \"universalImportVoyageReference\": \"SR00035F\",\n                \"carrierExportVoyageNumber\": \"TNT1E\",\n                \"carrierImportVoyageNumber\": \"TNT1E\",\n                \"transportCallSequenceNumber\": 1,\n                \"modeOfTransport\": \"VESSEL\",\n                \"location\": {\n                    \"UNLocationCode\": \"USNYC\",\n                    \"locationName\": \"Eiffel Tower\",\n                    \"latitude\": \"48.8585500\",\n                    \"longitude\": \"2.294492036\"\n                },\n                \"facilityTypeCode\": \"POTE\",\n                \"vessel\": {\n                    \"vesselIMONumber\": \"9321483\",\n                    \"name\": \"Emma Maersk\",\n                    \"flag\": \"DK\",\n                    \"operatorCarrierCode\": \"MSK\",\n                    \"operatorCarrierCodeListProvider\": \"SMDG\"\n                }\n            }\n        }\n    },\n    {\n        \"metadata\": {\n            \"eventID\": \"e73a828b-d6ed-4d78-9a25-ca60c62a72ec\",\n            \"eventCreatedDateTime\": \"2022-03-01T18:22:53Z\",\n            \"eventType\": \"SHIPMENT\"\n        },\n        \"payload\": {\n            \"eventDateTime\": \"2022-03-01T18:22:53Z\",\n            \"eventClassifierCode\": \"ACT\",\n            \"relatedDocumentReferences\": [\n                {\n                    \"type\": \"SHI\",\n                    \"value\": \"SI_REF_6\"\n                }\n            ],\n            \"shipmentEventTypeCode\": \"RECE\",\n            \"documentTypeCode\": \"SHI\",\n            \"documentReference\": \"SI_REF_6\"\n        }\n    },\n    {\n        \"metadata\": {\n            \"eventID\": \"5d1c56f2-d851-4bc5-9c2a-fe794080001a\",\n            \"eventCreatedDateTime\": \"2022-03-03T18:22:53Z\",\n            \"eventType\": \"SHIPMENT\"\n        },\n        \"payload\": {\n            \"eventDateTime\": \"2022-03-03T18:22:53Z\",\n            \"eventClassifierCode\": \"ACT\",\n            \"relatedDocumentReferences\": [\n                {\n                    \"type\": \"TRD\",\n                    \"value\": \"2b02401c-b2fb-5009\"\n                }\n            ],\n            \"shipmentEventTypeCode\": \"DRFT\",\n            \"documentTypeCode\": \"TRD\",\n            \"documentReference\": \"2b02401c-b2fb-5009\"\n        }\n    },\n    {\n        \"metadata\": {\n            \"eventID\": \"e17ab008-2286-46d9-8eb6-3607a5bacfe5\",\n            \"eventCreatedDateTime\": \"2022-03-03T18:22:53Z\",\n            \"eventType\": \"SHIPMENT\"\n        },\n        \"payload\": {\n            \"eventDateTime\": \"2022-03-03T18:22:53Z\",\n            \"eventClassifierCode\": \"ACT\",\n            \"relatedDocumentReferences\": [\n                {\n                    \"type\": \"SHI\",\n                    \"value\": \"SI_REF_6\"\n                }\n            ],\n            \"shipmentEventTypeCode\": \"DRFT\",\n            \"documentTypeCode\": \"SHI\",\n            \"documentReference\": \"SI_REF_6\"\n        }\n    },\n    {\n        \"metadata\": {\n            \"eventID\": \"179919ae-1e90-41a8-be0d-baa7b9264035\",\n            \"eventCreatedDateTime\": \"2022-03-05T13:56:12Z\",\n            \"eventType\": \"SHIPMENT\"\n        },\n        \"payload\": {\n            \"eventDateTime\": \"2022-03-05T13:56:12Z\",\n            \"eventClassifierCode\": \"ACT\",\n            \"relatedDocumentReferences\": [\n                {\n                    \"type\": \"TRD\",\n                    \"value\": \"2b02401c-b2fb-5009\"\n                }\n            ],\n            \"shipmentEventTypeCode\": \"APPR\",\n            \"documentTypeCode\": \"TRD\",\n            \"documentReference\": \"2b02401c-b2fb-5009\"\n        }\n    },\n    {\n        \"metadata\": {\n            \"eventID\": \"5e51e72c-d872-11ea-811c-0f8f10a32ea2\",\n            \"eventCreatedDateTime\": \"2023-04-18T05:56:23.871884Z\",\n            \"eventType\": \"EQUIPMENT\"\n        },\n        \"payload\": {\n            \"eventDateTime\": \"2003-05-03T00:00:00Z\",\n            \"eventClassifierCode\": \"ACT\",\n            \"relatedDocumentReferences\": [\n                {\n                    \"type\": \"CBR\",\n                    \"value\": \"CARRIER_BOOKING_REQUEST_REFERENCE_02\"\n                },\n                {\n                    \"type\": \"BKG\",\n                    \"value\": \"ABC123123123\"\n                }\n            ],\n            \"equipmentEventTypeCode\": \"LOAD\",\n            \"equipmentReference\": \"equipref3453\",\n            \"emptyIndicatorCode\": \"EMPTY\",\n            \"transportCall\": {\n                \"transportCallReference\": \"TC-REF-08_02-A\",\n                \"transportCallSequenceNumber\": 1,\n                \"modeOfTransport\": \"VESSEL\",\n                \"location\": {\n                    \"UNLocationCode\": \"USNYC\",\n                    \"locationName\": \"Eiffel Tower\",\n                    \"latitude\": \"48.8585500\",\n                    \"longitude\": \"2.294492036\"\n                },\n                \"facilityTypeCode\": \"POTE\",\n                \"vessel\": {\n                    \"vesselIMONumber\": \"1234567\",\n                    \"name\": \"King of the Seas\",\n                    \"flag\": \"DE\",\n                    \"callSign\": \"NCVV\",\n                    \"operatorCarrierCode\": \"MSK\",\n                    \"operatorCarrierCodeListProvider\": \"SMDG\"\n                }\n            },\n            \"isoequipmentCode\": \"22G2\",\n            \"isTransshipmentMove\": false\n        }\n    },\n    {\n        \"metadata\": {\n            \"eventID\": \"5e51e72c-d872-11ea-811c-0f8f10a32ea1\",\n            \"eventCreatedDateTime\": \"2023-04-18T05:56:23.871884Z\",\n            \"eventType\": \"SHIPMENT\"\n        },\n        \"payload\": {\n            \"eventDateTime\": \"2003-05-03T00:00:00Z\",\n            \"eventClassifierCode\": \"ACT\",\n            \"shipmentEventTypeCode\": \"CONF\",\n            \"documentTypeCode\": \"BKG\",\n            \"documentReference\": \"ABC123123123\"\n        }\n    },\n    {\n        \"metadata\": {\n            \"eventID\": \"e48f2bc0-c746-11ea-a3ff-db48243a89f4\",\n            \"eventCreatedDateTime\": \"2023-04-18T05:56:23.871884Z\",\n            \"eventType\": \"SHIPMENT\"\n        },\n        \"payload\": {\n            \"eventDateTime\": \"2020-07-15T00:00:00Z\",\n            \"eventClassifierCode\": \"ACT\",\n            \"shipmentEventTypeCode\": \"APPR\",\n            \"documentTypeCode\": \"BKG\",\n            \"documentReference\": \"BR1239719971\"\n        }\n    },\n    {\n        \"metadata\": {\n            \"eventID\": \"784871e7-c9cd-4f59-8d88-2e033fa799a1\",\n            \"eventCreatedDateTime\": \"2023-04-18T05:56:23.871884Z\",\n            \"eventType\": \"SHIPMENT\"\n        },\n        \"payload\": {\n            \"eventDateTime\": \"2020-07-15T00:00:00Z\",\n            \"eventClassifierCode\": \"ACT\",\n            \"shipmentEventTypeCode\": \"APPR\",\n            \"documentTypeCode\": \"BKG\",\n            \"documentReference\": \"BR1239719971\"\n        }\n    },\n    {\n        \"metadata\": {\n            \"eventID\": \"5e51e72c-d872-11ea-811c-0f8f10a32ea3\",\n            \"eventCreatedDateTime\": \"2023-04-18T05:56:23.871884Z\",\n            \"eventType\": \"TRANSPORT\"\n        },\n        \"payload\": {\n            \"eventDateTime\": \"2003-05-03T00:00:00Z\",\n            \"eventClassifierCode\": \"ACT\",\n            \"relatedDocumentReferences\": [\n                {\n                    \"type\": \"CBR\",\n                    \"value\": \"CARRIER_BOOKING_REQUEST_REFERENCE_02\"\n                },\n                {\n                    \"type\": \"BKG\",\n                    \"value\": \"ABC123123123\"\n                }\n            ],\n            \"transportEventTypeCode\": \"DEPA\",\n            \"delayReasonCode\": \"ANA\",\n            \"changeRemark\": \"Authorities not available\",\n            \"transportCall\": {\n                \"transportCallReference\": \"TC-REF-08_02-A\",\n                \"transportCallSequenceNumber\": 1,\n                \"modeOfTransport\": \"VESSEL\",\n                \"location\": {\n                    \"UNLocationCode\": \"USNYC\",\n                    \"locationName\": \"Eiffel Tower\",\n                    \"latitude\": \"48.8585500\",\n                    \"longitude\": \"2.294492036\"\n                },\n                \"facilityTypeCode\": \"POTE\",\n                \"vessel\": {\n                    \"vesselIMONumber\": \"1234567\",\n                    \"name\": \"King of the Seas\",\n                    \"flag\": \"DE\",\n                    \"callSign\": \"NCVV\",\n                    \"operatorCarrierCode\": \"MSK\",\n                    \"operatorCarrierCodeListProvider\": \"SMDG\"\n                }\n            }\n        }\n    }\n]\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{BASE_URL}}{{TNT_CONTEXT_PATH}}/unofficial/dataloader/load/test",
+							"raw": "{{BASE_URL}}{{TNT_CONTEXT_PATH}}/unofficial/events/",
 							"host": [
 								"{{BASE_URL}}{{TNT_CONTEXT_PATH}}"
 							],
 							"path": [
 								"unofficial",
-								"dataloader",
-								"load",
-								"test"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Trigger Event Caching",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "{{BASE_URL}}{{TNT_CONTEXT_PATH}}/unofficial/events-cache-trigger",
-							"host": [
-								"{{BASE_URL}}{{TNT_CONTEXT_PATH}}"
-							],
-							"path": [
-								"unofficial",
-								"events-cache-trigger"
+								"events",
+								""
 							]
 						}
 					},
@@ -1065,51 +1056,8 @@
 					"name": "Test: create EventSubscriptionWithSecretTO and retrieve it",
 					"item": [
 						{
-							"name": "create single EventSubscriptionWithSecretTO",
+							"name": "create single EventSubscriptionWithSecretTO1",
 							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"// Additional test for conformance\r",
-											"const testMode = pm.collectionVariables.get(\"TEST_MODE\");\r",
-											"const adopterTest = pm.collectionVariables.get(\"ADOPTER_TEST_MODE\");\r",
-											"var requestBody = pm.collectionVariables.get(\"ADOPTER_EVENT_SUBSCRIPTION_POST_REQUEST_BODY\");\r",
-											"\r",
-											"if(testMode.includes(adopterTest) ){\r",
-											"    pm.test(\"Adopter request body mandatory field check\", function () {\r",
-											"        try {\r",
-											"            var parsedBody = JSON.parse(requestBody);\r",
-											"            if (!parsedBody.secret) {\r",
-											"                throw new Error(\"Required field secret is missing\");\r",
-											"            }\r",
-											"            if(!parsedBody.callbackUrl){\r",
-											"                throw new Error(\"Required field callbackUrl is missing.\");\r",
-											"            }    \r",
-											"    } catch (error) {\r",
-											"            pm.test(\"Request Body Assertion\", function () {\r",
-											"                pm.expect.fail(\"Failed to parse request body or missing required fields: \" + error.message);\r",
-											"            });\r",
-											"    }\r",
-											"});\r",
-											"    pm.request.body = requestBody;\r",
-											"    pm.request.headers.add({key: \"Content-Type\", value: \"application/json\"});\r",
-											"}else{\r",
-											"    pm.test(\"Reference implementation request body mandatory field check\", function () {\r",
-											"        const requiredFields = ['callbackUrl', 'secret'];\r",
-											"        requestBody = JSON.parse(pm.request.body.raw);\r",
-											"        requiredFields.forEach(field => {\r",
-											"            if (!requestBody.hasOwnProperty(field)) {\r",
-											"                throw new Error(`Missing ${field} field in the request body`);\r",
-											"            }\r",
-											"        });\r",
-											"    });\r",
-											"}\r",
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
 								{
 									"listen": "test",
 									"script": {
@@ -1187,7 +1135,7 @@
 											"const request_schema = pm.collectionVariables.get(\"EVENT_SUBSCRIPTION_REQUEST_SCHEMA\");\r",
 											"const testMode = pm.collectionVariables.get(\"TEST_MODE\");\r",
 											"const ignoreSchemaTest = pm.collectionVariables.get(\"IGNORE_SCHEMA_TEST_MODE\");\r",
-											"const adopterTest = pm.collectionVariables.get(\"ADOPTER_TEST_MODE\");\r",
+											"const conformanceTest = pm.collectionVariables.get(\"CONFORMANCE_TEST_MODE\");\r",
 											"const and = pm.collectionVariables.get(\"AND\");\r",
 											"\r",
 											"\r",
@@ -1204,8 +1152,8 @@
 											"    \r",
 											"    pm.test(\"Check request body schema\", function(){\r",
 											"        var requestData;    \r",
-											"        if(testMode === adopterTest){\r",
-											"            requestData = pm.collectionVariables.get(\"ADOPTER_EVENT_SUBSCRIPTION_POST_REQUEST_BODY\");\r",
+											"        if(testMode === conformanceTest){\r",
+											"            requestData = pm.collectionVariables.get(\"CONFORMANCE_EVENT_SUBSCRIPTION_POST_REQUEST_BODY\");\r",
 											"        }else{\r",
 											"            requestData = JSON.parse(pm.request.body.raw);\r",
 											"        }    \r",
@@ -1217,8 +1165,49 @@
 											"        }\r",
 											"        pm.expect(validationResult.valid).to.be.true;\r",
 											"    });\r",
-											"}\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Additional test for conformance\r",
+											"const testMode = pm.collectionVariables.get(\"TEST_MODE\");\r",
+											"const conformanceTest = pm.collectionVariables.get(\"CONFORMANCE_TEST_MODE\");\r",
+											"var requestBody = pm.collectionVariables.get(\"CONFORMANCE_EVENT_SUBSCRIPTION_POST_REQUEST_BODY\");\r",
 											"\r",
+											"if(testMode.includes(conformanceTest) ){\r",
+											"    pm.test(\"conformance request body mandatory field check\", function () {\r",
+											"        try {\r",
+											"            var parsedBody = JSON.parse(requestBody);\r",
+											"            if (!parsedBody.secret) {\r",
+											"                throw new Error(\"Required field secret is missing\");\r",
+											"            }\r",
+											"            if(!parsedBody.callbackUrl){\r",
+											"                throw new Error(\"Required field callbackUrl is missing.\");\r",
+											"            }    \r",
+											"    } catch (error) {\r",
+											"            pm.test(\"Request Body Assertion\", function () {\r",
+											"                pm.expect.fail(\"Failed to parse request body or missing required fields: \" + error.message);\r",
+											"            });\r",
+											"    }\r",
+											"});\r",
+											"    pm.request.body = requestBody;\r",
+											"    pm.request.headers.add({key: \"Content-Type\", value: \"application/json\"});\r",
+											"}else{\r",
+											"    pm.test(\"Reference implementation request body mandatory field check\", function () {\r",
+											"        const requiredFields = ['callbackUrl', 'secret'];\r",
+											"        requestBody = JSON.parse(pm.request.body.raw);\r",
+											"        requiredFields.forEach(field => {\r",
+											"            if (!requestBody.hasOwnProperty(field)) {\r",
+											"                throw new Error(`Missing ${field} field in the request body`);\r",
+											"            }\r",
+											"        });\r",
+											"    });\r",
+											"}\r",
 											""
 										],
 										"type": "text/javascript"
@@ -1250,7 +1239,7 @@
 							"response": []
 						},
 						{
-							"name": "Get created EventSubscriptionWithSecretTO",
+							"name": "Get created EventSubscriptionWithSecretTO1",
 							"event": [
 								{
 									"listen": "test",
@@ -1337,7 +1326,7 @@
 					"name": "Test: create EventSubscriptionWithSecretTO and retrieve list",
 					"item": [
 						{
-							"name": "create single EventSubscriptionWithSecretTO",
+							"name": "create single EventSubscriptionWithSecretTO2",
 							"event": [
 								{
 									"listen": "test",
@@ -1386,7 +1375,6 @@
 											"    });\r",
 											"});\r",
 											"\r",
-											"\r",
 											"pm.test(\"Send a POST request to the given callback URL \"+parsedBody.callbackUrl, function () {\r",
 											"    // Define the request options\r",
 											"    const requestOptions = {\r",
@@ -1417,7 +1405,7 @@
 											"const request_schema = pm.collectionVariables.get(\"EVENT_SUBSCRIPTION_REQUEST_SCHEMA\");\r",
 											"const testMode = pm.collectionVariables.get(\"TEST_MODE\");\r",
 											"const ignoreSchemaTest = pm.collectionVariables.get(\"IGNORE_SCHEMA_TEST_MODE\");\r",
-											"const adopterTest = pm.collectionVariables.get(\"ADOPTER_TEST_MODE\");\r",
+											"const conformanceTest = pm.collectionVariables.get(\"CONFORMANCE_TEST_MODE\");\r",
 											"const and = pm.collectionVariables.get(\"AND\");\r",
 											"\r",
 											"\r",
@@ -1434,8 +1422,8 @@
 											"    \r",
 											"    pm.test(\"Check request body schema\", function(){\r",
 											"        var requestData;    \r",
-											"        if(testMode === adopterTest){\r",
-											"            requestData = pm.collectionVariables.get(\"ADOPTER_EVENT_SUBSCRIPTION_POST_REQUEST_BODY\");\r",
+											"        if(testMode === conformanceTest){\r",
+											"            requestData = pm.collectionVariables.get(\"CONFORMANCE_EVENT_SUBSCRIPTION_POST_REQUEST_BODY\");\r",
 											"        }else{\r",
 											"            requestData = JSON.parse(pm.request.body.raw);\r",
 											"        }    \r",
@@ -1447,8 +1435,7 @@
 											"        }\r",
 											"        pm.expect(validationResult.valid).to.be.true;\r",
 											"    });\r",
-											"}\r",
-											""
+											"}"
 										],
 										"type": "text/javascript"
 									}
@@ -1459,11 +1446,11 @@
 										"exec": [
 											"// Additional test for conformance\r",
 											"const testMode = pm.collectionVariables.get(\"TEST_MODE\");\r",
-											"const adopterTest = pm.collectionVariables.get(\"ADOPTER_TEST_MODE\");\r",
-											"var requestBody = pm.collectionVariables.get(\"ADOPTER_EVENT_SUBSCRIPTION_POST_REQUEST_BODY\");\r",
+											"const conformanceTest = pm.collectionVariables.get(\"CONFORMANCE_TEST_MODE\");\r",
+											"var requestBody = pm.collectionVariables.get(\"CONFORMANCE_EVENT_SUBSCRIPTION_POST_REQUEST_BODY\");\r",
 											"\r",
-											"if(testMode.includes(adopterTest) ){\r",
-											"    pm.test(\"Adopter request body mandatory field check\", function () {\r",
+											"if(testMode.includes(conformanceTest) ){\r",
+											"    pm.test(\"conformance request body mandatory field check\", function () {\r",
 											"        try {\r",
 											"            var parsedBody = JSON.parse(requestBody);\r",
 											"            if (!parsedBody.secret) {\r",
@@ -1522,7 +1509,7 @@
 							"response": []
 						},
 						{
-							"name": "Get created EventSubscriptionWithSecretTO",
+							"name": "Get created EventSubscriptionWithSecretTO2",
 							"event": [
 								{
 									"listen": "test",
@@ -1603,7 +1590,7 @@
 					"name": "Test: create ESWithSecretTO, update and retrieve it",
 					"item": [
 						{
-							"name": "create single EventSubscriptionWithSecretTO",
+							"name": "create single EventSubscriptionWithSecretTO3",
 							"event": [
 								{
 									"listen": "test",
@@ -1652,7 +1639,6 @@
 											"    });\r",
 											"});\r",
 											"\r",
-											"\r",
 											"pm.test(\"Send a POST request to the given callback URL \"+parsedBody.callbackUrl, function () {\r",
 											"    // Define the request options\r",
 											"    const requestOptions = {\r",
@@ -1683,7 +1669,7 @@
 											"const request_schema = pm.collectionVariables.get(\"EVENT_SUBSCRIPTION_REQUEST_SCHEMA\");\r",
 											"const testMode = pm.collectionVariables.get(\"TEST_MODE\");\r",
 											"const ignoreSchemaTest = pm.collectionVariables.get(\"IGNORE_SCHEMA_TEST_MODE\");\r",
-											"const adopterTest = pm.collectionVariables.get(\"ADOPTER_TEST_MODE\");\r",
+											"const conformanceTest = pm.collectionVariables.get(\"CONFORMANCE_TEST_MODE\");\r",
 											"const and = pm.collectionVariables.get(\"AND\");\r",
 											"\r",
 											"\r",
@@ -1700,8 +1686,8 @@
 											"    \r",
 											"    pm.test(\"Check request body schema\", function(){\r",
 											"        var requestData;    \r",
-											"        if(testMode === adopterTest){\r",
-											"            requestData = pm.collectionVariables.get(\"ADOPTER_EVENT_SUBSCRIPTION_POST_REQUEST_BODY\");\r",
+											"        if(testMode === conformanceTest){\r",
+											"            requestData = pm.collectionVariables.get(\"CONFORMANCE_EVENT_SUBSCRIPTION_POST_REQUEST_BODY\");\r",
 											"        }else{\r",
 											"            requestData = JSON.parse(pm.request.body.raw);\r",
 											"        }    \r",
@@ -1713,8 +1699,7 @@
 											"        }\r",
 											"        pm.expect(validationResult.valid).to.be.true;\r",
 											"    });\r",
-											"}\r",
-											""
+											"}"
 										],
 										"type": "text/javascript"
 									}
@@ -1725,11 +1710,11 @@
 										"exec": [
 											"// Additional test for conformance\r",
 											"const testMode = pm.collectionVariables.get(\"TEST_MODE\");\r",
-											"const adopterTest = pm.collectionVariables.get(\"ADOPTER_TEST_MODE\");\r",
-											"var requestBody = pm.collectionVariables.get(\"ADOPTER_EVENT_SUBSCRIPTION_POST_REQUEST_BODY\");\r",
+											"const conformanceTest = pm.collectionVariables.get(\"CONFORMANCE_TEST_MODE\");\r",
+											"var requestBody = pm.collectionVariables.get(\"CONFORMANCE_EVENT_SUBSCRIPTION_POST_REQUEST_BODY\");\r",
 											"\r",
-											"if(testMode.includes(adopterTest) ){\r",
-											"    pm.test(\"Adopter request body mandatory field check\", function () {\r",
+											"if(testMode.includes(conformanceTest) ){\r",
+											"    pm.test(\"conformance request body mandatory field check\", function () {\r",
 											"        try {\r",
 											"            var parsedBody = JSON.parse(requestBody);\r",
 											"            if (!parsedBody.secret) {\r",
@@ -1788,7 +1773,7 @@
 							"response": []
 						},
 						{
-							"name": "update EventSubscriptionWithSecretTO",
+							"name": "update EventSubscriptionWithSecretTO1",
 							"event": [
 								{
 									"listen": "test",
@@ -1809,25 +1794,15 @@
 											"const request_schema = pm.collectionVariables.get(\"EVENT_SUBSCRIPTION_REQUEST_SCHEMA\");\r",
 											"const testMode = pm.collectionVariables.get(\"TEST_MODE\");\r",
 											"const ignoreSchemaTest = pm.collectionVariables.get(\"IGNORE_SCHEMA_TEST_MODE\");\r",
-											"const adopterTest = pm.collectionVariables.get(\"ADOPTER_TEST_MODE\");\r",
+											"const conformanceTest = pm.collectionVariables.get(\"CONFORMANCE_TEST_MODE\");\r",
 											"const and = pm.collectionVariables.get(\"AND\");\r",
 											"\r",
 											"\r",
 											"if( !testMode.includes(ignoreSchemaTest) ){\r",
-											"    pm.test(\"Check response schema validation\", function(){\r",
-											"        var result = tv4.validateResult(pm.response.json(), response_schema);\r",
-											"        if(!result.valid){\r",
-											"            console.log(`Schema validation failed: ${JSON.stringify(validationResult.errors)}`);\r",
-											"            console.log(`Response: ${JSON.stringify(response)}`);\r",
-											"            throw new Error(\"Response schema validation failed\");\r",
-											"        }\r",
-											"        pm.expect(result.valid).to.be.true;\r",
-											"    });\r",
-											"    \r",
 											"    pm.test(\"Check request body schema\", function(){\r",
 											"        var requestData;    \r",
-											"        if(testMode === adopterTest){\r",
-											"            requestData = pm.collectionVariables.get(\"ADOPTER_EVENT_SUBSCRIPTION_POST_REQUEST_BODY\");\r",
+											"        if(testMode === conformanceTest){\r",
+											"            requestData = pm.collectionVariables.get(\"CONFORMANCE_EVENT_SUBSCRIPTION_POST_REQUEST_BODY\");\r",
 											"        }else{\r",
 											"            requestData = JSON.parse(pm.request.body.raw);\r",
 											"        }    \r",
@@ -1851,11 +1826,11 @@
 										"exec": [
 											"// Additional test for conformance\r",
 											"const testMode = pm.collectionVariables.get(\"TEST_MODE\");\r",
-											"const adopterTest = pm.collectionVariables.get(\"ADOPTER_TEST_MODE\");\r",
-											"var requestBody = pm.collectionVariables.get(\"ADOPTER_EVENT_SUBSCRIPTION_POST_REQUEST_BODY\");\r",
+											"const conformanceTest = pm.collectionVariables.get(\"CONFORMANCE_TEST_MODE\");\r",
+											"var requestBody = pm.collectionVariables.get(\"CONFORMANCE_EVENT_SUBSCRIPTION_POST_REQUEST_BODY\");\r",
 											"\r",
-											"if(testMode.includes(adopterTest) ){\r",
-											"    pm.test(\"Adopter request body mandatory field check\", function () {\r",
+											"if(testMode.includes(conformanceTest) ){\r",
+											"    pm.test(\"conformance request body mandatory field check\", function () {\r",
 											"        try {\r",
 											"            var parsedBody = JSON.parse(requestBody);\r",
 											"            if (!parsedBody.secret) {\r",
@@ -1874,7 +1849,7 @@
 											"    pm.request.headers.add({key: \"Content-Type\", value: \"application/json\"});\r",
 											"}else{\r",
 											"    pm.test(\"Reference implementation request body mandatory field check\", function () {\r",
-											"        const requiredFields = ['callbackUrl', 'secret'];\r",
+											"        const requiredFields = ['callbackUrl'];\r",
 											"        requestBody = JSON.parse(pm.request.body.raw);\r",
 											"        requiredFields.forEach(field => {\r",
 											"            if (!requestBody.hasOwnProperty(field)) {\r",
@@ -1882,8 +1857,7 @@
 											"            }\r",
 											"        });\r",
 											"    });\r",
-											"}\r",
-											""
+											"}"
 										],
 										"type": "text/javascript"
 									}
@@ -1894,7 +1868,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"callbackUrl\": \"https://f12d95eb-6e7b-4516-ac10-7c3c9efe2887.mock.pstmn.io/456eacf9-8cda-412b-b801-4a41be7a6d000\",\r\n    \"documentReference\": \"otherDRef\",\r\n    \"equipmentReference\": \"otherEQRef\",\r\n    \"transportCallReference\": \"otherTCRef\",\r\n    \"carrierExportVoyageNumber\": \"other-car\",\r\n    \"universalExportVoyageReference\": \"35BQE\",\r\n    \"carrierServiceCode\": \"csc78\",\r\n    \"universalServiceReference\": \"SR00013A\",\r\n    \"eventTypes\": [\r\n        \"TRANSPORT\"\r\n    ],\r\n    \"shipmentEventTypeCodes\": [\r\n        \"ISSU\",\r\n        \"DRFT\",\r\n        \"PENC\",\r\n        \"PENU\",\r\n        \"HOLD\",\r\n        \"VOID\",\r\n        \"REQS\",\r\n        \"CANC\",\r\n        \"PENA\",\r\n        \"SUBM\",\r\n        \"SURR\",\r\n        \"CMPL\",\r\n        \"CONF\",\r\n        \"REJE\",\r\n        \"RELS\"\r\n    ],\r\n    \"documentTypeCodes\": [\r\n        \"SHI\",\r\n        \"CQU\",\r\n        \"CRO\",\r\n        \"DEO\",\r\n        \"TRD\",\r\n        \"DEI\",\r\n        \"CUC\",\r\n        \"INV\",\r\n        \"CBR\",\r\n        \"TRO\",\r\n        \"VGM\",\r\n        \"OOG\",\r\n        \"DGD\"\r\n    ],\r\n    \"transportEventTypeCodes\": [\r\n        \"ARRI\"\r\n    ],\r\n    \"equipmentEventTypeCodes\": [\r\n        \"DROP\",\r\n        \"AVDO\",\r\n        \"PICK\",\r\n        \"INSP\",\r\n        \"CUSS\",\r\n        \"STUF\",\r\n        \"CUSI\",\r\n        \"CUSR\",\r\n        \"AVPU\",\r\n        \"STRP\",\r\n        \"GTOT\",\r\n        \"GTIN\",\r\n        \"RMVD\",\r\n        \"RSEA\"\r\n    ],\r\n    \"unlocationCode\": \"locUN\"\r\n}",
+									"raw": "{\r\n    \"callbackUrl\": \"http://other.url\",\r\n    \"documentReference\": \"otherDRef\",\r\n    \"equipmentReference\": \"otherEQRef\",\r\n    \"transportCallReference\": \"otherTCRef\",\r\n    \"carrierExportVoyageNumber\": \"other-car\",\r\n    \"universalExportVoyageReference\": \"35BQE\",\r\n    \"carrierServiceCode\": \"csc78\",\r\n    \"universalServiceReference\": \"SR00013A\",\r\n    \"eventTypes\": [\r\n        \"TRANSPORT\"\r\n    ],\r\n    \"shipmentEventTypeCodes\": [\r\n        \"ISSU\",\r\n        \"DRFT\",\r\n        \"PENC\",\r\n        \"PENU\",\r\n        \"HOLD\",\r\n        \"VOID\",\r\n        \"REQS\",\r\n        \"CANC\",\r\n        \"PENA\",\r\n        \"SUBM\",\r\n        \"SURR\",\r\n        \"CMPL\",\r\n        \"CONF\",\r\n        \"REJE\",\r\n        \"RELS\"\r\n    ],\r\n    \"documentTypeCodes\": [\r\n        \"SHI\",\r\n        \"CQU\",\r\n        \"CRO\",\r\n        \"DEO\",\r\n        \"TRD\",\r\n        \"DEI\",\r\n        \"CUC\",\r\n        \"INV\",\r\n        \"CBR\",\r\n        \"TRO\",\r\n        \"VGM\",\r\n        \"OOG\",\r\n        \"DGD\"\r\n    ],\r\n    \"transportEventTypeCodes\": [\r\n        \"ARRI\"\r\n    ],\r\n    \"equipmentEventTypeCodes\": [\r\n        \"DROP\",\r\n        \"AVDO\",\r\n        \"PICK\",\r\n        \"INSP\",\r\n        \"CUSS\",\r\n        \"STUF\",\r\n        \"CUSI\",\r\n        \"CUSR\",\r\n        \"AVPU\",\r\n        \"STRP\",\r\n        \"GTOT\",\r\n        \"GTIN\",\r\n        \"RMVD\",\r\n        \"RSEA\"\r\n    ],\r\n    \"unlocationCode\": \"locUN\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1915,7 +1889,7 @@
 							"response": []
 						},
 						{
-							"name": "Get created EventSubscriptionWithSecretTO",
+							"name": "Get created EventSubscriptionWithSecretTO3",
 							"event": [
 								{
 									"listen": "test",
@@ -2012,7 +1986,7 @@
 					"name": "Test: create ESWithSecretTO, and update with nulls",
 					"item": [
 						{
-							"name": "create single EventSubscriptionWithSecretTO",
+							"name": "create single EventSubscriptionWithSecretTO4",
 							"event": [
 								{
 									"listen": "test",
@@ -2085,12 +2059,13 @@
 											"    });\r",
 											"});\r",
 											"\r",
+											"\r",
 											"// Additional test for conformance\r",
 											"const response_schema = pm.collectionVariables.get(\"EVENT_SUBSCRIPTION_RESPONSE_SCHEMA\");\r",
 											"const request_schema = pm.collectionVariables.get(\"EVENT_SUBSCRIPTION_REQUEST_SCHEMA\");\r",
 											"const testMode = pm.collectionVariables.get(\"TEST_MODE\");\r",
 											"const ignoreSchemaTest = pm.collectionVariables.get(\"IGNORE_SCHEMA_TEST_MODE\");\r",
-											"const adopterTest = pm.collectionVariables.get(\"ADOPTER_TEST_MODE\");\r",
+											"const conformanceTest = pm.collectionVariables.get(\"CONFORMANCE_TEST_MODE\");\r",
 											"const and = pm.collectionVariables.get(\"AND\");\r",
 											"\r",
 											"\r",
@@ -2107,8 +2082,8 @@
 											"    \r",
 											"    pm.test(\"Check request body schema\", function(){\r",
 											"        var requestData;    \r",
-											"        if(testMode === adopterTest){\r",
-											"            requestData = pm.collectionVariables.get(\"ADOPTER_EVENT_SUBSCRIPTION_POST_REQUEST_BODY\");\r",
+											"        if(testMode === conformanceTest){\r",
+											"            requestData = pm.collectionVariables.get(\"CONFORMANCE_EVENT_SUBSCRIPTION_POST_REQUEST_BODY\");\r",
 											"        }else{\r",
 											"            requestData = JSON.parse(pm.request.body.raw);\r",
 											"        }    \r",
@@ -2129,13 +2104,13 @@
 									"listen": "prerequest",
 									"script": {
 										"exec": [
-											"   // Additional test for conformance\r",
+											"// Additional test for conformance\r",
 											"const testMode = pm.collectionVariables.get(\"TEST_MODE\");\r",
-											"const adopterTest = pm.collectionVariables.get(\"ADOPTER_TEST_MODE\");\r",
-											"var requestBody = pm.collectionVariables.get(\"ADOPTER_EVENT_SUBSCRIPTION_POST_REQUEST_BODY\");\r",
+											"const conformanceTest = pm.collectionVariables.get(\"CONFORMANCE_TEST_MODE\");\r",
+											"var requestBody = pm.collectionVariables.get(\"CONFORMANCE_EVENT_SUBSCRIPTION_POST_REQUEST_BODY\");\r",
 											"\r",
-											"if(testMode.includes(adopterTest) ){\r",
-											"    pm.test(\"Adopter request body mandatory field check\", function () {\r",
+											"if(testMode.includes(conformanceTest) ){\r",
+											"    pm.test(\"conformance request body mandatory field check\", function () {\r",
 											"        try {\r",
 											"            var parsedBody = JSON.parse(requestBody);\r",
 											"            if (!parsedBody.secret) {\r",
@@ -2162,8 +2137,7 @@
 											"            }\r",
 											"        });\r",
 											"    });\r",
-											"}\r",
-											""
+											"}"
 										],
 										"type": "text/javascript"
 									}
@@ -2194,7 +2168,7 @@
 							"response": []
 						},
 						{
-							"name": "update EventSubscriptionWithSecretTO",
+							"name": "update EventSubscriptionWithSecretTO2",
 							"event": [
 								{
 									"listen": "test",
@@ -2214,15 +2188,15 @@
 											"const request_schema = pm.collectionVariables.get(\"EVENT_SUBSCRIPTION_REQUEST_SCHEMA\");\r",
 											"const testMode = pm.collectionVariables.get(\"TEST_MODE\");\r",
 											"const ignoreSchemaTest = pm.collectionVariables.get(\"IGNORE_SCHEMA_TEST_MODE\");\r",
-											"const adopterTest = pm.collectionVariables.get(\"ADOPTER_TEST_MODE\");\r",
+											"const conformanceTest = pm.collectionVariables.get(\"CONFORMANCE_TEST_MODE\");\r",
 											"const and = pm.collectionVariables.get(\"AND\");\r",
 											"\r",
 											"\r",
 											"if( !testMode.includes(ignoreSchemaTest) ){\r",
 											"    pm.test(\"Check request body schema\", function(){\r",
 											"        var requestData;    \r",
-											"        if(testMode === adopterTest){\r",
-											"            requestData = pm.collectionVariables.get(\"ADOPTER_EVENT_SUBSCRIPTION_POST_REQUEST_BODY\");\r",
+											"        if(testMode === conformanceTest){\r",
+											"            requestData = pm.collectionVariables.get(\"CONFORMANCE_EVENT_SUBSCRIPTION_POST_REQUEST_BODY\");\r",
 											"        }else{\r",
 											"            requestData = JSON.parse(pm.request.body.raw);\r",
 											"        }    \r",
@@ -2245,16 +2219,13 @@
 										"exec": [
 											"// Additional test for conformance\r",
 											"const testMode = pm.collectionVariables.get(\"TEST_MODE\");\r",
-											"const adopterTest = pm.collectionVariables.get(\"ADOPTER_TEST_MODE\");\r",
-											"var requestBody = pm.collectionVariables.get(\"ADOPTER_EVENT_SUBSCRIPTION_POST_REQUEST_BODY\");\r",
+											"const conformanceTest = pm.collectionVariables.get(\"CONFORMANCE_TEST_MODE\");\r",
+											"var requestBody = pm.collectionVariables.get(\"CONFORMANCE_EVENT_SUBSCRIPTION_POST_REQUEST_BODY\");\r",
 											"\r",
-											"if(testMode.includes(adopterTest) ){\r",
-											"    pm.test(\"Adopter request body mandatory field check\", function () {\r",
+											"if(testMode.includes(conformanceTest) ){\r",
+											"    pm.test(\"conformance request body mandatory field check\", function () {\r",
 											"        try {\r",
 											"            var parsedBody = JSON.parse(requestBody);\r",
-											"            if (!parsedBody.secret) {\r",
-											"                throw new Error(\"Required field secret is missing\");\r",
-											"            }\r",
 											"            if(!parsedBody.callbackUrl){\r",
 											"                throw new Error(\"Required field callbackUrl is missing.\");\r",
 											"            }    \r",
@@ -2268,7 +2239,7 @@
 											"    pm.request.headers.add({key: \"Content-Type\", value: \"application/json\"});\r",
 											"}else{\r",
 											"    pm.test(\"Reference implementation request body mandatory field check\", function () {\r",
-											"        const requiredFields = ['callbackUrl', 'secret'];\r",
+											"        const requiredFields = ['callbackUrl'];\r",
 											"        requestBody = JSON.parse(pm.request.body.raw);\r",
 											"        requiredFields.forEach(field => {\r",
 											"            if (!requestBody.hasOwnProperty(field)) {\r",
@@ -2287,7 +2258,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"callbackUrl\": \"https://f12d95eb-6e7b-4516-ac10-7c3c9efe2887.mock.pstmn.io/456eacf9-8cda-412b-b801-4a41be7a6d000\",\r\n    \"documentReference\": null,\r\n    \"equipmentReference\": null,\r\n    \"transportCallReference\": null,\r\n    \"vesselIMONumber\": null,\r\n    \"carrierExportVoyageNumber\": null,\r\n    \"universalExportVoyageReference\": null,\r\n    \"carrierServiceCode\": null,\r\n    \"universalServiceReference\": null,\r\n    \"eventTypes\": null,\r\n    \"shipmentEventTypeCodes\": null,\r\n    \"documentTypeCodes\": null,\r\n    \"transportEventTypeCodes\": null,\r\n    \"equipmentEventTypeCodes\": null,\r\n    \"unlocationCode\": null\r\n}",
+									"raw": "{\r\n    \"callbackUrl\": \"http://test.me/event-subscription-callback-url\",\r\n    \"documentReference\": null,\r\n    \"equipmentReference\": null,\r\n    \"transportCallReference\": null,\r\n    \"vesselIMONumber\": null,\r\n    \"carrierExportVoyageNumber\": null,\r\n    \"universalExportVoyageReference\": null,\r\n    \"carrierServiceCode\": null,\r\n    \"universalServiceReference\": null,\r\n    \"eventTypes\": null,\r\n    \"shipmentEventTypeCodes\": null,\r\n    \"documentTypeCodes\": null,\r\n    \"transportEventTypeCodes\": null,\r\n    \"equipmentEventTypeCodes\": null,\r\n    \"unlocationCode\": null\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2308,7 +2279,7 @@
 							"response": []
 						},
 						{
-							"name": "Get created EventSubscriptionWithSecretTO",
+							"name": "Get created EventSubscriptionWithSecretTO4",
 							"event": [
 								{
 									"listen": "test",
@@ -2395,7 +2366,7 @@
 					"name": "Test: create ESWithSecretTO, and delete",
 					"item": [
 						{
-							"name": "create single EventSubscriptionWithSecretTO",
+							"name": "create single EventSubscriptionWithSecretTO5",
 							"event": [
 								{
 									"listen": "test",
@@ -2414,12 +2385,63 @@
 											"    pm.response.to.have.jsonSchema(schemaObject);\r",
 											"});\r",
 											"\r",
+											"//Postman mock server for subsription callback\r",
+											"\r",
+											"pm.test(\"Send a HEAD request to the given callback URL \"+parsedBody.callbackUrl, function () {\r",
+											"    // Define the request options\r",
+											"    const requestOptions = {\r",
+											"        method: 'HEAD',\r",
+											"        url: parsedBody.callbackUrl,\r",
+											"        header: {\r",
+											"            'Accept': 'application/json',\r",
+											"            'Content-Type': 'application/json'\r",
+											"        },\r",
+											"        json: true\r",
+											"    };\r",
+											"\r",
+											"    // Send the request \r",
+											"    pm.sendRequest(requestOptions, function (error, response) {\r",
+											"        // Handle the response\r",
+											"        if (error) {\r",
+											"            console.log(error);\r",
+											"            throw new Error(\"HEAD request error for the callbackUrl \"+error);\r",
+											"        } else {\r",
+											"           pm.expect(response).to.have.property('code', 204);\r",
+											"        }\r",
+											"    });\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Send a POST request to the given callback URL \"+parsedBody.callbackUrl, function () {\r",
+											"    // Define the request options\r",
+											"    const requestOptions = {\r",
+											"        method: 'POST',\r",
+											"        url: parsedBody.callbackUrl,\r",
+											"        header: {\r",
+											"            'Accept': 'application/json',\r",
+											"            'Content-Type': 'application/json'\r",
+											"        },\r",
+											"        json: true\r",
+											"    };\r",
+											"\r",
+											"    // Send the request \r",
+											"    pm.sendRequest(requestOptions, function (error, response) {\r",
+											"        // Handle the response\r",
+											"        if (error) {\r",
+											"            console.log(error);\r",
+											"            throw new Error(\"POST request error for the callbackUrl \"+error);\r",
+											"        } else {\r",
+											"           pm.expect(response).to.have.property('code', 204);\r",
+											"        }\r",
+											"    });\r",
+											"});\r",
+											"\r",
+											"\r",
 											"// Additional test for conformance\r",
 											"const response_schema = pm.collectionVariables.get(\"EVENT_SUBSCRIPTION_RESPONSE_SCHEMA\");\r",
 											"const request_schema = pm.collectionVariables.get(\"EVENT_SUBSCRIPTION_REQUEST_SCHEMA\");\r",
 											"const testMode = pm.collectionVariables.get(\"TEST_MODE\");\r",
 											"const ignoreSchemaTest = pm.collectionVariables.get(\"IGNORE_SCHEMA_TEST_MODE\");\r",
-											"const adopterTest = pm.collectionVariables.get(\"ADOPTER_TEST_MODE\");\r",
+											"const conformanceTest = pm.collectionVariables.get(\"CONFORMANCE_TEST_MODE\");\r",
 											"const and = pm.collectionVariables.get(\"AND\");\r",
 											"\r",
 											"\r",
@@ -2436,8 +2458,8 @@
 											"    \r",
 											"    pm.test(\"Check request body schema\", function(){\r",
 											"        var requestData;    \r",
-											"        if(testMode === adopterTest){\r",
-											"            requestData = pm.collectionVariables.get(\"ADOPTER_EVENT_SUBSCRIPTION_POST_REQUEST_BODY\");\r",
+											"        if(testMode === conformanceTest){\r",
+											"            requestData = pm.collectionVariables.get(\"CONFORMANCE_EVENT_SUBSCRIPTION_POST_REQUEST_BODY\");\r",
 											"        }else{\r",
 											"            requestData = JSON.parse(pm.request.body.raw);\r",
 											"        }    \r",
@@ -2460,11 +2482,11 @@
 										"exec": [
 											"// Additional test for conformance\r",
 											"const testMode = pm.collectionVariables.get(\"TEST_MODE\");\r",
-											"const adopterTest = pm.collectionVariables.get(\"ADOPTER_TEST_MODE\");\r",
-											"var requestBody = pm.collectionVariables.get(\"ADOPTER_EVENT_SUBSCRIPTION_POST_REQUEST_BODY\");\r",
+											"const conformanceTest = pm.collectionVariables.get(\"CONFORMANCE_TEST_MODE\");\r",
+											"var requestBody = pm.collectionVariables.get(\"CONFORMANCE_EVENT_SUBSCRIPTION_POST_REQUEST_BODY\");\r",
 											"\r",
-											"if(testMode.includes(adopterTest) ){\r",
-											"    pm.test(\"Adopter request body mandatory field check\", function () {\r",
+											"if(testMode.includes(conformanceTest) ){\r",
+											"    pm.test(\"conformance request body mandatory field check\", function () {\r",
 											"        try {\r",
 											"            var parsedBody = JSON.parse(requestBody);\r",
 											"            if (!parsedBody.secret) {\r",
@@ -2522,7 +2544,7 @@
 							"response": []
 						},
 						{
-							"name": "update EventSubscriptionWithSecretTO",
+							"name": "update EventSubscriptionWithSecretTO3",
 							"event": [
 								{
 									"listen": "test",
@@ -2555,7 +2577,7 @@
 							"response": []
 						},
 						{
-							"name": "Get created EventSubscriptionWithSecretTO",
+							"name": "Get created EventSubscriptionWithSecretTO5",
 							"event": [
 								{
 									"listen": "test",
@@ -2675,7 +2697,7 @@
 			"name": "Test Unofficial API: create ESWithSecretTO, update secret",
 			"item": [
 				{
-					"name": "create single EventSubscriptionWithSecretTO",
+					"name": "create single EventSubscriptionWithSecretTO6",
 					"event": [
 						{
 							"listen": "test",
@@ -2748,12 +2770,13 @@
 									"    });\r",
 									"});\r",
 									"\r",
+									"\r",
 									"// Additional test for conformance\r",
 									"const response_schema = pm.collectionVariables.get(\"EVENT_SUBSCRIPTION_RESPONSE_SCHEMA\");\r",
 									"const request_schema = pm.collectionVariables.get(\"EVENT_SUBSCRIPTION_REQUEST_SCHEMA\");\r",
 									"const testMode = pm.collectionVariables.get(\"TEST_MODE\");\r",
 									"const ignoreSchemaTest = pm.collectionVariables.get(\"IGNORE_SCHEMA_TEST_MODE\");\r",
-									"const adopterTest = pm.collectionVariables.get(\"ADOPTER_TEST_MODE\");\r",
+									"const conformanceTest = pm.collectionVariables.get(\"CONFORMANCE_TEST_MODE\");\r",
 									"const and = pm.collectionVariables.get(\"AND\");\r",
 									"\r",
 									"\r",
@@ -2770,8 +2793,8 @@
 									"    \r",
 									"    pm.test(\"Check request body schema\", function(){\r",
 									"        var requestData;    \r",
-									"        if(testMode === adopterTest){\r",
-									"            requestData = pm.collectionVariables.get(\"ADOPTER_EVENT_SUBSCRIPTION_POST_REQUEST_BODY\");\r",
+									"        if(testMode === conformanceTest){\r",
+									"            requestData = pm.collectionVariables.get(\"CONFORMANCE_EVENT_SUBSCRIPTION_POST_REQUEST_BODY\");\r",
 									"        }else{\r",
 									"            requestData = JSON.parse(pm.request.body.raw);\r",
 									"        }    \r",
@@ -2794,11 +2817,11 @@
 								"exec": [
 									"// Additional test for conformance\r",
 									"const testMode = pm.collectionVariables.get(\"TEST_MODE\");\r",
-									"const adopterTest = pm.collectionVariables.get(\"ADOPTER_TEST_MODE\");\r",
-									"var requestBody = pm.collectionVariables.get(\"ADOPTER_EVENT_SUBSCRIPTION_POST_REQUEST_BODY\");\r",
+									"const conformanceTest = pm.collectionVariables.get(\"CONFORMANCE_TEST_MODE\");\r",
+									"var requestBody = pm.collectionVariables.get(\"CONFORMANCE_EVENT_SUBSCRIPTION_POST_REQUEST_BODY\");\r",
 									"\r",
-									"if(testMode.includes(adopterTest) ){\r",
-									"    pm.test(\"Adopter request body mandatory field check\", function () {\r",
+									"if(testMode.includes(conformanceTest) ){\r",
+									"    pm.test(\"conformance request body mandatory field check\", function () {\r",
 									"        try {\r",
 									"            var parsedBody = JSON.parse(requestBody);\r",
 									"            if (!parsedBody.secret) {\r",
@@ -2875,15 +2898,15 @@
 									"const request_schema = pm.collectionVariables.get(\"EVENT_SUBSCRIPTION_REQUEST_SCHEMA\");\r",
 									"const testMode = pm.collectionVariables.get(\"TEST_MODE\");\r",
 									"const ignoreSchemaTest = pm.collectionVariables.get(\"IGNORE_SCHEMA_TEST_MODE\");\r",
-									"const adopterTest = pm.collectionVariables.get(\"ADOPTER_TEST_MODE\");\r",
+									"const conformanceTest = pm.collectionVariables.get(\"CONFORMANCE_TEST_MODE\");\r",
 									"const and = pm.collectionVariables.get(\"AND\");\r",
 									"\r",
 									"\r",
 									"if( !testMode.includes(ignoreSchemaTest) ){\r",
-									"    pm.test(\"Check request body schema\", function(){\r",
+									"        pm.test(\"Check request body schema\", function(){\r",
 									"        var requestData;    \r",
-									"        if(testMode === adopterTest){\r",
-									"            requestData = pm.collectionVariables.get(\"ADOPTER_EVENT_SUBSCRIPTION_POST_REQUEST_BODY\");\r",
+									"        if(testMode === conformanceTest){\r",
+									"            requestData = pm.collectionVariables.get(\"CONFORMANCE_EVENT_SUBSCRIPTION_POST_REQUEST_BODY\");\r",
 									"        }else{\r",
 									"            requestData = JSON.parse(pm.request.body.raw);\r",
 									"        }    \r",
@@ -2895,8 +2918,7 @@
 									"        }\r",
 									"        pm.expect(validationResult.valid).to.be.true;\r",
 									"    });\r",
-									"}\r",
-									""
+									"}"
 								],
 								"type": "text/javascript"
 							}
@@ -2907,11 +2929,11 @@
 								"exec": [
 									"// Additional test for conformance\r",
 									"const testMode = pm.collectionVariables.get(\"TEST_MODE\");\r",
-									"const adopterTest = pm.collectionVariables.get(\"ADOPTER_TEST_MODE\");\r",
-									"var requestBody = pm.collectionVariables.get(\"ADOPTER_EVENT_SUBSCRIPTION_POST_REQUEST_BODY\");\r",
+									"const conformanceTest = pm.collectionVariables.get(\"CONFORMANCE_TEST_MODE\");\r",
+									"var requestBody = pm.collectionVariables.get(\"CONFORMANCE_EVENT_SUBSCRIPTION_POST_REQUEST_BODY\");\r",
 									"\r",
-									"if(testMode.includes(adopterTest) ){\r",
-									"    pm.test(\"Adopter request body mandatory field check\", function () {\r",
+									"if(testMode.includes(conformanceTest) ){\r",
+									"    pm.test(\"conformance request body mandatory field check\", function () {\r",
 									"        try {\r",
 									"            var parsedBody = JSON.parse(requestBody);\r",
 									"            if (!parsedBody.secret) {\r",
@@ -2930,7 +2952,7 @@
 									"    pm.request.headers.add({key: \"Content-Type\", value: \"application/json\"});\r",
 									"}else{\r",
 									"    pm.test(\"Reference implementation request body mandatory field check\", function () {\r",
-									"        const requiredFields = ['callbackUrl', 'secret'];\r",
+									"        const requiredFields = ['secret'];\r",
 									"        requestBody = JSON.parse(pm.request.body.raw);\r",
 									"        requiredFields.forEach(field => {\r",
 									"            if (!requestBody.hasOwnProperty(field)) {\r",
@@ -2971,7 +2993,7 @@
 					"response": []
 				},
 				{
-					"name": "Get created EventSubscriptionWithSecretTO",
+					"name": "Get created EventSubscriptionWithSecretTO6",
 					"event": [
 						{
 							"listen": "test",
@@ -3054,7 +3076,7 @@
 		},
 		{
 			"key": "TNT_CONTEXT_PATH",
-			"value": "/v3",
+			"value": "/tnt/v3",
 			"type": "string"
 		},
 		{
@@ -3086,14 +3108,6 @@
 			"key": "EVENT_SUBSCRIPTION_SCHEMA",
 			"value": "{\n    \"type\": \"object\",\n    \"required\": [\n      \"callbackUrl\"\n    ],\n    \"properties\": {\n      \"subscriptionID\": {\n        \"type\": \"string\",\n        \"description\": \"The carrier issues a unique ID to the shipper or consignee for that subscription\\n\"\n      },\n      \"subscriptionCreatedDateTime\": {\n        \"type\": \"string\",\n        \"description\": \"The date and time when the subscription was created\\n\"\n      },\n      \"subscriptionUpdatedDateTime\": {\n        \"type\": \"string\",\n        \"description\": \"The date and time when the subscription was last updated\\n\"\n      },\n      \"callbackUrl\": {\n        \"type\": \"string\",\n        \"description\": \"The endPoint where a Carrier whould send back events to the Shipper. The callback can contain query parameters uniquely identifying the originator of the events.\\n\"\n      },\n      \"eventTypes\": {\n        \"type\": \"array\",\n        \"description\": \"List of `eventType` to filter by. If multiple values are selected - the **OR**-operator will be used.\\n\\nPossible values are\\n- SHIPMENT (Shipment events)\\n- TRANSPORT (Transport events)\\n- EQUIPMENT (Equipment events)\\n\\nDefault is none as it will not filter on `eventType` if not specified.\\n\",\n        \"items\": {\n          \"type\": \"string\",\n          \"enum\": [\n            \"SHIPMENT\",\n            \"TRANSPORT\",\n            \"EQUIPMENT\"\n          ]\n        }\n      },\n      \"shipmentEventTypeCodes\": {\n        \"type\": \"array\",\n        \"description\": \"List of `shipmentEventTypeCode` to filter by. If multiple values are selected - the **OR**-operator will be used.\\n\\nDefault is none as it will not filter on `shipmentEventTypeCode` if not specified.\\n\",\n        \"items\": {\n          \"type\": \"string\",\n          \"description\": \"The status of the document in the process. Possible values are\\n- RECE (Received)\\n- DRFT (Drafted)\\n- PENA (Pending Approval)\\n- PENU (Pending Update)\\n- PENC (Pending Confirmation)\\n- CONF (Confirmed)\\n- REJE (Rejected)\\n- APPR (Approved)\\n- ISSU (Issued)\\n- SURR (Surrendered)\\n- SUBM (Submitted)\\n- VOID (Void)\\n- REQS (Requested)\\n- CMPL (Completed)\\n- HOLD (On Hold)\\n- RELS (Released)\\n- CANC (Cancelled)\\n\\nMore details can be found on [GitHub](https://github.com/dcsaorg/DCSA-Information-Model/blob/master/datamodel/referencedata.d/shipmenteventtypecodes.csv)\\n\",\n          \"enum\": [\n            \"RECE\",\n            \"DRFT\",\n            \"PENA\",\n            \"PENU\",\n            \"PENC\",\n            \"CONF\",\n            \"REJE\",\n            \"APPR\",\n            \"ISSU\",\n            \"SURR\",\n            \"SUBM\",\n            \"VOID\",\n            \"REQS\",\n            \"CMPL\",\n            \"HOLD\",\n            \"RELS\",\n            \"CANC\"\n          ]\n        }\n      },\n      \"documentTypeCodes\": {\n        \"type\": \"array\",\n        \"description\": \"List of `documentTypeCode` to filter by. If multiple values are selected - the **OR**-operator will be used.\\n\\nDefault is none as it will not filter on `documentTypeCode` if not specified.\\n\",\n        \"items\": {\n          \"maxLength\": 3,\n          \"type\": \"string\",\n          \"description\": \"The `documentTypeCode` is used to identify the type of information `documentReference` points to. Can be one of the following values\\n- CBR (Carrier Booking Request)\\n- BKG (Booking)\\n- SHI (Shipping Instruction)\\n- TRD (Transport Document)\\n- DEI (Delivery Instructions)\\n- DEO (Delivery Order)\\n- TRO (Transport Order)\\n- CRO (Container Release Order)\\n- ARN (Arrival Notice)\\n- VGM (Verified Gross Mass)\\n- CAS (Cargo Survey)\\n- CUC (Customs Clearance)\\n- DGD (Dangerous Goods Declaration)\\n- OOG (Out of Gauge)\\n- CQU (Contract Quotation)\\n- INV (Invoice)\\n- HCE (Health Certificate)\\n- PCE (Phytosanitary Certificate)\\n- VCE (Veterinary Certificate)\\n- FCE (Fumigation Certificate)\\n- ICE (Inspection Certificate)\\n- CEA (Certificate of Analysis)\\n- CEO (Certificate of Origin)\\n\\nMore details can be found on [GitHub](https://github.com/dcsaorg/DCSA-Information-Model/blob/master/datamodel/referencedata.d/documenttypecodes.csv)\\n\",\n          \"enum\": [\n            \"CBR\",\n            \"BKG\",\n            \"SHI\",\n            \"TRD\",\n            \"DEI\",\n            \"DEO\",\n            \"TRO\",\n            \"CRO\",\n            \"ARN\",\n            \"VGM\",\n            \"CAS\",\n            \"CUC\",\n            \"DGD\",\n            \"OOG\",\n            \"CQU\",\n            \"INV\",\n            \"HCE\",\n            \"PCE\",\n            \"VCE\",\n            \"FCE\",\n            \"ICE\",\n            \"CEA\",\n            \"CEO\"\n          ]\n        }\n      },\n      \"documentReference\": {\n        \"maxLength\": 100,\n        \"type\": \"string\",\n        \"description\": \"The reference of the object defined by the `documentTypeCode`\\n\"\n      },\n      \"equipmentReference\": {\n        \"maxLength\": 15,\n        \"type\": \"string\",\n        \"description\": \"The unique identifier for the equipment, which should follow the BIC ISO Container Identification Number where possible.\\nAccording to ISO 6346, a container identification code consists of a 4-letter prefix and a 7-digit number (composed of a 3-letter owner code, a category identifier, a serial number, and a check-digit). If a container does not comply with ISO 6346, it is suggested to follow Recommendation #2 ÔÇ£Container with non-ISO identificationÔÇØ from SMDG.\\n\"\n      },\n      \"transportEventTypeCodes\": {\n        \"type\": \"array\",\n        \"description\": \"List of `transportEventTypeCode` to filter by. If multiple values are selected - the **OR**-operator will be used.\\n\\nDefault is none as it will not filter on `transportEventTypeCode` if not specified.\\n\",\n        \"items\": {\n          \"type\": \"string\",\n          \"description\": \"Identifier for type of `transportEvent`\\n- ARRI (Arrived)\\n- DEPA (Departed)\\n\\nMore details can be found on <a href=\\\"https://github.com/dcsaorg/DCSA-Information-Model/blob/master/datamodel/referencedata.d/transporteventtypecodes.csv\\\">GitHub</a>\\n\",\n          \"enum\": [\n            \"ARRI\",\n            \"DEPA\"\n          ]\n        }\n      },\n      \"transportCallReference\": {\n        \"maxLength\": 100,\n        \"type\": \"string\",\n        \"description\": \"A carrier definied reference to a TransportCall.\\n\\nIn the case the Means of Transport is a `Vessel` and the facility is a `Port`/`Terminal` - this reference should be considered a **Terminal Call Reference**\\n\"\n      },\n      \"vesselIMONumber\": {\n        \"maxLength\": 7,\n        \"type\": \"string\",\n        \"description\": \"The unique reference for a registered Vessel. The reference is the International Maritime Organisation (IMO) number, also sometimes known as the Lloyd&apos;s register code, which does not change during the lifetime of the vessel\\n\"\n      },\n      \"carrierExportVoyageNumber\": {\n        \"maxLength\": 50,\n        \"type\": \"string\",\n        \"description\": \"The identifier of an export voyage. The vessel operator-specific identifier of the export Voyage.\\n\"\n      },\n      \"universalExportVoyageReference\": {\n        \"pattern\": \"\\\\d{2}[0-9A-Z]{2}[NEWS]\",\n        \"type\": \"string\",\n        \"description\": \"A global unique voyage reference for the export Voyage, as per DCSA standard, agreed by VSA partners for the voyage. The voyage reference must match the regular expression pattern: `\\\\d{2}[0-9A-Z]{2}[NEWS]`\\n- `2 digits` for the year\\n- `2 alphanumeric characters` for the sequence number of the voyage\\n- `1 character` for the direction/haul (`N`orth, `E`ast, `W`est or `S`outh).\\n\"\n      },\n      \"carrierServiceCode\": {\n        \"maxLength\": 11,\n        \"type\": \"string\",\n        \"description\": \"The Carrier specific code of the service for which the schedule details are published.\\n\"\n      },\n      \"universalServiceReference\": {\n        \"maxLength\": 8,\n        \"pattern\": \"SR\\\\d{5}[A-Z]\",\n        \"type\": \"string\",\n        \"description\": \"A global unique service reference, as per DCSA standard, agreed by VSA partners for the service. The service reference must match the regular expression pattern: `SR\\\\d{5}[A-Z]`. The letters `SR` followed by `5 digits`, followed by a checksum-character as a capital letter from `A to Z`.\\n\"\n      },\n      \"UNLocationCode\": {\n        \"maxLength\": 5,\n        \"type\": \"string\",\n        \"description\": \"The UN Location code specifying where the place is located.\"\n      },\n      \"equipmentEventTypeCodes\": {\n        \"type\": \"array\",\n        \"description\": \"List of `equipmentEventTypeCode` to filter by. If multiple values are selected - the **OR**-operator will be used.\\n\\nDefault is none as it will not filter on `equipmentEventTypeCode` if not specified.\\n\",\n        \"items\": {\n          \"type\": \"string\",\n          \"description\": \"Unique identifier for `equipmentEventTypeCode` - can be one of the following values\\n- LOAD (Loaded)\\n- DISC (Discharged)\\n- GTIN (Gated in)\\n- GTOT (Gated out)\\n- STUF (Stuffed)\\n- STRP (Stripped)\\n- PICK (Pick-up)\\n- AVPU (Available for Pick-up)\\n- DROP (Drop-off)\\n- AVDO (Available for Drop-off)\\n- INSP (Inspected)\\n- RSEA (Resealed)\\n- RMVD (Removed)\\n- CUSS (Customs Selected for Scan)\\n- CUSI (Customs Selected for Inspection)\\n- CUSR (Customs Released)\\n- CROS (Crossed)\\n\\nMore details can be found on <a href=\\\"https://github.com/dcsaorg/DCSA-Information-Model/blob/master/datamodel/referencedata.d/equipmenteventtypecodes.csv\\\">GitHub</a>\\n\",\n          \"enum\": [\n            \"LOAD\",\n            \"DISC\",\n            \"GTIN\",\n            \"GTOT\",\n            \"STUF\",\n            \"STRP\",\n            \"AVPU\",\n            \"PICK\",\n            \"AVDO\",\n            \"DROP\",\n            \"INSP\",\n            \"RSEA\",\n            \"RMVD\",\n            \"CUSS\",\n            \"CUSI\",\n            \"CUSR\",\n            \"CROS\"\n          ]\n        }\n      }\n    }\n  }",
 			"type": "string"
-		},
-		{
-			"key": "SUBSCRIPTION_ID",
-			"value": ""
-		},
-		{
-			"key": "POST_BODY",
-			"value": ""
 		},
 		{
 			"key": "EVENT_SUBSCRIPTION_REQUEST_SCHEMA",

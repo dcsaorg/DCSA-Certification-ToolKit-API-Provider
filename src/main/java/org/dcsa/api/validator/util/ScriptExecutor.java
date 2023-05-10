@@ -66,11 +66,8 @@ public class ScriptExecutor {
             cmdArray[0] = "cmd.exe";
             // second argument is parameter of the script
             cmdArray[1] = "/c";
-            if(isOfficial){
-                cmdArray[2] = scriptPath + " " + scriptParameter;
-            }else{
-                cmdArray[2] = scriptPath;
-            }
+
+            cmdArray[2] = scriptPath + " " + scriptParameter;
             System.out.println("***** Script execution Starts *****");
             System.out.println("Executing script "+scriptPath+" with parameter "+scriptParameter);
 
