@@ -4,6 +4,8 @@ public enum PostmanCollectionType {
     TNT("tnt"),
     OVS("ovs"),
     EDOC("edoc"),
+    EBL("ebl"),
+    BOOKING("booking"),
     UNKNOWN("unknown");
     private String type;
     PostmanCollectionType(String value) {
