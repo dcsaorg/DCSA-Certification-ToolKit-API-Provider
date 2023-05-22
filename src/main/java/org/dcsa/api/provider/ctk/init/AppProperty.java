@@ -2,7 +2,7 @@ package org.dcsa.api.provider.ctk.init;
 
 import lombok.Data;
 
-import org.dcsa.api.provider.ctk.init.exception.StorageException;
+import org.dcsa.api.provider.ctk.exception.StorageException;
 import org.dcsa.api.provider.ctk.util.TestUtility;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;

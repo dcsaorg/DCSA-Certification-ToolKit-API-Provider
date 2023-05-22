@@ -2,17 +2,13 @@ package org.dcsa.api.provider.ctk.service.impl;
 
 import lombok.extern.java.Log;
 import org.dcsa.api.provider.ctk.init.AppProperty;
-import org.dcsa.api.provider.ctk.init.PropertyLoader;
-import org.dcsa.api.provider.ctk.init.exception.StorageException;
+import org.dcsa.api.provider.ctk.exception.StorageException;
 import org.dcsa.api.provider.ctk.model.enums.UploadType;
 import org.dcsa.api.provider.ctk.service.UploadService;
-import org.dcsa.api.provider.ctk.util.FileUtility;
-import org.dcsa.api.provider.ctk.util.TestUtility;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -20,7 +16,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Objects;
-import java.util.logging.Level;
 
 @Log
 @Service

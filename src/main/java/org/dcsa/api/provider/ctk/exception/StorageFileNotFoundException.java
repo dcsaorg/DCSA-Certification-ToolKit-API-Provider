@@ -1,4 +1,4 @@
-package org.dcsa.api.provider.ctk.init.exception;
+package org.dcsa.api.provider.ctk.exception;
 
 public class StorageFileNotFoundException extends StorageException {
 
