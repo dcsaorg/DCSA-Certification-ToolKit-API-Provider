@@ -17,6 +17,6 @@ services:
             - C:\workspace\ctk\reports:/ctk/reports
             - C:\workspace\ctk\testdata:/ctk/testdata
         ports:
-            - 9999:9999
+           # - 9999:9999
             - 9000:9000
-            - 5005:5005
+         #   - 5005:5005

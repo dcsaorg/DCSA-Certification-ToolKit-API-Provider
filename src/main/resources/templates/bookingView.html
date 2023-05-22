@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <head>
+        <title>Booking confirmation view</title>
+    </head>
+    <style>
+        #loadingMessage {
+            display: none; /* Initially hide the loading message */
+        }
+    </style>
+    <script>
+        function showLoadingMessage() {
+            document.getElementById("loadingMessage").style.display = "block";
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            showLoadingMessage(); // Show loading message when the page is ready
+
+            $.ajax({
+                url: "/example",
+                success: function(response) {
+                    // Hide loading message and display the response
+                    document.getElementById("loadingMessage").style.display = "none";
+                    document.getElementById("responseMessage").innerText = response;
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+<h1>Booking ID confirmation</h1>
+<h2><span style="background-color: #FFFF00">Official API set the bookings ID: </span><span th:text="${id}"></span></h2>
+<!--<div id="loadingMessage">Waiting for the response...<span th:text="${delayAmount}"></span></div>-->
+<!--<div id="responseMessage"></div>-->
+</body>
+</html>
