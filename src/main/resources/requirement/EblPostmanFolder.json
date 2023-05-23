@@ -1,0 +1,19 @@
+{
+  "folder":[
+    {
+      "name": "Shipping instruction summaries"
+    },
+    {
+      "name": "GET ShippingInstruction"
+    },
+    {
+      "name": "Post Shipping instruction"
+    },
+    {
+      "name": "Transport Document summaries"
+    },
+    {
+      "name": "Get TransportDocument"
+    }
+  ]
+}
