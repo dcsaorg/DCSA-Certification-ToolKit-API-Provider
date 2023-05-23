@@ -5,7 +5,6 @@ import org.dcsa.api.provider.ctk.model.enums.OsType;
 import org.dcsa.api.provider.ctk.model.enums.PostmanCollectionType;
 import org.dcsa.api.provider.ctk.util.FileUtility;
 import org.dcsa.api.provider.ctk.util.JsonUtility;
-import org.dcsa.api.provider.ctk.util.ReportUtil;
 import org.dcsa.api.provider.ctk.util.TestUtility;
 
 import java.io.File;
@@ -27,6 +26,10 @@ public class ScriptExecutor {
 
     private static final String EDOC_POSTMAN_FOLDER = File.separator+ "requirement" +File.separator+"EDocumentationPostmanFolder.json";
 
+    private static final String BOOKING_POSTMAN_FOLDER = File.separator+ "requirement" +File.separator+"BookingPostmanFolder.json";
+
+    private static final String EBL_POSTMAN_FOLDER = File.separator+ "requirement" +File.separator+"EblPostmanFolder.json";
+
     public static OsType osType;
     public static String runNewman(PostmanCollectionType postmanCollectionType, boolean isOfficial) {
         osType = TestUtility.getOperatingSystem();
@@ -39,7 +42,7 @@ public class ScriptExecutor {
         } else if (osType == OsType.LINUX || osType == OsType.DOCKER) {
             scriptPath = FileUtility.getScriptPath(NIX_SCRIPT);
         }
-        String collectionName = getScriptParameter(postmanCollectionType);
+        String collectionName = getPostmanCollection(postmanCollectionType);
         String scriptParameter = collectionName;
         if(isOfficial){
             List<TestFolderName> testFolderNames = getTestFolderNames(postmanCollectionType);
@@ -48,12 +51,12 @@ public class ScriptExecutor {
         }
         System.out.println(collectionName);
         System.out.println(scriptParameter);
-        executeScripForNewmanReport(scriptPath, scriptParameter, isOfficial);
+        executeScripForNewmanReport(scriptPath, scriptParameter);
         reportPath = FileUtility.getNewmanReport(postmanCollectionType.name());
         System.out.println(reportPath+"it will be updated");
         return reportPath;
     }
-    private static void executeScripForNewmanReport(String scriptPath, String scriptParameter, boolean isOfficial) {
+    private static void executeScripForNewmanReport(String scriptPath, String scriptParameter) {
         try {
             String[] cmdArray = new String[3];
             // first argument is the script we want to execute
@@ -76,30 +79,35 @@ public class ScriptExecutor {
             ex.printStackTrace();
         }
     }
-    private static String getScriptParameter(PostmanCollectionType postmanCollectionType){
+    private static String getPostmanCollection(PostmanCollectionType postmanCollectionType){
         if(postmanCollectionType == TNT){
             return FileUtility.getPostmanCollectionName(postmanCollectionType.name());
         }else if(postmanCollectionType == OVS){
             return FileUtility.getPostmanCollectionName(postmanCollectionType.name());
         }else if(postmanCollectionType == EDOC){
+            return FileUtility.getPostmanCollectionName(postmanCollectionType.name());
+        }else if(postmanCollectionType == BOOKING){
+            return FileUtility.getPostmanCollectionName(postmanCollectionType.name());
+        }else if(postmanCollectionType == EBL){
             return FileUtility.getPostmanCollectionName(postmanCollectionType.name());
         }
         return "";
     }
 
     private static List<TestFolderName> getTestFolderNames(PostmanCollectionType postmanCollectionType){
-        List<TestFolderName> testFolderNames;
+        List<TestFolderName> testFolderNames = null;
         if(postmanCollectionType == TNT){
             testFolderNames = JsonUtility.getTestFolderNames(TNT_POSTMAN_FOLDER);
-            return testFolderNames;
         }else if(postmanCollectionType == OVS){
             testFolderNames = JsonUtility.getTestFolderNames(OVS_POSTMAN_FOLDER);
-            return testFolderNames;
         }else if(postmanCollectionType == EDOC){
             testFolderNames = JsonUtility.getTestFolderNames(EDOC_POSTMAN_FOLDER);
-            return testFolderNames;
+        }else if(postmanCollectionType == BOOKING){
+            testFolderNames = JsonUtility.getTestFolderNames(BOOKING_POSTMAN_FOLDER);
+        }else if(postmanCollectionType == EBL){
+            testFolderNames = JsonUtility.getTestFolderNames(EBL_POSTMAN_FOLDER);
         }
-        return null;
+        return testFolderNames;
     }
 
     private static String makeFoldrNameParameter(List<TestFolderName> testFolderNames){
