@@ -75,6 +75,13 @@ public class NewmanReportModifier {
 
     private static final String E_DOCUMENTATION_MANUAL_TEST = File.separator+ "requirement" +File.separator+"EDocumentationManualTest.json";
 
+    private static final String BOOKING_REQUIREMENT = File.separator+ "requirement" +File.separator+"BookingRequirement.json";
+    private static final String BOOKING_MANUAL_TEST = File.separator+ "requirement" +File.separator+"BookingManualTest.json";
+
+    private static final String EBL_REQUIREMENT = File.separator+ "requirement" +File.separator+"EblRequirement.json";
+    private static final String EBL_MANUAL_TEST = File.separator+ "requirement" +File.separator+"EblManualTest.json";
+
+
     public static List<Requirement> requirementList;
     public static List<Requirement> manualTestList;
     public static void modifyFile(String reportPath, PostmanCollectionType collectionTypeEnum, boolean isOfficial) {
@@ -127,6 +134,13 @@ public class NewmanReportModifier {
         }else if(collectionTypeEnum == EDOC){
             requirementList = JsonUtility.convertRequirementIdJson(E_DOCUMENTATION_REQUIREMENT);
             manualTestList = JsonUtility.convertRequirementIdJson(E_DOCUMENTATION_MANUAL_TEST);
+        }else if(collectionTypeEnum == BOOKING){
+            requirementList = JsonUtility.convertRequirementIdJson(BOOKING_REQUIREMENT);
+            manualTestList = JsonUtility.convertRequirementIdJson(BOOKING_MANUAL_TEST);
+        }
+        else if(collectionTypeEnum == EBL){
+            requirementList = JsonUtility.convertRequirementIdJson(EBL_REQUIREMENT);
+            manualTestList = JsonUtility.convertRequirementIdJson(EBL_MANUAL_TEST);
         }
     }
 

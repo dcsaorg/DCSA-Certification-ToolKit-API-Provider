@@ -1,0 +1,44 @@
+{
+  "requirement":[
+    {
+      "requirementDescription":"TLS implemented according to best practices",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/07/202106_DCSA_HB_adopter_programme.pdf\">Adoption Handbook</a>",
+      "testApproach":"Conformance manual validation"
+    },
+    {
+      "requirementDescription":"Single TLS is mandatory",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/07/202106_DCSA_HB_adopter_programme.pdf\">Adoption Handbook</a>",
+      "testApproach":"Conformance manual validation"
+    },
+    {
+      "requirementDescription":"Mutual TLS is recommended",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/07/202106_DCSA_HB_adopter_programme.pdf\">Adoption Handbook</a>",
+      "testApproach":"Conformance manual validation"
+    },
+    {
+      "requirementDescription":"In case of mTLS, certificates must be shared using secure platform",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/07/202106_DCSA_HB_adopter_programme.pdf\">Adoption Handbook</a>",
+      "testApproach":"Conformance manual validation"
+    },
+    {
+      "requirementDescription":"The certificates must be requested using authorized organization like Digicert etc. and no self signed certificates must be used for TLS connection",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/07/202106_DCSA_HB_adopter_programme.pdf\">Adoption Handbook</a>",
+      "testApproach":"Conformance manual validation"
+    },
+    {
+      "requirementDescription":"Not more than two previous major versions deployed.",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance manual validation"
+    },
+    {
+      "requirementDescription":"If the services is available to general API consumers on the Internet, IPv4 and IPv6 must be available.",
+      "requirementSource":"<a href=\"https://www.ietf.org\">IETF</a>",
+      "testApproach":"Conformance manual validation"
+    },
+    {
+      "requirementDescription":"GET requests on collection results SHOULD implement pagination",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance manual validation"
+    }
+  ]
+}
