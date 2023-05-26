@@ -26,77 +26,77 @@
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"By DocumentReferenceCBR",
+      "requirementDescription":"Shipping instruction for multiple carrierBookingReferences",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"By TransportEventTypeCode",
+      "requirementDescription":"Shipping instruction summaries invalid document status",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"By TransportCallReference",
+      "requirementDescription":"ShippingInstruction by shippingInstructionReference",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"By vesselIMONumber",
+      "requirementDescription":"ShippingInstruction not found",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"By CarrierVoyageNumber TNT1E",
+      "requirementDescription":"Transport document summaries",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"By CarrierVoyageNumber 3419E",
+      "requirementDescription":"Transport summaries summaries VOID",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"By CarrierServiceCode",
+      "requirementDescription":"Transport document summaries per documentStatus",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"By UniversalServiceReference",
+      "requirementDescription":"Transport document summaries for carrierBookingReference",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"By EquipmentEventTypeCode",
+      "requirementDescription":"Transport document summaries for unknown carrierBookingReference",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"By EquipmentReference",
+      "requirementDescription":"Transport document summaries for multiple carrierBookingReferences",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"BY TransportEventCombo",
+      "requirementDescription":"Transport document summaries invalid document status",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"By ImpossibleCombo",
+      "requirementDescription":"TransportDocument by transportDocument reference",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"create single EventSubscriptionWithSecretTO1",
+      "requirementDescription":"TransportDocument by transportDocument reference Not found",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"Get created EventSubscriptionWithSecretTO1",
+      "requirementDescription":"TransportDocument by transportDocument reference - No shipment locations",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"create single EventSubscriptionWithSecretTO2",
+      "requirementDescription":"TransportDocument by transportDocument reference - No shipment found",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },

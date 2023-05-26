@@ -1,167 +1,197 @@
 {
   "requirement":[
     {
-      "requirementDescription":"GET All Events",
+      "requirementDescription":"Booking request summaries Retrieves the booking",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"GET Shipment events",
+      "requirementDescription":"Booking request summaries CMPL",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"GET Equipment events",
+      "requirementDescription":"Booking request status per documentStatus",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"GET Transport events",
+      "requirementDescription":"Booking request summaries sort",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"By shipmentEventTypeCode RECE",
+      "requirementDescription":"Booking request summaries Invalid documentStatus",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"By DocumentReferenceCBR",
+      "requirementDescription":"Shipment summaries",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"By TransportEventTypeCode",
+      "requirementDescription":"Shipment summaries CMPL",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"By TransportCallReference",
+      "requirementDescription":"Shipment summaries per documentStatus",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"By vesselIMONumber",
+      "requirementDescription":"Shipment summaries sort",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"By CarrierVoyageNumber TNT1E",
+      "requirementDescription":"Booking by carrierBookingRequestReference",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"By CarrierVoyageNumber 3419E",
+      "requirementDescription":"Booking With ShipmentLocations and commodities",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"By CarrierServiceCode",
+      "requirementDescription":"Booking by carrierBookingRequestReference",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"By UniversalServiceReference",
+      "requirementDescription":"Booking not found1",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"By EquipmentEventTypeCode",
+      "requirementDescription":"Cancel the new booking",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"By EquipmentReference",
+      "requirementDescription":"Create a booking to be canceled",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"BY TransportEventCombo",
+      "requirementDescription":"Cancel Booking first time",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"By ImpossibleCombo",
+      "requirementDescription":"Cancel Booking not found Copy",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"create single EventSubscriptionWithSecretTO1",
+      "requirementDescription":"Cancel Booking not found",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"Get created EventSubscriptionWithSecretTO1",
+      "requirementDescription":"Cancel Booking invalid documentStatus",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"create single EventSubscriptionWithSecretTO2",
+      "requirementDescription":"Create a booking to be updated",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"Get created EventSubscriptionWithSecretTO2",
+      "requirementDescription":"Use PUT to update the booking",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"create single EventSubscriptionWithSecretTO3",
+      "requirementDescription":"Verify updated carrierBookingRequestReference",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"update EventSubscriptionWithSecretTO1",
+      "requirementDescription":"Verify shipment events after PUT",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"Get created EventSubscriptionWithSecretTO3",
+      "requirementDescription":"Create a booking to be updated2",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"create single EventSubscriptionWithSecretTO4",
+      "requirementDescription":"Attempt to abuse PUT to set documentStatus",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"update EventSubscriptionWithSecretTO2",
+      "requirementDescription":"Attempt to abuse PUT to set bookingRequestCreatedDateTime",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"Get created EventSubscriptionWithSecretTO4",
+      "requirementDescription":"Attempt to abuse PUT to set bookingRequestUpdateDateTime",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"create single EventSubscriptionWithSecretTO5",
+      "requirementDescription":"Invalid carrierBookingRequestReference in PUT",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"update EventSubscriptionWithSecretTO3",
+      "requirementDescription":"Attempt PUT non-existing booking",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"Get created EventSubscriptionWithSecretTO5",
+      "requirementDescription":"Create a booking4",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"create single EventSubscriptionWithSecretTO6",
+      "requirementDescription":"Verify saved carrierBookingRequestReference",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"update EventSubscriptionWith Secret body",
+      "requirementDescription":"Unofficial verify saved carrierBookingRequestReference",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"Get created EventSubscriptionWithSecretTO6",
+      "requirementDescription":"Unofficial Trigger validation",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":"Unofficial verify shipment events after validation",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":"Create a booking5",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":"Verify saved carrierBookingRequestReference4",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":"Unofficial Verify shipment events after POST",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":"Unofficial trigger validation2",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":"Unofficial verify shipment events after validation6",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     }
