@@ -1,7 +1,7 @@
 {
   "requirement":[
     {
-      "requirementDescription":"Shipping instruction summaries retrieves the shipping instruction",
+      "requirementDescription":"Shipping instruction summaries",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
@@ -162,6 +162,26 @@
     },
     {
       "requirementDescription":"Get created EventSubscriptionWithSecretTO6",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":"Create Shipping instruction",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":"Verify saved shipping instruction",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":"Create Shipping instruction invalid utilizedTransportEquipment ",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":"Create Shipping instruction invalid no consignmentItems",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     }

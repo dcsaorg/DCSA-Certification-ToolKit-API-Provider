@@ -39,7 +39,7 @@ public class BookingConfirmationController {
 	public String  getVide(Model model) {
 		if (officialBookingId == null) {
 			model.addAttribute("errorMessage1", "Booking ID is not submitted by official API yet!");
-			model.addAttribute("errorMessage2", "Please wait Newman will set the booking ID when it runs the official booking API. It will show the booking ID.");
+			model.addAttribute("errorMessage2", "Please wait for the Newman until it runs the official booking API. It will show the booking ID here.");
 			return "errorView";
 		}
 		model.addAttribute("id", officialBookingId);
@@ -62,8 +62,15 @@ public class BookingConfirmationController {
 	@ResponseBody
 	public ResponseEntity<String> submittedBookingId(@RequestParam("id") String id) throws InterruptedException {
 		System.out.println("Submitted ID: " + id);
-		Thread.sleep(AppProperty.BOOKING_DELAY);
-		return ResponseEntity.ok("Delayed response after configured " + AppProperty.BOOKING_DELAY + " milliseconds. Booking ID submitted: " + id);
+		return ResponseEntity.ok("Booking ID: <b>"+id+"</b> submitted.");
+	}
+
+	@PostMapping("/submitDelay")
+	@ResponseBody
+	public ResponseEntity<String> submitDelay(@RequestParam("delay") String delay) throws InterruptedException {
+		System.out.println("Delay for : " + delay + " milliseconds");
+		Thread.sleep(Integer.parseInt(delay));
+		return ResponseEntity.ok("Delayed response after " + Integer.parseInt(delay)/1000 + " seconds");
 	}
 
 

@@ -2,19 +2,23 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<!--    <meta charset="UTF-8">-->
     <title>Booking confirmation view</title>
 </head>
 
 <body>
 <h1>Booking ID confirmation</h1>
 <h2><span style="background-color: #FFFF00">Official API set the bookings ID: </span><span th:text="${id}"></span></h2>
-<div>You have to submit booking ID: <b><span th:text="${id}"></span></b>  to pass conformance check. <br>Submit will wait for the delay response of <span th:text="${delayAmount}"></span> milliseconds</div>
+<div>You have to submit booking ID: <b><span th:text="${id}"></span></b>  to pass conformance check.</div>
 <br><br>
 <form method="post" action="/submitForm">
-    <label for="idInput">Booking ID:</label>
-    <input type="text" id="idInput" name="id" th:value="${id}" required>
+    <label for="inputId">Booking ID:</label>
+    <input type="text" id="inputId" name="id" th:value="${id}" required>
     <button type="submit">Submit</button>
+</form>
+<h2>Or you can set booking ID in your system while halt newman execution for </h2>
+<form method="post" action="/submitDelay">
+    <input type="text" id="delayInputId" name="delay" required>
+    <button type="submit">Milliseconds delay submit</button>
 </form>
 
 </body>

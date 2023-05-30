@@ -1,7 +1,7 @@
 {
   "requirement":[
     {
-      "requirementDescription":"Booking request summaries Retrieves the booking",
+      "requirementDescription":"Booking request summaries",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
@@ -46,7 +46,12 @@
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"Booking by carrierBookingRequestReference",
+      "requirementDescription":"Shipment summaries invalid documentStatus",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":"Booking by carrierBookingRequestReference1",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
@@ -56,12 +61,12 @@
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"Booking by carrierBookingRequestReference",
+      "requirementDescription":"Booking by carrierBookingRequestReference2",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"Booking not found1",
+      "requirementDescription":"Booking not found",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
@@ -192,6 +197,16 @@
     },
     {
       "requirementDescription":"Unofficial verify shipment events after validation6",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":"Shipment by carrierBookingReference",
+      "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
+      "testApproach":"Conformance Test Kit"
+    },
+    {
+      "requirementDescription":"Shipment not found",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     }
