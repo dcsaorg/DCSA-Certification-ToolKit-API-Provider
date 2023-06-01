@@ -186,7 +186,7 @@
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"Unofficial Verify shipment events after POST",
+      "requirementDescription":"Verify shipment events after POST",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },

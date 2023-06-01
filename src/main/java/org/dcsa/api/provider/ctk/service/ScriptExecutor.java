@@ -53,7 +53,7 @@ public class ScriptExecutor {
         System.out.println(scriptParameter);
         executeScripForNewmanReport(scriptPath, scriptParameter);
         reportPath = FileUtility.getNewmanReport(postmanCollectionType.name());
-        System.out.println(reportPath+"it will be updated");
+        System.out.println(reportPath+" report will be updated");
         return reportPath;
     }
     private static void executeScripForNewmanReport(String scriptPath, String scriptParameter) {

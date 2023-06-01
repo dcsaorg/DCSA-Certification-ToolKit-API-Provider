@@ -44,7 +44,7 @@ public class ProviderCtkController {
 
         String errorMsg = "";
         if(collectionTypeEnum.name().equalsIgnoreCase(UNKNOWN.name())){
-            errorMsg = "Unknown API postman collection type";
+            errorMsg = "Unknown API type";
         }
         if(!errorMsg.isBlank()){
             return downloadService.downloadHtmlReport(response, "", errorMsg);

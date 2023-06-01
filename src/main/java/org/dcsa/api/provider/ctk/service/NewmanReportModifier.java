@@ -147,7 +147,7 @@ public class NewmanReportModifier {
     public static String addRequirementTable(String fullReport){
         AtomicReference<String> finalContent = new AtomicReference<>(fullReport);
         requirementList.forEach( item -> {
-            if(finalContent.get().matches(item.getRequirementDescription())) {
+            if(finalContent.get().contains(item.getRequirementDescription())) {
                 int indexOfMarker = getIndexOfAddRequirementTable(finalContent.get(), item.getRequirementDescription());
                 if (indexOfMarker > 0) {
                     String requirementTable = String.format(DIV + REQUIREMENT_HEADER_START + " REQUIREMENT DETAILS " + REQUIREMENT_HEADER_END + REQUIREMENT_TABLE_START + // requirementID
@@ -197,7 +197,8 @@ public class NewmanReportModifier {
         return fullReport;
     }
     public static int getIndexOfAddRequirementTable(String mainStr, String Requirement){
-        int indexOfRequirementId = mainStr.indexOf(Requirement);
+        final String iteration1 = "Iteration: 1 - ";
+        int indexOfRequirementId = mainStr.indexOf(iteration1+Requirement);
 
         int indexOfCollapse = indexOfSubstringGraterAt(mainStr, COLLAPSE, indexOfRequirementId);
 
