@@ -10,5 +10,5 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TestFolderNameWrapper {
 
-    private List<TestFolderName> folder  = new ArrayList<>();
+    private List<PostManFolderName> folder  = new ArrayList<>();
 }

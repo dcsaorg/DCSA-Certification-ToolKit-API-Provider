@@ -1,6 +1,6 @@
 package org.dcsa.api.provider.ctk.service;
 
-import org.dcsa.api.provider.ctk.model.TestFolderName;
+import org.dcsa.api.provider.ctk.model.PostManFolderName;
 import org.dcsa.api.provider.ctk.model.enums.OsType;
 import org.dcsa.api.provider.ctk.model.enums.PostmanCollectionType;
 import org.dcsa.api.provider.ctk.util.FileUtility;
@@ -45,8 +45,8 @@ public class ScriptExecutor {
         String collectionName = getPostmanCollection(postmanCollectionType);
         String scriptParameter = collectionName;
         if(isOfficial){
-            List<TestFolderName> testFolderNames = getTestFolderNames(postmanCollectionType);
-            String scriptFolderName = makeFoldrNameParameter(Objects.requireNonNull(testFolderNames));
+            List<PostManFolderName> postManFolderNames = getTestFolderNames(postmanCollectionType);
+            String scriptFolderName = makeFoldrNameParameter(Objects.requireNonNull(postManFolderNames));
             scriptParameter = collectionName + " "+scriptFolderName;
         }
         System.out.println(collectionName);
@@ -94,27 +94,27 @@ public class ScriptExecutor {
         return "";
     }
 
-    private static List<TestFolderName> getTestFolderNames(PostmanCollectionType postmanCollectionType){
-        List<TestFolderName> testFolderNames = null;
+    private static List<PostManFolderName> getTestFolderNames(PostmanCollectionType postmanCollectionType){
+        List<PostManFolderName> postManFolderNames = null;
         if(postmanCollectionType == TNT){
-            testFolderNames = JsonUtility.getTestFolderNames(TNT_POSTMAN_FOLDER);
+            postManFolderNames = JsonUtility.getTestFolderNames(TNT_POSTMAN_FOLDER);
         }else if(postmanCollectionType == OVS){
-            testFolderNames = JsonUtility.getTestFolderNames(OVS_POSTMAN_FOLDER);
+            postManFolderNames = JsonUtility.getTestFolderNames(OVS_POSTMAN_FOLDER);
         }else if(postmanCollectionType == EDOC){
-            testFolderNames = JsonUtility.getTestFolderNames(EDOC_POSTMAN_FOLDER);
+            postManFolderNames = JsonUtility.getTestFolderNames(EDOC_POSTMAN_FOLDER);
         }else if(postmanCollectionType == BOOKING){
-            testFolderNames = JsonUtility.getTestFolderNames(BOOKING_POSTMAN_FOLDER);
+            postManFolderNames = JsonUtility.getTestFolderNames(BOOKING_POSTMAN_FOLDER);
         }else if(postmanCollectionType == EBL){
-            testFolderNames = JsonUtility.getTestFolderNames(EBL_POSTMAN_FOLDER);
+            postManFolderNames = JsonUtility.getTestFolderNames(EBL_POSTMAN_FOLDER);
         }
-        return testFolderNames;
+        return postManFolderNames;
     }
 
-    private static String makeFoldrNameParameter(List<TestFolderName> testFolderNames){
+    private static String makeFoldrNameParameter(List<PostManFolderName> postManFolderNames){
         String folderParameter = "--folder";
         String doubleQuot = "\"";
         StringBuilder sb = new StringBuilder();
-        testFolderNames.forEach(item -> {
+        postManFolderNames.forEach(item -> {
             sb.append(folderParameter).append(" ").append(doubleQuot).append(item.getName()).append(doubleQuot).append(" ");
         });
         return sb.toString();

@@ -9,7 +9,7 @@ import com.jayway.jsonpath.JsonPathException;
 import com.jayway.jsonpath.PathNotFoundException;
 import org.dcsa.api.provider.ctk.model.Requirement;
 import org.dcsa.api.provider.ctk.model.RequirementListWrapper;
-import org.dcsa.api.provider.ctk.model.TestFolderName;
+import org.dcsa.api.provider.ctk.model.PostManFolderName;
 import org.dcsa.api.provider.ctk.model.TestFolderNameWrapper;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -237,7 +237,7 @@ public class JsonUtility {
             throw new RuntimeException(e);
         }
     }
-    public static List<TestFolderName> getTestFolderNames(String resourceName){
+    public static List<PostManFolderName> getTestFolderNames(String resourceName){
         ObjectMapper mapper = new ObjectMapper();
         String jsonString = FileUtility.loadResourceAsString(resourceName);
         try {
