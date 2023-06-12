@@ -14,6 +14,8 @@ import java.util.concurrent.ExecutionException;
 @Controller
 public class BookingConfirmationController {
 
+	public static int REQUESTED_DELAY;
+
 	private String officialBookingId;
 	@PostMapping("/officialBookingId")
 	@ResponseBody
@@ -55,10 +57,9 @@ public class BookingConfirmationController {
 	@PostMapping("/submitDelay")
 	@ResponseBody
 	public ResponseEntity<String> submitDelay(@RequestParam("delay") String delay) throws InterruptedException {
-		System.out.println("Delay for : " + delay + " milliseconds");
-		Thread.sleep(Integer.parseInt(delay));
-		return ResponseEntity.ok("Delayed response after " + Integer.parseInt(delay)/1000 + " seconds");
+		REQUESTED_DELAY = Integer.parseInt(delay);
+		System.out.println("Delay for : " + REQUESTED_DELAY + " milliseconds");
+		Thread.sleep(REQUESTED_DELAY);
+		return ResponseEntity.ok("Delayed response after " + REQUESTED_DELAY/1000 + " seconds");
 	}
-
-
 }

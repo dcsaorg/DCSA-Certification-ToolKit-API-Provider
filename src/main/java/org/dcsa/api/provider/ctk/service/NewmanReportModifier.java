@@ -1,6 +1,7 @@
 package org.dcsa.api.provider.ctk.service;
 
 import lombok.extern.java.Log;
+import org.dcsa.api.provider.ctk.controller.BookingConfirmationController;
 import org.dcsa.api.provider.ctk.model.Requirement;
 import org.dcsa.api.provider.ctk.model.enums.PostmanCollectionType;
 import org.dcsa.api.provider.ctk.util.JsonUtility;
@@ -92,19 +93,26 @@ public class NewmanReportModifier {
         } catch (IOException e) {
             log.log(Level.SEVERE, e.getMessage());
         }
-        String dcsaDeshborad = "DCSA %s Run Dashboard";
+        String dcsaDeshboard = "DCSA %s.";
         if(collectionTypeEnum == EDOC){
-            dcsaDeshborad = String.format(dcsaDeshborad, "E-Documentation".toUpperCase());
+            dcsaDeshboard = String.format(dcsaDeshboard, "E-Documentation".toUpperCase());
         }else{
-            dcsaDeshborad = String.format(dcsaDeshborad, collectionTypeEnum.name().toUpperCase());
+            dcsaDeshboard = String.format(dcsaDeshboard, collectionTypeEnum.name().toUpperCase());
         }
         if(isOfficial){
-            dcsaDeshborad = "OFFICIAL "+dcsaDeshborad;
+            dcsaDeshboard = "OFFICIAL "+dcsaDeshboard;
         }else{
-            dcsaDeshborad = "UNOFFICIAL "+dcsaDeshborad;
+            dcsaDeshboard = "UNOFFICIAL "+dcsaDeshboard;
         }
+
+        if(collectionTypeEnum == BOOKING){
+            String requestedDelay = "%s SECONDS DELAY REQUESTED.";
+            requestedDelay = String.format(requestedDelay, BookingConfirmationController.REQUESTED_DELAY);
+            dcsaDeshboard = dcsaDeshboard +  "<br>" + requestedDelay;
+        }
+
         htmlContent = htmlContent.replaceAll(BODY_LOGO, BODY_LOGO_REPLACE);
-        htmlContent = htmlContent.replaceAll(NEWMAN_DASHBOARD, dcsaDeshborad);
+        htmlContent = htmlContent.replaceAll(NEWMAN_DASHBOARD, dcsaDeshboard);
         htmlContent = addManualTestTitle(htmlContent);
         htmlContent = addRequirementTable(htmlContent);
         htmlContent = addManualTestTable(htmlContent);

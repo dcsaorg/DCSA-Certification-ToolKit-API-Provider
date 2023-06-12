@@ -3522,7 +3522,7 @@
 		},
 		{
 			"key": "BOOKING_CONFATION_DELAY",
-			"value": "2000",
+			"value": "200",
 			"type": "string"
 		},
 		{
