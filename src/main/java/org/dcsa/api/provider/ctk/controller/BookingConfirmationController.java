@@ -9,25 +9,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executors;
 
 @Controller
 public class BookingConfirmationController {
 
 	private String officialBookingId;
-/*	private CompletableFuture<String> completableFuture;
-	public CompletableFuture<String> getBookingIdAsync(String bookingId) {
-		completableFuture = new CompletableFuture<>();
-		Executors.newCachedThreadPool().submit(() -> {
-			Thread.sleep(500);
-			completableFuture.complete(bookingId);
-			return null;
-		});
-		return completableFuture;
-	}*/
-
 	@PostMapping("/officialBookingId")
 	@ResponseBody
 	public ResponseEntity<String> submitForm(@RequestParam("bookingId") String bookingId) throws ExecutionException, InterruptedException {

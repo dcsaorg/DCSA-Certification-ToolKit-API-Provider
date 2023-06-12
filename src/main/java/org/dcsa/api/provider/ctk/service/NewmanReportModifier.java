@@ -25,8 +25,6 @@ public class NewmanReportModifier {
     private static final String BODY_LOGO_REPLACE = "<body class=\"theme-dark\"> <div style=\"text-align: center\"><img src=\" https://dcsa.org/wp-content/uploads/2021/05/logo-files.jpg\" alt=\"dcsa-logo-blue-bg\" width=\"80\", height=\"80\"></div> ";
 
     private static final String NEWMAN_DASHBOARD = "Newman Run Dashboard";
-    private static String DCSA_DASHBOARD = "DCSA %s Run Dashboard";
-
     private static final String COLLAPSE = "collapse-";
 
     private static final String GREATER_THAN_MARKER = ">";
@@ -94,18 +92,19 @@ public class NewmanReportModifier {
         } catch (IOException e) {
             log.log(Level.SEVERE, e.getMessage());
         }
+        String dcsaDeshborad = "DCSA %s Run Dashboard";
         if(collectionTypeEnum == EDOC){
-            DCSA_DASHBOARD = String.format(DCSA_DASHBOARD, "E-Documentation".toUpperCase());
+            dcsaDeshborad = String.format(dcsaDeshborad, "E-Documentation".toUpperCase());
         }else{
-            DCSA_DASHBOARD = String.format(DCSA_DASHBOARD, collectionTypeEnum.name().toUpperCase());
+            dcsaDeshborad = String.format(dcsaDeshborad, collectionTypeEnum.name().toUpperCase());
         }
         if(isOfficial){
-            DCSA_DASHBOARD = "OFFICIAL "+DCSA_DASHBOARD;
+            dcsaDeshborad = "OFFICIAL "+dcsaDeshborad;
         }else{
-            DCSA_DASHBOARD = "UNOFFICIAL "+DCSA_DASHBOARD;
+            dcsaDeshborad = "UNOFFICIAL "+dcsaDeshborad;
         }
         htmlContent = htmlContent.replaceAll(BODY_LOGO, BODY_LOGO_REPLACE);
-        htmlContent = htmlContent.replaceAll(NEWMAN_DASHBOARD, DCSA_DASHBOARD);
+        htmlContent = htmlContent.replaceAll(NEWMAN_DASHBOARD, dcsaDeshborad);
         htmlContent = addManualTestTitle(htmlContent);
         htmlContent = addRequirementTable(htmlContent);
         htmlContent = addManualTestTable(htmlContent);
