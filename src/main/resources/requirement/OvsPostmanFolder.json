@@ -1,6 +1,9 @@
 {
   "folder":[
     {
+      "name": "Load Test Data"
+    },
+    {
       "name": "GET service schedules"
     }
   ]

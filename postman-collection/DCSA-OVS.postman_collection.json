@@ -1,9 +1,10 @@
 {
 	"info": {
-		"_postman_id": "35217277-a09e-4b29-8ee6-a6ee78c32892",
+		"_postman_id": "fc79e014-ee14-49b5-8303-25bee63689fd",
 		"name": "DCSA-OVS",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "2551975"
+		"_exporter_id": "2551975",
+		"_collection_link": "https://www.postman.com/winter-trinity-270101/workspace/dcsa/collection/2551975-fc79e014-ee14-49b5-8303-25bee63689fd?action=share&creator=2551975&source=collection_link"
 	},
 	"item": [
 		{
@@ -635,7 +636,7 @@
 		},
 		{
 			"key": "OVS_CONTEXT_PATH",
-			"value": "/v3",
+			"value": "/ovs/v3",
 			"type": "string"
 		},
 		{
