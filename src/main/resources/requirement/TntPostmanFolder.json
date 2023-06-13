@@ -1,6 +1,9 @@
 {
   "folder":[
     {
+      "name": "Setup Test Data"
+    },
+    {
       "name": "GET events"
     },
     {
