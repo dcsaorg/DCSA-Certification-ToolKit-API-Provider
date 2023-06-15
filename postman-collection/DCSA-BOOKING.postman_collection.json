@@ -2070,7 +2070,7 @@
 													"});\r",
 													"\r",
 													"// Additional test for conformance\r",
-													"const delayConfimation = pm.collectionVariables.get(\"BOOKING_CONFATION_DELAY\");\r",
+													"const delayConfimation = pm.collectionVariables.get(\"BOOKING_CONFIRMATION_DELAY\");\r",
 													"const testMode = pm.collectionVariables.get(\"TEST_MODE\");\r",
 													"const conformanceTest = pm.collectionVariables.get(\"CONFORMANCE_TEST_MODE\");\r",
 													"\r",
@@ -3521,8 +3521,8 @@
 			"value": ""
 		},
 		{
-			"key": "BOOKING_CONFATION_DELAY",
-			"value": "200",
+			"key": "BOOKING_CONFIRMATION_DELAY",
+			"value": "20000",
 			"type": "string"
 		},
 		{
