@@ -27,7 +27,7 @@
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":" By VesselName",
+      "requirementDescription":"By VesselName",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
@@ -52,12 +52,12 @@
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"By startDate & endDate",
+      "requirementDescription":"By startDate &amp; endDate",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },
     {
-      "requirementDescription":"By Combo: UniversalServiceReference & FacilitySMDGCode",
+      "requirementDescription":"By Combo: UniversalServiceReference &amp; FacilitySMDGCode",
       "requirementSource":"<a href=\"https://dcsa.org/wp-content/uploads/2021/10/202109_DCSA-API-Design-Principles_1.1_Final.pdf\">API Design Guidelines</a>",
       "testApproach":"Conformance Test Kit"
     },

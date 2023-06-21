@@ -1,10 +1,6 @@
 package org.dcsa.api.provider.ctk.service;
 
 import lombok.extern.java.Log;
-import org.dcsa.api.provider.ctk.controller.BookingConfirmationController;
-import org.dcsa.api.provider.ctk.model.Requirement;
-import org.dcsa.api.provider.ctk.model.enums.PostmanCollectionType;
-import org.dcsa.api.provider.ctk.util.JsonUtility;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,7 +14,13 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.Level;
 
+import org.dcsa.api.provider.ctk.controller.BookingConfirmationController;
+import org.dcsa.api.provider.ctk.model.Requirement;
+import org.dcsa.api.provider.ctk.model.enums.PostmanCollectionType;
+import org.dcsa.api.provider.ctk.util.JsonUtility;
+
 import static org.dcsa.api.provider.ctk.model.enums.PostmanCollectionType.*;
+
 
 @Log
 public class NewmanReportModifier {
@@ -26,7 +28,7 @@ public class NewmanReportModifier {
     private static final String BODY_LOGO_REPLACE = "<body class=\"theme-dark\"> <div style=\"text-align: center\"><img src=\" https://dcsa.org/wp-content/uploads/2021/05/logo-files.jpg\" alt=\"dcsa-logo-blue-bg\" width=\"80\", height=\"80\"></div> ";
 
     private static final String NEWMAN_DASHBOARD = "Newman Run Dashboard";
-    private static final String COLLAPSE = "collapse-";
+    private static final String COLLAPSE = "<div id=\"collapse-";
 
     private static final String GREATER_THAN_MARKER = ">";
 
@@ -203,9 +205,9 @@ public class NewmanReportModifier {
         }
         return fullReport;
     }
-    public static int getIndexOfAddRequirementTable(String mainStr, String Requirement){
+    public static int getIndexOfAddRequirementTable(String mainStr, String requirement){
         final String iteration1 = "Iteration: 1 - ";
-        int indexOfRequirementId = mainStr.indexOf(iteration1+Requirement);
+        int indexOfRequirementId = mainStr.indexOf(iteration1+requirement);
 
         int indexOfCollapse = indexOfSubstringGraterAt(mainStr, COLLAPSE, indexOfRequirementId);
 
