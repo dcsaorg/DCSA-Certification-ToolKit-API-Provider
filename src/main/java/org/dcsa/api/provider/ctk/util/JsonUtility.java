@@ -10,7 +10,7 @@ import com.jayway.jsonpath.PathNotFoundException;
 import org.dcsa.api.provider.ctk.model.Requirement;
 import org.dcsa.api.provider.ctk.model.RequirementListWrapper;
 import org.dcsa.api.provider.ctk.model.PostManFolderName;
-import org.dcsa.api.provider.ctk.model.TestFolderNameWrapper;
+import org.dcsa.api.provider.ctk.model.PostmanFolderNameWrapper;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -241,7 +241,7 @@ public class JsonUtility {
         ObjectMapper mapper = new ObjectMapper();
         String jsonString = FileUtility.loadResourceAsString(resourceName);
         try {
-            TestFolderNameWrapper folderNameWrapper = mapper.readValue(jsonString, TestFolderNameWrapper.class);
+            PostmanFolderNameWrapper folderNameWrapper = mapper.readValue(jsonString, PostmanFolderNameWrapper.class);
             return folderNameWrapper.getFolder();
         }catch (Exception e){
             System.out.println(e.getMessage());
