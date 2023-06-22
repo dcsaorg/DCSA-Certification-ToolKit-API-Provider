@@ -24,14 +24,7 @@ public class PropertyLoader {
             } catch (IOException e) {
                 log.log(Level.SEVERE, e.getMessage());
             }
-        } else if(!configName.isBlank()) {
-            try (InputStream inputStream = FileUtility.getInputStream( System.getProperty("user.dir")+"/config/"+configName)) {
-                properties = new Properties();
-                properties.load(inputStream);
-            } catch (IOException e) {
-                log.log(Level.SEVERE, e.getMessage());
-            }
-        }else {
+        } else {
             try (InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(AppProperty.RESOURCE_FILENAME)) {
                 properties = new Properties();
                 properties.load(inputStream);
