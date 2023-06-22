@@ -13,14 +13,17 @@ It is made available in order to allow early feedback on the toolkit itself.
 # DCSA-Certification-ToolKit-API-Provider
 Concept version of a new certification toolkit.
 
-The DCSA certification toolkit will be used to test a given implementation of
-DCSA's OpenAPI against the reference test suite to ensure that all
+The DCSA conformance toolkit will be used to test a given implementation of
+DCSA's OpenAPI against the reference implementation of API to ensure that all
 endpoints are behaving as expected.
 
 ### Technology Stack
-* Java 17
-* Cucumber
-* RestAssued/TestNG
+* OpenJDK Java 17
+* Spring boot 
+* Nodejs
+* Postman/Newman
+* Maven
+* JSON
 
 ### Project Setup
 #### 1. Clone the repository
@@ -28,50 +31,36 @@ endpoints are behaving as expected.
 
 #### 1. Setup the environment
 Export following environment variables
+
+1. Install JDK
+2. Install maven
+3. Install Nodejs
+4. Install newman by npm command ```npm install newman -g```
+
 ```shell
-# API_ROOT_URI-This is where the API validator can find the implementation of the API
-exmaple: API_ROOT_URI=http://192.168.178.38:9090/v2 or https://apis.dsca.org/apis/v2 
-# CALLBACK_URI-Base Domain URL/DNS Combability Kit used to send in request body
-exmaple: CALLBACK_URI=http://192.168.178.38:9092 or http://subscriptions.dsca.org/callback
-# CALLBACK_PORT callback APIs server listener port. Should be in Sync with CALLBACK_URI port
-exmaple: CALLBACK_PORT=9092
-# Max wait time in milliseconds, CTK will wait for any call back request to be received e.g., notification/head request
-exmaple: CALLBACK_WAIT=20000
-# TNT API developer provide test data in json formatted file and define TEST_DATA environment variables 
-# If no TEST_DATA defined, it usages default test data "config/v2/testdata.json"   
-exmaple: TEST_DATA=testdata.json
-# TNT API developer provide configuration data in json formatted file and define CONFIG_DATA environment variables 
-# If no CONFIG_DATA defined, it usages default configuration data "config/v2/config.json"   
-exmaple: CONFIG_DATA=testdata.json
+#There are few configuration is required. This configuration is can be given config/uploaded/application.properties.
+# if not configuration provided, it will use standard spring boot resources       
+server.port=9000
+app.upload_config_path=config/uploaded // location for the upload dirtory
+app.booking_delay=5000 // booking delay
+app.event_path=config/uploaded/EventSubscription.json // path to event subscription 
 ```
+
 
 #### 2. API under test
 
-To test an API, the implementor will need the following:
+To check conformance of an API follow that API README 
+* For TNT follow instruction @ https://github.com/dcsaorg/DCSA-TNT
+* For OVS follow instruction @ https://github.com/dcsaorg/DCSA-OVS
+* For booking and eBL follow instruction https://github.com/dcsaorg/DCSA-Edocumentation
 
-* A running instance of the API that will be tested.
-* The API should be loaded with prerequisites reference data.
-* The certification toolkit should be configured with test data provided mentioned in the API testing instructions
-* The certification toolkit SHOULD only be run on test systems(production like)
-
-#### 2. Run DCSA TNT - Track & Trace
-Follow instruction @ https://github.com/dcsaorg/DCSA-TNT
-
-### Executing the certification toolkit
-
-#### 1. Configure Compatibility Kit
-Configure the compatibility kit with you test data in config.json file present under resources as per instruction provided in compatibility tool kit for that API
 
 #### 2. Run Compatibility Kit
 Run the relevant test suite (here TnT APIs) with following options
 ```shell
-1.using maven
-mvn clean compile exec:java -Dexec.mainClass=org.testng.TestNG -Dexec.args="suitexmls\TNT-TestSuite.xml"
-Or
-2.Use IDE to run it as TestNG projects
-Or
-3. Create package using bat file(for window) e.g. CreatePackage_TNT.bat and run following command from ctk folder under package (e.g. TNT-v2.2.0/ctk)
-java -jar DCSA-Validator-Toolkit.jar TestSuite.xml
+mvn clean install
+#Before following command keep given port free. 
+mvn spring-boot:run 
 ```
 Also run it by docker-compose:
 ```shell
@@ -80,14 +69,16 @@ docker-compose up --build --remove-orphans
 // run
 docker-compose up
 ```
+When CTK is running it runs on port 9000.   
+We can start CTK conformance testing by the endpoint  
+GET http://localhost:9000/{type of api}/{official or unofficial}  
+
+To run TNT official conformance test  
+GET http://localhost:9000/tnt/official  
+To run eBL unofficial conformance test  
+GET http://localhost:9000/ebl/unofficial  
+To run ovs official conformance test  
+GET http://localhost:9000/ovs/official
 
 
-### Test Reports
-Following test result reports will be generated under reports folder or under mounted volume(in case of docker), you can verify the result in case of any discrepancies:
-* Detailed Html report at technical level to verify each steps performed to validate a test case
-
-For the newman reporting prerequisite must be system must install this extension  
-```shell
-npm install -g newman
-npm install -g newman-reporter-htmlextra
-```
+<mark>It is recommended to run the above GET request by any web browser. Because as soon as the conformance test is done, it will return an HTML report. </mark>
