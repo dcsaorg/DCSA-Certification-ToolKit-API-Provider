@@ -7,11 +7,11 @@ RUN apt-get -y install nodejs
 RUN npm install newman -g
 RUN apt install openjdk-17-jdk openjdk-17-jre -y
 RUN mkdir -p /ctk
-RUN mkdir -p /ctk/config/tnt/v2/
 RUN mkdir -p /ctk/postman-collection
+RUN mkdir -p /ctk/uploaded
 WORKDIR /ctk
-COPY config/tnt/v2/EventSubscription.json /ctk/config/tnt/v2/
-COPY config/application.properties /ctk/config/application.properties
+COPY /config/uploaded/application.properties /ctk/uploaded/application.properties
+COPY /config/uploaded/EventSubscription.json /ctk/uploaded/EventSubscription.json
 COPY postman-collection /ctk/postman-collection/
 COPY .mvn/ .mvn
 COPY mvnw pom.xml ./
