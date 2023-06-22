@@ -55,8 +55,7 @@ To check conformance of an API follow that API README
 * For booking and eBL follow instruction https://github.com/dcsaorg/DCSA-Edocumentation
 
 
-#### 2. Run Compatibility Kit
-Run the relevant test suite (here TnT APIs) with following options
+#### 2. Run conformance toolkit (CTK)
 ```shell
 mvn clean install
 #Before following command keep given port free. 
@@ -69,10 +68,14 @@ docker-compose up --build --remove-orphans
 // run
 docker-compose up
 ```
-When CTK is running it runs on port 9000.   
-We can start CTK conformance testing by the endpoint  
-GET http://localhost:9000/{type of api}/{official or unofficial}  
+CTK should be running on port 9000 now.
 
+#### 3. Start conformance test
+When CTK is running on port 9000.   
+We can start CTK conformance testing by the following endpoint  
+GET http://localhost:9000/ {type of api} / {official or unofficial}  
+
+Examples:  
 To run TNT official conformance test  
 GET http://localhost:9000/tnt/official  
 To run eBL unofficial conformance test  
