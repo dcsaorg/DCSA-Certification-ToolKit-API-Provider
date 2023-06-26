@@ -7,7 +7,7 @@ import org.dcsa.api.provider.ctk.util.FileUtility;
 import org.dcsa.api.provider.ctk.util.JsonUtility;
 import org.dcsa.api.provider.ctk.util.TestUtility;
 
-import java.io.File;
+import java.io.*;
 import java.util.List;
 import java.util.Objects;
 
@@ -36,7 +36,6 @@ public class ScriptExecutor {
         TestUtility.setOsType(ScriptExecutor.osType);
 
         String scriptPath = "";
-        String reportPath = "";
         if (osType == OsType.WINDOWS) {
             scriptPath = FileUtility.getScriptPath(WINDOWS_SCRIPT);
         } else if (osType == OsType.LINUX || osType == OsType.DOCKER) {
@@ -52,7 +51,7 @@ public class ScriptExecutor {
         System.out.println(collectionName);
         System.out.println(scriptParameter);
         executeScripForNewmanReport(scriptPath, scriptParameter);
-        reportPath = FileUtility.getNewmanReport(postmanCollectionType.name());
+        String reportPath = FileUtility.getNewmanReport(postmanCollectionType.name());
         System.out.println(reportPath+" report will be updated");
         return reportPath;
     }
@@ -72,9 +71,27 @@ public class ScriptExecutor {
             File executionDir = new File(FileUtility.getScriptPath(File.separator));
             // create a process and execute cmdArray and parameter
             Process process = Runtime.getRuntime().exec(cmdArray,null, executionDir);
-            // Just to hold the process to finish it's execution
+            // consume the script stdout & stderr and merge it into the current stdout
+            for (InputStream childInputStream : new InputStream[]{
+                    process.getInputStream(),
+                    process.getErrorStream()
+            }) {
+                new Thread(() -> {
+                    BufferedReader bufferedReader = new BufferedReader(
+                            new InputStreamReader(childInputStream));
+                    String line;
+                    try {
+                        while ((line = bufferedReader.readLine()) != null) {
+                            System.out.println("[script output] " + line);
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }).start();
+            }
+            // wait for the child process to finish its execution
             process.waitFor();
-            System.out.println("Script execution is done!");
+            System.out.println("Script execution is done");
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -114,9 +131,8 @@ public class ScriptExecutor {
         String folderParameter = "--folder";
         String doubleQuot = "\"";
         StringBuilder sb = new StringBuilder();
-        postManFolderNames.forEach(item -> {
-            sb.append(folderParameter).append(" ").append(doubleQuot).append(item.getName()).append(doubleQuot).append(" ");
-        });
+        postManFolderNames.forEach(item ->
+                sb.append(folderParameter).append(" ").append(doubleQuot).append(item.getName()).append(doubleQuot).append(" "));
         return sb.toString();
     }
 

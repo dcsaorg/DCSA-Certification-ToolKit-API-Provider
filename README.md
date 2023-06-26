@@ -30,6 +30,7 @@ To run one or more conformance test suites:
 * Install OpenJDK 17: https://openjdk.org/projects/jdk/17/
 * Install Maven 3: https://maven.apache.org/download.cgi
 * Install newman: https://github.com/postmanlabs/newman#installation
+* Install newman-reporter-htmlextra: https://www.npmjs.com/package/newman-reporter-htmlextra#install
 
 ### Starting the API provider
 To run conformance tests against the DCSA reference implementation of a supported standard, start the reference implementation as API provider using its own documentation:
