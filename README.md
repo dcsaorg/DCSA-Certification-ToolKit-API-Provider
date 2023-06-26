@@ -1,87 +1,73 @@
-<p align="left">
+<p>
   <a href="https://github.com/dcsaorg/DCSA-Certification-ToolKit-API-Provider"><img alt="GitHub Actions status" src="https://github.com/actions/setup-java/workflows/Main%20workflow/badge.svg"></a>
 </p>
 
-Status
--------------------------------------
-This certification toolkit is targeted at the DCSA standard for Track and Trace v2.2.
+## Overview
 
-This certification toolkit is currently in a "pre-alpha" development stage. It must not be used to establish conformance of implementations of the standard.
+### Purpose
+The DCSA certification toolkit (CTK) for API providers checks the conformance of an API provider implementation with the implemented DCSA OpenAPI standard.
 
-It is made available in order to allow early feedback on the toolkit itself.
+It consists of a generic conformance testing framework and of a set of test suites targeted at specific DCSA standards.
 
-# DCSA-Certification-ToolKit-API-Provider
-Concept version of a new certification toolkit.
+### Status
+This certification toolkit and its standard-specific test suites are currently in a "pre-alpha" development stage and must not be used at this time to establish the conformance of an API provider implementation with a DCSA standard.
 
-The DCSA conformance toolkit will be used to test a given implementation of
-DCSA's OpenAPI against the reference implementation of API to ensure that all
-endpoints are behaving as expected.
+The CTK and its current test suites are made available by DCSA in order to allow the organizations that adopt DCSA standards to provide early feedback on the CTK.
 
 ### Technology Stack
-* OpenJDK Java 17
-* Spring boot 
-* Nodejs
-* Postman/Newman
-* Maven
-* JSON
+The DCSA CTK for API providers is a Spring Boot application based on Java 17 and Maven.
 
-### Project Setup
-#### 1. Clone the repository
-`git clone https://github.com/dcsaorg/DCSA-Certification-ToolKit-API-Provider.git`
+The test suites are built using Postman and executed using Newman.
 
-#### 1. Setup the environment
-Export following environment variables
+## Running conformance test suites
+To run one or more conformance test suites:
+1. Install the prerequisites.
+2. Start the target API provider.
+3. Start the CTK server.
+4. Run the test suite.
 
-1. Install JDK
-2. Install maven
-3. Install Nodejs
-4. Install newman by npm command ```npm install newman -g```
+### Installing prerequisites
+* Install OpenJDK 17: https://openjdk.org/projects/jdk/17/
+* Install Maven 3: https://maven.apache.org/download.cgi
+* Install newman: https://github.com/postmanlabs/newman#installation
 
+### Starting the API provider
+To run conformance tests against the DCSA reference implementation of a supported standard, start the reference implementation as API provider using its own documentation:
+* Track and Trace (version 2.2): https://github.com/dcsaorg/DCSA-TNT
+* Operational Vessel Schedules: https://github.com/dcsaorg/DCSA-OVS
+* Booking and eBL: https://github.com/dcsaorg/DCSA-Edocumentation
+
+To run conformance tests against another target implementation of a supported standard, which is the primary intended use of the CTK and conformance test suites, use the documentation of that particular API implementation.
+
+### Starting the CTK server
+After cloning this repository, adjust if needed the default configuration: `config/uploaded/application.properties`.
+
+To run the CTK server directly as a process on the local machine using Maven, in the project's root directory execute:
 ```shell
-#There are few configuration is required. This configuration is can be given config/uploaded/application.properties.
-# if not configuration provided, it will use standard spring boot resources       
-server.port=9000
-app.upload_config_path=config/uploaded // location for the upload dirtory
-app.booking_delay=5000 // booking delay
-app.event_path=config/uploaded/EventSubscription.json // path to event subscription 
+mvn clean install spring-boot:run 
 ```
 
-
-#### 2. API under test
-
-To check conformance of an API follow that API README 
-* For TNT follow instruction @ https://github.com/dcsaorg/DCSA-TNT
-* For OVS follow instruction @ https://github.com/dcsaorg/DCSA-OVS
-* For booking and eBL follow instruction https://github.com/dcsaorg/DCSA-Edocumentation
-
-
-#### 2. Run conformance toolkit (CTK)
+Alternatively, to run the CTK server in a Docker container, in the project's root directory execute:
 ```shell
-mvn clean install
-#Before following command keep given port free. 
-mvn spring-boot:run 
-```
-Also run it by docker-compose:
-```shell
-// build and run
 docker-compose up --build --remove-orphans
-// run
-docker-compose up
 ```
-CTK should be running on port 9000 now.
 
-#### 3. Start conformance test
-When CTK is running on port 9000.   
-We can start CTK conformance testing by the following endpoint  
-GET http://localhost:9000/ {type of api} / {official or unofficial}  
+### Running a conformance test suite
+By default, the CTK server listens on port 9000; if you have changed the port, adjust the URLs below accordingly.
 
-Examples:  
-To run TNT official conformance test  
-GET http://localhost:9000/tnt/official  
-To run eBL unofficial conformance test  
-GET http://localhost:9000/ebl/unofficial  
-To run ovs official conformance test  
-GET http://localhost:9000/ovs/official
+A conformance test suite is launched by sending an HTTP GET request to a certain URL served by the CTK server. This is typically done by accessing the URL in a browser, in which case the test execution report is displayed as an HTML page when the test completes.
 
+The general structure of the URL is:
+```
+http://localhost:9000/STANDARD_API_NAME/OFFICIAL_OR_UNOFFICIAL
+```
+...where:
+* `STANDARD_API_NAME` identifies one of the supported standards (`ebl`, `ovs`, `tnt`)
+* `OFFICIAL_OR_UNOFFICIAL` is either:
+  * `official` to run the official test suite that verifies conformance with the DCSA standard
+  * `unofficial` to run the DCSA internal test suite that verifies the unofficial APIs of a reference implementation
 
-<mark>It is recommended to run the above GET request by any web browser. Because as soon as the conformance test is done, it will return an HTML report. </mark>
+Example:
+```
+http://localhost:9000/tnt/official
+```
