@@ -5,6 +5,7 @@ RUN apt-get -y install curl gnupg
 RUN curl -fsSL https://deb.nodesource.com/setup_19.x | bash -
 RUN apt-get -y install nodejs
 RUN npm install newman -g
+RUN npm install newman-reporter-htmlextra -g
 RUN apt install openjdk-17-jdk openjdk-17-jre -y
 RUN mkdir -p /ctk
 RUN mkdir -p /ctk/postman-collection
