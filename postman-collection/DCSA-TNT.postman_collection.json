@@ -3036,6 +3036,434 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Test error cases",
+			"item": [
+				{
+					"name": "GET Shipment events with nonexistent event id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", () => {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}{{TNT_CONTEXT_PATH}}/events/44364a9b-949d-4bf2-a730-d99f74804500",
+							"host": [
+								"{{BASE_URL}}{{TNT_CONTEXT_PATH}}"
+							],
+							"path": [
+								"events",
+								"44364a9b-949d-4bf2-a730-d99f74804500"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Shipment events with invalid event id Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", () => {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}{{TNT_CONTEXT_PATH}}/events/xxx",
+							"host": [
+								"{{BASE_URL}}{{TNT_CONTEXT_PATH}}"
+							],
+							"path": [
+								"events",
+								"xxx"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete EventSubscriptionWithInvalidID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const SUBSCRIPTION_ID = pm.collectionVariables.get(\"SUBSCRIPTION_ID\");\r",
+									"\r",
+									"pm.test(\"Status code is 404\", () => {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}{{TNT_CONTEXT_PATH}}/event-subscriptions/7811718c-6546-4e9c-85ed-859bb3fce888",
+							"host": [
+								"{{BASE_URL}}{{TNT_CONTEXT_PATH}}"
+							],
+							"path": [
+								"event-subscriptions",
+								"7811718c-6546-4e9c-85ed-859bb3fce888"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create single event subscription with out secret should be an error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const schema = pm.collectionVariables.get(\"EVENT_SUBSCRIPTION_SCHEMA\");\r",
+									"const schemaObject = JSON.parse(schema);\r",
+									"\r",
+									"const parsedBody = pm.response.json();\r",
+									"pm.collectionVariables.set(\"SUBSCRIPTION_ID\", parsedBody.subscriptionID);\r",
+									"\r",
+									"pm.request.body.raw[\"secret\"] // delete secret before setting to compare in NEXT TEST\r",
+									"pm.collectionVariables.set(\"POST_BODY\", pm.request.body.raw) // set body\r",
+									"\r",
+									"pm.test(\"Status code is 400\", () => {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"/*\r",
+									"pm.test('Schema is valid', () => {\r",
+									"    pm.response.to.have.jsonSchema(schemaObject);\r",
+									"});\r",
+									"*/\r",
+									"\r",
+									"/*\r",
+									"//Postman mock server for subsription callback\r",
+									"\r",
+									"pm.test(\"Send a HEAD request to the given callback URL \"+parsedBody.callbackUrl, function () {\r",
+									"    // Define the request options\r",
+									"    const requestOptions = {\r",
+									"        method: 'HEAD',\r",
+									"        url: parsedBody.callbackUrl,\r",
+									"        header: {\r",
+									"            'Accept': 'application/json',\r",
+									"            'Content-Type': 'application/json'\r",
+									"        },\r",
+									"        json: true\r",
+									"    };\r",
+									"\r",
+									"    // Send the request \r",
+									"    pm.sendRequest(requestOptions, function (error, response) {\r",
+									"        // Handle the response\r",
+									"        if (error) {\r",
+									"            console.log(error);\r",
+									"            throw new Error(\"HEAD request error for the callbackUrl \"+error);\r",
+									"        } else {\r",
+									"           pm.expect(response).to.have.property('code', 204);\r",
+									"        }\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Send a POST request to the given callback URL \"+parsedBody.callbackUrl, function () {\r",
+									"    // Define the request options\r",
+									"    const requestOptions = {\r",
+									"        method: 'POST',\r",
+									"        url: parsedBody.callbackUrl,\r",
+									"        header: {\r",
+									"            'Accept': 'application/json',\r",
+									"            'Content-Type': 'application/json'\r",
+									"        },\r",
+									"        json: true\r",
+									"    };\r",
+									"\r",
+									"    // Send the request \r",
+									"    pm.sendRequest(requestOptions, function (error, response) {\r",
+									"        // Handle the response\r",
+									"        if (error) {\r",
+									"            console.log(error);\r",
+									"            throw new Error(\"POST request error for the callbackUrl \"+error);\r",
+									"        } else {\r",
+									"           pm.expect(response).to.have.property('code', 204);\r",
+									"        }\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"*/\r",
+									"/*\r",
+									"// Additional test for conformance\r",
+									"const response_schema = pm.collectionVariables.get(\"EVENT_SUBSCRIPTION_RESPONSE_SCHEMA\");\r",
+									"const request_schema = pm.collectionVariables.get(\"EVENT_SUBSCRIPTION_REQUEST_SCHEMA\");\r",
+									"const testMode = pm.collectionVariables.get(\"TEST_MODE\");\r",
+									"const ignoreSchemaTest = pm.collectionVariables.get(\"IGNORE_SCHEMA_TEST_MODE\");\r",
+									"const conformanceTest = pm.collectionVariables.get(\"CONFORMANCE_TEST_MODE\");\r",
+									"const and = pm.collectionVariables.get(\"AND\");\r",
+									"\r",
+									"\r",
+									"if( !testMode.includes(ignoreSchemaTest) ){\r",
+									"    pm.test(\"Check response schema validation\", function(){\r",
+									"        var result = tv4.validateResult(pm.response.json(), response_schema);\r",
+									"        if(!result.valid){\r",
+									"            console.log(`Schema validation failed: ${JSON.stringify(validationResult.errors)}`);\r",
+									"            console.log(`Response: ${JSON.stringify(response)}`);\r",
+									"            throw new Error(\"Response schema validation failed\");\r",
+									"        }\r",
+									"        pm.expect(result.valid).to.be.true;\r",
+									"    });\r",
+									"    \r",
+									"    pm.test(\"Check request body schema\", function(){\r",
+									"        var requestData;    \r",
+									"        if(testMode === conformanceTest){\r",
+									"            requestData = pm.collectionVariables.get(\"CONFORMANCE_EVENT_SUBSCRIPTION_POST_REQUEST_BODY\");\r",
+									"        }else{\r",
+									"            requestData = JSON.parse(pm.request.body.raw);\r",
+									"        }    \r",
+									"        const validationResult = tv4.validateResult(requestData, request_schema);\r",
+									"        if (!validationResult.valid) {\r",
+									"            console.log(`Schema validation failed: ${JSON.stringify(validationResult.errors)}`);\r",
+									"            console.log(`Response: ${JSON.stringify(response)}`);\r",
+									"            throw new Error(\"Schema validation failed \"+validationResult.errors);\r",
+									"        }\r",
+									"        pm.expect(validationResult.valid).to.be.true;\r",
+									"    });\r",
+									"}\r",
+									"*/"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"callbackUrl\": \"https://f12d95eb-6e7b-4516-ac10-7c3c9efe2887.mock.pstmn.io/456eacf9-8cda-412b-b801-4a41be7a6d000\",\r\n    \"documentReference\": \"test-docRef\",\r\n    \"equipmentReference\": \"test-equipRef\",\r\n    \"transportCallReference\": \"test-transportCallRef\",\r\n    \"vesselIMONumber\": \"1234567\",\r\n    \"carrierExportVoyageNumber\": \"test-carrierExportVoyageNumber\",\r\n    \"universalExportVoyageReference\": \"12AZN\",\r\n    \"carrierServiceCode\": \"csc34\",\r\n    \"universalServiceReference\": \"SR00001D\",\r\n    \"eventTypes\": [\r\n        \"EQUIPMENT\",\r\n        \"SHIPMENT\"\r\n    ],\r\n    \"shipmentEventTypeCodes\": [\r\n        \"RECE\",\r\n        \"APPR\"\r\n    ],\r\n    \"documentTypeCodes\": [\r\n        \"ARN\",\r\n        \"CAS\",\r\n        \"BKG\"\r\n    ],\r\n    \"transportEventTypeCodes\": [\r\n        \"DEPA\"\r\n    ],\r\n    \"equipmentEventTypeCodes\": [\r\n        \"LOAD\",\r\n        \"DISC\"\r\n    ],\r\n    \"unlocationCode\": \"UNLoc\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}{{TNT_CONTEXT_PATH}}/event-subscriptions",
+							"host": [
+								"{{BASE_URL}}{{TNT_CONTEXT_PATH}}"
+							],
+							"path": [
+								"event-subscriptions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create single event subscription with out callback url should be an error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const schema = pm.collectionVariables.get(\"EVENT_SUBSCRIPTION_SCHEMA\");\r",
+									"const schemaObject = JSON.parse(schema);\r",
+									"\r",
+									"const parsedBody = pm.response.json();\r",
+									"pm.collectionVariables.set(\"SUBSCRIPTION_ID\", parsedBody.subscriptionID);\r",
+									"\r",
+									"pm.request.body.raw[\"secret\"] // delete secret before setting to compare in NEXT TEST\r",
+									"pm.collectionVariables.set(\"POST_BODY\", pm.request.body.raw) // set body\r",
+									"\r",
+									"pm.test(\"Status code is 400\", () => {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"/*\r",
+									"pm.test('Schema is valid', () => {\r",
+									"    pm.response.to.have.jsonSchema(schemaObject);\r",
+									"});\r",
+									"*/\r",
+									"\r",
+									"/*\r",
+									"//Postman mock server for subsription callback\r",
+									"\r",
+									"pm.test(\"Send a HEAD request to the given callback URL \"+parsedBody.callbackUrl, function () {\r",
+									"    // Define the request options\r",
+									"    const requestOptions = {\r",
+									"        method: 'HEAD',\r",
+									"        url: parsedBody.callbackUrl,\r",
+									"        header: {\r",
+									"            'Accept': 'application/json',\r",
+									"            'Content-Type': 'application/json'\r",
+									"        },\r",
+									"        json: true\r",
+									"    };\r",
+									"\r",
+									"    // Send the request \r",
+									"    pm.sendRequest(requestOptions, function (error, response) {\r",
+									"        // Handle the response\r",
+									"        if (error) {\r",
+									"            console.log(error);\r",
+									"            throw new Error(\"HEAD request error for the callbackUrl \"+error);\r",
+									"        } else {\r",
+									"           pm.expect(response).to.have.property('code', 204);\r",
+									"        }\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Send a POST request to the given callback URL \"+parsedBody.callbackUrl, function () {\r",
+									"    // Define the request options\r",
+									"    const requestOptions = {\r",
+									"        method: 'POST',\r",
+									"        url: parsedBody.callbackUrl,\r",
+									"        header: {\r",
+									"            'Accept': 'application/json',\r",
+									"            'Content-Type': 'application/json'\r",
+									"        },\r",
+									"        json: true\r",
+									"    };\r",
+									"\r",
+									"    // Send the request \r",
+									"    pm.sendRequest(requestOptions, function (error, response) {\r",
+									"        // Handle the response\r",
+									"        if (error) {\r",
+									"            console.log(error);\r",
+									"            throw new Error(\"POST request error for the callbackUrl \"+error);\r",
+									"        } else {\r",
+									"           pm.expect(response).to.have.property('code', 204);\r",
+									"        }\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"*/\r",
+									"/*\r",
+									"// Additional test for conformance\r",
+									"const response_schema = pm.collectionVariables.get(\"EVENT_SUBSCRIPTION_RESPONSE_SCHEMA\");\r",
+									"const request_schema = pm.collectionVariables.get(\"EVENT_SUBSCRIPTION_REQUEST_SCHEMA\");\r",
+									"const testMode = pm.collectionVariables.get(\"TEST_MODE\");\r",
+									"const ignoreSchemaTest = pm.collectionVariables.get(\"IGNORE_SCHEMA_TEST_MODE\");\r",
+									"const conformanceTest = pm.collectionVariables.get(\"CONFORMANCE_TEST_MODE\");\r",
+									"const and = pm.collectionVariables.get(\"AND\");\r",
+									"\r",
+									"\r",
+									"if( !testMode.includes(ignoreSchemaTest) ){\r",
+									"    pm.test(\"Check response schema validation\", function(){\r",
+									"        var result = tv4.validateResult(pm.response.json(), response_schema);\r",
+									"        if(!result.valid){\r",
+									"            console.log(`Schema validation failed: ${JSON.stringify(validationResult.errors)}`);\r",
+									"            console.log(`Response: ${JSON.stringify(response)}`);\r",
+									"            throw new Error(\"Response schema validation failed\");\r",
+									"        }\r",
+									"        pm.expect(result.valid).to.be.true;\r",
+									"    });\r",
+									"    \r",
+									"    pm.test(\"Check request body schema\", function(){\r",
+									"        var requestData;    \r",
+									"        if(testMode === conformanceTest){\r",
+									"            requestData = pm.collectionVariables.get(\"CONFORMANCE_EVENT_SUBSCRIPTION_POST_REQUEST_BODY\");\r",
+									"        }else{\r",
+									"            requestData = JSON.parse(pm.request.body.raw);\r",
+									"        }    \r",
+									"        const validationResult = tv4.validateResult(requestData, request_schema);\r",
+									"        if (!validationResult.valid) {\r",
+									"            console.log(`Schema validation failed: ${JSON.stringify(validationResult.errors)}`);\r",
+									"            console.log(`Response: ${JSON.stringify(response)}`);\r",
+									"            throw new Error(\"Schema validation failed \"+validationResult.errors);\r",
+									"        }\r",
+									"        pm.expect(validationResult.valid).to.be.true;\r",
+									"    });\r",
+									"}\r",
+									"*/"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"documentReference\": \"test-docRef\",\r\n    \"equipmentReference\": \"test-equipRef\",\r\n    \"transportCallReference\": \"test-transportCallRef\",\r\n    \"vesselIMONumber\": \"1234567\",\r\n    \"carrierExportVoyageNumber\": \"test-carrierExportVoyageNumber\",\r\n    \"universalExportVoyageReference\": \"12AZN\",\r\n    \"carrierServiceCode\": \"csc34\",\r\n    \"universalServiceReference\": \"SR00001D\",\r\n    \"eventTypes\": [\r\n        \"EQUIPMENT\",\r\n        \"SHIPMENT\"\r\n    ],\r\n    \"shipmentEventTypeCodes\": [\r\n        \"RECE\",\r\n        \"APPR\"\r\n    ],\r\n    \"documentTypeCodes\": [\r\n        \"ARN\",\r\n        \"CAS\",\r\n        \"BKG\"\r\n    ],\r\n    \"transportEventTypeCodes\": [\r\n        \"DEPA\"\r\n    ],\r\n    \"equipmentEventTypeCodes\": [\r\n        \"LOAD\",\r\n        \"DISC\"\r\n    ],\r\n    \"secret\": \"dmVyeSBzZWNyZXQgc2VjcmV0IHRoYXQgaXMgc28gc2VjcmV0\",\r\n    \"unlocationCode\": \"UNLoc\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}{{TNT_CONTEXT_PATH}}/event-subscriptions",
+							"host": [
+								"{{BASE_URL}}{{TNT_CONTEXT_PATH}}"
+							],
+							"path": [
+								"event-subscriptions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"event": [
@@ -3143,6 +3571,14 @@
 			"key": "IGNORE_SCHEMA_TEST_MODE",
 			"value": "ignore schema",
 			"type": "string"
+		},
+		{
+			"key": "SUBSCRIPTION_ID",
+			"value": ""
+		},
+		{
+			"key": "POST_BODY",
+			"value": ""
 		}
 	]
 }

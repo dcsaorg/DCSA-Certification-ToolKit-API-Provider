@@ -8,6 +8,9 @@
     },
     {
       "name": "Post EventSubscription"
+    },
+    {
+      "name": "Test error cases"
     }
   ]
 }
