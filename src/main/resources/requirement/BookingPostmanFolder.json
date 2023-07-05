@@ -20,6 +20,9 @@
     },
     {
       "name": "Get Shipment"
+    },
+    {
+      "name": "Test error cases"
     }
   ]
 }

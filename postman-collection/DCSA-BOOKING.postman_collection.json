@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "bacceca6-e4ab-4711-b6b2-605ca03be48e",
+		"_postman_id": "8fe1b8fd-7844-4a22-a75a-55daabb18277",
 		"name": "DCSA-BOOKING",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "2551975",
-		"_collection_link": "https://www.postman.com/winter-trinity-270101/workspace/dcsa/collection/2551975-bacceca6-e4ab-4711-b6b2-605ca03be48e?action=share&creator=2551975&source=collection_link"
+		"_collection_link": "https://www.postman.com/winter-trinity-270101/workspace/dcsa/collection/2551975-8fe1b8fd-7844-4a22-a75a-55daabb18277?action=share&creator=2551975&source=collection_link"
 	},
 	"item": [
 		{
@@ -3399,6 +3399,167 @@
 					"description": "The tests in this folder is about testing that the shipper (or their delegate) can create a new booking request.\n\nThe positive tests are about features that should be possible according the API specification.\n\nThe negative tests are about features that should not be possible according to the API specification."
 				}
 			]
+		},
+		{
+			"name": "Test error cases",
+			"item": [
+				{
+					"name": "Booking request summaries with invalid documentStatus",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", () => {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Error reason is invalidParameter\", () => {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].reason).to.eql(\"invalidParameter\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"DocumentStatus must contain a valid value\", () => {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].message).to.eql(\"'documentStatus' must be of type BkgDocumentStatus\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}{{BKG_CONTEXT_PATH}}/booking-summaries?documentStatus=XXX",
+							"host": [
+								"{{BASE_URL}}{{BKG_CONTEXT_PATH}}"
+							],
+							"path": [
+								"booking-summaries"
+							],
+							"query": [
+								{
+									"key": "documentStatus",
+									"value": "XXX"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Booking request summaries invlaid sort",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", () => {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}{{BKG_CONTEXT_PATH}}/booking-summaries?sort=bookingRequestUpdatedDateTime:ASS",
+							"host": [
+								"{{BASE_URL}}{{BKG_CONTEXT_PATH}}"
+							],
+							"path": [
+								"booking-summaries"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "bookingRequestUpdatedDateTime:ASS"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Shipment summaries with invalid documentStatus",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", () => {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}{{BKG_CONTEXT_PATH}}/shipment-summaries?documentStatus=XXX",
+							"host": [
+								"{{BASE_URL}}{{BKG_CONTEXT_PATH}}"
+							],
+							"path": [
+								"shipment-summaries"
+							],
+							"query": [
+								{
+									"key": "documentStatus",
+									"value": "XXX"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Shipment summaries with invalid sort",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", () => {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}{{BKG_CONTEXT_PATH}}/shipment-summaries?sort=shipmentUpdatedDateTime:ASS",
+							"host": [
+								"{{BASE_URL}}{{BKG_CONTEXT_PATH}}"
+							],
+							"path": [
+								"shipment-summaries"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "shipmentUpdatedDateTime:ASS"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"event": [
@@ -3527,6 +3688,10 @@
 		},
 		{
 			"key": "POST_BODY",
+			"value": ""
+		},
+		{
+			"key": "DOCUMENT_STATUSSES",
 			"value": ""
 		}
 	]
