@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "8789b4fe-746d-4b75-80a6-9ca4b09bf5ec",
+		"_postman_id": "d423c0ec-1682-468c-8fd3-bfa711a65d92",
 		"name": "DCSA-EBL",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "2551975",
-		"_collection_link": "https://www.postman.com/winter-trinity-270101/workspace/dcsa/collection/2551975-8789b4fe-746d-4b75-80a6-9ca4b09bf5ec?action=share&creator=2551975&source=collection_link"
+		"_collection_link": "https://www.postman.com/winter-trinity-270101/workspace/dcsa/collection/2551975-d423c0ec-1682-468c-8fd3-bfa711a65d92?action=share&creator=2551975&source=collection_link"
 	},
 	"item": [
 		{
@@ -1451,6 +1451,133 @@
 							"});"
 						]
 					}
+				}
+			]
+		},
+		{
+			"name": "Test error cases",
+			"item": [
+				{
+					"name": "Shipping instructions summaries invalid",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", () => {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}{{EBL_CONTEXT_PATH}}/shipping-instructions-summaries?documentStatus=INVALID",
+							"host": [
+								"{{BASE_URL}}{{EBL_CONTEXT_PATH}}"
+							],
+							"path": [
+								"shipping-instructions-summaries"
+							],
+							"query": [
+								{
+									"key": "documentStatus",
+									"value": "INVALID"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Shipping instruction for nonexistent carrierBookingReference",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonResponse = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response contains only 0 summary\", () => {\r",
+									"    pm.expect(jsonResponse.length).to.eql(0);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}{{EBL_CONTEXT_PATH}}/shipping-instructions-summaries?carrierBookingReference=D659FDB7E333",
+							"host": [
+								"{{BASE_URL}}{{EBL_CONTEXT_PATH}}"
+							],
+							"path": [
+								"shipping-instructions-summaries"
+							],
+							"query": [
+								{
+									"key": "carrierBookingReference",
+									"value": "D659FDB7E333"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Shipping instruction for multiple carrierBookingReferences nonexistent",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonResponse = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response contains only 0 summary\", () => {\r",
+									"    pm.expect(jsonResponse.length).to.eql(0);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}{{EBL_CONTEXT_PATH}}/shipping-instructions-summaries?carrierBookingReference=E379021B7780,A379021B7780",
+							"host": [
+								"{{BASE_URL}}{{EBL_CONTEXT_PATH}}"
+							],
+							"path": [
+								"shipping-instructions-summaries"
+							],
+							"query": [
+								{
+									"key": "carrierBookingReference",
+									"value": "E379021B7780,A379021B7780"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
