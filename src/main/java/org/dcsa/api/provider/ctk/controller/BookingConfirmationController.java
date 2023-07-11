@@ -49,7 +49,7 @@ public class BookingConfirmationController {
 
 	@PostMapping("/submitForm")
 	@ResponseBody
-	public ResponseEntity<String> submittedBookingId(@RequestParam("id") String id) throws InterruptedException {
+	public ResponseEntity<String> submittedBookingId(@RequestParam("id") String id) {
 		System.out.println("Submitted ID: " + id);
 		return ResponseEntity.ok("Booking ID: <b>"+id+"</b> submitted.");
 	}

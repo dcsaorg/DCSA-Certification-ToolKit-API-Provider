@@ -17,7 +17,6 @@ import static org.dcsa.api.provider.ctk.model.enums.PostmanCollectionType.UNKNOW
 
 @RestController
 public class ProviderCtkController {
-    private static final String NO_REPORT_ERROR = "No report was found. Please run the compatibility tool by GET /run to generate reports.";
    private final AppProperty appProperty;
    private final DownloadService downloadService;
 
